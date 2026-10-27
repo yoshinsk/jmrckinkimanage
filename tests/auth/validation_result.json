@@ -1,0 +1,453 @@
+{
+  "status": "PASS",
+  "php": "8.4.27",
+  "sapi_under_test": "fpm-fcgi over HTTPS",
+  "database": "10.5.29-MariaDB-ubu2004",
+  "cases": [
+    {
+      "case": "manage未ログインはloginへ",
+      "result": "PASS"
+    },
+    {
+      "case": "manageから共通loginへ",
+      "result": "PASS"
+    },
+    {
+      "case": "未認証JSONは401",
+      "result": "PASS"
+    },
+    {
+      "case": "非公開コードはWebから取得不可",
+      "result": "PASS"
+    },
+    {
+      "case": "非公開設定はWebから取得不可",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 旧既定先を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 セッションID更新",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 両アプリで同じuid/rid",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 HTTPの実FPM版確認",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 ログイン時CSRF更新",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 既存競技会GET実コード",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 ログイン済みmanage復帰",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 manage HTML表示",
+      "result": "PASS"
+    },
+    {
+      "case": "role1 新ログインmanage復帰",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 旧既定先を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 セッションID更新",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 両アプリで同じuid/rid",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 HTTPの実FPM版確認",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 ログイン時CSRF更新",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 既存競技会GET実コード",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 ログイン済みmanage復帰",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 manage HTML表示",
+      "result": "PASS"
+    },
+    {
+      "case": "role2 新ログインmanage復帰",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 旧既定先を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 セッションID更新",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 両アプリで同じuid/rid",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 HTTPの実FPM版確認",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 ログイン時CSRF更新",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 既存競技会GET実コード",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 ログイン済みmanage復帰",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 manage HTML表示",
+      "result": "PASS"
+    },
+    {
+      "case": "role3 新ログインmanage復帰",
+      "result": "PASS"
+    },
+    {
+      "case": "既存管理画面への昇格なし",
+      "result": "PASS"
+    },
+    {
+      "case": "旧主催クラブ画面への昇格なし",
+      "result": "PASS"
+    },
+    {
+      "case": "担当クラブの閲覧許可",
+      "result": "PASS"
+    },
+    {
+      "case": "他クラブ閲覧を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "club scopeは全体権限にならない",
+      "result": "PASS"
+    },
+    {
+      "case": "未知permission拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未決CSV権限を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "不正club_id拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "CSRFなしPOST拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "CSRF配列POST拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "CSRF付きPOST許可",
+      "result": "PASS"
+    },
+    {
+      "case": "旧JMRC_ADMINもportal自動昇格なし",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局の明示全体権限",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局兼財務の複数ロール",
+      "result": "PASS"
+    },
+    {
+      "case": "portal付与で旧rid不変",
+      "result": "PASS"
+    },
+    {
+      "case": "CLUB_REPの誤ったglobal grant拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "権限取消が次HTTPで反映",
+      "result": "PASS"
+    },
+    {
+      "case": "未来の付与を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "期限切れ付与を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未承認付与を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "メール未認証ログイン拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "メール未認証認証は成立しない",
+      "result": "PASS"
+    },
+    {
+      "case": "停止ログイン拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "停止認証は成立しない",
+      "result": "PASS"
+    },
+    {
+      "case": "controls欠落ログイン拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "controls欠落認証は成立しない",
+      "result": "PASS"
+    },
+    {
+      "case": "誤パスワード拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "SQL文字列メールで認証不可",
+      "result": "PASS"
+    },
+    {
+      "case": "ログインCSRF欠落拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "Cookie secure/HttpOnly/SameSite/path",
+      "result": "PASS"
+    },
+    {
+      "case": "HTTPS匿名トークンで認証済みsessionを操作不可",
+      "result": "PASS"
+    },
+    {
+      "case": "manage GET logoutは405",
+      "result": "PASS"
+    },
+    {
+      "case": "GET logoutでもログインを保持",
+      "result": "PASS"
+    },
+    {
+      "case": "旧ナビGET logoutは確認のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "manage POST logout成功",
+      "result": "PASS"
+    },
+    {
+      "case": "manage logoutでentry失効",
+      "result": "PASS"
+    },
+    {
+      "case": "破棄したsession IDの再送拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "entry POST logoutでmanage失効",
+      "result": "PASS"
+    },
+    {
+      "case": "entry logout後も旧session再送拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "認証版更新でentry失効",
+      "result": "PASS"
+    },
+    {
+      "case": "認証版更新で別ブラウザmanage失効",
+      "result": "PASS"
+    },
+    {
+      "case": "認証済み状態取消を再確認",
+      "result": "PASS"
+    },
+    {
+      "case": "停止はentryにも即時反映",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 75",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 76",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 77",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 78",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 79",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 80",
+      "result": "PASS"
+    },
+    {
+      "case": "危険nextを拒否 81",
+      "result": "PASS"
+    },
+    {
+      "case": "不明return key拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "app配列拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "既存競技会からの申込復帰互換",
+      "result": "PASS"
+    },
+    {
+      "case": "既存方式のパスワード更新でentry失効",
+      "result": "PASS"
+    },
+    {
+      "case": "既存方式のパスワード更新で別manage失効",
+      "result": "PASS"
+    },
+    {
+      "case": "版なし旧sessionは再ログイン",
+      "result": "PASS"
+    },
+    {
+      "case": "旧ridキャッシュで昇格不可",
+      "result": "PASS"
+    },
+    {
+      "case": "権限DB障害は503",
+      "result": "PASS"
+    },
+    {
+      "case": "認証DB障害でentryは503",
+      "result": "PASS"
+    },
+    {
+      "case": "認証DB障害でmanageは503",
+      "result": "PASS"
+    },
+    {
+      "case": "DB復旧後既存identityを確認",
+      "result": "PASS"
+    },
+    {
+      "case": "監査書込失敗で新ログインは503",
+      "result": "PASS"
+    },
+    {
+      "case": "監査書込失敗で認証は成立しない",
+      "result": "PASS"
+    },
+    {
+      "case": "監査故障時ログアウト結果は503",
+      "result": "PASS"
+    },
+    {
+      "case": "監査故障時もログアウトは失効",
+      "result": "PASS"
+    },
+    {
+      "case": "ログイン/拒否/ログアウトの監査",
+      "result": "PASS"
+    },
+    {
+      "case": "監査に資格情報を含めない",
+      "result": "PASS"
+    }
+  ],
+  "limits": [
+    "認証版/パスワード更新はDB操作で模擬。メールを伴うreset/registerの全フローは別工程",
+    "競技会GETは既存実コード、競技会POST/メール/帳票は対象外",
+    "ブラウザーJS/画面外観は未検証"
+  ],
+  "checked_at_utc": "2026-10-27T08:54:09.678128+00:00",
+  "legacy_source_sha256": {
+    "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
+    "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
+    "common/functions.php": "20a9dce573235f1789ba3b85438f011e19d46655c0762d13ed6667def6bdf31c",
+    "common/db.php": "3a9b0e496f65759fb336d5d4a06be15c0c4e0521c750fe35e23222b21df2ea76",
+    "admin/events.php": "2b519905cb64c909d464271417dba69943637f26461eeffe90d3399fd7d84270",
+    "club/events.php": "a7a2e0e17c69d3a3ff062a5825ebc8ec50e00933360bc05da7f5798960d9bc67",
+    "entrant/events.php": "ae3eaf1678deb51ee109d82a63a7973008d5db575a09687c6e08667690113cd7",
+    "login.php": "30571e4384e22364ac9079eb79f23959f23203dbc8fec7f454449142b8a005d0",
+    "logout.php": "2d82352d4236ab4c99bf48d3dcedb47e49855eb256c4e6cd5e8c0630c11eebc0",
+    "common/auth.php": "291c30f73f47b6f2e692f7ff72b96049b429f300474bbb70d28387ec6fbd7d7f",
+    "common/csrf.php": "1bfc360679904e57ba87da4282d90636d146cfc163cd83e15f2bdd2e1c23aa74"
+  },
+  "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
+  "adapter_sha256": {
+    "src\\bootstrap.php": "56593a37ddeba9bbc2a5e8f09a364ac5710c8503e51280cd137479ec8588283a",
+    "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
+    "src\\Auth\\SharedAuth.php": "26e12be8c3e0438ae4207240dba965f9ba4ace4c577ba79e562edcd42dee87de",
+    "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
+    "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
+    "integration\\jmrckinki\\common\\auth.php": "99642771c250e742b291bf4a591cb26d156d2f11d0bb955eb5ae759fac296352",
+    "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
+    "public\\manage\\index.php": "cf9e7e58b9e9ba355d3982d82d61af4b38e7ff0d0c46cb292f0af61067948edb",
+    "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
+    "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
+    "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b"
+  },
+  "test_source_sha256": {
+    "tests\\auth\\auth.config.php": "c1acf1b4e44ebb9fba669e8aaae7d19b88d24d06ad01748048c3692023aca9c2",
+    "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
+    "tests\\auth\\Dockerfile.php": "90159122e5b4e28c02605b3e8136658b125843b9022f36dd3e419723d63aa322",
+    "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
+    "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
+    "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
+    "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
+    "tests\\auth\\run_http.php": "56c311af50658ed3db24788eab6732fb9fd16ce80f950808245b0f6a5c68d2f6",
+    "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
+    "tests\\auth\\validate_auth.py": "bf500f01cbd38119646690ef65115ed5fce57f14cbcce0ba0c23f4756b653a16"
+  },
+  "php_lint_files": 24,
+  "network_internal": true,
+  "published_ports": [],
+  "fixture_only": true
+}
