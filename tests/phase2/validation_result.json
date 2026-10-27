@@ -1,0 +1,220 @@
+{
+  "status": "PASS",
+  "image": "mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce",
+  "database_version": "10.5.29-MariaDB-ubu2004",
+  "network_mode": "none",
+  "published_ports": [],
+  "synthetic_data_only": true,
+  "ddl_sha256": "598558355ceba77c261c5d98a820ac9829cf55927dacb7aa698ecfccd5442f2c",
+  "cases": [
+    {
+      "case": "本番同一MariaDB版",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "既存非空ビューの基準値",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "portal36表作成",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "既存定義を黙って再利用しない",
+      "result": "PASS",
+      "expected_error": 1050
+    },
+    {
+      "case": "同年度General重複拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "同イベントTemporary重複拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "別イベントTemporaryを保持",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "Generalへイベント指定拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "Temporaryイベント欠落拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "所属年度不一致拒否",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "申請年度不一致拒否",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "イベント年度不一致拒否",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "有効所属の二重承認拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "所属変更履歴",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "クラブscope実在FK",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "globalにクラブ指定拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "NULLを使う全体scope重複拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "固定コード先頭ゼロ保持",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "不正固定番号拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "年度期間逆転拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "別人の識別番号で採番不可",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "現行番号二重発行拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "未承認保存方針の有効化拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "親users削除をRESTRICT",
+      "result": "PASS",
+      "expected_error": 1451
+    },
+    {
+      "case": "同ファイル再取込拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "銀行取引二重計上拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "別口座import紐付け拒否",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "請求冪等キー重複拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "払主の二重指定拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "明細の計算不一致拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "新会員費を旧ビューへ混入しない",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "同年度保険二重登録拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "保険資格の年度不一致拒否",
+      "result": "PASS",
+      "expected_error": 1452
+    },
+    {
+      "case": "同時消込の超過拒否・ロールバック",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "消込operation再送拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "取消の符号不正拒否",
+      "result": "PASS",
+      "expected_error": 4025
+    },
+    {
+      "case": "取消二重実行拒否",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "逆仕訳後残額",
+      "result": "PASS",
+      "expected_error": null
+    },
+    {
+      "case": "通知event再送防止",
+      "result": "PASS",
+      "expected_error": 1062
+    },
+    {
+      "case": "既存10表+1ビューの定義/架空行が不変",
+      "result": "PASS"
+    },
+    {
+      "case": "空の隔離DBで逆順削除→再作成、既存11オブジェクト保持",
+      "result": "PASS"
+    }
+  ],
+  "not_tested": [
+    "PHP/FPM共通ログイン",
+    "本番適用",
+    "運営未確定ルール",
+    "アプリ実装の金額/認可/取消同額検証"
+  ]
+}
