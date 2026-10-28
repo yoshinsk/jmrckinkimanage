@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 return [
     'data_key' => getenv('JMRC_PORTAL_DATA_KEY') ?: null, // Base64形式の32バイト鍵。口座情報のAES-GCM保管用。
+    'card_public_url' => getenv('JMRC_CARD_PUBLIC_URL') ?: null, // https://gymkinki.com/manage/card-check.php
     'db' => [
         'dsn' => getenv('JMRC_AUTH_DSN'),
         'user' => getenv('JMRC_AUTH_DB_USER'),

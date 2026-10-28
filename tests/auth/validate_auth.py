@@ -57,6 +57,7 @@ def main():
     runpy.run_path(str(ROOT/'integration/prepare_entry_billing.py'))['prepare'](context/'site/entry')
     for source in (ROOT/'public/manage').glob('*.php'):
         shutil.copyfile(source,context/'site/manage'/source.name)
+    shutil.copytree(ROOT/'public/manage/assets',context/'site/manage/assets')
     for source in (ROOT/'src').rglob('*.php'):
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
@@ -68,6 +69,8 @@ def main():
     for source in (ROOT/'tests/billing').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
     for source in (ROOT/'tests/club').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
+    for source in (ROOT/'tests/card').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/entry/identity.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/manage/identity.php')
@@ -106,6 +109,7 @@ def main():
         db_sql((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/003_membership_billing.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/004_club_registration.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/005_general_cards.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -116,6 +120,8 @@ def main():
         for table in ['portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations','portal_club_years','portal_club_charges']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
+        for table in ['portal_member_numbers','portal_card_tokens']:
+            db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)
@@ -134,6 +140,9 @@ def main():
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
         result=docker('exec','--user','www-data',NAMES[1],'php','/srv/tests/run_http.php',timeout=180)
         report=json.loads(result.stdout)
+        qr_fixtures=report.pop('card_qr_fixtures')
+        qr=command(['node',str(ROOT/'tests/card/verify_qr.cjs')],data=json.dumps(qr_fixtures).encode(),timeout=60)
+        report['qr_client_validation']=json.loads(qr.stdout)
         report['checked_at_utc']=datetime.now(timezone.utc).isoformat()
         report['legacy_source_sha256']=sources
         report['legacy_commit']=command(['git','-C',str(LEGACY.parents[1]),'rev-parse','HEAD']).stdout.decode().strip()
@@ -143,6 +152,9 @@ def main():
         report['membership_rule_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_bytes()).hexdigest()
         report['billing_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/003_membership_billing.sql').read_bytes()).hexdigest()
         report['club_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/004_club_registration.sql').read_bytes()).hexdigest()
+        report['card_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/005_general_cards.sql').read_bytes()).hexdigest()
+        report['card_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/card').iterdir() if p.is_file()}
+        report['card_asset_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'public/manage/assets').iterdir() if p.is_file()}
         report['club_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/club_permissions.sql').read_bytes()).hexdigest()
         report['club_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/club').glob('*.php')}
         report['billing_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/billing_permissions.sql').read_bytes()).hexdigest()

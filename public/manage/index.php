@@ -17,6 +17,7 @@ header('Content-Type: text/html; charset=utf-8');
 <p><a href="/manage/memberships.php">個人会員の申請</a> / <a href="/manage/temporary-approve.php">主催クラブのTemporary承認</a></p>
 <p><a href="/manage/billing.php">会費請求・入金確認・General所属承認</a></p>
 <p><a href="/manage/clubs.php">正会員クラブの年度登録・年会費</a></p>
+<p><a href="/manage/card.php">Generalデジタル会員証</a></p>
 <form method="post" action="/manage/logout.php">
 <input type="hidden" name="_csrf" value="<?=jmrc_auth()->csrfToken()?>">
 <button type="submit">サインアウト</button></form></html>

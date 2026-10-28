@@ -1283,6 +1283,254 @@
     {
       "case": "年度承認と訂正が競合しても不足資格を有効にしない",
       "result": "PASS"
+    },
+    {
+      "case": "匿名で本人会員証は参照不可",
+      "result": "PASS"
+    },
+    {
+      "case": "他人の会員証を参照不可",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局でも本人として発行できない",
+      "result": "PASS"
+    },
+    {
+      "case": "会員証発行CSRF必須",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporaryは会員証なし",
+      "result": "PASS"
+    },
+    {
+      "case": "将来年度は会員証を発行しない",
+      "result": "PASS"
+    },
+    {
+      "case": "GETは番号やQRを自動発行しない",
+      "result": "PASS"
+    },
+    {
+      "case": "未知の識別番号保管形式を平文扱いしない",
+      "result": "PASS"
+    },
+    {
+      "case": "暗号鍵なしで発行しない",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な照会URLでは番号・QR発行をロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "本人の有効General会員証を発行",
+      "result": "PASS"
+    },
+    {
+      "case": "確定した番号体系で表示",
+      "result": "PASS"
+    },
+    {
+      "case": "確定した本人表示項目のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "QRは不透明トークンの断片URL",
+      "result": "PASS"
+    },
+    {
+      "case": "トークン平文をDBへ保存しない",
+      "result": "PASS"
+    },
+    {
+      "case": "会員番号も暗号化保管",
+      "result": "PASS"
+    },
+    {
+      "case": "同一発行の再送は番号・QRを増やさない",
+      "result": "PASS"
+    },
+    {
+      "case": "本人HTMLにも会員証を表示",
+      "result": "PASS"
+    },
+    {
+      "case": "匿名照会は有効の真偽だけ",
+      "result": "PASS"
+    },
+    {
+      "case": "公開レスポンスはキャッシュ禁止・参照元送信禁止",
+      "result": "PASS"
+    },
+    {
+      "case": "匿名照会でCookieを発行しない",
+      "result": "PASS"
+    },
+    {
+      "case": "公開照会に個人情報なし",
+      "result": "PASS"
+    },
+    {
+      "case": "公開照会GETは拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未知・改竄トークンは無効",
+      "result": "PASS"
+    },
+    {
+      "case": "配列トークンも無効",
+      "result": "PASS"
+    },
+    {
+      "case": "匿名QRページは個人情報・資格結果を埋め込まない",
+      "result": "PASS"
+    },
+    {
+      "case": "匿名ページで外部スクリプトを許可しない",
+      "result": "PASS"
+    },
+    {
+      "case": "公開照会は台帳を変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "資格停止を既存QRへ即時反映",
+      "result": "PASS"
+    },
+    {
+      "case": "停止中は追加発行も拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "停止解除後も資格を再評価",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス期限切れでQR無効",
+      "result": "PASS"
+    },
+    {
+      "case": "年度期限切れで会員証とQRを無効化",
+      "result": "PASS"
+    },
+    {
+      "case": "個人入金訂正が成功",
+      "result": "PASS"
+    },
+    {
+      "case": "個人会費不足は既存QRと本人表示へ反映",
+      "result": "PASS"
+    },
+    {
+      "case": "個人再充当で最新の資格へ復旧",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ入金訂正が成功",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ会費不足も既存QRへ即時反映",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ再充当でQR資格を復旧",
+      "result": "PASS"
+    },
+    {
+      "case": "本人アカウント停止でも公開QR無効",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス採番元変更で旧QR無効",
+      "result": "PASS"
+    },
+    {
+      "case": "未確定の番号再発行は実行しない",
+      "result": "PASS"
+    },
+    {
+      "case": "所属変更で旧番号QRを継続しない",
+      "result": "PASS"
+    },
+    {
+      "case": "終了した番号に結び付くQRは無効",
+      "result": "PASS"
+    },
+    {
+      "case": "番号履歴があれば自動再採番しない",
+      "result": "PASS"
+    },
+    {
+      "case": "照会DB障害は無効の偽装でなく503",
+      "result": "PASS"
+    },
+    {
+      "case": "本人がQRを明示的に失効",
+      "result": "PASS"
+    },
+    {
+      "case": "失効の再送は監査を重複しない",
+      "result": "PASS"
+    },
+    {
+      "case": "QR再発行は会員番号を変えず旧QRを無効に保持",
+      "result": "PASS"
+    },
+    {
+      "case": "他人のQR失効を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "監査に番号・トークン・ライセンスを記録しない",
+      "result": "PASS"
+    },
+    {
+      "case": "QR失効通知障害は503",
+      "result": "PASS"
+    },
+    {
+      "case": "QR失効の障害時は一括ロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "トークン期限切れでも旧QR無効",
+      "result": "PASS"
+    },
+    {
+      "case": "期限切れQRの更新でも会員番号を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "承認取消も既存QRへ反映",
+      "result": "PASS"
+    },
+    {
+      "case": "会員証同時発行ワーカー正常終了 0",
+      "result": "PASS"
+    },
+    {
+      "case": "会員証同時発行ワーカー正常終了 1",
+      "result": "PASS"
+    },
+    {
+      "case": "会員証同時発行は同じQRへ収束",
+      "result": "PASS"
+    },
+    {
+      "case": "同時発行でも番号・有効QRが各一件",
+      "result": "PASS"
+    },
+    {
+      "case": "別人の番号へQRを結び付けられない",
+      "result": "PASS"
+    },
+    {
+      "case": "会員証CSSとQRライブラリはローカル配信",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -1290,7 +1538,105 @@
     "競技会GETは既存実コード。POSTは会費追加拒否のみ検証、通常申込完走/メール/帳票は別工程",
     "ブラウザーJS/画面外観は未検証"
   ],
-  "checked_at_utc": "2026-10-28T02:24:28.073129+00:00",
+  "qr_client_validation": {
+    "status": "PASS",
+    "decoder": "jsqr@1.4.0",
+    "cases": [
+      {
+        "case": "QR余白4セル 0",
+        "result": "PASS"
+      },
+      {
+        "case": "SVG実画素のQR復号一致 0",
+        "result": "PASS"
+      },
+      {
+        "case": "QRに個人項目を含めない 0",
+        "result": "PASS"
+      },
+      {
+        "case": "QR余白4セル 1",
+        "result": "PASS"
+      },
+      {
+        "case": "SVG実画素のQR復号一致 1",
+        "result": "PASS"
+      },
+      {
+        "case": "QRに個人項目を含めない 1",
+        "result": "PASS"
+      },
+      {
+        "case": "QR余白4セル 2",
+        "result": "PASS"
+      },
+      {
+        "case": "SVG実画素のQR復号一致 2",
+        "result": "PASS"
+      },
+      {
+        "case": "QRに個人項目を含めない 2",
+        "result": "PASS"
+      },
+      {
+        "case": "QR余白4セル 3",
+        "result": "PASS"
+      },
+      {
+        "case": "SVG実画素のQR復号一致 3",
+        "result": "PASS"
+      },
+      {
+        "case": "QRに個人項目を含めない 3",
+        "result": "PASS"
+      },
+      {
+        "case": "公開照会JSが有効を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "断片をPOSTだけで送信しCookieを送らない",
+        "result": "PASS"
+      },
+      {
+        "case": "アドレスバーから断片を除去",
+        "result": "PASS"
+      },
+      {
+        "case": "再照会で無効を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "通信障害時に有効を残さない",
+        "result": "PASS"
+      },
+      {
+        "case": "非表示時に照会結果を消去",
+        "result": "PASS"
+      },
+      {
+        "case": "復帰時に再照会",
+        "result": "PASS"
+      },
+      {
+        "case": "遅延レスポンスで非表示の有効結果を復活させない",
+        "result": "PASS"
+      },
+      {
+        "case": "本人画面の無効化で番号とQRを消去",
+        "result": "PASS"
+      },
+      {
+        "case": "本人画面の再照会で有効表示",
+        "result": "PASS"
+      },
+      {
+        "case": "本人画面も通信障害時は表示停止",
+        "result": "PASS"
+      }
+    ]
+  },
+  "checked_at_utc": "2026-10-28T02:47:47.482420+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -1308,11 +1654,13 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "c6484aaabbad478847d4d58fabc47f412d056d3a133f9f1d3805be0740b8cc2d",
+    "src\\bootstrap.php": "fde99cd30932add0b7d087700ec23723bc3337d4b68e1ff0ed426584b2ccedbf",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
     "src\\Auth\\SharedAuth.php": "5c0547b6b31f7744d2ff93d1e053c067f0ba212464c74621ba99a3933f77f49d",
     "src\\Billing\\BillingService.php": "87699f175054648c28791f55440fa821c6fff7e7aec167ae903431f98dbe3f65",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
+    "src\\Card\\CardService.php": "72f2018cdc0f3b04d83c9d2b970d0ae5b370d167e6bf4ff9d31a864b926118f5",
+    "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
     "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
@@ -1322,17 +1670,36 @@
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
     "integration\\jmrckinki\\common\\portal_billing.php": "e75fee398535ebd094b8431ceeda9b7ba164ac160895c7bbb0d654ab04baed64",
     "public\\manage\\billing.php": "371a53387b5dc7213e284a9282847f21e690d84c0a69ebec6f7e488db10f7109",
+    "public\\manage\\card-check.php": "c70a1f158895dded5df1b5264c9ade8cd9df084f1634f178f25582a65539d22a",
+    "public\\manage\\card-verify.php": "e049362a21c11520792f039ebb8691dbe137698ff9e8ce4583ffbbff302316cf",
+    "public\\manage\\card.php": "b75984ef28a97ec14f46ce424cc2a4bd5b49d9e61c2686bf874379c9c5fb96ec",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "1571e96ce09751883cab6c0071dd8a8b1bbfcfd011c8c345df88ddc19a4e8db2",
+    "public\\manage\\index.php": "0a7e907ffbe3f750c4e4ef7cfefcd14eecbe8be45d2e0b9b1d1044e0e010caaf",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "5d66bb47cf51b440d393e01c7dc7b40ff55564defb4e5953058a472be773c973",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
-    "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b"
+    "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b",
+    "public\\manage\\_card-public.php": "49a9dadd09571b3e36a4ea3493ade87768c66fb3e3cb2a76336ccea9b2010fb2"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
   "club_migration_sha256": "606847724d48d19fccb485859b1c61c9349b12b58f5a1aff087b83f7e4e421a0",
+  "card_migration_sha256": "7215d0b3b61e9618c3ff6714e55ea5b9a32e65b339b9a748d171086b98a54a8b",
+  "card_test_source_sha256": {
+    "tests\\card\\card_http.php": "7c5fac29f556c940737e159bbc19c1d24ab3761483243c51a6f024b10e65655d",
+    "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
+    "tests\\card\\package-lock.json": "9fdba27de8c049d1506eaa0845379bcb9d26b6a0fe0d0246ee7f49a616e2472c",
+    "tests\\card\\package.json": "584edf8163591836fb860826a7d672910cdc6979183ad4812de7bcb6ee384983",
+    "tests\\card\\verify_qr.cjs": "6150d68d8e228ae08ea04dcb9090837be014530c914581387d7e7e0eee1df774"
+  },
+  "card_asset_sha256": {
+    "public\\manage\\assets\\card-check.js": "8447d7a5f6f8f5fc7c06ae2d683df8d56a268b7b502154d199e81d87154571ca",
+    "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
+    "public\\manage\\assets\\cards.js": "e82a67943380f3818129cdc3a594cb513d85ce5c8ef59c6abee5c99f45685c3f",
+    "public\\manage\\assets\\qrcodegen.js": "2511bc17f40a3c41d4a0578995db956b38997334d3d20113a5d4dc5c49c69480",
+    "public\\manage\\assets\\README.md": "172e836b7a087a1fa1bb70bdb08acf5c0149c75d745ec038b2e62b2df7b36f9f"
+  },
   "club_permissions_sha256": "4f6a506952e237e56a40347ced217aab0ab151d76ed9c4b6abf33f7567872b90",
   "club_test_source_sha256": {
     "tests\\club\\club_fixture.php": "412962fdc547a3685cc1bfbd21710f7f329e9c20618dc48d93e62993d9a40728",
@@ -1352,19 +1719,19 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
-    "tests\\auth\\auth.config.php": "1325a0264c46b0b146d944597de21be9944f6bd85361e27375f11f60be736c56",
+    "tests\\auth\\auth.config.php": "c9c01cabf7c5d6c4c8b0e07db6f908872fe34a83e84ba3e594649267238621c3",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "90159122e5b4e28c02605b3e8136658b125843b9022f36dd3e419723d63aa322",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
     "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "b3ef591a1c9515e241eb6520968547e198a74d2294873828a35c0142cec10181",
-    "tests\\auth\\run_http.php": "57f2321dc2e2d2ae9a8ccc0215bcf1c7c9cd83851fd3fe0a6a08c4095efd3271",
+    "tests\\auth\\README.md": "8a020046f88a8ad3bce1b82a214b5c3490e8f6f52a823c14d47df013147988b0",
+    "tests\\auth\\run_http.php": "fc9f962115eb7df5f09eb1378b8df244f905b338ffb27700d6c64b4abf86b367",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "64392d588dd0c2e4539cb88bbb489cff9ef9748d82aa724f296d109b125e11d7"
+    "tests\\auth\\validate_auth.py": "02bdade8af23ab04f0445b79409bc4ad564db05477bf23fa93da1bd7f539b3d9"
   },
-  "php_lint_files": 45,
+  "php_lint_files": 53,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

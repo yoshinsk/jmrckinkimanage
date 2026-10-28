@@ -1,0 +1,6 @@
+{
+  "name": "jmrc-card-isolated-verification",
+  "private": true,
+  "description": "会員証QRの独立デコーダーによる隔離検証専用。Webへ配置しない。",
+  "devDependencies": { "jsqr": "1.4.0" }
+}
