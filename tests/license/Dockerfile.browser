@@ -1,0 +1,11 @@
+# Path: tests/license/Dockerfile.browser
+# 機能: 固定したPlaywright/実ブラウザーと日本語フォントを用意。実行時はinternalネットワークのみ。
+FROM mcr.microsoft.com/playwright:v1.64.1-noble@sha256:47b510dd9230bf0b9bfc9b20102241e577ea7a99334ab4c3ca19f19770e9b8ea
+WORKDIR /lab
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts --no-audit --no-fund \
+ && apt-get update && apt-get install -y --no-install-recommends fonts-noto-cjk \
+ && rm -rf /var/lib/apt/lists/*
+COPY mobile_browser.cjs ./
+RUN mkdir /artifacts
+CMD ["node","mobile_browser.cjs"]

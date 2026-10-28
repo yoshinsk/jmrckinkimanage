@@ -14,6 +14,7 @@ LEGACY = ROOT.parent / 'jmrckinki' / 'httpdocs' / 'entry'
 NETWORK = 'jmrc-auth-internal-20261027'
 LABEL = 'jmrc.auth.lab=true'
 NAMES = ['jmrc-auth-web-20261027', 'jmrc-auth-app-20261027', 'jmrc-auth-db-20261027']
+BROWSER = 'jmrc-license-browser-20261028'
 DB_IMAGE = 'mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce'
 SOURCE_FILES = ['common/header.php','common/footer.php','common/functions.php','common/db.php',
                 'admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
@@ -72,6 +73,10 @@ def main():
         shutil.copyfile(source,context/'tests'/source.name)
     for source in (ROOT/'tests/card').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
+    for source in (ROOT/'tests/license').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
+    (context/'scripts').mkdir()
+    shutil.copyfile(ROOT/'scripts/license_migrate.php',context/'scripts/license_migrate.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/entry/identity.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/manage/identity.php')
     shutil.copyfile(ROOT/'tests/auth/permission.php',context/'site/manage/permission.php')
@@ -86,6 +91,8 @@ def main():
     print('Building isolated PHP-FPM and nginx images',flush=True)
     docker('build','-f',linux+'/Dockerfile.php','-t','jmrc-auth-php:20261027',linux,timeout=300)
     docker('build','-f',linux+'/Dockerfile.nginx','-t','jmrc-auth-nginx:20261027',linux,timeout=180)
+    browser_context=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',(ROOT/'tests/license').as_posix()]).stdout.decode().strip()
+    docker('build','-f',browser_context+'/Dockerfile.browser','-t','jmrc-license-browser:20261028',browser_context,timeout=600)
     created=[]
     network_created=False
     try:
@@ -110,6 +117,7 @@ def main():
         db_sql((ROOT/'design/phase2/003_membership_billing.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/004_club_registration.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/005_general_cards.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/006_license_management.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -122,6 +130,10 @@ def main():
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         for table in ['portal_member_numbers','portal_card_tokens']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
+        for table in ['portal_identifiers','portal_license_claims']:
+            db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
+        for table in ['portal_identifier_revisions','portal_license_migrations']:
+            db_sql(f"GRANT INSERT ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)
@@ -135,6 +147,7 @@ def main():
         docker('exec',NAMES[1],'php','/srv/tests/club_seed.php')
         db_sql((ROOT/'design/phase2/billing_permissions.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/club_permissions.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/license_permissions.sql').read_text(encoding='utf-8'))
         nginx=docker('exec',NAMES[0],'nginx','-t')
         assert b'successful' in nginx.stderr
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
@@ -143,6 +156,27 @@ def main():
         qr_fixtures=report.pop('card_qr_fixtures')
         qr=command(['node',str(ROOT/'tests/card/verify_qr.cjs')],data=json.dumps(qr_fixtures).encode(),timeout=60)
         report['qr_client_validation']=json.loads(qr.stdout)
+        docker('exec',NAMES[1],'php','/srv/tests/mobile_seed.php')
+        docker('run','--detach','--init','--name',BROWSER,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m','jmrc-license-browser:20261028')
+        created.append(BROWSER)
+        for _ in range(240):
+            state=json.loads(docker('inspect',BROWSER).stdout)[0]
+            if not state['State']['Running']:
+                if state['State']['ExitCode']!=0:
+                    failure_artifacts=ROOT/'tmp/mobile_failure'
+                    failure_artifacts.mkdir(exist_ok=True)
+                    failure_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',failure_artifacts.as_posix()]).stdout.decode().strip()
+                    docker('cp',BROWSER+':/artifacts/.',failure_linux,check=False)
+                    raise RuntimeError(docker('logs',BROWSER,check=False).stderr.decode(errors='replace')[-2000:])
+                break
+            time.sleep(0.5)
+        else:
+            raise RuntimeError('Mobile browser timed out')
+        report['mobile_browser_validation']=json.loads(docker('logs',BROWSER).stdout)
+        artifacts=ROOT/'tmp/mobile_validation'
+        artifacts.mkdir(exist_ok=True)
+        artifact_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
+        docker('cp',BROWSER+':/artifacts/.',artifact_linux)
         report['checked_at_utc']=datetime.now(timezone.utc).isoformat()
         report['legacy_source_sha256']=sources
         report['legacy_commit']=command(['git','-C',str(LEGACY.parents[1]),'rev-parse','HEAD']).stdout.decode().strip()
@@ -153,6 +187,10 @@ def main():
         report['billing_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/003_membership_billing.sql').read_bytes()).hexdigest()
         report['club_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/004_club_registration.sql').read_bytes()).hexdigest()
         report['card_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/005_general_cards.sql').read_bytes()).hexdigest()
+        report['license_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/006_license_management.sql').read_bytes()).hexdigest()
+        report['license_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/license_permissions.sql').read_bytes()).hexdigest()
+        report['license_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/license').iterdir() if p.is_file()}
+        report['license_cli_sha256']=hashlib.sha256((ROOT/'scripts/license_migrate.php').read_bytes()).hexdigest()
         report['card_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/card').iterdir() if p.is_file()}
         report['card_asset_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'public/manage/assets').iterdir() if p.is_file()}
         report['club_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/club_permissions.sql').read_bytes()).hexdigest()

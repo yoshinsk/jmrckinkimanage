@@ -1531,6 +1531,214 @@
     {
       "case": "会員証CSSとQRライブラリはローカル配信",
       "result": "PASS"
+    },
+    {
+      "case": "匿名のライセンス一覧拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス登録CSRF必須",
+      "result": "PASS"
+    },
+    {
+      "case": "運転免許をJAF区分として登録不可",
+      "result": "PASS"
+    },
+    {
+      "case": "不正な日付を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "空番号を新規登録不可",
+      "result": "PASS"
+    },
+    {
+      "case": "本人の審判員ライセンスを登録",
+      "result": "PASS"
+    },
+    {
+      "case": "保存レスポンスに番号・暗号文・HMACなし",
+      "result": "PASS"
+    },
+    {
+      "case": "本人の明示した編集で番号を復号",
+      "result": "PASS"
+    },
+    {
+      "case": "他人と事務局の通常画面から番号を参照不可",
+      "result": "PASS"
+    },
+    {
+      "case": "登録再送は同じレコード",
+      "result": "PASS"
+    },
+    {
+      "case": "別アカウントの同じライセンスを自動統合しない",
+      "result": "PASS"
+    },
+    {
+      "case": "所有者IDを改竄しても他人へ登録しない",
+      "result": "PASS"
+    },
+    {
+      "case": "他人の対象ID更新を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "古い更新版は拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "期限切れ更新を受付け資格を無効化",
+      "result": "PASS"
+    },
+    {
+      "case": "資格保存状態も期限切れへ反映",
+      "result": "PASS"
+    },
+    {
+      "case": "同番号の期限更新で資格復旧",
+      "result": "PASS"
+    },
+    {
+      "case": "期限だけの更新は番号・暗号文・QRを維持",
+      "result": "PASS"
+    },
+    {
+      "case": "変更なし更新では履歴を増やさない",
+      "result": "PASS"
+    },
+    {
+      "case": "種類の変更で旧QRを失効",
+      "result": "PASS"
+    },
+    {
+      "case": "変更履歴は暗号文で保存",
+      "result": "PASS"
+    },
+    {
+      "case": "登録通知予約障害は503",
+      "result": "PASS"
+    },
+    {
+      "case": "識別・重複確保・履歴・監査は一括ロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "移行計画はDBを書き換えない",
+      "result": "PASS"
+    },
+    {
+      "case": "移行計画に平文番号を出力しない",
+      "result": "PASS"
+    },
+    {
+      "case": "移行の未確認候補を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "対象DB相違を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "旧管理者だけで移行を許可しない",
+      "result": "PASS"
+    },
+    {
+      "case": "移行時も運転免許をJAFへ流用不可",
+      "result": "PASS"
+    },
+    {
+      "case": "計画後の元データ変更を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "確認済みcheckも書込ゼロ",
+      "result": "PASS"
+    },
+    {
+      "case": "CLIで暗号計画と確認雛形を作成",
+      "result": "PASS"
+    },
+    {
+      "case": "計画ファイルは非公開権限・番号なし",
+      "result": "PASS"
+    },
+    {
+      "case": "CLI applyには明示フラグが必要",
+      "result": "PASS"
+    },
+    {
+      "case": "CLI確認後に2件を原子的に移行",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ移行計画の再実行は変更なし",
+      "result": "PASS"
+    },
+    {
+      "case": "適用済み計画のレビュー差し替えを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "移行後のライセンスを正式AADで復号",
+      "result": "PASS"
+    },
+    {
+      "case": "運転免許の期限をJAF期限へコピーしない",
+      "result": "PASS"
+    },
+    {
+      "case": "移行処理で旧entrantsを変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "移行途中の不備で全件をロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "移行途中失敗で識別情報を残さない",
+      "result": "PASS"
+    },
+    {
+      "case": "未知形式の既存行も明示対象・版で移行",
+      "result": "PASS"
+    },
+    {
+      "case": "明示skipを勝手に移行しない",
+      "result": "PASS"
+    },
+    {
+      "case": "暗号化済み既存行でも重複確保を移行",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス同時ワーカー正常終了 0",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス同時ワーカー正常終了 1",
+      "result": "PASS"
+    },
+    {
+      "case": "別人の同じ番号を同時登録しても一件のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス同時ワーカー正常終了 0",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス同時ワーカー正常終了 1",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ版の競合更新は一件のみ成功",
+      "result": "PASS"
+    },
+    {
+      "case": "監査へ番号・元データを漏らさない",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -1636,7 +1844,158 @@
       }
     ]
   },
-  "checked_at_utc": "2026-10-28T02:47:47.482420+00:00",
+  "mobile_browser_validation": {
+    "status": "PASS",
+    "browsers": [
+      {
+        "engine": "chromium-mobile",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7",
+        "layout": {
+          "width": 412,
+          "scroll": 412,
+          "touch": 1,
+          "touchEvents": true
+        }
+      },
+      {
+        "engine": "webkit-mobile",
+        "version": "27.2",
+        "device": "iPhone 13",
+        "layout": {
+          "width": 390,
+          "scroll": 390,
+          "touch": 0,
+          "touchEvents": true
+        }
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium-mobile ライセンス入力画面も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 本人がタッチ操作で登録",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 新規ライセンスから会員証へ連携",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile スマートフォン幅で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile ブラウザーが描画したQRを復号",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 横画面でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 匿名照会が有効・Cookieなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile トークンをリクエストURLへ載せない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 期限更新を旧QRへ反映",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 同番号の期限更新で番号・QRを維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 通信障害時は有効表示を消す",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 定期再照会の通信障害で本人証を消去",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 番号変更で旧QRを失効・再発行保留",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 公開画面は氏名・番号を表示しない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile ライセンス入力画面も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 本人がタッチ操作で登録",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 新規ライセンスから会員証へ連携",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile スマートフォン幅で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile ブラウザーが描画したQRを復号",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 横画面でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 匿名照会が有効・Cookieなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile トークンをリクエストURLへ載せない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 期限更新を旧QRへ反映",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 同番号の期限更新で番号・QRを維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 通信障害時は有効表示を消す",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 定期再照会の通信障害で本人証を消去",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 番号変更で旧QRを失効・再発行保留",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 公開画面は氏名・番号を表示しない",
+        "result": "PASS"
+      }
+    ],
+    "artifacts": [
+      "chromium-mobile-card.png",
+      "chromium-mobile-changed.png",
+      "chromium-mobile-license.png",
+      "chromium-mobile-valid.png",
+      "webkit-mobile-card.png",
+      "webkit-mobile-changed.png",
+      "webkit-mobile-license.png",
+      "webkit-mobile-valid.png"
+    ]
+  },
+  "checked_at_utc": "2026-10-28T03:35:41.782978+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -1654,15 +2013,17 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "fde99cd30932add0b7d087700ec23723bc3337d4b68e1ff0ed426584b2ccedbf",
+    "src\\bootstrap.php": "8104e928d662c576475c596c7a9358ff7c382ef766cb3f532e57ce6d31be2583",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
-    "src\\Auth\\SharedAuth.php": "5c0547b6b31f7744d2ff93d1e053c067f0ba212464c74621ba99a3933f77f49d",
+    "src\\Auth\\SharedAuth.php": "85ef9781194d2089ef18076312914517b97ab7c5d163db9376355806cf10d012",
     "src\\Billing\\BillingService.php": "87699f175054648c28791f55440fa821c6fff7e7aec167ae903431f98dbe3f65",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
     "src\\Card\\CardService.php": "72f2018cdc0f3b04d83c9d2b970d0ae5b370d167e6bf4ff9d31a864b926118f5",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
+    "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
+    "src\\License\\LicenseService.php": "4f9b533e72ead707c7642b6571dd58fe0bf7987ea59f58a7c61af46ba3c818ae",
     "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
     "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
@@ -1674,7 +2035,8 @@
     "public\\manage\\card-verify.php": "e049362a21c11520792f039ebb8691dbe137698ff9e8ce4583ffbbff302316cf",
     "public\\manage\\card.php": "b75984ef28a97ec14f46ce424cc2a4bd5b49d9e61c2686bf874379c9c5fb96ec",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "0a7e907ffbe3f750c4e4ef7cfefcd14eecbe8be45d2e0b9b1d1044e0e010caaf",
+    "public\\manage\\index.php": "e3f55f3a918a0a7c0c3eb7c3be302ebfb1c116f1edab7ce25dd873e3cdfa9750",
+    "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "5d66bb47cf51b440d393e01c7dc7b40ff55564defb4e5953058a472be773c973",
@@ -1686,6 +2048,18 @@
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
   "club_migration_sha256": "606847724d48d19fccb485859b1c61c9349b12b58f5a1aff087b83f7e4e421a0",
   "card_migration_sha256": "7215d0b3b61e9618c3ff6714e55ea5b9a32e65b339b9a748d171086b98a54a8b",
+  "license_migration_sha256": "e14d2c3c87f3c3e55ff8754438c7570e822c632716d35b8f758da33d4f120b78",
+  "license_permissions_sha256": "35fd3eb64ac364d86647d6801a7019b5aafd5def513c024e2e0d8571270e11b8",
+  "license_test_source_sha256": {
+    "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
+    "tests\\license\\Dockerfile.browser": "982acd602cb72bc523a73489d5ee1302d73af0b519d4372c19db42fccb049a4e",
+    "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
+    "tests\\license\\mobile_browser.cjs": "845411030b88bbce2a13a07c0b4a78588efd76062d6ed9bc367cc4cf28a58ad9",
+    "tests\\license\\mobile_seed.php": "e5c8af7a18e16324152b93bcfbb4c964b0a17bc0192f214a748dff0f6d262e55",
+    "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
+    "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
+  },
+  "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
   "card_test_source_sha256": {
     "tests\\card\\card_http.php": "7c5fac29f556c940737e159bbc19c1d24ab3761483243c51a6f024b10e65655d",
     "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
@@ -1697,6 +2071,7 @@
     "public\\manage\\assets\\card-check.js": "8447d7a5f6f8f5fc7c06ae2d683df8d56a268b7b502154d199e81d87154571ca",
     "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
     "public\\manage\\assets\\cards.js": "e82a67943380f3818129cdc3a594cb513d85ce5c8ef59c6abee5c99f45685c3f",
+    "public\\manage\\assets\\licenses.css": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
     "public\\manage\\assets\\qrcodegen.js": "2511bc17f40a3c41d4a0578995db956b38997334d3d20113a5d4dc5c49c69480",
     "public\\manage\\assets\\README.md": "172e836b7a087a1fa1bb70bdb08acf5c0149c75d745ec038b2e62b2df7b36f9f"
   },
@@ -1719,19 +2094,19 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
-    "tests\\auth\\auth.config.php": "c9c01cabf7c5d6c4c8b0e07db6f908872fe34a83e84ba3e594649267238621c3",
+    "tests\\auth\\auth.config.php": "6fbb665a64722690f277cb9239233a14e226576bbea441956b59e10ae2e6b648",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
-    "tests\\auth\\Dockerfile.php": "90159122e5b4e28c02605b3e8136658b125843b9022f36dd3e419723d63aa322",
+    "tests\\auth\\Dockerfile.php": "f1b9f48e87e183eeeacfdc61539626fd756e42ecb984f58bee2ecf77af4983dd",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
     "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "8a020046f88a8ad3bce1b82a214b5c3490e8f6f52a823c14d47df013147988b0",
-    "tests\\auth\\run_http.php": "fc9f962115eb7df5f09eb1378b8df244f905b338ffb27700d6c64b4abf86b367",
+    "tests\\auth\\README.md": "01866e4ca91aa99aeb410ec8bcf74455ba3aba8689498e04741330dd47a8b5c3",
+    "tests\\auth\\run_http.php": "ca62ee4b8a80d78f2d21c8a117d1b3fe741c88b4548a755601357e2d62bf050c",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "02bdade8af23ab04f0445b79409bc4ad564db05477bf23fa93da1bd7f539b3d9"
+    "tests\\auth\\validate_auth.py": "e7907d1ed34f36fead620027de1fd6b1a1e2eb803bd8ca8ff6c4770e8d1ed587"
   },
-  "php_lint_files": 53,
+  "php_lint_files": 60,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

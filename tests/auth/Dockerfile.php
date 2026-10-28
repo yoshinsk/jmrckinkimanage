@@ -8,6 +8,7 @@ COPY src/ /srv/auth/src/
 COPY auth.config.php /srv/private/auth.config.php
 COPY site/ /srv/web/
 COPY tests/ /srv/tests/
+COPY scripts/ /srv/auth/scripts/
 COPY tls.crt /srv/tests/tls.crt
 RUN printf 'clear_env = no\n' > /usr/local/etc/php-fpm.d/zz-lab.conf \
     && printf 'display_errors=Off\nlog_errors=On\nexpose_php=Off\n' > /usr/local/etc/php/conf.d/zz-lab.ini

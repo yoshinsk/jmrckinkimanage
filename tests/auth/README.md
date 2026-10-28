@@ -1,5 +1,7 @@
 # 共通認証の隔離HTTP検証
 
+ライセンス追加: 006・`license_permissions.sql`・`tests/license`・移行CLIを含めて実行する。固定Playwrightイメージとnpm依存をビルドし、専用internalネットワークでChromium/WebKitの実ブラウザー検証を行う。画像は`tmp/mobile_validation/`へ保存する。初回はブラウザーイメージ・日本語フォント等の取得に時間がかかる。
+
 会員証追加: 005と`tests/card`を実行する。事前に`npm.cmd ci --prefix tests/card --ignore-scripts --no-audit --no-fund`が必要。HTTP判定に加え、ローカルSVGの独立デコーダーによる復号・NodeでのDOM模擬検証を行う。実ブラウザーや実カメラの試験とは区別する。
 
 クラブ年度登録の追加: 004と`club_permissions.sql`を適用し、`tests/club`も実行する。旧ケースの架空承認済みクラブには架空入金を明示的に準備する。個人申請だけで請求が生じないこと、個人入金の再送が重複しないことの従来検証は、クラブ会費と分けて維持する。

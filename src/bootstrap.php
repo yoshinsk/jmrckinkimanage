@@ -12,6 +12,8 @@ require_once __DIR__ . '/Club/ClubEligibility.php';
 require_once __DIR__ . '/Club/ClubService.php';
 require_once __DIR__ . '/Card/SecretBox.php';
 require_once __DIR__ . '/Card/CardService.php';
+require_once __DIR__ . '/License/LicenseService.php';
+require_once __DIR__ . '/License/LicenseMigration.php';
 
 set_exception_handler(static function (Throwable $error): void {
     $status = $error instanceof \Jmrc\Auth\HttpFailure ? $error->status : 503;
