@@ -11,7 +11,7 @@ final class SharedAuth
 {
     private const PERMISSIONS = [
         'club.members.read', 'club.affiliations.approve', 'billing.confirm',
-        'billing.correct', 'portal.content.write', 'accounts.manage',
+        'billing.correct', 'portal.content.write', 'accounts.manage', 'temporary.approve',
     ];
     private const ROLE_PATHS = [1 => '/entry/admin/events.php', 2 => '/entry/club/events.php', 3 => '/entry/entrant/events.php'];
     private const RETURNS = ['dashboard' => '/manage/'];
@@ -129,7 +129,7 @@ final class SharedAuth
               AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL
               AND g.valid_from<=UTC_TIMESTAMP(6)
               AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until)
-              AND ((g.scope_type='global' AND g.scope_club_id IS NULL AND r.code<>'CLUB_REP')
+              AND ((g.scope_type='global' AND g.scope_club_id IS NULL AND r.code<>'CLUB_REP' AND p.permission_code<>'temporary.approve')
                 OR (g.scope_type='club' AND g.scope_club_id=?)) LIMIT 1");
         $statement->execute([$user['id'], $permission, $clubId]);
         return $statement->fetchColumn() !== false;

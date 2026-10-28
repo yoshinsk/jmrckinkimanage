@@ -36,6 +36,7 @@ def db_sql(sql):
 
 
 def main():
+    (ROOT/'tmp/auth_validation.json').unlink(missing_ok=True)
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
     for folder in ['site/entry/common','site/manage','src','tests']:
@@ -60,6 +61,8 @@ def main():
         shutil.copyfile(source,target)
     for name in ['run_http.php','seed.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
+    for source in (ROOT/'tests/membership').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/entry/identity.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/manage/identity.php')
     shutil.copyfile(ROOT/'tests/auth/permission.php',context/'site/manage/permission.php')
@@ -94,12 +97,17 @@ def main():
             raise RuntimeError('MariaDB startup timed out')
         db_sql((ROOT/'tests/phase2/legacy_schema.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/001_portal_schema.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
                "GRANT SELECT ON jmrckinki_auth_lab.* TO 'auth_runtime'@'%';"
                "GRANT INSERT ON jmrckinki_auth_lab.portal_audit_events TO 'auth_runtime'@'%';"
                "GRANT INSERT ON jmrckinki_auth_lab.audit_logs TO 'auth_runtime'@'%';")
+        # 申請/承認サービスに必要なDMLだけを追加。DDL・他人の識別番号更新は許可しない。
+        for table in ['portal_applications','portal_memberships','portal_affiliations']:
+            db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)
@@ -109,6 +117,7 @@ def main():
         if b'Errors parsing' in lint.stdout or b'Fatal error' in lint.stderr:
             raise RuntimeError(lint.stdout.decode()+lint.stderr.decode())
         docker('exec',NAMES[1],'php','/srv/tests/seed.php')
+        docker('exec',NAMES[1],'php','/srv/tests/membership_seed.php')
         nginx=docker('exec',NAMES[0],'nginx','-t')
         assert b'successful' in nginx.stderr
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
@@ -120,6 +129,9 @@ def main():
         report['adapter_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
                                   for folder in ['src','integration/jmrckinki','public/manage']
                                   for p in (ROOT/folder).rglob('*.php')}
+        report['membership_rule_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_bytes()).hexdigest()
+        report['membership_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
+                                                 for p in (ROOT/'tests/membership').glob('*.php')}
         report['test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
                                      for p in (ROOT/'tests/auth').iterdir() if p.is_file() and p.suffix!='.json'}
         report['php_lint_files']=lint.stdout.decode().count('No syntax errors detected')

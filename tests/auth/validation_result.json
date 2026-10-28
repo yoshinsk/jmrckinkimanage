@@ -399,6 +399,294 @@
     {
       "case": "監査に資格情報を含めない",
       "result": "PASS"
+    },
+    {
+      "case": "クラブ区分4値を正式名で登録",
+      "result": "PASS"
+    },
+    {
+      "case": "マスターを認証済み本人に表示",
+      "result": "PASS"
+    },
+    {
+      "case": "未確定の区分4を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ年度内コード変更拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "コード固定後も連絡先訂正可",
+      "result": "PASS"
+    },
+    {
+      "case": "General 未選択を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General 未選択失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "General 運転免許証のみを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General 運転免許証のみ失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "General 他人の番号を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General 他人の番号失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "General 空の番号を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General 空の番号失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "General 期限切れを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General 期限切れ失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "General 分類不明の番号を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General 分類不明の番号失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "未承認クラブを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未設定年度を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General競技ライセンスで受付",
+      "result": "PASS"
+    },
+    {
+      "case": "General申請者はPOSTではなくsession",
+      "result": "PASS"
+    },
+    {
+      "case": "Generalは入金前pending",
+      "result": "PASS"
+    },
+    {
+      "case": "General再送は既存を返す",
+      "result": "PASS"
+    },
+    {
+      "case": "General再送で請求/通知予約を重複させない",
+      "result": "PASS"
+    },
+    {
+      "case": "General同年度別キー申請を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General同一キー内容変更拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "別人の申請キー再利用拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "General審判員ライセンスで受付",
+      "result": "PASS"
+    },
+    {
+      "case": "General翌年も別申請可",
+      "result": "PASS"
+    },
+    {
+      "case": "会員申請CSRF欠落拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "CSRF失敗は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "申請キー配列を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "TemporaryはGeneralと別の新規申請",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary参加日はJSTで算出",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporaryは主催者承認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary同キー再送は既存結果",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary再送は記録を増やさない",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary同日別イベント拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary同日拒否は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary翌日は別イベント可",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary複数日を保留して拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary未公開イベント拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary年境界のJST参加日",
+      "result": "PASS"
+    },
+    {
+      "case": "終了がJST翌日0時のイベントを受付",
+      "result": "PASS"
+    },
+    {
+      "case": "未実装の会費請求/返金を勝手に起こさない",
+      "result": "PASS"
+    },
+    {
+      "case": "旧JMRC_ADMINの暗黙承認拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局global権限だけの承認拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "代表global権限だけの承認拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "主催担当の一覧に申請表示",
+      "result": "PASS"
+    },
+    {
+      "case": "主催担当が申請者を識別できる",
+      "result": "PASS"
+    },
+    {
+      "case": "旧管理者の一覧は他クラブ情報を出さない",
+      "result": "PASS"
+    },
+    {
+      "case": "承認CSRF欠落拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "承認CSRF欠落は原子的",
+      "result": "PASS"
+    },
+    {
+      "case": "主催者の権限取消が即時反映",
+      "result": "PASS"
+    },
+    {
+      "case": "主催クラブ担当者が承認",
+      "result": "PASS"
+    },
+    {
+      "case": "承認後も入金前は資格pending",
+      "result": "PASS"
+    },
+    {
+      "case": "当日資格期間をUTC排他的で保存",
+      "result": "PASS"
+    },
+    {
+      "case": "主催承認再送も成功",
+      "result": "PASS"
+    },
+    {
+      "case": "主催承認再送の通知/所属は一件",
+      "result": "PASS"
+    },
+    {
+      "case": "承認者を記録",
+      "result": "PASS"
+    },
+    {
+      "case": "別主催イベントへの承認拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "別主催イベントの申請は一覧に出ない",
+      "result": "PASS"
+    },
+    {
+      "case": "DB参加日改竄を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "DB同日別イベントを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "DB Generalライセンス欠落拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "DB運転免許証をJAFとして参照不可",
+      "result": "PASS"
+    },
+    {
+      "case": "申請済み開催日の無断移動拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "同時申請ワーカーの正常終了 0",
+      "result": "PASS"
+    },
+    {
+      "case": "同時申請ワーカーの正常終了 1",
+      "result": "PASS"
+    },
+    {
+      "case": "同時の別イベント申請は一件のみ成功",
+      "result": "PASS"
+    },
+    {
+      "case": "同時申請の敗者に孤児申請を残さない",
+      "result": "PASS"
+    },
+    {
+      "case": "同時申請の同日資格一件",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -406,7 +694,7 @@
     "競技会GETは既存実コード、競技会POST/メール/帳票は対象外",
     "ブラウザーJS/画面外観は未検証"
   ],
-  "checked_at_utc": "2026-10-27T08:54:09.678128+00:00",
+  "checked_at_utc": "2026-10-28T01:42:41.777559+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -422,17 +710,26 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "56593a37ddeba9bbc2a5e8f09a364ac5710c8503e51280cd137479ec8588283a",
+    "src\\bootstrap.php": "863964267a13eb3ea6f925815c057ca5ad42159b666f97c01aae3ce303266b6e",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
-    "src\\Auth\\SharedAuth.php": "26e12be8c3e0438ae4207240dba965f9ba4ace4c577ba79e562edcd42dee87de",
+    "src\\Auth\\SharedAuth.php": "d4c75cb95731068ebfdd06fffaf368f47a09e866d7aed54c5b258793eb726918",
+    "src\\Membership\\MembershipService.php": "983b4e9f7776131bedd58fd2a3ded8074ef06904456e22c9fa322d058aec009b",
     "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
     "integration\\jmrckinki\\common\\auth.php": "99642771c250e742b291bf4a591cb26d156d2f11d0bb955eb5ae759fac296352",
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
-    "public\\manage\\index.php": "cf9e7e58b9e9ba355d3982d82d61af4b38e7ff0d0c46cb292f0af61067948edb",
+    "public\\manage\\index.php": "ecf1c15ccf584e7c1182a4c303803486747bac9bfc983b3dd8a007d458c398aa",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
+    "public\\manage\\memberships.php": "64041e7fd87e0dcd36099564248595f7a45690c2b61fdc5975efc9263aced057",
+    "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b"
+  },
+  "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
+  "membership_test_source_sha256": {
+    "tests\\membership\\concurrent_submit.php": "35ebeefd0bc3b3f9d53917fcf76bc748c9afb839da500650007f185ef65cfc9d",
+    "tests\\membership\\membership_http.php": "e6e8faa6e95c2bae539721bd5f92fca89bd85a20fd73d52b07276aeeb897edd8",
+    "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
     "tests\\auth\\auth.config.php": "c1acf1b4e44ebb9fba669e8aaae7d19b88d24d06ad01748048c3692023aca9c2",
@@ -442,11 +739,12 @@
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
     "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\run_http.php": "56c311af50658ed3db24788eab6732fb9fd16ce80f950808245b0f6a5c68d2f6",
+    "tests\\auth\\README.md": "406cc66f9b02f7fe767d250084d5eb9d324073995d656b23c2c9aaca74767d7d",
+    "tests\\auth\\run_http.php": "e14d4ac41dd19f5d22c4c7e795e9ab5d4aac3da4d90e8a5cd673eb34c39f275b",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "bf500f01cbd38119646690ef65115ed5fce57f14cbcce0ba0c23f4756b653a16"
+    "tests\\auth\\validate_auth.py": "471b4b17dbcb7e7c2c39434bc1dde1bc0edbeb3166296501b6cdb04bd6fe75d3"
   },
-  "php_lint_files": 24,
+  "php_lint_files": 30,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

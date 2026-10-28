@@ -1,5 +1,7 @@
 # 共通認証の隔離HTTP検証
 
+2026-10-28追記: 001+002を適用し、[会員追加ルール](../membership/README.md)も同時実行する。最終171項目（認証99+会員72）、構文確認30ファイル。既存99項目を単独の現行件数と取り違えない。
+
 実行条件: Windows Python、WSL Ubuntu、Docker。隣接 `../jmrckinki/httpdocs/entry` のローカルソースを参照する。本番へ接続する機能はない。
 
 ```powershell

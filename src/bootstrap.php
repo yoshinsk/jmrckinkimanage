@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/Auth/HttpFailure.php';
 require_once __DIR__ . '/Auth/SharedAuth.php';
+require_once __DIR__ . '/Membership/MembershipService.php';
 
 set_exception_handler(static function (Throwable $error): void {
     $status = $error instanceof \Jmrc\Auth\HttpFailure ? $error->status : 503;
@@ -18,22 +19,46 @@ set_exception_handler(static function (Throwable $error): void {
     echo $error instanceof \Jmrc\Auth\HttpFailure ? $error->getMessage() : 'Authentication service unavailable';
 });
 
-function jmrc_auth(): \Jmrc\Auth\SharedAuth
+/** 設定を検証して一度だけ読む。パス不備や異なる読込順で警告/設定重複を発生させない。 */
+function jmrc_auth_config(): array
 {
-    static $auth = null;
-    if ($auth === null) {
+    static $config = null;
+    if ($config === null) {
         $configPath = getenv('JMRC_AUTH_CONFIG');
         if (!$configPath || !is_file($configPath)) {
             throw new RuntimeException('External auth config required');
         }
         $config = require $configPath;
+        if (!is_array($config)) {
+            throw new RuntimeException('Auth config must return an array');
+        }
+    }
+    return $config;
+}
+
+/** 共通DBを返す。認証と業務サービスのトランザクション接続を分断しない。 */
+function jmrc_db(): PDO
+{
+    static $db = null;
+    if ($db === null) {
+        $config = jmrc_auth_config();
         $db = new PDO($config['db']['dsn'], $config['db']['user'], $config['db']['password'], [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
         ]);
         // 既存DBのSYSTEM時刻と分離し、この接続だけをUTCにする。
         $db->exec("SET time_zone='+00:00'");
-        $auth = new \Jmrc\Auth\SharedAuth($db, $config['session']);
+    }
+    return $db;
+}
+
+/** セッションの初期化は一度だけ行い、従来の互換APIへも同じインスタンスを返す。 */
+function jmrc_auth(): \Jmrc\Auth\SharedAuth
+{
+    static $auth = null;
+    if ($auth === null) {
+        $config = jmrc_auth_config();
+        $auth = new \Jmrc\Auth\SharedAuth(jmrc_db(), $config['session']);
     }
     return $auth;
 }

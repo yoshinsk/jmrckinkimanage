@@ -14,6 +14,7 @@ header('Content-Type: text/html; charset=utf-8');
 <h1>JMRC近畿ポータル</h1>
 <p><?=htmlspecialchars($identity['email'], ENT_QUOTES, 'UTF-8')?></p>
 <p><a href="/entry/login.php">オンラインエントリーへ</a></p>
+<p><a href="/manage/memberships.php">個人会員の申請</a> / <a href="/manage/temporary-approve.php">主催クラブのTemporary承認</a></p>
 <form method="post" action="/manage/logout.php">
 <input type="hidden" name="_csrf" value="<?=jmrc_auth()->csrfToken()?>">
 <button type="submit">サインアウト</button></form></html>

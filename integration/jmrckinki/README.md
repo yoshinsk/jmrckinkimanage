@@ -38,7 +38,7 @@
 
 `jmrc_auth()->requireIdentity()`で認証確認、`requirePermission('club.members.read', $clubId)`で対象クラブ付き権限確認、`verifyCsrf($_POST['_csrf'] ?? null)`でPOST検証を行う。
 
-現在の許可コード: `club.members.read`、`club.affiliations.approve`、`billing.confirm`、`billing.correct`、`portal.content.write`、`accounts.manage`。未知コードは拒否。CLUB_REPのglobal付与は誤設定として拒否する。権限テーブルの本番初期投入や権限付与画面は未実装。
+現在の許可コード: `club.members.read`、`club.affiliations.approve`、`billing.confirm`、`billing.correct`、`portal.content.write`、`accounts.manage`、`temporary.approve`。未知コードは拒否。CLUB_REPのglobal付与は誤設定として拒否する。`temporary.approve`はclub scopeのみ許可し、実承認でもイベント主催クラブを再確認する。権限テーブルの本番初期投入や権限付与画面は未実装。
 
 この認可は「担当クラブに対する操作能力」を判定する。member_idから所属を引き当てる処理、承認済み状態、年度資格、会計のトランザクション中再検査は業務サービス側で実装する。対象IDをそのまま信頼してこのAPIを迂回しない。
 
