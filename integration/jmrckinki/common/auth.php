@@ -13,6 +13,8 @@ jmrc_auth();
 // 既存画面が使うpdo/functionsは従来どおり維持。認証設定はこのconfigに依存しない。
 require_once __DIR__ . '/db.php';
 require_once __DIR__ . '/functions.php';
+require_once __DIR__ . '/portal_billing.php';
+portal_guard_legacy_membership_fee();
 
 function auth_login(string $email, string $password): bool { return jmrc_auth()->login($email, $password); }
 function auth_user(): ?array { return jmrc_auth()->identity(); }

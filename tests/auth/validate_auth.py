@@ -16,7 +16,7 @@ LABEL = 'jmrc.auth.lab=true'
 NAMES = ['jmrc-auth-web-20261027', 'jmrc-auth-app-20261027', 'jmrc-auth-db-20261027']
 DB_IMAGE = 'mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce'
 SOURCE_FILES = ['common/header.php','common/footer.php','common/functions.php','common/db.php',
-                'admin/events.php','club/events.php','entrant/events.php']
+                'admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
 
 
 def command(args, data=None, timeout=60, check=True):
@@ -53,6 +53,8 @@ def main():
         sources[relative] = hashlib.sha256((LEGACY/relative).read_bytes()).hexdigest()
     for source in (ROOT/'integration/jmrckinki').rglob('*.php'):
         shutil.copyfile(source,context/'site/entry'/source.relative_to(ROOT/'integration/jmrckinki'))
+    import runpy
+    runpy.run_path(str(ROOT/'integration/prepare_entry_billing.py'))['prepare'](context/'site/entry')
     for source in (ROOT/'public/manage').glob('*.php'):
         shutil.copyfile(source,context/'site/manage'/source.name)
     for source in (ROOT/'src').rglob('*.php'):
@@ -62,6 +64,8 @@ def main():
     for name in ['run_http.php','seed.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     for source in (ROOT/'tests/membership').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
+    for source in (ROOT/'tests/billing').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/entry/identity.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/manage/identity.php')
@@ -98,6 +102,7 @@ def main():
         db_sql((ROOT/'tests/phase2/legacy_schema.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/001_portal_schema.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/003_membership_billing.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -105,7 +110,7 @@ def main():
                "GRANT INSERT ON jmrckinki_auth_lab.portal_audit_events TO 'auth_runtime'@'%';"
                "GRANT INSERT ON jmrckinki_auth_lab.audit_logs TO 'auth_runtime'@'%';")
         # 申請/承認サービスに必要なDMLだけを追加。DDL・他人の識別番号更新は許可しない。
-        for table in ['portal_applications','portal_memberships','portal_affiliations']:
+        for table in ['portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
@@ -118,6 +123,7 @@ def main():
             raise RuntimeError(lint.stdout.decode()+lint.stderr.decode())
         docker('exec',NAMES[1],'php','/srv/tests/seed.php')
         docker('exec',NAMES[1],'php','/srv/tests/membership_seed.php')
+        db_sql((ROOT/'design/phase2/billing_permissions.sql').read_text(encoding='utf-8'))
         nginx=docker('exec',NAMES[0],'nginx','-t')
         assert b'successful' in nginx.stderr
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
@@ -130,6 +136,10 @@ def main():
                                   for folder in ['src','integration/jmrckinki','public/manage']
                                   for p in (ROOT/folder).rglob('*.php')}
         report['membership_rule_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_bytes()).hexdigest()
+        report['billing_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/003_membership_billing.sql').read_bytes()).hexdigest()
+        report['billing_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/billing_permissions.sql').read_bytes()).hexdigest()
+        report['entry_billing_prepare_sha256']=hashlib.sha256((ROOT/'integration/prepare_entry_billing.py').read_bytes()).hexdigest()
+        report['billing_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/billing').glob('*.php')}
         report['membership_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()
                                                  for p in (ROOT/'tests/membership').glob('*.php')}
         report['test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest()

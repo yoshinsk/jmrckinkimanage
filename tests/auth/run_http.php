@@ -210,10 +210,11 @@ try {
     $serialized=json_encode($logs);
     check('監査に資格情報を含めない',!str_contains($serialized,'lab-password-only') && !str_contains($serialized,'example.invalid') && !str_contains($serialized,'PHPSESSID'));
     require '/srv/tests/membership_http.php';
+    require '/srv/tests/billing_http.php';
     $report=['status'=>'PASS','php'=>PHP_VERSION,'sapi_under_test'=>'fpm-fcgi over HTTPS',
         'database'=>$db->query('SELECT VERSION()')->fetchColumn(),'cases'=>$results,
         'limits'=>['認証版/パスワード更新はDB操作で模擬。メールを伴うreset/registerの全フローは別工程',
-            '競技会GETは既存実コード、競技会POST/メール/帳票は対象外','ブラウザーJS/画面外観は未検証']];
+            '競技会GETは既存実コード。POSTは会費追加拒否のみ検証、通常申込完走/メール/帳票は別工程','ブラウザーJS/画面外観は未検証']];
     echo json_encode($report,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR)."\n";
 } catch (Throwable $error) {
     fwrite(STDERR,'FAIL: '.$error->getMessage()."\n");

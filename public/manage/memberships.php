@@ -39,6 +39,10 @@ $events=$db->query("SELECT e.id,e.title,e.starts_at FROM portal_events e WHERE e
 $mine=$db->prepare('SELECT m.id,m.member_type,m.year,m.status,m.participation_date,a.status AS application_status
     FROM portal_memberships m JOIN portal_applications a ON a.id=m.application_id WHERE m.user_id=? ORDER BY m.id DESC');
 $mine->execute([$user['id']]); $mine=$mine->fetchAll();
+// 保存statusは過去のキャッシュ。日付経過・入金訂正・承認取消を閲覧時にも再評価する。
+$eligibility=new \Jmrc\Billing\Eligibility($db);
+foreach ($mine as &$item) { $item['eligibility']=$eligibility->evaluate((int)$item['id']); }
+unset($item);
 if ($json) {
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['categories'=>$categories,'memberships'=>$mine],JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR); exit;
@@ -65,6 +69,7 @@ header('Content-Type: text/html; charset=utf-8');
 <input type="hidden" name="request_key" value="<?=bin2hex(random_bytes(24))?>"><input type="hidden" name="member_type" value="temporary">
 <label>イベント<select name="event_id" required><?php foreach ($events as $event): ?>
 <option value="<?=$esc($event['id'])?>"><?=$esc($event['title'])?></option><?php endforeach; ?></select></label><button type="submit">Temporaryを申請</button></form>
-<h2>申請状況</h2><ul><?php foreach ($mine as $item): ?><li><?=$esc($item['year'].' '.$item['member_type'].' '.($item['application_status']==='approved'?'承認済み・資格成立待ち':'申請中'))?></li><?php endforeach; ?></ul>
+<h2>申請状況</h2><ul><?php foreach ($mine as $item): ?><li><?=$esc($item['year'].' '.$item['member_type'].' '.($item['eligibility']['active']?'資格有効':($item['eligibility']['ready']?'有効期間待ち':($item['application_status']==='approved'?'承認済み・資格成立待ち':'申請中'))))?></li><?php endforeach; ?></ul>
+<p><a href="/manage/billing.php">会費請求・入金状況へ</a></p>
 <h2>正会員クラブ区分</h2><ul><?php foreach ($categories as $category): ?><li><?=$esc($category['category_digit'].'：'.$category['name'])?></li><?php endforeach; ?></ul>
 <p><a href="/manage/">マイページへ</a></p></html>

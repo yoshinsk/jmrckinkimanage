@@ -687,14 +687,314 @@
     {
       "case": "同時申請の同日資格一件",
       "result": "PASS"
+    },
+    {
+      "case": "請求用General申請",
+      "result": "PASS"
+    },
+    {
+      "case": "会費マスター未設定は請求停止",
+      "result": "PASS"
+    },
+    {
+      "case": "口座未設定は請求停止",
+      "result": "PASS"
+    },
+    {
+      "case": "旧管理者だけでは他人へ請求不可",
+      "result": "PASS"
+    },
+    {
+      "case": "本人の年度会費2000円請求",
+      "result": "PASS"
+    },
+    {
+      "case": "請求レスポンスに暗号文なし",
+      "result": "PASS"
+    },
+    {
+      "case": "請求再送は同一ID",
+      "result": "PASS"
+    },
+    {
+      "case": "発行済み会費はマスター変更でも2000円",
+      "result": "PASS"
+    },
+    {
+      "case": "本人による入金自己承認を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "CSRFなし入金拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "一部入金を確認",
+      "result": "PASS"
+    },
+    {
+      "case": "一部入金の再送は重複なし",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ銀行取引の二重登録拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "不足入金では未払い・無効",
+      "result": "PASS"
+    },
+    {
+      "case": "他クラブ承認権限のない本人を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "所属クラブ代表がGeneral承認",
+      "result": "PASS"
+    },
+    {
+      "case": "承認だけでは有効にならない",
+      "result": "PASS"
+    },
+    {
+      "case": "過入金は未充当200円",
+      "result": "PASS"
+    },
+    {
+      "case": "承認と満額入金で有効",
+      "result": "PASS"
+    },
+    {
+      "case": "有効状態を同じ取引で保存",
+      "result": "PASS"
+    },
+    {
+      "case": "他人の請求参照拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "本人による入金訂正拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "理由なしの訂正拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "財務が入金確認後に訂正",
+      "result": "PASS"
+    },
+    {
+      "case": "訂正で資格を無効に戻す",
+      "result": "PASS"
+    },
+    {
+      "case": "訂正再送は同じ結果",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ元行の重複逆仕訳拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未充当を超える再充当拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "訂正後に同じ入金を再充当",
+      "result": "PASS"
+    },
+    {
+      "case": "会員アカウント停止で資格無効",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンス期限切れで資格無効",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ承認取消で資格無効",
+      "result": "PASS"
+    },
+    {
+      "case": "期間開始の直前は無効",
+      "result": "PASS"
+    },
+    {
+      "case": "期間開始の瞬間は有効",
+      "result": "PASS"
+    },
+    {
+      "case": "期間終了の瞬間は無効",
+      "result": "PASS"
+    },
+    {
+      "case": "先に満額入金可能",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局の所属承認",
+      "result": "PASS"
+    },
+    {
+      "case": "将来年度は承認入金済みでも開始前は無効",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporaryイベント会費500円",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary満額入金",
+      "result": "PASS"
+    },
+    {
+      "case": "将来Temporaryは開始前に無効",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary開催日開始で有効",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary開催日終了で無効",
+      "result": "PASS"
+    },
+    {
+      "case": "同時会計ワーカー正常終了 issue0",
+      "result": "PASS"
+    },
+    {
+      "case": "同時会計ワーカー正常終了 issue1",
+      "result": "PASS"
+    },
+    {
+      "case": "同時請求は両方同じ一件を返す",
+      "result": "PASS"
+    },
+    {
+      "case": "会費一意claimは一件",
+      "result": "PASS"
+    },
+    {
+      "case": "同時会計ワーカー正常終了 confirm0",
+      "result": "PASS"
+    },
+    {
+      "case": "同時会計ワーカー正常終了 confirm1",
+      "result": "PASS"
+    },
+    {
+      "case": "同時満額入金でも二重充当しない",
+      "result": "PASS"
+    },
+    {
+      "case": "会計通知予約の障害は503",
+      "result": "PASS"
+    },
+    {
+      "case": "会計通知障害でも請求を残さない",
+      "result": "PASS"
+    },
+    {
+      "case": "代表global grantで所属承認不可",
+      "result": "PASS"
+    },
+    {
+      "case": "本人画面に請求導線",
+      "result": "PASS"
+    },
+    {
+      "case": "財務画面に入金確認導線",
+      "result": "PASS"
+    },
+    {
+      "case": "財務単独grantで入金確認",
+      "result": "PASS"
+    },
+    {
+      "case": "当日でも主催承認前は資格無効",
+      "result": "PASS"
+    },
+    {
+      "case": "満額入金後の主催承認で当日Temporary有効",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局単独grantで確定後の訂正",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局単独grantで再充当",
+      "result": "PASS"
+    },
+    {
+      "case": "財務単独grantでも確定後訂正",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局単独grantで入金確認",
+      "result": "PASS"
+    },
+    {
+      "case": "会計grant取消を即時反映",
+      "result": "PASS"
+    },
+    {
+      "case": "数字以外を含む金額を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "配列の取引番号を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "入金額の超過充当なし",
+      "result": "PASS"
+    },
+    {
+      "case": "旧DB直接会費追加を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "旧明細名変更による会費追加拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "旧共済明細は維持",
+      "result": "PASS"
+    },
+    {
+      "case": "旧entrant実POSTで二重会費拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "旧管理実POSTは対象entry年度で拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "既存entry会費があればポータル追加請求停止",
+      "result": "PASS"
+    },
+    {
+      "case": "年度支払判定はポータル正本・共済は維持",
+      "result": "PASS"
+    },
+    {
+      "case": "旧年度の判定を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "請求・入金・承認の監査記録",
+      "result": "PASS"
     }
   ],
   "limits": [
     "認証版/パスワード更新はDB操作で模擬。メールを伴うreset/registerの全フローは別工程",
-    "競技会GETは既存実コード、競技会POST/メール/帳票は対象外",
+    "競技会GETは既存実コード。POSTは会費追加拒否のみ検証、通常申込完走/メール/帳票は別工程",
     "ブラウザーJS/画面外観は未検証"
   ],
-  "checked_at_utc": "2026-10-28T01:42:41.777559+00:00",
+  "checked_at_utc": "2026-10-28T02:06:53.761019+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -703,6 +1003,8 @@
     "admin/events.php": "2b519905cb64c909d464271417dba69943637f26461eeffe90d3399fd7d84270",
     "club/events.php": "a7a2e0e17c69d3a3ff062a5825ebc8ec50e00933360bc05da7f5798960d9bc67",
     "entrant/events.php": "ae3eaf1678deb51ee109d82a63a7973008d5db575a09687c6e08667690113cd7",
+    "entrant/entries.php": "c3b2f3ca876345206cb2e95489af111fcfcd81395f6509458c984e536a7e91c2",
+    "admin/entry_payment_check.php": "2168488a2d7258898b018b9c400fd95c553ea67b8948a7cc74c1005f02d4ae93",
     "login.php": "30571e4384e22364ac9079eb79f23959f23203dbc8fec7f454449142b8a005d0",
     "logout.php": "2d82352d4236ab4c99bf48d3dcedb47e49855eb256c4e6cd5e8c0630c11eebc0",
     "common/auth.php": "291c30f73f47b6f2e692f7ff72b96049b429f300474bbb70d28387ec6fbd7d7f",
@@ -710,22 +1012,33 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "863964267a13eb3ea6f925815c057ca5ad42159b666f97c01aae3ce303266b6e",
+    "src\\bootstrap.php": "0a252866dd887c04b1c9d4d683de54d9f0294c3e65b33c01ce2911a57622132c",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
     "src\\Auth\\SharedAuth.php": "d4c75cb95731068ebfdd06fffaf368f47a09e866d7aed54c5b258793eb726918",
-    "src\\Membership\\MembershipService.php": "983b4e9f7776131bedd58fd2a3ded8074ef06904456e22c9fa322d058aec009b",
+    "src\\Billing\\BillingService.php": "c78fb5306ff06e89d6e19a9d55f26b8950a9aa64ae5661143b35fe0ec476cafa",
+    "src\\Billing\\Eligibility.php": "16d9510bb048b196d39833cf573d1819d102d407fdde3e1709945bd32a76967a",
+    "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
     "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
-    "integration\\jmrckinki\\common\\auth.php": "99642771c250e742b291bf4a591cb26d156d2f11d0bb955eb5ae759fac296352",
+    "integration\\jmrckinki\\common\\auth.php": "4922472547e93104e007b5c0f823b9128378a818024f0dda652a5e75009a7049",
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
-    "public\\manage\\index.php": "ecf1c15ccf584e7c1182a4c303803486747bac9bfc983b3dd8a007d458c398aa",
+    "integration\\jmrckinki\\common\\portal_billing.php": "e75fee398535ebd094b8431ceeda9b7ba164ac160895c7bbb0d654ab04baed64",
+    "public\\manage\\billing.php": "ddaaebf29948ed74ca99460aed0a1d1637d0643d97833aa20a6d7dc5bbea4ad7",
+    "public\\manage\\index.php": "d1f10bff1d748671d70031946444cad994630f8936227e04727a976738cad7fb",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
-    "public\\manage\\memberships.php": "64041e7fd87e0dcd36099564248595f7a45690c2b61fdc5975efc9263aced057",
+    "public\\manage\\memberships.php": "5d66bb47cf51b440d393e01c7dc7b40ff55564defb4e5953058a472be773c973",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
+  "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
+  "billing_permissions_sha256": "74fdc97d3999c3817226916c78bc607879eb97a43162f8f679f12c7f280f42dc",
+  "entry_billing_prepare_sha256": "33754ab51d2317357a24a943bb754c6a6c9abc26a2d80aa2ef1dcc51d322db59",
+  "billing_test_source_sha256": {
+    "tests\\billing\\billing_http.php": "12c75c3b070c1f6157612c83713f5bcfaf202b4973fdc39c81bc761f24690908",
+    "tests\\billing\\concurrent_billing.php": "09a57e732fecf80612a5d5b2a6410a0cc93e199cb33ce19cb53f6ed6c2521fd4"
+  },
   "membership_test_source_sha256": {
     "tests\\membership\\concurrent_submit.php": "35ebeefd0bc3b3f9d53917fcf76bc748c9afb839da500650007f185ef65cfc9d",
     "tests\\membership\\membership_http.php": "e6e8faa6e95c2bae539721bd5f92fca89bd85a20fd73d52b07276aeeb897edd8",
@@ -739,12 +1052,12 @@
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
     "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "406cc66f9b02f7fe767d250084d5eb9d324073995d656b23c2c9aaca74767d7d",
-    "tests\\auth\\run_http.php": "e14d4ac41dd19f5d22c4c7e795e9ab5d4aac3da4d90e8a5cd673eb34c39f275b",
+    "tests\\auth\\README.md": "8d190aaa516db882951d1231dc8a510aaccfc017ec7f1e98e4c226cffe14d80a",
+    "tests\\auth\\run_http.php": "9e5367106b6b2ba9d672e62c4175aac14a25d521b5b047aab5d537f43f385550",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "471b4b17dbcb7e7c2c39434bc1dde1bc0edbeb3166296501b6cdb04bd6fe75d3"
+    "tests\\auth\\validate_auth.py": "a51228b1d6a21dc24db39686a6dbbcdd0df8b5981564aa57c8a2b1872a3e9eac"
   },
-  "php_lint_files": 30,
+  "php_lint_files": 38,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

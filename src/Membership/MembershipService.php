@@ -15,6 +15,31 @@ final class MembershipService
 {
     public function __construct(private readonly PDO $db) {}
 
+    /** 所属クラブ代表または明示された事務局の所属承認権限でGeneralを承認する。 */
+    public function approveGeneral(int $actorId,int $membershipId): array
+    {
+        return $this->transaction(function () use ($actorId,$membershipId): array {
+            $this->actor($actorId);
+            $m=$this->one("SELECT m.*,a.status AS approval,f.id AS affiliation_id,cy.club_id FROM portal_memberships m
+                JOIN portal_applications a ON a.id=m.application_id JOIN portal_affiliations f ON f.membership_id=m.id AND f.valid_until IS NULL
+                JOIN portal_club_years cy ON cy.id=f.club_year_id JOIN portal_club_categories cc ON cc.category_digit=cy.category_digit
+                WHERE m.id=? AND m.member_type='general' AND cy.status='approved' AND cc.enabled=1 FOR UPDATE",[$membershipId]);
+            if (!$m) { throw new HttpFailure(404,'承認対象がありません'); }
+            $grant=$this->one("SELECT g.id FROM portal_user_role_grants g JOIN portal_role_permissions p ON p.role_id=g.role_id JOIN portal_roles r ON r.id=g.role_id
+                WHERE g.user_id=? AND p.permission_code='club.affiliations.approve' AND ((g.scope_type='global' AND r.code='OFFICE') OR (g.scope_type='club' AND g.scope_club_id=?))
+                AND g.status='active' AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
+                AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1 FOR UPDATE",[$actorId,$m['club_id']]);
+            if (!$grant) { throw new HttpFailure(403,'所属クラブまたは事務局の承認権限が必要です'); }
+            if ($m['approval']==='approved') { return $this->result($membershipId,true); }
+            if ($m['approval']!=='submitted' || $m['status']!=='pending') { throw new HttpFailure(409,'現在の状態では承認できません'); }
+            $this->execute("UPDATE portal_applications SET status='approved',decided_by=?,decided_at=UTC_TIMESTAMP(6),row_version=row_version+1 WHERE id=?",[$actorId,$m['application_id']]);
+            $this->execute("UPDATE portal_affiliations SET status='approved',decided_by=?,decided_at=UTC_TIMESTAMP(6),valid_from=UTC_TIMESTAMP(6),row_version=row_version+1 WHERE id=?",[$actorId,$m['affiliation_id']]);
+            (new \Jmrc\Billing\Eligibility($this->db))->refresh($membershipId);
+            $this->audit($actorId,'GENERAL_AFFILIATION_APPROVED',$membershipId);
+            return $this->result($membershipId,false);
+        });
+    }
+
     /** 年度内のGeneral申請を新設する。Temporaryからの差額切替や資格有効化は行わない。 */
     public function submitGeneral(int $actorId, int $year, int $clubYearId, int $identifierId, string $requestKey): array
     {
@@ -95,6 +120,7 @@ final class MembershipService
                 VALUES (?,?,?,'approved',UTC_TIMESTAMP(6),UTC_TIMESTAMP(6),?,?)",[$membershipId,$member['year'],$event['organizer_club_year_id'],$actorId,$start->format('Y-m-d H:i:s.u')]);
             $this->execute('UPDATE portal_memberships SET valid_from=?,valid_until=?,row_version=row_version+1 WHERE id=?',[$start->format('Y-m-d H:i:s.u'),$end->format('Y-m-d H:i:s.u'),$membershipId]);
             $this->audit($actorId,'TEMPORARY_ORGANIZER_APPROVED',$membershipId);
+            (new \Jmrc\Billing\Eligibility($this->db))->refresh($membershipId);
             return $this->result($membershipId,false);
         });
     }
