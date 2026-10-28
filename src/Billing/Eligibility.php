@@ -33,7 +33,9 @@ final class Eligibility
             WHERE f.membership_id=? AND f.year=? AND f.status='approved' AND f.valid_until IS NULL
             AND cy.status='approved' AND cc.enabled=1");
         $st->execute([$id,$m['year']]); $club=$st->fetch(PDO::FETCH_ASSOC);
+        $clubReady=$club && (new \Jmrc\Club\ClubEligibility($this->db))->evaluate((int)$club['id'],$at)['ready'];
         $ready=$paid && $m['approval']==='approved' && $club!==false && (int)$m['email_verified']===1
+            && $clubReady
             && $m['account_status']==='active' && $m['status']!=='suspended' && $m['source_mode']==='portal';
         if ($m['member_type']==='general') {
             $st=$this->db->prepare("SELECT expires_on FROM portal_identifiers WHERE id=? AND user_id=?

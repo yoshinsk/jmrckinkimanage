@@ -14,6 +14,7 @@ function billState(Browser $browser,int $invoice): array
     if ($r['status']!==200) { throw new RuntimeException('invoice read failed: '.$r['body']); }
     return json_decode($r['body'],true,512,JSON_THROW_ON_ERROR);
 }
+require_once '/srv/tests/club_fixture.php';
 
 $nowYear=(int)gmdate('Y');$future=$nowYear+1;
 $db->exec("INSERT INTO portal_years(year,valid_from,valid_until,source_mode,policy_version,member_self_open_at,club_open_at,club_close_at,staff_open_at)
@@ -21,6 +22,7 @@ $db->exec("INSERT INTO portal_years(year,valid_from,valid_until,source_mode,poli
 $db->exec("INSERT INTO portal_applications(id,kind,applicant_user_id,year,status,request_key) VALUES(900,'club',2,$nowYear,'approved','billing-club');
     INSERT INTO portal_club_years(id,club_id,year,category_digit,display_code,application_id,status,rep_name,contact_name,postcode,address,phone,email)
     VALUES(900,1,$nowYear,'1','100001',900,'approved','架空','架空','0000000','架空','000','club@example.invalid')");
+seedClubPaid($db,900);
 $member=new Browser();$member->login(3);$host=new Browser();$host->login(2);$finance=new Browser();$finance->login(7);$admin=new Browser();$admin->login(1);
 $s=submitMember($member,['member_type'=>'general','year'=>$nowYear,'club_year_id'=>900,'identifier_id'=>101]);
 check('請求用General申請',$s['status']===201);
@@ -45,7 +47,7 @@ check('CSRFなし入金拒否',$finance->request('/manage/billing.php?format=jso
 $key=bin2hex(random_bytes(24));
 $partial=billPost($finance,'confirm',$iid,['amount'=>700,'reference'=>'BANK-1','operation'=>$key]);
 check('一部入金を確認',$partial['status']===200 && (int)json_decode($partial['body'],true)['balance_yen']===1300);
-check('一部入金の再送は重複なし',billPost($finance,'confirm',$iid,['amount'=>700,'reference'=>'BANK-1','operation'=>$key])['status']===200 && (int)$db->query('SELECT COUNT(*) FROM portal_payments')->fetchColumn()===1);
+check('一部入金の再送は重複なし',billPost($finance,'confirm',$iid,['amount'=>700,'reference'=>'BANK-1','operation'=>$key])['status']===200 && (int)$db->query("SELECT COUNT(*) FROM portal_payments WHERE source_key='BANK-1'")->fetchColumn()===1);
 check('同じ銀行取引の二重登録拒否',billPost($finance,'confirm',$iid,['amount'=>700,'reference'=>'BANK-1'])['status']===409);
 check('不足入金では未払い・無効',!billState($member,$iid)['eligibility']['paid'] && !billState($member,$iid)['eligibility']['active']);
 check('他クラブ承認権限のない本人を拒否',billPost($admin,'approve',$mid)['status']===403);
@@ -75,6 +77,7 @@ $db->exec("UPDATE portal_identifiers SET expires_on=NULL WHERE id=101; UPDATE po
 check('クラブ承認取消で資格無効',!billState($finance,$iid)['eligibility']['active']);
 $db->exec("UPDATE portal_club_years SET status='approved' WHERE id=900");
 require_once '/srv/auth/src/Billing/Eligibility.php';require_once '/srv/auth/src/Auth/HttpFailure.php';
+require_once '/srv/auth/src/Club/ClubEligibility.php';
 $elig=new \Jmrc\Billing\Eligibility($db);$period=$elig->evaluate($mid);
 check('期間開始の直前は無効',!$elig->evaluate($mid,new DateTimeImmutable($period['valid_from'].' UTC -1 microsecond'))['active']);
 check('期間開始の瞬間は有効',$elig->evaluate($mid,new DateTimeImmutable($period['valid_from'].' UTC'))['active']);

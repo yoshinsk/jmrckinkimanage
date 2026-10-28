@@ -211,6 +211,7 @@ try {
     check('監査に資格情報を含めない',!str_contains($serialized,'lab-password-only') && !str_contains($serialized,'example.invalid') && !str_contains($serialized,'PHPSESSID'));
     require '/srv/tests/membership_http.php';
     require '/srv/tests/billing_http.php';
+    require '/srv/tests/club_http.php';
     $report=['status'=>'PASS','php'=>PHP_VERSION,'sapi_under_test'=>'fpm-fcgi over HTTPS',
         'database'=>$db->query('SELECT VERSION()')->fetchColumn(),'cases'=>$results,
         'limits'=>['認証版/パスワード更新はDB操作で模擬。メールを伴うreset/registerの全フローは別工程',

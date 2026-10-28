@@ -11,6 +11,38 @@ final class BillingService
 {
     public function __construct(private readonly PDO $db) {}
 
+    /** 年度クラブごとに一件だけ発行。金額は年度・区分のマスターから取得し、仮の金額を採用しない。 */
+    public function issueClub(int $actor,int $clubYear): array
+    {
+        return $this->tx(function () use ($actor,$clubYear): array {
+            $cy=$this->one('SELECT * FROM portal_club_years WHERE id=? FOR UPDATE',[$clubYear])?:throw new HttpFailure(404,'年度クラブがありません');
+            $this->clubAccess($actor,(int)$cy['club_id']);
+            $old=$this->one('SELECT invoice_id FROM portal_club_charges WHERE club_year_id=?',[$clubYear]);
+            if ($old) { return $this->invoice((int)$old['invoice_id']); }
+            $a=$this->one('SELECT status FROM portal_applications WHERE id=? FOR UPDATE',[$cy['application_id']]);
+            // 既存承認を取り込んだだけの年度に、会費を再請求しない。移行時の照合を先に行う。
+            if ($a['status']==='approved') { throw new HttpFailure(409,'既存年度登録の会費証跡を事務局で照合してください'); }
+            if (!in_array($a['status'],['submitted','approved'],true) || !in_array($cy['status'],['pending','approved'],true)) { throw new HttpFailure(409,'現在の状態では請求できません'); }
+            if (!$this->one("SELECT year FROM portal_years WHERE year=? AND source_mode='portal' AND UTC_TIMESTAMP(6)<valid_until FOR UPDATE",[$cy['year']])) { throw new HttpFailure(409,'年度会費の対象外です'); }
+            if (!$this->one('SELECT category_digit FROM portal_club_categories WHERE category_digit=? AND enabled=1',[$cy['category_digit']])) { throw new HttpFailure(422,'クラブ区分を確認してください'); }
+            $rules=$this->all("SELECT * FROM portal_fee_rules WHERE year=? AND purpose_code='club_fee' AND member_type=? AND charge_unit='year'
+                AND enabled=1 AND valid_from<=UTC_TIMESTAMP(6) AND UTC_TIMESTAMP(6)<valid_until FOR UPDATE",[$cy['year'],'club_'.$cy['category_digit']]);
+            $accounts=$this->all("SELECT * FROM portal_bank_accounts WHERE purpose_code='club_fee' AND (year=? OR year IS NULL) AND enabled=1
+                AND (valid_from IS NULL OR valid_from<=UTC_TIMESTAMP(6)) AND (valid_until IS NULL OR UTC_TIMESTAMP(6)<valid_until) FOR UPDATE",[$cy['year']]);
+            if (count($rules)!==1 || (int)$rules[0]['amount_yen']<=0) { throw new HttpFailure(422,'年度・クラブ区分の年会費マスターを設定してください'); }
+            if (count($accounts)!==1) { throw new HttpFailure(422,'クラブ年会費の入金先口座を設定してください'); }
+            $rule=$rules[0];$bank=$accounts[0];
+            if ($bank['payment_url']!==null && !preg_match('~^https://[^\s]+$~D',$bank['payment_url'])) { throw new HttpFailure(422,'決済URLはHTTPSで登録してください'); }
+            $this->run("INSERT INTO portal_invoices(application_id,invoice_no,payer_club_year_id,status,account_id,account_snapshot_cipher,payment_url_snapshot,idempotency_key,issued_at)
+                VALUES(?,?,?,'issued',?,?,?,?,UTC_TIMESTAMP(6))",[$cy['application_id'],'CLUB-'.$cy['year'].'-'.$clubYear,$clubYear,$bank['id'],$bank['details_cipher'],$bank['payment_url'],'club:'.$clubYear]);
+            $invoice=(int)$this->db->lastInsertId();
+            $this->run("INSERT INTO portal_invoice_lines(invoice_id,fee_rule_id,purpose_code,club_year_id,description,quantity,unit_amount_yen,amount_yen)
+                VALUES(?,?,'club_fee',?,?,1,?,?)",[$invoice,$rule['id'],$clubYear,'正会員クラブ年会費 '.$cy['year'],$rule['amount_yen'],$rule['amount_yen']]);$line=(int)$this->db->lastInsertId();
+            $this->run('INSERT INTO portal_club_charges(club_year_id,invoice_id,invoice_line_id,amount_yen) VALUES(?,?,?,?)',[$clubYear,$invoice,$line,$rule['amount_yen']]);
+            $this->record($actor,'INVOICED',['membership_id'=>null,'club_year_id'=>$clubYear],'invoice:'.$invoice);return $this->invoice($invoice);
+        });
+    }
+
     /** 本人/会計担当が請求を発行。マスター未設定・重複・entry既存会費は確認が済むまで停止。 */
     public function issue(int $actor,int $member): array
     {
@@ -79,8 +111,8 @@ final class BillingService
             $payment=(int)$this->db->lastInsertId();
             $allocated=min($amount,$i['balance_yen']);
             $this->run('INSERT INTO portal_allocations(payment_id,invoice_line_id,amount_yen,operation_key,created_by) VALUES (?,?,?,?,?)',[$payment,$ch['invoice_line_id'],$allocated,$operation,$actor]);
-            $this->synchronize($ch['membership_id'],$invoice);
-            $this->audit($actor,'MEMBERSHIP_PAYMENT_CONFIRMED',$ch['membership_id'],$operation);
+            $this->synchronize($ch['membership_id']===null?null:(int)$ch['membership_id'],$invoice);
+            $this->record($actor,'PAYMENT_CONFIRMED',$ch,$operation);
             return $this->invoice($invoice)+['payment_id'=>$payment,'unallocated_yen'=>$amount-$allocated];
         });
     }
@@ -88,7 +120,7 @@ final class BillingService
     /** 確定後の記録修正。元行と同額/同対象の逆仕訳だけを追加し、元データや返金を作らない。 */
     public function reverse(int $actor,int $allocation,string $operation,string $reason): array
     {
-        $original=$this->one('SELECT al.*,ch.invoice_id FROM portal_allocations al JOIN portal_membership_charges ch ON ch.invoice_line_id=al.invoice_line_id WHERE al.id=?',[$allocation]);
+        $original=$this->one('SELECT al.*,ch.invoice_id FROM portal_allocations al JOIN portal_invoice_charge_targets ch ON ch.invoice_line_id=al.invoice_line_id WHERE al.id=?',[$allocation]);
         if (!$original) { throw new HttpFailure(404,'対象入金がありません'); }
         return $this->tx(function () use ($actor,$allocation,$operation,$reason,$original): array {
             $ch=$this->lockInvoice((int)$original['invoice_id']);$this->actor($actor);$this->permission($actor,'billing.correct');$this->key($operation);
@@ -102,8 +134,8 @@ final class BillingService
                 return $this->invoice((int)$ch['invoice_id']);
             }
             $this->run('INSERT INTO portal_allocations(payment_id,invoice_line_id,amount_yen,operation_key,reverses_id,created_by,reason) VALUES (?,?,?,?,?,?,?)',[$row['payment_id'],$row['invoice_line_id'],-(int)$row['amount_yen'],$operation,$allocation,$actor,$reason]);
-            $this->synchronize($ch['membership_id'],$ch['invoice_id']);
-            $this->audit($actor,'MEMBERSHIP_PAYMENT_REVERSED',$ch['membership_id'],$operation);
+            $this->synchronize($ch['membership_id']===null?null:(int)$ch['membership_id'],(int)$ch['invoice_id']);
+            $this->record($actor,'PAYMENT_REVERSED',$ch,$operation);
             return $this->invoice((int)$ch['invoice_id']);
         });
     }
@@ -112,10 +144,13 @@ final class BillingService
     public function read(int $actor,int $invoice): array
     {
         $row=$this->invoice($invoice);$this->actor($actor);
-        if ($actor!==(int)$row['payer_user_id']) { $this->permission($actor,'billing.confirm'); }
+        if ($row['club_year_id']!==null) {
+            $cy=$this->one('SELECT club_id FROM portal_club_years WHERE id=?',[$row['club_year_id']]);$this->clubAccess($actor,(int)$cy['club_id']);
+        } elseif ($actor!==(int)$row['payer_user_id']) { $this->permission($actor,'billing.confirm'); }
         unset($row['account_snapshot_cipher']);
         $row['allocations']=$this->all('SELECT id,payment_id,amount_yen,reverses_id,created_at FROM portal_allocations WHERE invoice_line_id=? ORDER BY id',[$row['invoice_line_id']]);
-        return $row+['eligibility'=>(new Eligibility($this->db))->evaluate((int)$row['membership_id'])];
+        $state=$row['club_year_id']!==null?(new \Jmrc\Club\ClubEligibility($this->db))->evaluate((int)$row['club_year_id']):(new Eligibility($this->db))->evaluate((int)$row['membership_id']);
+        return $row+['eligibility'=>$state];
     }
 
     /** 訂正後の未充当残を、同じ入金者の同一請求へ再充当する。別人・別口座へは移さない。 */
@@ -135,7 +170,7 @@ final class BillingService
             $used=$this->one('SELECT COALESCE(SUM(amount_yen),0) AS amount FROM portal_allocations WHERE payment_id=?',[$payment]);
             if ($amount<=0 || $amount>(int)$p['amount_yen']-(int)$used['amount'] || $amount>$i['balance_yen'] || !in_array($i['status'],['issued','finalized'],true)) { throw new HttpFailure(422,'未充当残と請求残額の範囲で指定してください'); }
             $this->run('INSERT INTO portal_allocations(payment_id,invoice_line_id,amount_yen,operation_key,created_by) VALUES (?,?,?,?,?)',[$payment,$ch['invoice_line_id'],$amount,$operation,$actor]);
-            $this->synchronize((int)$ch['membership_id'],$invoice);$this->audit($actor,'MEMBERSHIP_PAYMENT_REALLOCATED',(int)$ch['membership_id'],$operation);
+            $this->synchronize($ch['membership_id']===null?null:(int)$ch['membership_id'],$invoice);$this->record($actor,'PAYMENT_REALLOCATED',$ch,$operation);
             return $this->invoice($invoice);
         });
     }
@@ -143,9 +178,10 @@ final class BillingService
     /** サービス内のロック順は会員→請求→充当。必要額は発行時点のchargeから取得。 */
     private function lockInvoice(int $id): array
     {
-        $ch=$this->one('SELECT * FROM portal_membership_charges WHERE invoice_id=?',[$id]);
+        $ch=$this->one('SELECT * FROM portal_invoice_charge_targets WHERE invoice_id=?',[$id]);
         if (!$ch) { throw new HttpFailure(404,'会費請求がありません'); }
-        $this->member((int)$ch['membership_id']);
+        if ($ch['club_year_id']!==null) { $this->one('SELECT id FROM portal_club_years WHERE id=? FOR UPDATE',[$ch['club_year_id']]); }
+        else { $this->member((int)$ch['membership_id']); }
         $this->one('SELECT id FROM portal_invoices WHERE id=? FOR UPDATE',[$id]);
         return $ch;
     }
@@ -156,20 +192,36 @@ final class BillingService
     private function charge(int $id): array|false { return $this->one('SELECT * FROM portal_membership_charges WHERE membership_id=?',[$id]); }
     private function invoice(int $id): array
     {
-        $row=$this->one("SELECT i.*,ch.membership_id,ch.invoice_line_id,ch.amount_yen,
+        $row=$this->one("SELECT i.*,ch.membership_id,ch.club_year_id,ch.invoice_line_id,ch.amount_yen,
             COALESCE((SELECT SUM(al.amount_yen) FROM portal_allocations al JOIN portal_payments p ON p.id=al.payment_id
                 WHERE al.invoice_line_id=ch.invoice_line_id AND p.status='confirmed'),0) AS paid_yen
-            FROM portal_invoices i JOIN portal_membership_charges ch ON ch.invoice_id=i.id WHERE i.id=?",[$id]);
+            FROM portal_invoices i JOIN portal_invoice_charge_targets ch ON ch.invoice_id=i.id WHERE i.id=?",[$id]);
         if (!$row) { throw new HttpFailure(404,'会費請求がありません'); }
         $row['balance_yen']=max(0,(int)$row['amount_yen']-(int)$row['paid_yen']);
         unset($row['account_snapshot_cipher']);
         return $row;
     }
-    private function synchronize(int $member,int $invoice): void
+    private function synchronize(?int $member,int $invoice): void
     {
         $i=$this->invoice($invoice);
         $this->run('UPDATE portal_invoices SET status=?,finalized_at=?,row_version=row_version+1 WHERE id=?',[$i['balance_yen']===0?'finalized':'issued',$i['balance_yen']===0?gmdate('Y-m-d H:i:s'):null,$invoice]);
-        (new Eligibility($this->db))->refresh($member);
+        if ($member!==null) { (new Eligibility($this->db))->refresh($member); }
+        else { (new \Jmrc\Club\ClubService($this->db))->refresh((int)$i['club_year_id']); }
+    }
+    /** 個人会費と同じ台帳を使い、監査の対象種別だけをクラブ年度へ切り替える。 */
+    private function record(int $actor,string $action,array $target,string $key): void
+    {
+        if ($target['membership_id']!==null) { $this->audit($actor,'MEMBERSHIP_'.$action,(int)$target['membership_id'],$key);return; }
+        $action='CLUB_'.$action;$id=(int)$target['club_year_id'];
+        $this->run("INSERT INTO portal_audit_events(actor_user_id,action,entity_type,entity_id,request_id,changes_redacted,occurred_at) VALUES (?,?,'club_year',?,?,'{}',UTC_TIMESTAMP(6))",[$actor,$action,$id,bin2hex(random_bytes(16))]);
+        $this->run("INSERT INTO portal_outbox(event_key,event_type,entity_id,payload_minimal) VALUES (?,?,?,'{}')",[$action.':'.$key,$action,$id]);
+    }
+    /** 代表は自クラブ、事務局/財務は会計grantで請求を参照・発行できる。 */
+    private function clubAccess(int $actor,int $club): void
+    {
+        $this->actor($actor);
+        try { (new \Jmrc\Club\ClubService($this->db))->requireAccess($actor,$club); }
+        catch(HttpFailure $e) { if($e->status!==403) { throw $e; }$this->permission($actor,'billing.confirm'); }
     }
     private function actor(int $id): void
     {

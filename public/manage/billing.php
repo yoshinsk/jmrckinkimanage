@@ -31,7 +31,9 @@ if (isset($_GET['invoice'])) { $result=$service->read($user['id'],(int)$_GET['in
 if ($json) { header('Content-Type: application/json; charset=utf-8');echo json_encode($result,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit; }
 $s=$db->prepare('SELECT id,year,member_type FROM portal_memberships WHERE user_id=? ORDER BY year DESC,id');$s->execute([$user['id']]);$members=$s->fetchAll();
 $staff=jmrc_auth()->can('billing.confirm');
-$s=$db->prepare('SELECT i.id,i.invoice_no,m.year,m.member_type FROM portal_invoices i JOIN portal_membership_charges ch ON ch.invoice_id=i.id JOIN portal_memberships m ON m.id=ch.membership_id WHERE i.payer_user_id=? OR ?=1 ORDER BY i.id DESC LIMIT 100');$s->execute([$user['id'],(int)$staff]);$invoices=$s->fetchAll();
+$s=$db->prepare("SELECT i.id,i.invoice_no,COALESCE(m.year,cy.year) AS year,COALESCE(m.member_type,'club') AS member_type FROM portal_invoices i
+ JOIN portal_invoice_charge_targets ch ON ch.invoice_id=i.id LEFT JOIN portal_memberships m ON m.id=ch.membership_id
+ LEFT JOIN portal_club_years cy ON cy.id=ch.club_year_id WHERE i.payer_user_id=? OR ?=1 ORDER BY i.id DESC LIMIT 100");$s->execute([$user['id'],(int)$staff]);$invoices=$s->fetchAll();
 // 一覧にもPOST承認と同じスコープを適用し、担当外の申請者を出さない。
 $s=$db->prepare("SELECT DISTINCT m.id,m.year,u.email FROM portal_memberships m JOIN portal_applications a ON a.id=m.application_id
     JOIN users u ON u.id=m.user_id JOIN portal_affiliations f ON f.membership_id=m.id AND f.valid_until IS NULL

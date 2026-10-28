@@ -89,7 +89,7 @@ check('Temporary未公開イベント拒否',submitMember($member,['member_type'
 check('Temporary年境界のJST参加日',json_decode(submitMember($member,['member_type'=>'temporary','event_id'=>106])['body'],true)['participation_date']===($year+1).'-01-01');
 check('終了がJST翌日0時のイベントを受付',submitMember($member,['member_type'=>'temporary','event_id'=>109])['status']===201);
 // TemporaryからGeneralへの差額変更はなく、新しい申請を起こすだけ。自動の請求/返金はない。
-check('未実装の会費請求/返金を勝手に起こさない',(int)$db->query('SELECT COUNT(*) FROM portal_invoices')->fetchColumn()===0 && (int)$db->query('SELECT COUNT(*) FROM portal_refunds')->fetchColumn()===0);
+check('個人申請だけでは請求/返金を勝手に起こさない',(int)$db->query('SELECT COUNT(*) FROM portal_invoices WHERE payer_user_id IS NOT NULL')->fetchColumn()===0 && (int)$db->query('SELECT COUNT(*) FROM portal_refunds')->fetchColumn()===0);
 $approve=static fn(Browser $browser,int $id)=>$browser->request('/manage/temporary-approve.php?format=json',['_csrf'=>identity($browser)['csrf'],'membership_id'=>$id]);
 check('旧JMRC_ADMINの暗黙承認拒否',$approve($admin,$temporaryId)['status']===403);
 check('事務局global権限だけの承認拒否',$approve($office,$temporaryId)['status']===403);

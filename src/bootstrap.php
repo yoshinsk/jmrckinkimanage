@@ -8,6 +8,8 @@ require_once __DIR__ . '/Auth/SharedAuth.php';
 require_once __DIR__ . '/Membership/MembershipService.php';
 require_once __DIR__ . '/Billing/Eligibility.php';
 require_once __DIR__ . '/Billing/BillingService.php';
+require_once __DIR__ . '/Club/ClubEligibility.php';
+require_once __DIR__ . '/Club/ClubService.php';
 
 set_exception_handler(static function (Throwable $error): void {
     $status = $error instanceof \Jmrc\Auth\HttpFailure ? $error->status : 503;

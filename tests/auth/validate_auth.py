@@ -67,6 +67,8 @@ def main():
         shutil.copyfile(source,context/'tests'/source.name)
     for source in (ROOT/'tests/billing').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
+    for source in (ROOT/'tests/club').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/entry/identity.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/manage/identity.php')
     shutil.copyfile(ROOT/'tests/auth/permission.php',context/'site/manage/permission.php')
@@ -103,6 +105,7 @@ def main():
         db_sql((ROOT/'design/phase2/001_portal_schema.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/003_membership_billing.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/004_club_registration.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -110,7 +113,7 @@ def main():
                "GRANT INSERT ON jmrckinki_auth_lab.portal_audit_events TO 'auth_runtime'@'%';"
                "GRANT INSERT ON jmrckinki_auth_lab.audit_logs TO 'auth_runtime'@'%';")
         # 申請/承認サービスに必要なDMLだけを追加。DDL・他人の識別番号更新は許可しない。
-        for table in ['portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations']:
+        for table in ['portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations','portal_club_years','portal_club_charges']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
@@ -123,7 +126,9 @@ def main():
             raise RuntimeError(lint.stdout.decode()+lint.stderr.decode())
         docker('exec',NAMES[1],'php','/srv/tests/seed.php')
         docker('exec',NAMES[1],'php','/srv/tests/membership_seed.php')
+        docker('exec',NAMES[1],'php','/srv/tests/club_seed.php')
         db_sql((ROOT/'design/phase2/billing_permissions.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/club_permissions.sql').read_text(encoding='utf-8'))
         nginx=docker('exec',NAMES[0],'nginx','-t')
         assert b'successful' in nginx.stderr
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
@@ -137,6 +142,9 @@ def main():
                                   for p in (ROOT/folder).rglob('*.php')}
         report['membership_rule_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_bytes()).hexdigest()
         report['billing_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/003_membership_billing.sql').read_bytes()).hexdigest()
+        report['club_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/004_club_registration.sql').read_bytes()).hexdigest()
+        report['club_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/club_permissions.sql').read_bytes()).hexdigest()
+        report['club_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/club').glob('*.php')}
         report['billing_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/billing_permissions.sql').read_bytes()).hexdigest()
         report['entry_billing_prepare_sha256']=hashlib.sha256((ROOT/'integration/prepare_entry_billing.py').read_bytes()).hexdigest()
         report['billing_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/billing').glob('*.php')}
