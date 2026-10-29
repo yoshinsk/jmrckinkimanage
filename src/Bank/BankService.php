@@ -22,7 +22,7 @@ final class BankService
     }
     public function sources(int $actor): array
     {
-        $this->access($actor);return $this->all('SELECT s.id,s.display_name FROM portal_bank_sources s WHERE s.enabled=1 AND EXISTS(SELECT 1 FROM portal_bank_source_accounts l JOIN portal_bank_accounts a ON a.id=l.account_id WHERE l.source_id=s.id AND a.enabled=1) ORDER BY s.id',[]);
+        $this->access($actor);return $this->all('SELECT s.id,s.display_name FROM portal_bank_sources s WHERE s.enabled=1 AND EXISTS(SELECT 1 FROM portal_bank_source_accounts l JOIN portal_bank_accounts a ON a.id=l.account_id WHERE l.source_id=s.id) ORDER BY s.id',[]);
     }
     /** ファイル再送は同一ID、範囲/順序/文字幅/文字コードを変えた再出力も実口座+日付/金額/正規化名義で再利用する。 */
     public function import(int $actor,int $source,string $bytes,string $encoding): array
@@ -33,7 +33,7 @@ final class BankService
             if($s['dedup_key_check']===null){$this->run('UPDATE portal_bank_sources SET dedup_key_check=? WHERE id=?',[$box->digest('key-check','yucho-source:v1:'.$source),$source]);}
             $old=$this->one('SELECT id FROM portal_bank_imports WHERE bank_source_id=? AND file_sha256=?',[$source,hash('sha256',$bytes,true)]);
             if($old){return ['id'=>(int)$old['id'],'replayed'=>true,'new_rows'=>0,'ignored'=>$parsed['ignored']];}
-            $account=$this->one('SELECT a.id FROM portal_bank_source_accounts l JOIN portal_bank_accounts a ON a.id=l.account_id WHERE l.source_id=? AND a.enabled=1 ORDER BY a.id LIMIT 1',[$source]);
+            $account=$this->one('SELECT a.id FROM portal_bank_source_accounts l JOIN portal_bank_accounts a ON a.id=l.account_id WHERE l.source_id=? ORDER BY a.enabled DESC,a.id LIMIT 1',[$source]);
             if(!$account){throw new HttpFailure(422,'取込元と入金先口座の対応を設定してください');}
             $this->run("INSERT INTO portal_bank_imports(account_id,bank_source_id,file_sha256,parser_version,status,imported_by,imported_at) VALUES(?,?,?,?,'preview',?,UTC_TIMESTAMP(6))",[$account['id'],$source,hash('sha256',$bytes,true),YuchoCsv::VERSION,$actor]);$import=(int)$this->db->lastInsertId();$created=0;$seen=0;
             foreach($parsed['rows'] as $r){

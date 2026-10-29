@@ -1,0 +1,4 @@
+/* Path: public/manage/assets/bank-settings.css | 機能: 口座案内と変更前後の長い値を小画面でも読めるようにする。 */
+.license-form textarea{display:block;width:100%;box-sizing:border-box;font:inherit;padding:.6rem;border:1px solid #47637c;border-radius:.25rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;border:1px solid #b7c3cc;padding:.8rem}main li{overflow-wrap:anywhere}
+
+.history-value{white-space:pre-wrap;overflow-wrap:anywhere}

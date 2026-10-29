@@ -1,0 +1,47 @@
+<?php
+// Path: public/manage/bank-settings.php
+// 機能: 事務局の専用権限で用途別口座・決済URL・実口座対応を編集し、変更履歴を確認する。
+declare(strict_types=1);
+require_once __DIR__.'/_bootstrap.php';require_once __DIR__.'/_card-public.php';
+$user=jmrc_auth()->requireIdentity();$service=new \Jmrc\Bank\BankMasterService(jmrc_db(),jmrc_auth_config());$service->access($user['id']);
+$json=($_GET['format']??'')==='json';$result=null;
+$positive=static function($v):int{$id=filter_var($v,FILTER_VALIDATE_INT,['options'=>['min_range'=>1]]);if($id===false){throw new \Jmrc\Auth\HttpFailure(422,'対象IDを確認してください');}return $id;};
+if($_SERVER['REQUEST_METHOD']==='POST'){
+    jmrc_auth()->verifyCsrf($_POST['_csrf']??null);
+    // 鍵チェック・暗号文・更新者などをHTTPから直接指定させない。
+    $allowed=['_csrf','action','id','row_version','purpose_code','year','display_name','details','payment_url','valid_from','valid_until','enabled','source_id','mapping_verified','reason','code','physical_verified'];
+    foreach(array_keys($_POST) as $key){if(!in_array($key,$allowed,true)){throw new \Jmrc\Auth\HttpFailure(422,'未対応の入力項目です');}}
+    $result=match($_POST['action']??''){'account'=>$service->saveAccount($user['id'],$_POST),'source'=>$service->saveSource($user['id'],$_POST),default=>throw new \Jmrc\Auth\HttpFailure(422,'操作を指定してください')};
+}elseif($_SERVER['REQUEST_METHOD']!=='GET'){throw new \Jmrc\Auth\HttpFailure(405,'POST required');}
+$account=isset($_GET['account'])?$service->read($user['id'],$positive($_GET['account'])):null;
+$source=isset($_GET['source'])?$service->sourceRead($user['id'],$positive($_GET['source'])):null;
+$change=isset($_GET['history'])?$service->change($user['id'],$positive($_GET['history'])):null;
+$list=$service->listing($user['id']);$sourceForm=$source!==null || ($_GET['new']??'')==='source';
+$history=$account?$service->changes($user['id'],'account',(int)$account['id'],isset($_GET['before'])?$positive($_GET['before']):0):($source?$service->changes($user['id'],'source',(int)$source['id'],isset($_GET['before'])?$positive($_GET['before']):0):[]);
+if($json){header('Content-Type: application/json; charset=utf-8');echo json_encode($result??$change??$account??$source??$list,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit;}
+$e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');
+$local=static fn($v)=>$v===null?'':(new DateTimeImmutable($v,new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('Asia/Tokyo'))->format('Y-m-d\TH:i:s.u');
+header('Content-Type: text/html; charset=utf-8');
+?>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>入金先・決済設定</title><link rel="stylesheet" href="/manage/assets/cards.css"><link rel="stylesheet" href="/manage/assets/licenses.css"><link rel="stylesheet" href="/manage/assets/insurance.css"><link rel="stylesheet" href="/manage/assets/bank-settings.css"></head><body><main><h1>入金先・決済設定</h1>
+<p>変更は新しい請求に反映されます。発行済み請求の案内・URLは変更しません。銀行口座を変更する場合は新規設定を作成してください。同じ実口座には同じCSV取込元を対応付けます。</p>
+<?php if($result): ?><p role="status">設定を保存しました。#<?=$e($result['id'])?></p><p><a href="?<?=$sourceForm||($_POST['action']??'')==='source'?'source':'account'?>=<?=$e($result['id'])?>">保存した設定を確認</a></p><?php endif; ?>
+<nav><a href="bank-settings.php">口座の新規登録</a> ／ <a href="?new=source">取込元の新規登録</a></nav>
+<h2>用途別口座</h2><ul><?php foreach($list['accounts'] as $a): ?><li><a href="?account=<?=$e($a['id'])?>"><?=$e('#'.$a['id'].' '.(\Jmrc\Bank\BankMasterService::PURPOSES[$a['purpose_code']]??$a['purpose_code']).' '.($a['year']??'全年度').' '.$a['display_name'].' '.($a['enabled']?'有効':'無効'))?></a></li><?php endforeach; ?></ul>
+<h2>CSV取込元（実口座）</h2><ul><?php foreach($list['sources'] as $s): ?><li><a href="?source=<?=$e($s['id'])?>"><?=$e('#'.$s['id'].' '.$s['display_name'].' '.($s['enabled']?'有効':'停止'))?></a></li><?php endforeach; ?></ul>
+<?php if(!$change && !$sourceForm): ?><h2><?=$account?'口座設定の変更':'口座設定の新規登録'?></h2>
+<?php if($account && $account['details_notice']): ?><p><?=$e($account['details_notice'])?></p><?php endif; ?>
+<form class="license-form" method="post" autocomplete="off"><input type="hidden" name="_csrf" value="<?=jmrc_auth()->csrfToken()?>"><input type="hidden" name="action" value="account"><input type="hidden" name="id" value="<?=$e($account['id']??0)?>"><input type="hidden" name="row_version" value="<?=$e($account['row_version']??0)?>">
+<label>用途<select name="purpose_code" aria-label="用途"><?php if($account && !isset(\Jmrc\Bank\BankMasterService::PURPOSES[$account['purpose_code']])): ?><option value="<?=$e($account['purpose_code'])?>" selected><?=$e('既存の用途（'.$account['purpose_code'].'）')?></option><?php endif; ?><?php foreach(\Jmrc\Bank\BankMasterService::PURPOSES as $code=>$name): ?><option value="<?=$e($code)?>" <?=($account['purpose_code']??'')===$code?'selected':''?>><?=$e($name)?></option><?php endforeach; ?></select></label>
+<label>年度<select name="year" aria-label="年度"><option value="">全年度</option><?php foreach($list['years'] as $y): ?><option value="<?=$e($y['year'])?>" <?=(int)($account['year']??0)===(int)$y['year']?'selected':''?>><?=$e($y['year'])?></option><?php endforeach; ?></select></label>
+<p>登録済みの用途・年度を変更する場合は、新しい設定を作成してください。</p><label>口座の表示名<input name="display_name" maxlength="128" value="<?=$e($account['display_name']??'')?>" required></label>
+<label>口座案内<textarea name="details" rows="5" maxlength="4000" <?=empty($account)?'required':''?>><?=$e($account['details']??'')?></textarea></label><p>金融機関・支店・種別・番号・名義などの案内を入力します。更新時の空欄は既存値を保持します。使用済み設定では案内を変更できません。</p>
+<label>ペイメントコアURL<input name="payment_url" type="url" maxlength="2048" value="<?=$e($account['payment_url']??'')?>" placeholder="https://"></label><p>空欄でURLを解除できます。URLへのアクセスや支払済み登録は自動実行しません。</p>
+<label>開始日時（日本時間）<input name="valid_from" type="datetime-local" step="0.000001" value="<?=$e($local($account['valid_from']??null))?>"></label><label>終了日時（日本時間・その時刻は対象外）<input name="valid_until" type="datetime-local" step="0.000001" value="<?=$e($local($account['valid_until']??null))?>"></label>
+<label>請求先としての利用<select name="enabled"><option value="0" <?=empty($account['enabled'])?'selected':''?>>無効</option><option value="1" <?=!empty($account['enabled'])?'selected':''?>>有効</option></select></label>
+<label>CSV取込元<select name="source_id" aria-label="CSV取込元"><option value="0">対応なし</option><?php foreach($list['sources'] as $s): ?><option value="<?=$e($s['id'])?>" <?=(int)($account['source_id']??0)===(int)$s['id']?'selected':''?>><?=$e($s['display_name'].' '.($s['enabled']?'':'（停止中）'))?></option><?php endforeach; ?></select></label><label><input type="checkbox" name="mapping_verified" value="1">選択した取込元と同じ実口座であることを資料で確認しました</label>
+<label>変更理由<input name="reason" maxlength="500" required></label><button>口座設定を保存</button></form>
+<?php elseif(!$change): ?><h2><?=$source?'取込元の変更':'取込元の新規登録'?></h2><form class="license-form" method="post"><input type="hidden" name="_csrf" value="<?=jmrc_auth()->csrfToken()?>"><input type="hidden" name="action" value="source"><input type="hidden" name="id" value="<?=$e($source['id']??0)?>"><input type="hidden" name="row_version" value="<?=$e($source['row_version']??0)?>"><label>実口座コード<input name="code" pattern="[A-Za-z0-9_.:-]{1,64}" value="<?=$e($source['code']??'')?>" <?=$source?'readonly':''?> required></label><label>取込元の表示名<input name="display_name" maxlength="128" value="<?=$e($source['display_name']??'')?>" required></label><label>CSV取込の利用<select name="enabled"><option value="0" <?=empty($source['enabled'])?'selected':''?>>停止</option><option value="1" <?=!empty($source['enabled'])?'selected':''?>>有効</option></select></label><?php if(!$source): ?><label><input type="checkbox" name="physical_verified" value="1" required>既存取込元と重複しない実口座であることを確認しました</label><?php endif; ?><label>変更理由<input name="reason" maxlength="500" required></label><button>取込元を保存</button></form><?php endif; ?>
+<?php if($history): ?><h2>変更履歴</h2><ul><?php foreach($history as $h): ?><li><a href="?history=<?=$e($h['id'])?>"><?=$e('#'.$h['id'].' '.$h['changed_at'].' UTC / 担当ID '.$h['actor_user_id'].' / 版 '.$h['row_version'])?></a></li><?php endforeach; ?></ul><?php if(count($history)===50): ?><a href="?<?=$account?'account':'source'?>=<?=$e($account['id']??$source['id'])?>&amp;before=<?=$e(end($history)['id'])?>">以前の履歴</a><?php endif; ?><?php endif; ?>
+<?php if($change): ?><h2>変更履歴 #<?=$e($change['id'])?></h2><p><?=$e('担当ID '.$change['actor_user_id'].' / '.$change['changed_at'].' UTC / 理由 '.$change['reason'])?></p><?php $labels=['id'=>'設定ID','purpose_code'=>'用途','year'=>'年度','display_name'=>'表示名','payment_url'=>'ペイメントコアURL','valid_from'=>'開始日時（UTC）','valid_until'=>'終了日時（UTC）','enabled'=>'有効状態','updated_by'=>'更新担当ID','updated_at'=>'更新日時（UTC）','row_version'=>'版','source_id'=>'CSV取込元ID','details'=>'口座案内','code'=>'実口座コード']; ?><?php foreach(['before'=>'変更前','after'=>'変更後'] as $side=>$title): ?><h3><?=$e($title)?></h3><?php if($change[$side]===null): ?><p>未登録</p><?php else: ?><dl><?php foreach($change[$side] as $key=>$value): ?><dt><?=$e($labels[$key]??$key)?></dt><dd class="history-value"><?=$e($key==='purpose_code'?(\Jmrc\Bank\BankMasterService::PURPOSES[$value]??$value):($key==='enabled'?($value?'有効':'無効'):($value??'未設定')))?></dd><?php endforeach; ?></dl><?php endif; ?><?php endforeach; ?><p><a href="?<?=$change['entity_type']==='account'?'account':'source'?>=<?=$e($change['entity_id'])?>">対象の設定へ</a></p><?php endif; ?>
+<p><a href="bank.php">CSV取込・入金照合へ</a> ／ <a href="/manage/">マイページへ</a></p></main></body></html>

@@ -1,5 +1,7 @@
 # 共通認証の隔離HTTP検証
 
+口座設定追加: 009・bank_master_permissions.sql・tests/bank_masterを含む。事務局の専用権限、暗号化変更履歴、同時更新・同時期間競合、発行済み請求スナップショット不変とCSV対応の保護を検証する。履歴はruntimeでINSERTのみ許可し、実ブラウザーでも作成・URL変更・履歴閲覧を確認する。
+
 銀行追加: 008・tests/bankとPHP mbstringを含む。実口座ごとの架空CSV、UTF-8/CP932、再取込/同時取込・同時確定、既存手動入金の紐付け・重複、証跡分離とロールバックを検証する。実CSVは使わない。実ブラウザーでもCSVファイルをアップロードする。
 
 保険追加: 007・insurance_permissions.sql・tests/insuranceと固定原本を含めて実行する。PHP ZIP/DOM拡張が必要。HTTPの申請/権限/帳票生成に加え、独立Python ZIP/XML照合とChromium/WebKitの実ダウンロードを検証する。架空帳票はtmp/insurance_validation、実ブラウザーの画像/帳票はtmp/mobile_validationに保存する。
