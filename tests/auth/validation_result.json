@@ -2615,6 +2615,58 @@
     {
       "case": "受付日程案では資格正本を切替えない",
       "result": "PASS"
+    },
+    {
+      "case": "旧新規登録が認証状態も同時作成",
+      "result": "PASS"
+    },
+    {
+      "case": "メール確認前の新規利用者は認証しない",
+      "result": "PASS"
+    },
+    {
+      "case": "未確認の再登録はID維持・認証版更新",
+      "result": "PASS"
+    },
+    {
+      "case": "旧メール確認処理の実コードが完走",
+      "result": "PASS"
+    },
+    {
+      "case": "旧登録から確認後に共通サインイン可能",
+      "result": "PASS"
+    },
+    {
+      "case": "確認済みユーザーの再登録で認証情報を変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "旧パスワード再設定の実処理が成功",
+      "result": "PASS"
+    },
+    {
+      "case": "パスワード再設定後は旧セッション失効",
+      "result": "PASS"
+    },
+    {
+      "case": "既存IDのまま変更後パスワードで再ログイン",
+      "result": "PASS"
+    },
+    {
+      "case": "限定期間の旧ログイン済みセッションを維持",
+      "result": "PASS"
+    },
+    {
+      "case": "引継ぎ後も認証版失効が有効",
+      "result": "PASS"
+    },
+    {
+      "case": "停止アカウントを再登録で復活させない",
+      "result": "PASS"
+    },
+    {
+      "case": "ポータル情報がある未確認IDは再登録破壊を防止",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -3156,12 +3208,15 @@
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-29T09:09:34.032476+00:00",
+  "checked_at_utc": "2026-10-29T09:40:05.345380+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
     "common/functions.php": "20a9dce573235f1789ba3b85438f011e19d46655c0762d13ed6667def6bdf31c",
     "common/db.php": "3a9b0e496f65759fb336d5d4a06be15c0c4e0521c750fe35e23222b21df2ea76",
+    "register_handler.php": "5657f3b31435691540663a2459bdc0b94ce3c156d48683c498534821ea612cdd",
+    "verify.php": "3d92cafe860f23dac8e5dde080c4a26500062a8bae932b65e14575d530bdb0bd",
+    "reset_handler.php": "4682eaeebd469bf33d0b92076765f46bd30888ef877adf51b092acf4f4fc118d",
     "admin/events.php": "2b519905cb64c909d464271417dba69943637f26461eeffe90d3399fd7d84270",
     "club/events.php": "a7a2e0e17c69d3a3ff062a5825ebc8ec50e00933360bc05da7f5798960d9bc67",
     "entrant/events.php": "ae3eaf1678deb51ee109d82a63a7973008d5db575a09687c6e08667690113cd7",
@@ -3174,9 +3229,9 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "0cce44823b30ee1e60d73b937a44beb1df85bd73eddb9c67327a1449c9aad80e",
+    "src\\bootstrap.php": "f712234ba111c6c8f24b7793bb5272a2f5eab36b2d10ff377f7a891f44e54f07",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
-    "src\\Auth\\SharedAuth.php": "b95608336bb572234f59fb04a0b37508657f3b5af6d8800caf028d38ad686b12",
+    "src\\Auth\\SharedAuth.php": "2efcc915b1e69461fdabc14aa65159d2b1517cb3ba7e399203ff3d24910a897c",
     "src\\Bank\\BankMasterService.php": "622498b9655c9e77efb491231c509880a04804b1520e762581b6d910d7683fa0",
     "src\\Bank\\BankService.php": "9b8c601471011589cb96335463026286292ea8ab263c7a4f28a32f1d381d8b7b",
     "src\\Bank\\YuchoCsv.php": "7411b88944e75184ab1b49e07c41071afe0e2cafab6f7b19679e36e73c6ee21a",
@@ -3194,9 +3249,10 @@
     "src\\Profile\\ProfileService.php": "d0b2c559ec111f53d6125d3a0e5f2f3c4e7704a9ee7a460fafa7d8c60ebea357",
     "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
-    "integration\\jmrckinki\\common\\auth.php": "4922472547e93104e007b5c0f823b9128378a818024f0dda652a5e75009a7049",
+    "integration\\jmrckinki\\common\\auth.php": "7473f6be7b0f7e6b9740872f129c5a10646c8f6c27a6a2ded00fa9775585edd9",
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
     "integration\\jmrckinki\\common\\portal_billing.php": "23d675eea230094019bbb69fd047674e66c97a87735a85d059912c2bbfdc6d84",
+    "integration\\jmrckinki\\common\\portal_registration.php": "266e809502606f4b9bc1f63d8a6566670f7457227ad544390f1753098b6c4b70",
     "public\\manage\\bank-settings.php": "1297d83d2e95a4f967ec20b9637c324dc6a8e0eb762582aaa068ef9bc6286d1a",
     "public\\manage\\bank.php": "f5717501a8fb004b304ef20624b039197c3a5542638c5df07dd03bd28a3a78fb",
     "public\\manage\\billing.php": "371a53387b5dc7213e284a9282847f21e690d84c0a69ebec6f7e488db10f7109",
@@ -3204,7 +3260,7 @@
     "public\\manage\\card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "98f3555827b9382ca335f8bf09294f5c279dea257366509c1e50e8793fb62ffb",
+    "public\\manage\\index.php": "43026f1d5afa8cba105b94470ea548693ac0a0b45ea7e391f24e403cf310dbaf",
     "public\\manage\\insurance.php": "8ff65b26ce182991afa216af9c918b8ffdab62cd32aa6315c456e36fdce6c58b",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
@@ -3212,7 +3268,7 @@
     "public\\manage\\memberships.php": "5d66bb47cf51b440d393e01c7dc7b40ff55564defb4e5953058a472be773c973",
     "public\\manage\\profile-correct.php": "262d93c282fb01e1871dba8154b83d80df32512b6901a87fc0b95ddf7d3c4077",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
-    "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b",
+    "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
     "public\\manage\\_card-public.php": "49a9dadd09571b3e36a4ea3493ade87768c66fb3e3cb2a76336ccea9b2010fb2"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
@@ -3292,19 +3348,20 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
-    "tests\\auth\\auth.config.php": "39120bda014a701a81cad986eea9b53224f06eaa573d3449314526032d123c82",
+    "tests\\auth\\auth.config.php": "fd680c7b9249ebaf050ca4a27b51fb6b0ace3fa9ff8b2f2444d055c8d3ca9aa7",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "fa723464ab6aeddec80305ce30cf9108878ba9b43a12e58537e2a811675ccdc0",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
-    "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
+    "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
     "tests\\auth\\README.md": "df9ba20ad8402f9468af962952524694efdf19f05a4468844314977faf2432b4",
-    "tests\\auth\\run_http.php": "619aa71534c33e42a8832a652f2f42824d36748067ee6afd4aee464725c36a71",
+    "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
+    "tests\\auth\\run_http.php": "986b2089f5ccfe61f52fdf84bb0f9919958b6975cddc900d06615f7e7e2dce2a",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "77fec71c9f01ee517ee0d12140d656ff1445886f326484aea468b852f2995956"
+    "tests\\auth\\validate_auth.py": "d581d559f6eb1dfd96c3de91fa276c105bcef96bff053daa33aacc3b8a5ee59f"
   },
-  "php_lint_files": 76,
+  "php_lint_files": 82,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

@@ -12,6 +12,7 @@ header('Content-Type: text/html; charset=utf-8');
 ?>
 <!doctype html><html lang="ja"><meta charset="utf-8"><title>JMRC近畿ポータル</title>
 <h1>JMRC近畿ポータル</h1>
+<?php if(is_string(jmrc_auth_config()['deployment_notice']??null)): ?><p role="status"><?=htmlspecialchars(jmrc_auth_config()['deployment_notice'],ENT_QUOTES,'UTF-8')?></p><?php endif; ?>
 <p><?=htmlspecialchars($identity['email'], ENT_QUOTES, 'UTF-8')?></p>
 <p><a href="/entry/login.php">オンラインエントリーへ</a></p>
 <p><a href="/manage/memberships.php">個人会員の申請</a> / <a href="/manage/temporary-approve.php">主催クラブのTemporary承認</a></p>

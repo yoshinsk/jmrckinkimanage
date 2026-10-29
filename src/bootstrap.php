@@ -38,7 +38,7 @@ function jmrc_auth_config(): array
 {
     static $config = null;
     if ($config === null) {
-        $configPath = getenv('JMRC_AUTH_CONFIG');
+        $configPath = getenv('JMRC_AUTH_CONFIG') ?: '/var/www/vhosts/gymkinki.com/private/jmrc-portal/auth.config.php';
         if (!$configPath || !is_file($configPath)) {
             throw new RuntimeException('External auth config required');
         }

@@ -12,5 +12,5 @@ return [
     'card_public_url'=>'https://web/manage/card-check.php',
     'db'=>['dsn'=>'mysql:host=db;dbname=jmrckinki_auth_lab;charset=utf8mb4',
         'user'=>'auth_runtime','password'=>'lab_runtime_only'],
-    'session'=>['save_path'=>'/srv/sessions','name'=>'PHPSESSID','lifetime'=>2592000,'secure'=>true],
+    'session'=>['save_path'=>'/srv/sessions','name'=>'PHPSESSID','lifetime'=>2592000,'secure'=>true,'legacy_session_until'=>'2099-01-01T00:00:00Z'],
 ];

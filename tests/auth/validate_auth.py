@@ -17,7 +17,7 @@ NAMES = ['jmrc-auth-web-20261027', 'jmrc-auth-app-20261027', 'jmrc-auth-db-20261
 BROWSER = 'jmrc-license-browser-20261028'
 DB_IMAGE = 'mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce'
 SOURCE_FILES = ['common/header.php','common/footer.php','common/functions.php','common/db.php',
-                'admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
+                'register_handler.php','verify.php','reset_handler.php','admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
 
 
 def command(args, data=None, timeout=60, check=True):
@@ -56,6 +56,7 @@ def main():
         shutil.copyfile(source,context/'site/entry'/source.relative_to(ROOT/'integration/jmrckinki'))
     import runpy
     runpy.run_path(str(ROOT/'integration/prepare_entry_billing.py'))['prepare'](context/'site/entry')
+    runpy.run_path(str(ROOT/'integration/prepare_entry_registration.py'))['prepare'](context/'site/entry')
     for source in (ROOT/'public/manage').glob('*.php'):
         shutil.copyfile(source,context/'site/manage'/source.name)
     shutil.copytree(ROOT/'public/manage/assets',context/'site/manage/assets')
@@ -63,7 +64,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php']:
+    for name in ['run_http.php','seed.php','registration_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
@@ -90,6 +91,7 @@ def main():
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/entry/identity.php')
     shutil.copyfile(ROOT/'tests/auth/identity.php',context/'site/manage/identity.php')
     shutil.copyfile(ROOT/'tests/auth/permission.php',context/'site/manage/permission.php')
+    (context/'site/entry/common/mailer.php').write_text("<?php // 隔離検証専用。外部へメールを送らない。\nfunction send_mail(...$args): bool { return true; }\n",encoding='utf-8')
     shutil.copyfile(ROOT/'tests/auth/legacy.config.php',context/'site/entry/common/config.php')
     for name in ['auth.config.php','nginx.conf','Dockerfile.php','Dockerfile.nginx']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/name)
@@ -132,6 +134,7 @@ def main():
         db_sql((ROOT/'design/phase2/008_yucho_import.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/009_bank_master_management.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/010_profile_corrections.sql').read_text(encoding='utf-8'))
+        db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -162,6 +165,8 @@ def main():
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_bank_master_changes TO 'auth_runtime'@'%';")
         db_sql("GRANT UPDATE(last_name,first_name,birthday,row_version) ON jmrckinki_auth_lab.portal_profiles TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_profile_changes TO 'auth_runtime'@'%';")
+        for table in ['users','entrants','jmrc_annual_memberships','email_verifications','portal_account_controls']:
+            db_sql(f"GRANT INSERT,UPDATE,DELETE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)

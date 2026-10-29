@@ -20,7 +20,7 @@ final class SharedAuth
     private const ROLE_PATHS = [1 => '/entry/admin/events.php', 2 => '/entry/club/events.php', 3 => '/entry/entrant/events.php'];
     private const RETURNS = ['dashboard' => '/manage/'];
 
-    public function __construct(private readonly PDO $db, array $session)
+    public function __construct(private readonly PDO $db, private readonly array $session)
     {
         // 異なるbootstrapが開始済みなら混在させず停止する。保存先作成/権限変更は運用側で行う。
         if (session_status() !== PHP_SESSION_NONE || headers_sent()) {
@@ -97,6 +97,16 @@ final class SharedAuth
             FROM users u LEFT JOIN portal_account_controls c ON c.user_id=u.id WHERE u.id=?');
         $statement->execute([$_SESSION['uid']]);
         $user = $statement->fetch(PDO::FETCH_ASSOC);
+        // 初回切替の限定期間だけ、旧認証が発行したログイン済みセッションを引き継ぐ。
+        // 新形式の破損・失効セッションは引継ぎ対象にせず、通常の認証版/パスワード検査で拒否する。
+        $until=$this->session['legacy_session_until']??null;
+        if($user && !array_key_exists('portal',$_SESSION) && ($_SESSION['verified']??null)===true
+            && ($_SESSION['rid']??null)===(int)$user['role_id'] && $user['status']==='active' && (int)$user['email_verified']===1
+            && is_string($until) && preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$/D',$until)
+            && strcmp(gmdate('Y-m-d\\TH:i:s\\Z'),$until)<0 && isset(self::ROLE_PATHS[(int)$user['role_id']])){
+            $this->audit('AUTH_SESSION_UPGRADED',(int)$user['id']);
+            $_SESSION['portal']=['auth_version'=>(int)$user['auth_version'],'credential_stamp'=>hash('sha256',$user['password_hash'])];
+        }
         $version = $_SESSION['portal']['auth_version'] ?? null;
         $stamp = $_SESSION['portal']['credential_stamp'] ?? null;
         if (!$user || $user['status'] !== 'active' || (int)$user['email_verified'] !== 1

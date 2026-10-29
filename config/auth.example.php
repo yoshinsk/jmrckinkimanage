@@ -22,5 +22,6 @@ return [
         'save_path' => getenv('JMRC_AUTH_SESSION_PATH'),
         'lifetime' => 2592000,
         'secure' => true,
+        'legacy_session_until' => null, // 初回切替時だけUTCの期限を明示。例: 2026-10-29T12:00:00Z。常時許可しない。
     ],
 ];
