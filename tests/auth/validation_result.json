@@ -1947,6 +1947,294 @@
     {
       "case": "保険停止会員の再申請は確認保留",
       "result": "PASS"
+    },
+    {
+      "case": "銀行匿名は401",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行旧roleだけでは403",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行クラブ代表は403",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行事務局と財務の双方が利用可能",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行取込CSRF必須",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行未知口座は拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行UTF8 BOM取込",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行取込では入金・充当を作らない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同じファイル再取込は同じID",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行CP932・列順・文字幅変更も二重明細なし",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行一意名義金額は候補のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行暗号文・HMACを返さない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行名義は暗号保管",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行照会だけでは書込まない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行未確認チェックでは確定不可",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行理由なしでは確定不可",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行CSV日付の変更拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行古い版で確定不可",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行財務が手動確定・請求充当",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行入金だけでは所属未承認を有効化しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行確認再送は同じ入金・充当",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行処理済みを別請求へ付替えない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行確定後の別CSV再取込も入金増加なし",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行入金も逆仕訳で資格再判定",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行逆仕訳後の再取込は復活・再計上しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行元の入金へ再充当可能",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行クラブ会費検証の逆仕訳",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同じ実口座のクラブ会費へ充当・資格再判定",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行名義不一致は手動確認",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同名同額複数請求を先頭採用しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行名義末尾数字をIDや免許番号として除去しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不正CSV拒否 0",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不正CSV拒否 1",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不正CSV拒否 2",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不正CSV拒否 3",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不正CSV拒否 4",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不正CSV拒否 5",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不明文字コードを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行壊れたUTF8を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行2000明細の解析上限",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行2001明細を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行途中の不正明細で全体を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行サイズ超過拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行引用内改行とゼロ受入の件数報告",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行日付なしは取込日補完せず手動確認",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行日付なし明細は証跡日を明示してのみ確定",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行日付なしの別実取引へ前の確認日をコピーしない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行日付なしの分離取引も個別証跡日で照合",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同一条件複数行を自動で複数入金にしない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行重複候補も担当者確認後のみ確定",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行別実取引は証跡付き確認待ちへ分離",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行別取引の証跡識別子再送は同一ID",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同日同額の別取引確認を省略不可",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行証跡分離後に別実取引を確認充当",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行別取引分離後の元CSV再取込は追加なし",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行別実口座は独立した明細",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行別実口座の請求への誤充当拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行既登録手動入金の無確認新規登録を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行既存手動入金へ紐付け可能",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行既存入金と重複として記録・金額追加なし",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行旧手動入金の日付差異は確認なしで許容しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行旧手動記録日と実入金日の差を証跡確認で重複解決",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行不足入金は請求残額を残す",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行過入金を他請求へ自動振替しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行取込監査失敗は全体ロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行充当通知失敗は入金資格ごとロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同時再取込は両方成功・同一取込ID",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行同時確定も一つの入金と充当",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行権限取消を即反映",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行鍵の無断変更で重複識別を再生成しない",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行取込は既定無効",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行監査に名義・証跡本文を保存しない",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -2265,6 +2553,22 @@
         "result": "PASS"
       },
       {
+        "case": "chromium-mobile 銀行CSVを実ファイルとしてアップロード",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile CSVアップロードだけでは未確定",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 同一ファイル再アップロードも同一明細",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 銀行照合画面の横はみ出しなし",
+        "result": "PASS"
+      },
+      {
         "case": "chromium-mobile 期限更新を旧QRへ反映",
         "result": "PASS"
       },
@@ -2341,6 +2645,22 @@
         "result": "PASS"
       },
       {
+        "case": "webkit-mobile 銀行CSVを実ファイルとしてアップロード",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile CSVアップロードだけでは未確定",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 同一ファイル再アップロードも同一明細",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 銀行照合画面の横はみ出しなし",
+        "result": "PASS"
+      },
+      {
         "case": "webkit-mobile 期限更新を旧QRへ反映",
         "result": "PASS"
       },
@@ -2366,11 +2686,13 @@
       }
     ],
     "artifacts": [
+      "chromium-mobile-bank.png",
       "chromium-mobile-card.png",
       "chromium-mobile-changed.png",
       "chromium-mobile-insurance.png",
       "chromium-mobile-license.png",
       "chromium-mobile-valid.png",
+      "webkit-mobile-bank.png",
       "webkit-mobile-card.png",
       "webkit-mobile-changed.png",
       "webkit-mobile-insurance.png",
@@ -2378,7 +2700,7 @@
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-29T00:54:42.694106+00:00",
+  "checked_at_utc": "2026-10-29T01:33:05.307102+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -2396,10 +2718,12 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "c84f74838fb1bc0acbf232611c1f67b5287d6153e287cf912a6b4424a0a3b73c",
+    "src\\bootstrap.php": "0ddcdd3a2c5de5499602fec42f3e45120889278c18e7060148c11b75efbd28b1",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
     "src\\Auth\\SharedAuth.php": "740e608bd231b181009a0ff8e4bc76acde915f246062fd634d97cd1e0264c8d0",
-    "src\\Billing\\BillingService.php": "87699f175054648c28791f55440fa821c6fff7e7aec167ae903431f98dbe3f65",
+    "src\\Bank\\BankService.php": "f852117a4de5fbfeb6a7663d0e796a601dcb69ee86ba0050ec51ea4cac2b9e56",
+    "src\\Bank\\YuchoCsv.php": "7411b88944e75184ab1b49e07c41071afe0e2cafab6f7b19679e36e73c6ee21a",
+    "src\\Billing\\BillingService.php": "3f13f191a4188597840995d9252ab8750464bae15c458eca195a54a6524d4399",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
     "src\\Card\\CardService.php": "5022ab95bd3a786f2b4b02d992023beb2c73081b4c3ed9e23766fa607fb7d7ff",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
@@ -2415,12 +2739,13 @@
     "integration\\jmrckinki\\common\\auth.php": "4922472547e93104e007b5c0f823b9128378a818024f0dda652a5e75009a7049",
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
     "integration\\jmrckinki\\common\\portal_billing.php": "23d675eea230094019bbb69fd047674e66c97a87735a85d059912c2bbfdc6d84",
+    "public\\manage\\bank.php": "f5717501a8fb004b304ef20624b039197c3a5542638c5df07dd03bd28a3a78fb",
     "public\\manage\\billing.php": "371a53387b5dc7213e284a9282847f21e690d84c0a69ebec6f7e488db10f7109",
     "public\\manage\\card-check.php": "c70a1f158895dded5df1b5264c9ade8cd9df084f1634f178f25582a65539d22a",
     "public\\manage\\card-verify.php": "e049362a21c11520792f039ebb8691dbe137698ff9e8ce4583ffbbff302316cf",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "e30f6cf21fdb4cf7cc5c53a59b1d83ae412b71c93115eca35fd7115a1f7ae11f",
+    "public\\manage\\index.php": "906e3b85ba648b1c090f331dd8cc2a9b23af2b7066d04396f83c4c60a0a2dd02",
     "public\\manage\\insurance.php": "04a8ce7dcfa5a2c21d821631747064c278c89db15495b663e3e2134cda03aa79",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
@@ -2440,7 +2765,7 @@
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\Dockerfile.browser": "982acd602cb72bc523a73489d5ee1302d73af0b519d4372c19db42fccb049a4e",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
-    "tests\\license\\mobile_browser.cjs": "06784f5e38c11362a6beeeec8ae92596b7bd87c95199d459d43945e29552985b",
+    "tests\\license\\mobile_browser.cjs": "cf82ef8bda0f09a90b46c281c5629f5c8198b43573dc6be5f0674e505e2e136c",
     "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
@@ -2454,6 +2779,11 @@
   },
   "insurance_migration_sha256": "98bfb301af1115d605d6db3acadac3c4e110bbae813ffc585136d3548a1bb95c",
   "insurance_permissions_sha256": "77a14d889669d3f63d30cb08cad0fa8da170c449a6c140c5cac311b2cc65d0be",
+  "bank_migration_sha256": "eed67df6d7dfc64dd07c4801ae8386dcc3a41886f5b9e9eb9d0de09342b8d134",
+  "bank_test_source_sha256": {
+    "tests\\bank\\bank_http.php": "5189e437aeb40cd693fe4bef50a13ef52345439cbe83757499f57241d8e861a4",
+    "tests\\bank\\concurrent_bank.php": "b02de6cdce1fbda5b03b612b15ac39e81b7d66da65776e2b484ae83e1a5f3ea1"
+  },
   "card_test_source_sha256": {
     "tests\\card\\card_http.php": "01b9b48b376c10e3d2c16963aa64df3f81d10ba86cd886eb7cb8f58b5a535a8c",
     "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
@@ -2489,19 +2819,19 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
-    "tests\\auth\\auth.config.php": "4a20a99a3e6a2df81ccd4a76dd66944e7f780507d1a10385e63ebfa99fd0d463",
+    "tests\\auth\\auth.config.php": "5f68d8444490da11647b0b533bf92b0ae084cfbd406141d0c400b741492eb9f5",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
-    "tests\\auth\\Dockerfile.php": "2f937f8ca2a4a062911899530e63b297439794e94afdd6da0dc7f8df1fd67009",
+    "tests\\auth\\Dockerfile.php": "fa723464ab6aeddec80305ce30cf9108878ba9b43a12e58537e2a811675ccdc0",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
-    "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
+    "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "8623b1ab909733fff014c8a5a1906dd2bd82ebf51e30a0f432c4e88d89097e19",
-    "tests\\auth\\run_http.php": "582b2c9b42d1187a16c74d68846eaacab8ed76a536fc003a215c4cf20c8073e8",
+    "tests\\auth\\README.md": "af804d9eeeca7c296aeaf543020c927f5b0a4006837b45ac2c2293e05305dad9",
+    "tests\\auth\\run_http.php": "818ab2caa4c3cdafaa8233da730e9fefd015fbbc7eb4774d0421fda3f6177f74",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "d9087a04681a1189bb2e41b42da65ec1a81b24ded9f051ae92422e43fc57a687"
+    "tests\\auth\\validate_auth.py": "c3a0ff0684ec9a53bf7768cc02f3f59a1fe981d0321e72ad7de2192cc8b463bf"
   },
-  "php_lint_files": 64,
+  "php_lint_files": 69,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

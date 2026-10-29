@@ -77,6 +77,8 @@ def main():
         shutil.copyfile(source,context/'tests'/source.name)
     for source in (ROOT/'tests/insurance').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
+    for source in (ROOT/'tests/bank').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
     shutil.copytree(ROOT/'templates',context/'templates')
     (context/'scripts').mkdir()
     shutil.copyfile(ROOT/'scripts/license_migrate.php',context/'scripts/license_migrate.php')
@@ -122,6 +124,7 @@ def main():
         db_sql((ROOT/'design/phase2/005_general_cards.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/006_license_management.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/007_insurance_intents.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/008_yucho_import.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -141,6 +144,10 @@ def main():
         db_sql("GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_insurance_requests TO 'auth_runtime'@'%';")
         for table in ['portal_insurance_exports','portal_insurance_export_items']:
             db_sql(f"GRANT INSERT ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
+        for table in ['portal_bank_imports','portal_yucho_rows']:
+            db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
+        db_sql("GRANT UPDATE(dedup_key_check) ON jmrckinki_auth_lab.portal_bank_sources TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_yucho_import_rows TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)
@@ -210,6 +217,8 @@ def main():
             for folder in ['tests/insurance','templates/insurance'] for p in (ROOT/folder).iterdir() if p.is_file()}
         report['insurance_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/007_insurance_intents.sql').read_bytes()).hexdigest()
         report['insurance_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/insurance_permissions.sql').read_bytes()).hexdigest()
+        report['bank_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/008_yucho_import.sql').read_bytes()).hexdigest()
+        report['bank_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/bank').iterdir() if p.is_file()}
         report['card_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/card').iterdir() if p.is_file()}
         report['card_asset_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'public/manage/assets').iterdir() if p.is_file()}
         report['club_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/club_permissions.sql').read_bytes()).hexdigest()

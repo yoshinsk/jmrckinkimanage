@@ -1,5 +1,7 @@
 # 共通認証の隔離HTTP検証
 
+銀行追加: 008・tests/bankとPHP mbstringを含む。実口座ごとの架空CSV、UTF-8/CP932、再取込/同時取込・同時確定、既存手動入金の紐付け・重複、証跡分離とロールバックを検証する。実CSVは使わない。実ブラウザーでもCSVファイルをアップロードする。
+
 保険追加: 007・insurance_permissions.sql・tests/insuranceと固定原本を含めて実行する。PHP ZIP/DOM拡張が必要。HTTPの申請/権限/帳票生成に加え、独立Python ZIP/XML照合とChromium/WebKitの実ダウンロードを検証する。架空帳票はtmp/insurance_validation、実ブラウザーの画像/帳票はtmp/mobile_validationに保存する。
 
 ライセンス追加: 006・`license_permissions.sql`・`tests/license`・移行CLIを含めて実行する。固定Playwrightイメージとnpm依存をビルドし、専用internalネットワークでChromium/WebKitの実ブラウザー検証を行う。画像は`tmp/mobile_validation/`へ保存する。初回はブラウザーイメージ・日本語フォント等の取得に時間がかかる。

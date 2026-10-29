@@ -2,6 +2,7 @@
 // Path: tests/auth/auth.config.php
 // 機能: network=internalの隔離コンテナ専用設定。実在アカウントの資格情報ではない。
 return [
+    'yucho_import_enabled'=>true,
     'insurance_intents_enabled'=>true,
     'insurance_template'=>'/srv/auth/templates/insurance/sports.security.insurance_form_club.xlsx',
     'license_self_service_enabled'=>true,

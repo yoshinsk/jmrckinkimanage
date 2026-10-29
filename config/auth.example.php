@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 return [
+    'yucho_import_enabled' => getenv('JMRC_YUCHO_IMPORT') === '1', // 実口座と用途別口座の対応確認後に有効化。
     'insurance_intents_enabled' => getenv('JMRC_INSURANCE_INTENTS') === '1', // 加入確定ではなく意思受付のみ。
     'insurance_template' => getenv('JMRC_INSURANCE_TEMPLATE') ?: null, // Web非公開の指定Excel原本。
     'license_self_service_enabled' => getenv('JMRC_LICENSE_SELF_SERVICE') === '1', // 既存情報の移行照合後に有効化。

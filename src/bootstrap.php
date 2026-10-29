@@ -16,6 +16,8 @@ require_once __DIR__ . '/License/LicenseService.php';
 require_once __DIR__ . '/License/LicenseMigration.php';
 require_once __DIR__ . '/Insurance/InsuranceWorkbook.php';
 require_once __DIR__ . '/Insurance/InsuranceService.php';
+require_once __DIR__ . '/Bank/YuchoCsv.php';
+require_once __DIR__ . '/Bank/BankService.php';
 
 set_exception_handler(static function (Throwable $error): void {
     $status = $error instanceof \Jmrc\Auth\HttpFailure ? $error->status : 503;

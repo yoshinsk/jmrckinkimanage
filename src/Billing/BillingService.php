@@ -117,6 +117,21 @@ final class BillingService
         });
     }
 
+    /** 銀行CSVの確認済み明細だけを外側の取引内で充当。新しい実入金をここでは作らない。 */
+    public function confirmImported(int $actor,int $invoice,int $payment,string $operation): array
+    {
+        if(!$this->db->inTransaction() || !preg_match('/^yucho:[1-9][0-9]*$/D',$operation)){throw new \LogicException('Bank transaction required');}
+        $ch=$this->lockInvoice($invoice);$this->actor($actor);$this->permission($actor,'billing.confirm');
+        $p=$this->one("SELECT * FROM portal_payments WHERE id=? AND source_type='bank_csv' AND status='pending' FOR UPDATE",[$payment]);$i=$this->invoice($invoice);
+        if(!$p || (int)$p['account_id']!==(int)$i['account_id'] || (int)$p['amount_yen']<=0 || (int)$p['amount_yen']>1000000000
+            || !in_array($i['status'],['issued','finalized'],true) || $i['balance_yen']<=0){throw new HttpFailure(409,'入金・請求の最新状態を確認してください');}
+        $amount=min((int)$p['amount_yen'],$i['balance_yen']);
+        $this->run("UPDATE portal_payments SET status='confirmed',confirmed_by=?,confirmed_at=UTC_TIMESTAMP(6),row_version=row_version+1 WHERE id=?",[$actor,$payment]);
+        $this->run('INSERT INTO portal_allocations(payment_id,invoice_line_id,amount_yen,operation_key,created_by) VALUES(?,?,?,?,?)',[$payment,$ch['invoice_line_id'],$amount,$operation,$actor]);
+        $this->synchronize($ch['membership_id']===null?null:(int)$ch['membership_id'],$invoice);$this->record($actor,'PAYMENT_CONFIRMED',$ch,$operation);
+        return $this->invoice($invoice)+['payment_id'=>$payment,'unallocated_yen'=>(int)$p['amount_yen']-$amount];
+    }
+
     /** 確定後の記録修正。元行と同額/同対象の逆仕訳だけを追加し、元データや返金を作らない。 */
     public function reverse(int $actor,int $allocation,string $operation,string $reason): array
     {

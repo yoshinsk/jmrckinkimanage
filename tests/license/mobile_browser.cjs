@@ -52,6 +52,13 @@ async function run(engine,name,device,uid){
         const downloadEvent=finance.waitForEvent('download');await finance.getByRole('button',{name:'指定Excel形式で確認用出力',exact:true}).tap();const download=await downloadEvent;
         await download.saveAs(`/artifacts/${name}-insurance.xlsx`);
         check(name+' 事務局が実ブラウザーから指定Excelを取得',!await download.failure() && fs.readFileSync(`/artifacts/${name}-insurance.xlsx`).subarray(0,2).toString()==='PK');
+        const bankBytes=Buffer.from(`取扱日,受入金額,詳細２\r\n2026/08/25,1234,銀行ブラウザー${uid}\r\n`,'utf8');
+        async function uploadBank(){await finance.goto('https://web/manage/bank.php');await finance.getByLabel('実口座の取込元',{exact:true}).selectOption('1');await finance.getByLabel('文字コード',{exact:true}).selectOption('UTF-8');await finance.getByLabel('ゆうちょCSV',{exact:true}).setInputFiles({name:'synthetic-yucho.csv',mimeType:'text/csv',buffer:bankBytes});await Promise.all([finance.waitForNavigation(),finance.getByRole('button',{name:'CSVを取込む',exact:true}).tap()]);}
+        await uploadBank();check(name+' 銀行CSVを実ファイルとしてアップロード',(await finance.getByRole('status').innerText()).includes('処理を記録しました'));
+        const bankList=await (await office.request.get('https://web/manage/bank.php?format=json&source=1')).json();const receipt=bankList.rows.find(r=>r.payer_name===`銀行ブラウザー${uid}`);
+        check(name+' CSVアップロードだけでは未確定',receipt?.status==='review' && receipt.payment_id===null);
+        await uploadBank();const repeatedBank=await (await office.request.get('https://web/manage/bank.php?format=json&source=1')).json();check(name+' 同一ファイル再アップロードも同一明細',repeatedBank.rows.filter(r=>r.payer_name===`銀行ブラウザー${uid}`).length===1 && repeatedBank.rows.find(r=>r.id===receipt.id).payment_id===null);
+        await finance.goto('https://web/manage/bank.php?row='+receipt.id);check(name+' 銀行照合画面の横はみ出しなし',await finance.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await finance.screenshot({path:`/artifacts/${name}-bank.png`,fullPage:true});
         await page.goto('https://web/manage/licenses.php?id='+identifier.id);await page.getByLabel('有効期限',{exact:true}).fill('2000-01-01');await Promise.all([page.waitForNavigation(),page.getByRole('button',{name:'保存する',exact:true}).tap()]);await publicState(publicPage,false);
         check(name+' 期限更新を旧QRへ反映',!(await (await owner.request.get('https://web/manage/card.php?format=json&id='+membership.id)).json()).available);
         await page.goto('https://web/manage/licenses.php?id='+identifier.id);await page.getByLabel('有効期限',{exact:true}).fill('2099-12-31');await Promise.all([page.waitForNavigation(),page.getByRole('button',{name:'保存する',exact:true}).tap()]);await publicState(publicPage,true);
