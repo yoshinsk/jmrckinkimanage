@@ -977,6 +977,10 @@
       "result": "PASS"
     },
     {
+      "case": "R10会費入金を救済基金へ流用しない",
+      "result": "PASS"
+    },
+    {
       "case": "年度支払判定はポータル正本・共済は維持",
       "result": "PASS"
     },
@@ -1326,6 +1330,18 @@
     },
     {
       "case": "本人の有効General会員証を発行",
+      "result": "PASS"
+    },
+    {
+      "case": "本人JSONに正本氏名を返す",
+      "result": "PASS"
+    },
+    {
+      "case": "本人HTML氏名をエスケープ",
+      "result": "PASS"
+    },
+    {
+      "case": "氏名更新で番号とQRを維持",
       "result": "PASS"
     },
     {
@@ -1884,6 +1900,10 @@
         "result": "PASS"
       },
       {
+        "case": "chromium-mobile 本人会員証に氏名表示",
+        "result": "PASS"
+      },
+      {
         "case": "chromium-mobile スマートフォン幅で横はみ出しなし",
         "result": "PASS"
       },
@@ -1937,6 +1957,10 @@
       },
       {
         "case": "webkit-mobile 新規ライセンスから会員証へ連携",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 本人会員証に氏名表示",
         "result": "PASS"
       },
       {
@@ -1995,7 +2019,7 @@
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-28T03:35:41.782978+00:00",
+  "checked_at_utc": "2026-10-29T00:22:04.557954+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -2018,7 +2042,7 @@
     "src\\Auth\\SharedAuth.php": "85ef9781194d2089ef18076312914517b97ab7c5d163db9376355806cf10d012",
     "src\\Billing\\BillingService.php": "87699f175054648c28791f55440fa821c6fff7e7aec167ae903431f98dbe3f65",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
-    "src\\Card\\CardService.php": "72f2018cdc0f3b04d83c9d2b970d0ae5b370d167e6bf4ff9d31a864b926118f5",
+    "src\\Card\\CardService.php": "5022ab95bd3a786f2b4b02d992023beb2c73081b4c3ed9e23766fa607fb7d7ff",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
@@ -2029,11 +2053,11 @@
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
     "integration\\jmrckinki\\common\\auth.php": "4922472547e93104e007b5c0f823b9128378a818024f0dda652a5e75009a7049",
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
-    "integration\\jmrckinki\\common\\portal_billing.php": "e75fee398535ebd094b8431ceeda9b7ba164ac160895c7bbb0d654ab04baed64",
+    "integration\\jmrckinki\\common\\portal_billing.php": "23d675eea230094019bbb69fd047674e66c97a87735a85d059912c2bbfdc6d84",
     "public\\manage\\billing.php": "371a53387b5dc7213e284a9282847f21e690d84c0a69ebec6f7e488db10f7109",
     "public\\manage\\card-check.php": "c70a1f158895dded5df1b5264c9ade8cd9df084f1634f178f25582a65539d22a",
     "public\\manage\\card-verify.php": "e049362a21c11520792f039ebb8691dbe137698ff9e8ce4583ffbbff302316cf",
-    "public\\manage\\card.php": "b75984ef28a97ec14f46ce424cc2a4bd5b49d9e61c2686bf874379c9c5fb96ec",
+    "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
     "public\\manage\\index.php": "e3f55f3a918a0a7c0c3eb7c3be302ebfb1c116f1edab7ce25dd873e3cdfa9750",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
@@ -2054,14 +2078,14 @@
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\Dockerfile.browser": "982acd602cb72bc523a73489d5ee1302d73af0b519d4372c19db42fccb049a4e",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
-    "tests\\license\\mobile_browser.cjs": "845411030b88bbce2a13a07c0b4a78588efd76062d6ed9bc367cc4cf28a58ad9",
-    "tests\\license\\mobile_seed.php": "e5c8af7a18e16324152b93bcfbb4c964b0a17bc0192f214a748dff0f6d262e55",
+    "tests\\license\\mobile_browser.cjs": "2a203119b1ac2ca9e9e64eaf8ec0b4409259890864f443435790daaacd1ef8cf",
+    "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
   },
   "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
   "card_test_source_sha256": {
-    "tests\\card\\card_http.php": "7c5fac29f556c940737e159bbc19c1d24ab3761483243c51a6f024b10e65655d",
+    "tests\\card\\card_http.php": "01b9b48b376c10e3d2c16963aa64df3f81d10ba86cd886eb7cb8f58b5a535a8c",
     "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
     "tests\\card\\package-lock.json": "9fdba27de8c049d1506eaa0845379bcb9d26b6a0fe0d0246ee7f49a616e2472c",
     "tests\\card\\package.json": "584edf8163591836fb860826a7d672910cdc6979183ad4812de7bcb6ee384983",
@@ -2085,7 +2109,7 @@
   "billing_permissions_sha256": "74fdc97d3999c3817226916c78bc607879eb97a43162f8f679f12c7f280f42dc",
   "entry_billing_prepare_sha256": "33754ab51d2317357a24a943bb754c6a6c9abc26a2d80aa2ef1dcc51d322db59",
   "billing_test_source_sha256": {
-    "tests\\billing\\billing_http.php": "011528c9cf2ff7c5025341eacef7825d85ad64228bc504a69d95e0d6161526ab",
+    "tests\\billing\\billing_http.php": "cd3c949d935ff30df3bdb946c783319ac4dbb2032d338123a58152cff9387e12",
     "tests\\billing\\concurrent_billing.php": "09a57e732fecf80612a5d5b2a6410a0cc93e199cb33ce19cb53f6ed6c2521fd4"
   },
   "membership_test_source_sha256": {

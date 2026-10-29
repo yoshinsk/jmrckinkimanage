@@ -3,7 +3,7 @@
 // 機能: portal正本年度の旧会費加算を早期拒否し、支払済み判定をポータル請求へ接続する。
 declare(strict_types=1);
 
-/** 既存viewの共済判定は維持し、会員会費の列だけを正本から置き換える。 */
+/** R10: 救済基金の既存判定を維持し、会員会費だけを正本から置き換える。保険・協議会見舞金とは相互流用しない。 */
 function portal_annual_payment_status(PDO $db,int $user,int $year,array|false $legacy): array
 {
     $s=$db->prepare('SELECT source_mode FROM portal_years WHERE year=?');$s->execute([$year]);

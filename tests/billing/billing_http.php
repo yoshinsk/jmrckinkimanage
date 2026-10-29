@@ -177,6 +177,8 @@ $tr=submitMember($other,['member_type'=>'temporary','event_id'=>101]);$otherMemb
 check('既存entry会費があればポータル追加請求停止',billPost($other,'issue',$otherMember)['status']===409);
 require_once '/srv/web/entry/common/portal_billing.php';
 $legacy=['is_member_paid'=>0,'is_mutual_aid_paid'=>1];
+// R10: 会費が全額入金済みでも、独立した救済基金の支払済みにはしない。
+check('R10会費入金を救済基金へ流用しない',portal_annual_payment_status($db,3,$future,['is_member_paid'=>0,'is_mutual_aid_paid'=>0])===['is_member_paid'=>1,'is_mutual_aid_paid'=>0]);
 check('年度支払判定はポータル正本・共済は維持',portal_annual_payment_status($db,3,$future,$legacy)===['is_member_paid'=>1,'is_mutual_aid_paid'=>1]);
 check('旧年度の判定を維持',portal_annual_payment_status($db,3,$nowYear-1,$legacy)===$legacy);
 check('請求・入金・承認の監査記録',(int)$db->query("SELECT COUNT(DISTINCT action) FROM portal_audit_events WHERE action IN ('MEMBERSHIP_INVOICED','MEMBERSHIP_PAYMENT_CONFIRMED','MEMBERSHIP_PAYMENT_REVERSED','MEMBERSHIP_PAYMENT_REALLOCATED','GENERAL_AFFILIATION_APPROVED')")->fetchColumn()===5);

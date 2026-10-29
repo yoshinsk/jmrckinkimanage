@@ -58,7 +58,10 @@ final class CardService
         if (!$t || (int)$t['member_number_id']!==(int)$n['id'] || $t['expires_at']<=$this->now()) { return ['available'=>false,'can_issue'=>true]; }
         $plain=$box->open($t['token_cipher']??'','jmrc:card-token:v1:'.$member);
         if (!hash_equals($t['token_hash'],hash('sha256',$plain,true))) { throw new HttpFailure(503,'QR保管情報を確認してください'); }
-        return ['available'=>true,'can_issue'=>true,'year'=>(int)$m['year'],
+        // 氏名は本人プロフィールから毎回取得。採番元・匿名照会には含めない。
+        $profile=$this->run('SELECT last_name,first_name FROM portal_profiles WHERE user_id=?',[$actor])->fetch(PDO::FETCH_ASSOC);
+        $name=trim(implode(' ',array_filter([$profile['last_name']??'',$profile['first_name']??''],static fn($v)=>$v!=='')));
+        return ['available'=>true,'can_issue'=>true,'year'=>(int)$m['year'],'name'=>$name,
             'member_number'=>$box->open($n['number_cipher'],'jmrc:member-number:v1:'.$member),
             'club_abbreviation'=>$basis['club_abbreviation'],
             'license_type'=>$basis['license_type']?:($basis['kind']==='jaf_competition'?'JAF競技':'JAF審判員'),

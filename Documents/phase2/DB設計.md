@@ -110,7 +110,7 @@ membership.statusは管理状態/投影であり、active値だけで権利を�
 | テーブル | 主な列・制約 |
 | --- | --- |
 | portal_schemes | code VARCHAR(32) PK、name VARCHAR(128)、owner_scope VARCHAR(32)、enabled BOOLEAN。sports_safety/association_relief/gymkhana_fundを別コード |
-| portal_scheme_enrollments | id PK、membership_id FK、scheme_code FK、year FK、application_id FK、status VARCHAR(20)、coverage_from/coverage_until DATETIME?、beneficiary_cipher MEDIUMBLOB?、external_reference VARCHAR(128)?、activated_by? FK。UQ(membership_id,scheme_code,year)。基金の正本をこちらへ移すかはR10待ち |
+| portal_scheme_enrollments | id PK、membership_id FK、scheme_code FK、year FK、application_id FK、status VARCHAR(20)、coverage_from/coverage_until DATETIME?、beneficiary_cipher MEDIUMBLOB?、external_reference VARCHAR(128)?、activated_by? FK。UQ(membership_id,scheme_code,year)。R10で3制度の独立を確認済み。制度コード別に資格・入金を分離。基金の正本移管先は未確定 |
 | portal_insurance_batches | id PK、club_year_id FK、scheme_code FK、kind VARCHAR(16)（initial/additional）、status VARCHAR(20)、template_version VARCHAR(40)、submitted_at?、accepted_at?、created_by FK |
 | portal_insurance_batch_members | batch_id FK、enrollment_id FK、status VARCHAR(16)、PK(batch_id,enrollment_id)。申込済み加入の重複提出はサービスで拒否。初回4名や追加条件はR09確定後に適用 |
 | portal_documents | id PK、kind VARCHAR(32)、batch_id? FK、storage_key VARCHAR(255) UQ、sha256 BINARY(32)、template_version VARCHAR(40)、generated_by FK、generated_at DATETIME、visibility VARCHAR(24)、expires_at?。帳票を公開ディレクトリへ保存しない |

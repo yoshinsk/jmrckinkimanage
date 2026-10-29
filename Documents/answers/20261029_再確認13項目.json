@@ -1,0 +1,152 @@
+{
+  "checked_date": "2026-10-29",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit",
+  "sheet_name": "再確認13項目_20261027",
+  "sheet_id": 202610271,
+  "range": "A1:I14",
+  "rows": [
+    {
+      "id": "R01",
+      "priority": "高",
+      "question": "Generalはライセンス必須か。免許証のみでも加入可能か。両方を持たない事務局員は業務アカウントのみか",
+      "reason": "PDF p19必須とオートテストのみでもGeneral可の注記、ACC-02",
+      "answer": "Generalはライセンス必須。免許証のみでは入れないでOK。これは個人会員入会条件なので、事務局員は業務アカウントのみでOK。",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-27",
+      "status": "回答済み",
+      "notes": ""
+    },
+    {
+      "id": "R02",
+      "priority": "高",
+      "question": "General番号はライセンス番号-G-6桁クラブコードを正とし、会員証例を訂正してよいか。競技/審判員番号の採用順と変更時の扱い",
+      "reason": "PDF p10/p19、PPTX s19、MEM-04/CARD-01",
+      "answer": "会員証の例は訂正可。競技/審判員番号とは何？",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-27",
+      "status": "保留",
+      "notes": ""
+    },
+    {
+      "id": "R03",
+      "priority": "高",
+      "question": "先頭区分桁の数字対応表。年度区分変更・所属変更で会員番号を再発行するか",
+      "reason": "CLUB-01は固定5桁不変のみ回答",
+      "answer": "正会員クラブ先頭区分番号、１：公認クラブ、２：加盟クラブ、３：準加盟クラブ、６：加盟団体。会員番号再発行とは？個人会員は再発行あり。正会員は年度内変更、再発行なし。",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-27",
+      "status": "回答済み",
+      "notes": ""
+    },
+    {
+      "id": "R04",
+      "priority": "高",
+      "question": "Temporary申込主体・承認者、同日複数イベントの課金、General切替差額、当日取消の扱い",
+      "reason": "PDF p7/p19、MEM-06の現行準拠だけでは新機能分不明",
+      "answer": "Temporaryの申し込みはイベント主催者よりポータルに誘導。イベント主催クラブが申し込みを承認。開催日のみの限定会員。同日複数イベントは不許可、1イベントのみ。General切替は検討不要、新規登録。当日取り消しは無し。掛け捨て。",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-27",
+      "status": "回答済み",
+      "notes": ""
+    },
+    {
+      "id": "R05",
+      "priority": "高",
+      "question": "振込名義末尾は不要か、共通IDか請求番号か。免許証下4桁は補助照合のみでよいか",
+      "reason": "PAY-04と確定済みタブの相違",
+      "answer": "振込み名義末尾は不要だが、正会員の振込み（クラブ代表者）と個人会員の振り込み（審判員や選手）、スポーツ安全保険の重複の場合があるので区分は必要。申し込み時にID発行可能か？",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-27",
+      "status": "保留",
+      "notes": ""
+    },
+    {
+      "id": "R06",
+      "priority": "高",
+      "question": "CSV出力はクラブ代表・事務局・財務委員の3者か。財務委員も住所/受取人/免許/ライセンス全項目が必要か。申請中会員も対象か",
+      "reason": "AFF-04と確定済みタブの相違",
+      "answer": "CSV出力はクラブ代表、事務局、財務委員。出力データは選択可能にできないか？出来ない場合、財務委員は出力不要で可。そもそも、事務局登録者と財務委員登録者を分ける必要はないとも思う。事務局登録として複数名登録できれば問題ないか？",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-27",
+      "status": "保留",
+      "notes": ""
+    },
+    {
+      "id": "R07",
+      "priority": "高",
+      "question": "翌年未更新時の削除実行日・削除範囲、共通ID/過去申込/会計記録との関係。氏名・生年月日の訂正担当者",
+      "reason": "SEC-01、既存entryへの影響",
+      "answer": "",
+      "respondent": "",
+      "answer_date": "",
+      "status": "未回答",
+      "notes": ""
+    },
+    {
+      "id": "R08",
+      "priority": "高",
+      "question": "操作ログ2年保存を採用してよいか。ドラフト3か月の起算日、バックアップ保存期間・復元試験頻度・削除情報の復元時処理",
+      "reason": "確定済みタブ、SEC-02/03",
+      "answer": "",
+      "respondent": "",
+      "answer_date": "",
+      "status": "未回答",
+      "notes": ""
+    },
+    {
+      "id": "R09",
+      "priority": "高",
+      "question": "2027保険料・保険期間、初回4名の単位、ノンライセンス追加とTemporaryの加入可否。指定Excel形式維持が必要か",
+      "reason": "INS-02/04は具体値なし、PDF p6/p16",
+      "answer": "",
+      "respondent": "",
+      "answer_date": "",
+      "status": "未回答",
+      "notes": ""
+    },
+    {
+      "id": "R10",
+      "priority": "高",
+      "question": "個人会員正本移行後も救済基金はentryで管理継続か。協議会見舞金・部会基金・スポーツ安全保険の資格/入金を別制度としてよいか",
+      "reason": "INS-02、LINK-01",
+      "answer": "協議会見舞金はJMRC近畿の制度、救済基金はジムカーナ部会の制度、スポーツ安全保険はJMRC近畿が代理店を行っているもの、それぞれ独立したものです。",
+      "respondent": "KAKAE",
+      "answer_date": "2026-10-28",
+      "status": "回答済み",
+      "notes": ""
+    },
+    {
+      "id": "R11",
+      "priority": "中",
+      "question": "通知先/文面承認者。主催クラブと代表アカウントの共通化。職員登録承認者は事務局長（代理副委員長）か委員長か",
+      "reason": "AFF-03空欄、PDF p2/p15",
+      "answer": "",
+      "respondent": "",
+      "answer_date": "",
+      "status": "未回答",
+      "notes": ""
+    },
+    {
+      "id": "R12",
+      "priority": "高",
+      "question": "公開具体日、クラブ先行受付の必須機能、個人本人受付開始日、GO/NO GO責任者/日、Wix残置範囲",
+      "reason": "PDF p18、GEN-02",
+      "answer": "",
+      "respondent": "",
+      "answer_date": "",
+      "status": "未回答",
+      "notes": ""
+    },
+    {
+      "id": "R13",
+      "priority": "中",
+      "question": "会員証の氏名・入会日・期限・印影・証明文も表示するか。公開QRで表示できる項目",
+      "reason": "CARD-02とPDF p10の差",
+      "answer": "",
+      "respondent": "",
+      "answer_date": "",
+      "status": "未回答",
+      "notes": ""
+    }
+  ]
+}
