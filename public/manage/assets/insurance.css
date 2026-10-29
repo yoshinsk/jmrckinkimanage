@@ -1,0 +1,2 @@
+/* Path: public/manage/assets/insurance.css | 機能: 保険の意思確認チェック欄をスマートフォンでも読みやすく表示する。 */
+.license-form input[type=checkbox]{display:inline-block;width:1.3rem;min-height:1.3rem;vertical-align:middle;margin-right:.5rem}label{overflow-wrap:anywhere}

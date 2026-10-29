@@ -4,6 +4,8 @@
 declare(strict_types=1);
 
 return [
+    'insurance_intents_enabled' => getenv('JMRC_INSURANCE_INTENTS') === '1', // 加入確定ではなく意思受付のみ。
+    'insurance_template' => getenv('JMRC_INSURANCE_TEMPLATE') ?: null, // Web非公開の指定Excel原本。
     'license_self_service_enabled' => getenv('JMRC_LICENSE_SELF_SERVICE') === '1', // 既存情報の移行照合後に有効化。
     'data_key' => getenv('JMRC_PORTAL_DATA_KEY') ?: null, // Base64形式の32バイト鍵。口座情報のAES-GCM保管用。
     'card_public_url' => getenv('JMRC_CARD_PUBLIC_URL') ?: null, // https://gymkinki.com/manage/card-check.php

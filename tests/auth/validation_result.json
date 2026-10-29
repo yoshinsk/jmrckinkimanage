@@ -1755,6 +1755,198 @@
     {
       "case": "監査へ番号・元データを漏らさない",
       "result": "PASS"
+    },
+    {
+      "case": "保険匿名アクセス不可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険POSTのCSRF必須",
+      "result": "PASS"
+    },
+    {
+      "case": "保険は他人の会員登録を使用不可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険意思同意必須",
+      "result": "PASS"
+    },
+    {
+      "case": "未確定保険料の入力を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "保険加入確定アクションは未提供",
+      "result": "PASS"
+    },
+    {
+      "case": "保険GETは書込まない",
+      "result": "PASS"
+    },
+    {
+      "case": "申請中会員も加入意思だけ受付",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporaryも加入意思記録だけで可否保留",
+      "result": "PASS"
+    },
+    {
+      "case": "加入意思再送は重複しない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険本人一覧は他人の申請なし",
+      "result": "PASS"
+    },
+    {
+      "case": "保険代表は対象クラブ一覧を参照",
+      "result": "PASS"
+    },
+    {
+      "case": "保険事務局は対象一覧を参照",
+      "result": "PASS"
+    },
+    {
+      "case": "保険代表は他クラブを参照不可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険旧管理者roleだけでは出力不可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険global代表grantは使用不可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険本人に他会員の一覧を返さない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険財務専用権限では一覧不可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険出力もCSRF必須",
+      "result": "PASS"
+    },
+    {
+      "case": "保険GETでファイルを取得しない",
+      "result": "PASS"
+    },
+    {
+      "case": "他クラブ申請ID混入を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "保険出力重複選択を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "保険出力空選択を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "保険25行以上を黙って切捨てない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険指定形式を1名でも確認出力",
+      "result": "PASS"
+    },
+    {
+      "case": "保険出力の形式とキャッシュ禁止",
+      "result": "PASS"
+    },
+    {
+      "case": "保険Excelに氏名ふりがな生年月日",
+      "result": "PASS"
+    },
+    {
+      "case": "保険Excelに確認用と条件保留",
+      "result": "PASS"
+    },
+    {
+      "case": "保険Excelは年齢区分を判定しない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険Excelの計算チェーンを削除",
+      "result": "PASS"
+    },
+    {
+      "case": "保険指定様式パーツ保持 xl/styles.xml",
+      "result": "PASS"
+    },
+    {
+      "case": "保険指定様式パーツ保持 xl/workbook.xml",
+      "result": "PASS"
+    },
+    {
+      "case": "保険指定様式パーツ保持 xl/theme/theme1.xml",
+      "result": "PASS"
+    },
+    {
+      "case": "保険出力ハッシュと対象履歴",
+      "result": "PASS"
+    },
+    {
+      "case": "保険24名を事務局が出力",
+      "result": "PASS"
+    },
+    {
+      "case": "保険Excel特殊文字・式風氏名も出力可",
+      "result": "PASS"
+    },
+    {
+      "case": "保険出力は権限取消を即反映",
+      "result": "PASS"
+    },
+    {
+      "case": "保険所属変更後は旧クラブ出力不可",
+      "result": "PASS"
+    },
+    {
+      "case": "本人再申請で所属を更新",
+      "result": "PASS"
+    },
+    {
+      "case": "旧クラブ一覧から移動済み申請を除外",
+      "result": "PASS"
+    },
+    {
+      "case": "保険監査失敗で出力を返さない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険監査失敗で出力履歴ロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "保険意思受付・出力は課金加入を変更しない portal_invoices",
+      "result": "PASS"
+    },
+    {
+      "case": "保険意思受付・出力は課金加入を変更しない portal_payments",
+      "result": "PASS"
+    },
+    {
+      "case": "保険意思受付・出力は課金加入を変更しない portal_scheme_enrollments",
+      "result": "PASS"
+    },
+    {
+      "case": "保険受付は既定で無効",
+      "result": "PASS"
+    },
+    {
+      "case": "保険原本・内部テンプレートはWeb非公開",
+      "result": "PASS"
+    },
+    {
+      "case": "保険停止会員の再申請は確認保留",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -1762,6 +1954,139 @@
     "競技会GETは既存実コード。POSTは会費追加拒否のみ検証、通常申込完走/メール/帳票は別工程",
     "ブラウザーJS/画面外観は未検証"
   ],
+  "insurance_workbook_validation": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "指定原本のハッシュ固定",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx ZIP整合",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 書式・印刷設定・結合保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 行高を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 他パーツ不変",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 確認用と未確定条件を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 旧料率・区分・金額・年齢は空欄",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 記入例を削除",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 旧式とcalcChainなし",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview.xlsx 通常の会員番号を捏造しない",
+        "result": "PASS"
+      },
+      {
+        "case": "1名の氏名・カナ・生年月日を正しい欄へ",
+        "result": "PASS"
+      },
+      {
+        "case": "1名出力で残行を空欄保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx ZIP整合",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 書式・印刷設定・結合保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 行高を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 他パーツ不変",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 確認用と未確定条件を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 旧料率・区分・金額・年齢は空欄",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 記入例を削除",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 旧式とcalcChainなし",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-preview-24.xlsx 通常の会員番号を捏造しない",
+        "result": "PASS"
+      },
+      {
+        "case": "24名を最終行まで欠落なく出力",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx ZIP整合",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 書式・印刷設定・結合保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 行高を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 他パーツ不変",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 確認用と未確定条件を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 旧料率・区分・金額・年齢は空欄",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 記入例を削除",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 旧式とcalcChainなし",
+        "result": "PASS"
+      },
+      {
+        "case": "insurance-formula.xlsx 通常の会員番号を捏造しない",
+        "result": "PASS"
+      },
+      {
+        "case": "式風氏名とXML特殊文字は文字列のまま",
+        "result": "PASS"
+      }
+    ]
+  },
   "qr_client_validation": {
     "status": "PASS",
     "decoder": "jsqr@1.4.0",
@@ -1924,6 +2249,22 @@
         "result": "PASS"
       },
       {
+        "case": "chromium-mobile 保険意思をタッチ操作で受付",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 保険画面の横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 保険料確認待ちを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 事務局が実ブラウザーから指定Excelを取得",
+        "result": "PASS"
+      },
+      {
         "case": "chromium-mobile 期限更新を旧QRへ反映",
         "result": "PASS"
       },
@@ -1984,6 +2325,22 @@
         "result": "PASS"
       },
       {
+        "case": "webkit-mobile 保険意思をタッチ操作で受付",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 保険画面の横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 保険料確認待ちを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 事務局が実ブラウザーから指定Excelを取得",
+        "result": "PASS"
+      },
+      {
         "case": "webkit-mobile 期限更新を旧QRへ反映",
         "result": "PASS"
       },
@@ -2011,15 +2368,17 @@
     "artifacts": [
       "chromium-mobile-card.png",
       "chromium-mobile-changed.png",
+      "chromium-mobile-insurance.png",
       "chromium-mobile-license.png",
       "chromium-mobile-valid.png",
       "webkit-mobile-card.png",
       "webkit-mobile-changed.png",
+      "webkit-mobile-insurance.png",
       "webkit-mobile-license.png",
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-29T00:22:04.557954+00:00",
+  "checked_at_utc": "2026-10-29T00:54:42.694106+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -2037,15 +2396,17 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "8104e928d662c576475c596c7a9358ff7c382ef766cb3f532e57ce6d31be2583",
+    "src\\bootstrap.php": "c84f74838fb1bc0acbf232611c1f67b5287d6153e287cf912a6b4424a0a3b73c",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
-    "src\\Auth\\SharedAuth.php": "85ef9781194d2089ef18076312914517b97ab7c5d163db9376355806cf10d012",
+    "src\\Auth\\SharedAuth.php": "740e608bd231b181009a0ff8e4bc76acde915f246062fd634d97cd1e0264c8d0",
     "src\\Billing\\BillingService.php": "87699f175054648c28791f55440fa821c6fff7e7aec167ae903431f98dbe3f65",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
     "src\\Card\\CardService.php": "5022ab95bd3a786f2b4b02d992023beb2c73081b4c3ed9e23766fa607fb7d7ff",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
+    "src\\Insurance\\InsuranceService.php": "3b1b2ea190caf696c4a0c2a7dd842edd8a891349aebe7888765ca0f3a4ed1025",
+    "src\\Insurance\\InsuranceWorkbook.php": "14c0118c0eae33b60b33c0ee229e4a87bc9d1cf785c5113f2809da3b676dead4",
     "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
     "src\\License\\LicenseService.php": "4f9b533e72ead707c7642b6571dd58fe0bf7987ea59f58a7c61af46ba3c818ae",
     "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
@@ -2059,7 +2420,8 @@
     "public\\manage\\card-verify.php": "e049362a21c11520792f039ebb8691dbe137698ff9e8ce4583ffbbff302316cf",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "e3f55f3a918a0a7c0c3eb7c3be302ebfb1c116f1edab7ce25dd873e3cdfa9750",
+    "public\\manage\\index.php": "e30f6cf21fdb4cf7cc5c53a59b1d83ae412b71c93115eca35fd7115a1f7ae11f",
+    "public\\manage\\insurance.php": "04a8ce7dcfa5a2c21d821631747064c278c89db15495b663e3e2134cda03aa79",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
@@ -2078,12 +2440,20 @@
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\Dockerfile.browser": "982acd602cb72bc523a73489d5ee1302d73af0b519d4372c19db42fccb049a4e",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
-    "tests\\license\\mobile_browser.cjs": "2a203119b1ac2ca9e9e64eaf8ec0b4409259890864f443435790daaacd1ef8cf",
+    "tests\\license\\mobile_browser.cjs": "06784f5e38c11362a6beeeec8ae92596b7bd87c95199d459d43945e29552985b",
     "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
   },
   "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
+  "insurance_source_sha256": {
+    "tests\\insurance\\insurance_http.php": "807c626f5dc758d2eadaa1edf99d9fa04688dcf6bfff38c77ccdf218639bc16e",
+    "tests\\insurance\\verify_workbook.py": "a2ca12c3806963f41e95422dfaa51e0bd590e4e3ec1e448a8e9c1cbc09334c4c",
+    "templates\\insurance\\README.md": "4c3dd1882ea1ebaa357fc98b1a7f0fa826323a096cb77ecbc6cda24afbf54cc0",
+    "templates\\insurance\\sports.security.insurance_form_club.xlsx": "ec52243187269f4cb84a28a7fad445eb3b20eb667e2854ee46950d82d0a59613"
+  },
+  "insurance_migration_sha256": "98bfb301af1115d605d6db3acadac3c4e110bbae813ffc585136d3548a1bb95c",
+  "insurance_permissions_sha256": "77a14d889669d3f63d30cb08cad0fa8da170c449a6c140c5cac311b2cc65d0be",
   "card_test_source_sha256": {
     "tests\\card\\card_http.php": "01b9b48b376c10e3d2c16963aa64df3f81d10ba86cd886eb7cb8f58b5a535a8c",
     "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
@@ -2095,6 +2465,7 @@
     "public\\manage\\assets\\card-check.js": "8447d7a5f6f8f5fc7c06ae2d683df8d56a268b7b502154d199e81d87154571ca",
     "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
     "public\\manage\\assets\\cards.js": "e82a67943380f3818129cdc3a594cb513d85ce5c8ef59c6abee5c99f45685c3f",
+    "public\\manage\\assets\\insurance.css": "b990180c862e178d3e937e41da188b547ca79f5c84978ca09c6be35e75b54c6d",
     "public\\manage\\assets\\licenses.css": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
     "public\\manage\\assets\\qrcodegen.js": "2511bc17f40a3c41d4a0578995db956b38997334d3d20113a5d4dc5c49c69480",
     "public\\manage\\assets\\README.md": "172e836b7a087a1fa1bb70bdb08acf5c0149c75d745ec038b2e62b2df7b36f9f"
@@ -2118,19 +2489,19 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
-    "tests\\auth\\auth.config.php": "6fbb665a64722690f277cb9239233a14e226576bbea441956b59e10ae2e6b648",
+    "tests\\auth\\auth.config.php": "4a20a99a3e6a2df81ccd4a76dd66944e7f780507d1a10385e63ebfa99fd0d463",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
-    "tests\\auth\\Dockerfile.php": "f1b9f48e87e183eeeacfdc61539626fd756e42ecb984f58bee2ecf77af4983dd",
+    "tests\\auth\\Dockerfile.php": "2f937f8ca2a4a062911899530e63b297439794e94afdd6da0dc7f8df1fd67009",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
     "tests\\auth\\nginx.conf": "bd70f389bcc4cd5b8e998a6f228e023fcab16559395aba30a7923456a3abe6b5",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "01866e4ca91aa99aeb410ec8bcf74455ba3aba8689498e04741330dd47a8b5c3",
-    "tests\\auth\\run_http.php": "ca62ee4b8a80d78f2d21c8a117d1b3fe741c88b4548a755601357e2d62bf050c",
+    "tests\\auth\\README.md": "8623b1ab909733fff014c8a5a1906dd2bd82ebf51e30a0f432c4e88d89097e19",
+    "tests\\auth\\run_http.php": "582b2c9b42d1187a16c74d68846eaacab8ed76a536fc003a215c4cf20c8073e8",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "e7907d1ed34f36fead620027de1fd6b1a1e2eb803bd8ca8ff6c4770e8d1ed587"
+    "tests\\auth\\validate_auth.py": "d9087a04681a1189bb2e41b42da65ec1a81b24ded9f051ae92422e43fc57a687"
   },
-  "php_lint_files": 60,
+  "php_lint_files": 64,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

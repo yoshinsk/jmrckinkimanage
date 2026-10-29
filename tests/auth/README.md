@@ -1,5 +1,7 @@
 # 共通認証の隔離HTTP検証
 
+保険追加: 007・insurance_permissions.sql・tests/insuranceと固定原本を含めて実行する。PHP ZIP/DOM拡張が必要。HTTPの申請/権限/帳票生成に加え、独立Python ZIP/XML照合とChromium/WebKitの実ダウンロードを検証する。架空帳票はtmp/insurance_validation、実ブラウザーの画像/帳票はtmp/mobile_validationに保存する。
+
 ライセンス追加: 006・`license_permissions.sql`・`tests/license`・移行CLIを含めて実行する。固定Playwrightイメージとnpm依存をビルドし、専用internalネットワークでChromium/WebKitの実ブラウザー検証を行う。画像は`tmp/mobile_validation/`へ保存する。初回はブラウザーイメージ・日本語フォント等の取得に時間がかかる。
 
 会員証追加: 005と`tests/card`を実行する。事前に`npm.cmd ci --prefix tests/card --ignore-scripts --no-audit --no-fund`が必要。HTTP判定に加え、ローカルSVGの独立デコーダーによる復号・NodeでのDOM模擬検証を行う。実ブラウザーや実カメラの試験とは区別する。

@@ -39,6 +39,19 @@ async function run(engine,name,device,uid){
         check(name+' 匿名照会が有効・Cookieなし',(await anon.cookies()).length===0 && !publicPage.url().includes('#'));
         check(name+' トークンをリクエストURLへ載せない',requests.every(r=>!r.url.includes('#') && !r.url.includes('token=')));
         await publicPage.screenshot({path:`/artifacts/${name}-valid.png`,fullPage:true});
+        // 保険は本人の意思受付→対象権限の確認用ダウンロードまで。加入済みにはしない。
+        await page.goto('https://web/manage/insurance.php');await page.getByLabel('個人会員登録',{exact:true}).selectOption(String(membership.id));
+        await page.getByRole('checkbox',{name:/スポーツ安全保険への加入を希望/}).check();
+        await Promise.all([page.waitForNavigation(),page.getByRole('button',{name:'加入意思を記録する',exact:true}).tap()]);
+        check(name+' 保険意思をタッチ操作で受付',(await page.getByRole('status').innerText()).includes('加入意思を記録しました'));
+        check(name+' 保険画面の横はみ出しなし',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+        await page.screenshot({path:`/artifacts/${name}-insurance.png`,fullPage:true});
+        const intents=await (await owner.request.get('https://web/manage/insurance.php?format=json')).json();const intent=intents.requests.find(r=>Number(r.membership_id)===membership.id);
+        check(name+' 保険料確認待ちを表示',(await page.locator('body').innerText()).includes('加入可否・保険料確認待ち') && !!intent);
+        await finance.goto('https://web/manage/insurance.php?club_year_id=900');await finance.locator(`input[name="request_ids[]"][value="${intent.id}"]`).check();
+        const downloadEvent=finance.waitForEvent('download');await finance.getByRole('button',{name:'指定Excel形式で確認用出力',exact:true}).tap();const download=await downloadEvent;
+        await download.saveAs(`/artifacts/${name}-insurance.xlsx`);
+        check(name+' 事務局が実ブラウザーから指定Excelを取得',!await download.failure() && fs.readFileSync(`/artifacts/${name}-insurance.xlsx`).subarray(0,2).toString()==='PK');
         await page.goto('https://web/manage/licenses.php?id='+identifier.id);await page.getByLabel('有効期限',{exact:true}).fill('2000-01-01');await Promise.all([page.waitForNavigation(),page.getByRole('button',{name:'保存する',exact:true}).tap()]);await publicState(publicPage,false);
         check(name+' 期限更新を旧QRへ反映',!(await (await owner.request.get('https://web/manage/card.php?format=json&id='+membership.id)).json()).available);
         await page.goto('https://web/manage/licenses.php?id='+identifier.id);await page.getByLabel('有効期限',{exact:true}).fill('2099-12-31');await Promise.all([page.waitForNavigation(),page.getByRole('button',{name:'保存する',exact:true}).tap()]);await publicState(publicPage,true);
