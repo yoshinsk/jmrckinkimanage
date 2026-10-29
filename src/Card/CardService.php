@@ -1,6 +1,6 @@
 <?php
 // Path: src/Card/CardService.php
-// 機能: General本人の会員証・不透明QRを発行し、公開照会には最新資格の真偽だけを返す。
+// 機能: General本人の会員証・不透明QRを発行し、公開照会には有効時だけ氏名・会員番号を返す。
 declare(strict_types=1);
 namespace Jmrc\Card;
 use PDO;
@@ -79,18 +79,25 @@ final class CardService
         });
     }
 
-    /** 匿名照会は真偽のみ。ライセンス/番号/氏名/年度/所属/無効理由を外部へ返さない。 */
-    public function verify(mixed $token): bool
+    /** 内部の真偽APIは互換性を保つ。公開項目はR13の確定範囲だけに限定する。 */
+    public function verify(mixed $token): bool { return $this->publicDetails($token)['active']; }
+
+    /** 有効な不透明トークンと最新資格が揃った場合だけ氏名・番号を開示する。 */
+    public function publicDetails(mixed $token): array
     {
-        if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/D',$token)) { return false; }
-        $s=$this->run("SELECT t.*,n.source_fingerprint,n.source_identifier_id,n.club_year_id,n.source_kind,n.valid_until AS number_until
+        if (!is_string($token) || !preg_match('/^[a-f0-9]{64}$/D',$token)) { return ['active'=>false]; }
+        $s=$this->run("SELECT t.*,n.number_cipher,n.source_fingerprint,n.source_identifier_id,n.club_year_id,n.source_kind,n.valid_until AS number_until
             FROM portal_card_tokens t JOIN portal_member_numbers n ON n.id=t.member_number_id AND n.membership_id=t.membership_id
             JOIN portal_memberships m ON m.id=t.membership_id AND m.member_type='general'
             WHERE t.token_hash=? AND t.revoked_at IS NULL AND UTC_TIMESTAMP(6)<t.expires_at AND n.valid_until IS NULL",[hash('sha256',$token,true)]);
-        $t=$s->fetch(PDO::FETCH_ASSOC);if (!$t) { return false; }
+        $t=$s->fetch(PDO::FETCH_ASSOC);if (!$t) { return ['active'=>false]; }
         $member=(int)$t['membership_id'];
-        if (!(new Eligibility($this->db))->evaluate($member)['active']) { return false; }
-        $basis=$this->basis($member);return $this->matches($t,$basis,$this->fingerprint($basis,$this->box()));
+        if (!(new Eligibility($this->db))->evaluate($member)['active']) { return ['active'=>false]; }
+        $basis=$this->basis($member);$box=$this->box();
+        if(!$this->matches($t,$basis,$this->fingerprint($basis,$box))){return ['active'=>false];}
+        $profile=$this->run('SELECT last_name,first_name FROM portal_profiles WHERE user_id=?',[$basis['user_id']])->fetch(PDO::FETCH_ASSOC)?:[];
+        return ['active'=>true,'name'=>trim(($profile['last_name']??'').' '.($profile['first_name']??'')),
+            'member_number'=>$box->open($t['number_cipher'],'jmrc:member-number:v1:'.$member)];
     }
 
     private function owned(int $actor,int $member,bool $lock=false): array

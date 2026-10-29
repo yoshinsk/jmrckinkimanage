@@ -25,15 +25,16 @@ for(const [index,url] of fixtures.entries()) {
 }
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 async function main(){
-    const status=new Element(),button=new Element(),events={},windowEvents={},calls=[];let mode='valid',interval;
-    const document={hidden:false,getElementById:id=>id==='verification-status'?status:button,addEventListener:(k,fn)=>events[k]=fn};
-    const context=vm.createContext({document,window:{addEventListener:(k,fn)=>windowEvents[k]=fn},location:{hash:'#'+'a'.repeat(64),pathname:'/manage/card-check.php'},history:{replaceState:(...args)=>calls.push(['history',...args])},URLSearchParams,setInterval:fn=>{interval=fn;},fetch:async(url,options)=>{calls.push(['fetch',url,options]);if(mode==='offline'){throw Error();}return {ok:true,json:async()=>({active:mode==='valid'})};}});
+    const status=new Element(),button=new Element(),publicName=new Element(),publicNumber=new Element(),details=new Element(),events={},windowEvents={},calls=[];let mode='valid',interval;
+    const document={hidden:false,getElementById:id=>({'verification-status':status,'verification-name':publicName,'verification-number':publicNumber,'verification-details':details}[id]??button),addEventListener:(k,fn)=>events[k]=fn};
+    const context=vm.createContext({document,window:{addEventListener:(k,fn)=>windowEvents[k]=fn},location:{hash:'#'+'a'.repeat(64),pathname:'/manage/card-check.php'},history:{replaceState:(...args)=>calls.push(['history',...args])},URLSearchParams,setInterval:fn=>{interval=fn;},fetch:async(url,options)=>{calls.push(['fetch',url,options]);if(mode==='offline'){throw Error();}return {ok:true,json:async()=>({active:mode==='valid',name:'架空<氏名>',member_number:'TEST-G-100001'})};}});
     vm.runInContext(fs.readFileSync(path.join(assets,'card-check.js'),'utf8'),context);await flush();
     check('公開照会JSが有効を表示',status.dataset.active==='true');
+    check('公開氏名・番号をtextContentで表示',publicName.textContent==='架空<氏名>' && publicNumber.textContent==='TEST-G-100001' && !details.hidden);
     const request=calls.find(c=>c[0]==='fetch');
     check('断片をPOSTだけで送信しCookieを送らない',request[1]==='/manage/card-verify.php' && request[2].method==='POST' && request[2].credentials==='omit' && request[2].body.get('token')==='a'.repeat(64));
     check('アドレスバーから断片を除去',calls[0].at(-1)==='/manage/card-check.php');
-    mode='inactive';await interval();check('再照会で無効を表示',status.dataset.active==='false');
+    mode='inactive';await interval();check('無効時は氏名・番号も消去',details.hidden && publicName.textContent==='' && publicNumber.textContent==='');check('再照会で無効を表示',status.dataset.active==='false');
     mode='offline';await interval();check('通信障害時に有効を残さない',status.dataset.active===undefined && status.textContent.includes('照会できません'));
     mode='valid';await interval();document.hidden=true;events.visibilitychange();check('非表示時に照会結果を消去',status.dataset.active===undefined);
     document.hidden=false;events.visibilitychange();await flush();check('復帰時に再照会',status.dataset.active==='true');

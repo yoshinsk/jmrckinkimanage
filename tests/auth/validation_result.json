@@ -1373,7 +1373,7 @@
       "result": "PASS"
     },
     {
-      "case": "匿名照会は有効の真偽だけ",
+      "case": "匿名照会は有効時に氏名・会員番号だけ",
       "result": "PASS"
     },
     {
@@ -1385,7 +1385,7 @@
       "result": "PASS"
     },
     {
-      "case": "公開照会に個人情報なし",
+      "case": "公開照会に所属・年度・生年月日なし",
       "result": "PASS"
     },
     {
@@ -1789,7 +1789,15 @@
       "result": "PASS"
     },
     {
-      "case": "Temporaryも加入意思記録だけで可否保留",
+      "case": "Temporaryは保険加入意思を受付しない",
+      "result": "PASS"
+    },
+    {
+      "case": "以前のTemporary意思は代表一覧から除外",
+      "result": "PASS"
+    },
+    {
+      "case": "以前のTemporary意思の出力を拒否",
       "result": "PASS"
     },
     {
@@ -2475,6 +2483,138 @@
     {
       "case": "口座監査に番号・URL・理由を平文記録しない",
       "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正の権限拒否 匿名",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正の権限拒否 本人",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正の権限拒否 クラブ代表",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正の権限拒否 財務のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正の権限拒否 旧管理者",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正はCSRF必須",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール不正な日付を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール未来の生年月日を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正理由は必須",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール余分な権限入力を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局が氏名と閏日生年月日を訂正",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール版と暗号履歴が一件更新",
+      "result": "PASS"
+    },
+    {
+      "case": "訂正履歴は事務局が前後と理由を確認",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール履歴は平文ではない",
+      "result": "PASS"
+    },
+    {
+      "case": "訂正画面・履歴の氏名をエスケープ",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正は共通ID・会計を変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "古い版による上書きを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ訂正内容は版と履歴を増やさない",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール監査失敗は更新履歴をロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール権限取消を即反映",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール訂正は既定無効",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール監査に氏名や生年月日を含めない",
+      "result": "PASS"
+    },
+    {
+      "case": "生年月日未登録のまま氏名を訂正できる",
+      "result": "PASS"
+    },
+    {
+      "case": "プロフィール履歴はruntimeから上書き不可",
+      "result": "PASS"
+    },
+    {
+      "case": "未更新者のみ削除候補を抽出",
+      "result": "PASS"
+    },
+    {
+      "case": "削除候補確認は個人情報を削除しない",
+      "result": "PASS"
+    },
+    {
+      "case": "翌年4月30日前は候補なし",
+      "result": "PASS"
+    },
+    {
+      "case": "未入金・将来年度の意思は初回4名に数えない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険初回3名は人数不足",
+      "result": "PASS"
+    },
+    {
+      "case": "保険初回4名を満たしても保険料・期間は保留",
+      "result": "PASS"
+    },
+    {
+      "case": "受付日程案は本人1月1日・クラブ12月1日のJSTをUTC保存",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ2月7日終日の締切を翌日00時で表現",
+      "result": "PASS"
+    },
+    {
+      "case": "受付日程案では資格正本を切替えない",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -2672,11 +2812,19 @@
         "result": "PASS"
       },
       {
+        "case": "公開氏名・番号をtextContentで表示",
+        "result": "PASS"
+      },
+      {
         "case": "断片をPOSTだけで送信しCookieを送らない",
         "result": "PASS"
       },
       {
         "case": "アドレスバーから断片を除去",
+        "result": "PASS"
+      },
+      {
+        "case": "無効時は氏名・番号も消去",
         "result": "PASS"
       },
       {
@@ -2773,6 +2921,10 @@
         "result": "PASS"
       },
       {
+        "case": "chromium-mobile 公開QRは氏名・番号だけ表示",
+        "result": "PASS"
+      },
+      {
         "case": "chromium-mobile トークンをリクエストURLへ載せない",
         "result": "PASS"
       },
@@ -2825,6 +2977,18 @@
         "result": "PASS"
       },
       {
+        "case": "chromium-mobile 事務局が氏名・生年月日を画面訂正",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 訂正氏名が旧QRへ反映",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 訂正画面の横はみ出しなし",
+        "result": "PASS"
+      },
+      {
         "case": "chromium-mobile 期限更新を旧QRへ反映",
         "result": "PASS"
       },
@@ -2845,7 +3009,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium-mobile 公開画面は氏名・番号を表示しない",
+        "case": "chromium-mobile 無効な公開画面は氏名・番号を消去",
         "result": "PASS"
       },
       {
@@ -2878,6 +3042,10 @@
       },
       {
         "case": "webkit-mobile 匿名照会が有効・Cookieなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 公開QRは氏名・番号だけ表示",
         "result": "PASS"
       },
       {
@@ -2933,6 +3101,18 @@
         "result": "PASS"
       },
       {
+        "case": "webkit-mobile 事務局が氏名・生年月日を画面訂正",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 訂正氏名が旧QRへ反映",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 訂正画面の横はみ出しなし",
+        "result": "PASS"
+      },
+      {
         "case": "webkit-mobile 期限更新を旧QRへ反映",
         "result": "PASS"
       },
@@ -2953,7 +3133,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit-mobile 公開画面は氏名・番号を表示しない",
+        "case": "webkit-mobile 無効な公開画面は氏名・番号を消去",
         "result": "PASS"
       }
     ],
@@ -2964,6 +3144,7 @@
       "chromium-mobile-changed.png",
       "chromium-mobile-insurance.png",
       "chromium-mobile-license.png",
+      "chromium-mobile-profile-correct.png",
       "chromium-mobile-valid.png",
       "webkit-mobile-bank-settings.png",
       "webkit-mobile-bank.png",
@@ -2971,10 +3152,11 @@
       "webkit-mobile-changed.png",
       "webkit-mobile-insurance.png",
       "webkit-mobile-license.png",
+      "webkit-mobile-profile-correct.png",
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-29T02:21:02.524039+00:00",
+  "checked_at_utc": "2026-10-29T09:09:34.032476+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -2992,23 +3174,24 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "7901bb0be0ed02027d0685e9b86a92fd14a6ac07846ee4b83934223a0b48cf1b",
+    "src\\bootstrap.php": "0cce44823b30ee1e60d73b937a44beb1df85bd73eddb9c67327a1449c9aad80e",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
-    "src\\Auth\\SharedAuth.php": "235bae3a434769b0d09f42cc2e9174f1a605a91fc3275c7ec8611789330a2798",
+    "src\\Auth\\SharedAuth.php": "b95608336bb572234f59fb04a0b37508657f3b5af6d8800caf028d38ad686b12",
     "src\\Bank\\BankMasterService.php": "622498b9655c9e77efb491231c509880a04804b1520e762581b6d910d7683fa0",
     "src\\Bank\\BankService.php": "9b8c601471011589cb96335463026286292ea8ab263c7a4f28a32f1d381d8b7b",
     "src\\Bank\\YuchoCsv.php": "7411b88944e75184ab1b49e07c41071afe0e2cafab6f7b19679e36e73c6ee21a",
     "src\\Billing\\BillingService.php": "3f13f191a4188597840995d9252ab8750464bae15c458eca195a54a6524d4399",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
-    "src\\Card\\CardService.php": "5022ab95bd3a786f2b4b02d992023beb2c73081b4c3ed9e23766fa607fb7d7ff",
+    "src\\Card\\CardService.php": "f52f8f977f0841e4632fa2b54eb3e8dd5b46652177eb7dbe85d07a4d127ccbfb",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
-    "src\\Insurance\\InsuranceService.php": "3b1b2ea190caf696c4a0c2a7dd842edd8a891349aebe7888765ca0f3a4ed1025",
-    "src\\Insurance\\InsuranceWorkbook.php": "14c0118c0eae33b60b33c0ee229e4a87bc9d1cf785c5113f2809da3b676dead4",
+    "src\\Insurance\\InsuranceService.php": "ed0facf96d8cb6881ae41b02167b111ebf0c50db36e3f59a398b39c1faaaac54",
+    "src\\Insurance\\InsuranceWorkbook.php": "2401485c195249579ccba85ff8cccb81cef30293a4b3c19c79c1c97856be5bf0",
     "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
     "src\\License\\LicenseService.php": "4f9b533e72ead707c7642b6571dd58fe0bf7987ea59f58a7c61af46ba3c818ae",
     "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
+    "src\\Profile\\ProfileService.php": "d0b2c559ec111f53d6125d3a0e5f2f3c4e7704a9ee7a460fafa7d8c60ebea357",
     "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
     "integration\\jmrckinki\\common\\auth.php": "4922472547e93104e007b5c0f823b9128378a818024f0dda652a5e75009a7049",
@@ -3017,16 +3200,17 @@
     "public\\manage\\bank-settings.php": "1297d83d2e95a4f967ec20b9637c324dc6a8e0eb762582aaa068ef9bc6286d1a",
     "public\\manage\\bank.php": "f5717501a8fb004b304ef20624b039197c3a5542638c5df07dd03bd28a3a78fb",
     "public\\manage\\billing.php": "371a53387b5dc7213e284a9282847f21e690d84c0a69ebec6f7e488db10f7109",
-    "public\\manage\\card-check.php": "c70a1f158895dded5df1b5264c9ade8cd9df084f1634f178f25582a65539d22a",
-    "public\\manage\\card-verify.php": "e049362a21c11520792f039ebb8691dbe137698ff9e8ce4583ffbbff302316cf",
+    "public\\manage\\card-check.php": "0a88e4164a8b4343927cfd065457fcb9e7a1515f82f9cd75b6b149c0fb5fb9d7",
+    "public\\manage\\card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "7a0f6975ea541fee4e362ccd8e72664d00df250a6eb2901964207b48ff58cf98",
-    "public\\manage\\insurance.php": "04a8ce7dcfa5a2c21d821631747064c278c89db15495b663e3e2134cda03aa79",
+    "public\\manage\\index.php": "98f3555827b9382ca335f8bf09294f5c279dea257366509c1e50e8793fb62ffb",
+    "public\\manage\\insurance.php": "8ff65b26ce182991afa216af9c918b8ffdab62cd32aa6315c456e36fdce6c58b",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "5d66bb47cf51b440d393e01c7dc7b40ff55564defb4e5953058a472be773c973",
+    "public\\manage\\profile-correct.php": "262d93c282fb01e1871dba8154b83d80df32512b6901a87fc0b95ddf7d3c4077",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "a7f232691b53115bb7974868f8cae2adf5a3cafac978c47034c46bbb229b970b",
     "public\\manage\\_card-public.php": "49a9dadd09571b3e36a4ea3493ade87768c66fb3e3cb2a76336ccea9b2010fb2"
@@ -3041,14 +3225,14 @@
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\Dockerfile.browser": "982acd602cb72bc523a73489d5ee1302d73af0b519d4372c19db42fccb049a4e",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
-    "tests\\license\\mobile_browser.cjs": "4f2fe46975bf0df84d40ae16e8e1b5c99164ee195c5f95d5ba691caf1fa65351",
+    "tests\\license\\mobile_browser.cjs": "5e55efb1e6a3668b9ea0a8917fb717a666e3633a71b4d24c94e6d236ecb42792",
     "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
   },
   "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
   "insurance_source_sha256": {
-    "tests\\insurance\\insurance_http.php": "807c626f5dc758d2eadaa1edf99d9fa04688dcf6bfff38c77ccdf218639bc16e",
+    "tests\\insurance\\insurance_http.php": "643090230b3d65cd3ac54a9be17d92805f3303fc8061d742533861e08af89f66",
     "tests\\insurance\\verify_workbook.py": "a2ca12c3806963f41e95422dfaa51e0bd590e4e3ec1e448a8e9c1cbc09334c4c",
     "templates\\insurance\\README.md": "4c3dd1882ea1ebaa357fc98b1a7f0fa826323a096cb77ecbc6cda24afbf54cc0",
     "templates\\insurance\\sports.security.insurance_form_club.xlsx": "ec52243187269f4cb84a28a7fad445eb3b20eb667e2854ee46950d82d0a59613"
@@ -3064,18 +3248,24 @@
     "tests\\bank_master\\bank_master_http.php": "7e65119ba94bd591dac9fdc7f232131e21ea1439085f8bc23053136129480dea",
     "tests\\bank_master\\concurrent_bank_master.php": "5059e087d5875dc45ac8cf12fbf7614d2f56ed0840ff0816a5e3abf7cd2619b3"
   },
+  "profile_source_sha256": {
+    "tests\\profile\\profile_http.php": "db24ed387ea998c0cdf10e451b0f569f439350ad00e7c12fa52358359ad0af57"
+  },
+  "profile_migration_sha256": "627541a4aae173a7472cac4f77b6c2cad242d6b444f3fd3fd51f55c1e17dc6b7",
+  "profile_permissions_sha256": "aae5d2bb9e39956f2a8c87787e04ee9a345906d95b16d048f974b4ff29f3d4ee",
+  "registration_calendar_sha256": "c7491024c46af750d5ef08d122cbba540d4b33f3a7e44a2f3092eaa33dbf9d22",
   "bank_master_migration_sha256": "7f6ca252a62bb25b87ca584d21b7fc596a58673ac660d0eb78c55252e99c3498",
   "bank_master_permissions_sha256": "46ea63020eb0035fce292d1f31a564c49cb30fb7547ce23a3bc4d056c2d85839",
   "card_test_source_sha256": {
-    "tests\\card\\card_http.php": "01b9b48b376c10e3d2c16963aa64df3f81d10ba86cd886eb7cb8f58b5a535a8c",
+    "tests\\card\\card_http.php": "6ee5a68fec882d537a345e8998f84dc79dc3ece4b904682669318329e46cee99",
     "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
     "tests\\card\\package-lock.json": "9fdba27de8c049d1506eaa0845379bcb9d26b6a0fe0d0246ee7f49a616e2472c",
     "tests\\card\\package.json": "584edf8163591836fb860826a7d672910cdc6979183ad4812de7bcb6ee384983",
-    "tests\\card\\verify_qr.cjs": "6150d68d8e228ae08ea04dcb9090837be014530c914581387d7e7e0eee1df774"
+    "tests\\card\\verify_qr.cjs": "5d6b1e357b7d497d80c387913d2849c208fe800a0574b17010ddcea9d0d7bdbb"
   },
   "card_asset_sha256": {
     "public\\manage\\assets\\bank-settings.css": "e8a893cdcdb97e90ce4267800e14fe9b61091e265da0b9783c64008bf9e184dd",
-    "public\\manage\\assets\\card-check.js": "8447d7a5f6f8f5fc7c06ae2d683df8d56a268b7b502154d199e81d87154571ca",
+    "public\\manage\\assets\\card-check.js": "8472b0bbc89b7a0400fbfa1480c5cd20a74300d5f2ca65ca4bea16043075120b",
     "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
     "public\\manage\\assets\\cards.js": "e82a67943380f3818129cdc3a594cb513d85ce5c8ef59c6abee5c99f45685c3f",
     "public\\manage\\assets\\insurance.css": "b990180c862e178d3e937e41da188b547ca79f5c84978ca09c6be35e75b54c6d",
@@ -3102,19 +3292,19 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
-    "tests\\auth\\auth.config.php": "edd0ebbb69b44c16b4c9181dfce3817b53025093cd2925652779ad30ab1f24d0",
+    "tests\\auth\\auth.config.php": "39120bda014a701a81cad986eea9b53224f06eaa573d3449314526032d123c82",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "fa723464ab6aeddec80305ce30cf9108878ba9b43a12e58537e2a811675ccdc0",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "06b2c8cbe894a091819ee450adb700f039f32c7ab5c5d44a80f00a8683738cc0",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "a893df880829f7b261e681cb981cb08bc5362de64bd5cc4bc3485bafb967faf8",
-    "tests\\auth\\run_http.php": "3e76f6cd88d52821dbb70655cdc8a59a85e1c06373c23d347819f85c019e0f05",
+    "tests\\auth\\README.md": "df9ba20ad8402f9468af962952524694efdf19f05a4468844314977faf2432b4",
+    "tests\\auth\\run_http.php": "619aa71534c33e42a8832a652f2f42824d36748067ee6afd4aee464725c36a71",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "925dfca02c10b646c234bdc689821a7ebeb213e273e31cccdaecdccb6995f144"
+    "tests\\auth\\validate_auth.py": "77fec71c9f01ee517ee0d12140d656ff1445886f326484aea468b852f2995956"
   },
-  "php_lint_files": 73,
+  "php_lint_files": 76,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

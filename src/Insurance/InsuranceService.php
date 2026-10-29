@@ -9,7 +9,7 @@ final class InsuranceService
 {
     public function __construct(private readonly PDO $db,private readonly array $config) {}
 
-    /** 本人の個人会員登録だけに紐付ける。Temporaryも意思の記録のみで加入可否を決定しない。 */
+    /** 本人の個人会員登録だけに紐付ける。Generalのみを対象とし、Temporary・ライセンスなしは受付しない。 */
     public function request(int $actor,int $membership,bool $consent): array
     {
         $this->enabled();if(!$consent){throw new HttpFailure(422,'加入意思の確認が必要です');}
@@ -17,6 +17,7 @@ final class InsuranceService
             $this->actor($actor);
             $m=$this->one('SELECT * FROM portal_memberships WHERE id=? AND user_id=? FOR UPDATE',[$membership,$actor]);
             if(!$m){throw new HttpFailure(404,'本人の個人会員登録がありません');}
+            if($m['member_type']!=='general'){throw new HttpFailure(422,'スポーツ安全保険はGeneralのみです。Temporaryは加入できません');}
             $club=$this->currentClub($membership);
             if(!$club){throw new HttpFailure(409,'現在の所属・主催クラブ登録を確認してください');}
             $old=$this->one('SELECT * FROM portal_insurance_requests WHERE membership_id=? FOR UPDATE',[$membership]);
@@ -52,6 +53,14 @@ final class InsuranceService
         $rows=$this->run('SELECT r.*,m.user_id,m.member_type FROM portal_insurance_requests r JOIN portal_memberships m ON m.id=r.membership_id WHERE r.club_year_id=? ORDER BY r.id',[$clubYear])->fetchAll(PDO::FETCH_ASSOC);$out=[];
         foreach($rows as $r){if($this->currentClub((int)$r['membership_id'])===$clubYear){$out[]=$this->publicRow($r)+$this->person($r)+['member_type'=>$r['member_type']];}}
         return $out;
+    }
+    /** 初回4名はクラブ・年度単位。有効Generalの意思だけを数え、確認票の生成を加入実績にしない。 */
+    public function readiness(int $actor,int $clubYear): array
+    {
+        $rows=$this->listing($actor,$clubYear);$count=0;
+        foreach($rows as $row){if((new \Jmrc\Billing\Eligibility($this->db))->evaluate((int)$row['membership_id'])['active']){$count++;}}
+        return ['eligible_count'=>$count,'initial_required'=>4,'initial_minimum_met'=>$count>=4,
+            'policy_hold'=>true,'can_submit'=>false];
     }
     /** 出力はPOST+CSRFから呼ぶ。帳票生成・対象版の記録・監査を同一トランザクションで確定する。 */
     public function export(int $actor,int $clubYear,array $ids): array
@@ -97,10 +106,12 @@ final class InsuranceService
     {
         $rows=$this->run("SELECT m.member_type,f.club_year_id,e.organizer_club_year_id FROM portal_memberships m
             JOIN portal_applications a ON a.id=m.application_id JOIN portal_years y ON y.year=m.year
+            JOIN portal_identifiers i ON i.id=m.general_license_identifier_id AND i.user_id=m.user_id AND i.kind=m.general_license_kind AND i.kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(i.value_cipher)>0
+            AND (i.expires_on IS NULL OR i.expires_on>=DATE(CONVERT_TZ(UTC_TIMESTAMP(),'+00:00','+09:00')))
             JOIN users u ON u.id=m.user_id JOIN portal_account_controls c ON c.user_id=u.id
             LEFT JOIN portal_affiliations f ON f.membership_id=m.id AND f.valid_until IS NULL AND f.status IN ('pending','approved')
             LEFT JOIN portal_events e ON e.id=m.event_id AND e.year=m.year
-            WHERE m.id=? AND m.status<>'suspended' AND a.status IN ('submitted','approved') AND y.source_mode='portal'
+            WHERE m.id=? AND m.member_type='general' AND m.status<>'suspended' AND a.status IN ('submitted','approved') AND y.source_mode='portal'
             AND UTC_TIMESTAMP(6)<y.valid_until AND u.email_verified=1 AND c.status='active'",[$member])->fetchAll(PDO::FETCH_ASSOC);
         if(count($rows)!==1){return null;}$r=$rows[0];$id=$r['member_type']==='general'?$r['club_year_id']:$r['organizer_club_year_id'];return $id===null?null:(int)$id;
     }

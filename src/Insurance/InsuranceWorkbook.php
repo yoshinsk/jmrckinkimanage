@@ -24,7 +24,7 @@ final class InsuranceWorkbook
             $opened=true;
             $doc=$this->xml($zip->getFromName('xl/worksheets/sheet1.xml'));
             $values=['A1'=>'作成日 '.(new \DateTimeImmutable('now',new \DateTimeZone('Asia/Tokyo')))->format('Y年n月j日'),
-                'A4'=>'確認用・提出不可（保険料・加入条件未確定）','A7'=>'確認用・提出不可。加入可否・料率・保険期間は未確定です。',
+                'A4'=>'確認用・提出不可（保険料・期間未確定）','A7'=>'確認用・提出不可。General限定・初回クラブ4名。料率・保険期間は未確定です。',
                 'E5'=>$club['name_full'],'T5'=>$club['display_code'],'E6'=>$club['contact_name'],'Q6'=>'',
                 'A38'=>'加入区分・保険料：確認待ち','A39'=>''];
             // 旧固定料率と計算結果を残さない。保険期間が不明なため年齢も算出しない。

@@ -81,6 +81,9 @@ def main():
         shutil.copyfile(source,context/'tests'/source.name)
     for source in (ROOT/'tests/bank_master').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
+    for source in (ROOT/'tests/profile').glob('*.php'):
+        shutil.copyfile(source,context/'tests'/source.name)
+    shutil.copyfile(ROOT/'design/phase2/2027_registration_calendar.proposal.sql',context/'tests/registration_calendar.sql')
     shutil.copytree(ROOT/'templates',context/'templates')
     (context/'scripts').mkdir()
     shutil.copyfile(ROOT/'scripts/license_migrate.php',context/'scripts/license_migrate.php')
@@ -128,6 +131,7 @@ def main():
         db_sql((ROOT/'design/phase2/007_insurance_intents.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/008_yucho_import.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/009_bank_master_management.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/010_profile_corrections.sql').read_text(encoding='utf-8'))
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
                "CREATE USER 'auth_runtime'@'%' IDENTIFIED BY 'lab_runtime_only';"
@@ -156,6 +160,8 @@ def main():
         db_sql("GRANT UPDATE(display_name,enabled,row_version,updated_by,updated_at) ON jmrckinki_auth_lab.portal_bank_sources TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT,UPDATE,DELETE ON jmrckinki_auth_lab.portal_bank_source_accounts TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_bank_master_changes TO 'auth_runtime'@'%';")
+        db_sql("GRANT UPDATE(last_name,first_name,birthday,row_version) ON jmrckinki_auth_lab.portal_profiles TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_profile_changes TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)
@@ -171,6 +177,7 @@ def main():
         db_sql((ROOT/'design/phase2/club_permissions.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/license_permissions.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/insurance_permissions.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/profile_permissions.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/bank_master_permissions.sql').read_text(encoding='utf-8'))
         nginx=docker('exec',NAMES[0],'nginx','-t')
         assert b'successful' in nginx.stderr
@@ -229,6 +236,10 @@ def main():
         report['bank_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/008_yucho_import.sql').read_bytes()).hexdigest()
         report['bank_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/bank').iterdir() if p.is_file()}
         report['bank_master_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/bank_master').iterdir() if p.is_file()}
+        report['profile_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for folder in ['tests/profile'] for p in (ROOT/folder).iterdir() if p.is_file()}
+        report['profile_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/010_profile_corrections.sql').read_bytes()).hexdigest()
+        report['profile_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/profile_permissions.sql').read_bytes()).hexdigest()
+        report['registration_calendar_sha256']=hashlib.sha256((ROOT/'design/phase2/2027_registration_calendar.proposal.sql').read_bytes()).hexdigest()
         report['bank_master_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/009_bank_master_management.sql').read_bytes()).hexdigest()
         report['bank_master_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/bank_master_permissions.sql').read_bytes()).hexdigest()
         report['card_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/card').iterdir() if p.is_file()}

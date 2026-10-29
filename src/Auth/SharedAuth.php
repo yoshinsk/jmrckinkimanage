@@ -15,7 +15,7 @@ final class SharedAuth
         'club.registration.write', 'club.registration.approve',
         'identifiers.migrate',
         'insurance.export',
-        'billing.accounts.manage',
+        'billing.accounts.manage', 'profiles.correct',
     ];
     private const ROLE_PATHS = [1 => '/entry/admin/events.php', 2 => '/entry/club/events.php', 3 => '/entry/entrant/events.php'];
     private const RETURNS = ['dashboard' => '/manage/'];

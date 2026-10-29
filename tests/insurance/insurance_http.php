@@ -30,12 +30,15 @@ $before=insuranceCounts($db);$insOwner->request('/manage/insurance.php?format=js
 $money=[];foreach(['portal_invoices','portal_payments','portal_scheme_enrollments'] as $t){$money[$t]=(int)$db->query('SELECT COUNT(*) FROM '.$t)->fetchColumn();}
 $r=insurancePost($insOwner,$insData);$intent=json_decode($r['body'],true);$insuranceRequests[]=$intent['id'];
 check('申請中会員も加入意思だけ受付',$r['status']===200 && $intent['policy_hold']===true && $intent['insurance_active']===false);
-// Temporaryの可否は未確定。年度資格を付与せず、意思の記録に限る。
+// R09: Temporaryは加入意思の受付自体を拒否する。
 $st->execute([86,'u86@example.invalid',password_hash('lab-password-only',PASSWORD_DEFAULT)]);$db->exec('INSERT INTO portal_account_controls(user_id) VALUES(86)');
 $db->exec("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key) VALUES('temporary',86,$insuranceYear,'submitted','insurance-temporary-86')");$tempApp=(int)$db->lastInsertId();
 $db->exec("INSERT INTO portal_memberships(user_id,year,member_type,event_id,application_id,participation_date) SELECT 86,year,'temporary',id,$tempApp,participation_date FROM portal_events WHERE id=101");$tempMember=(int)$db->lastInsertId();
-$tempBrowser=new Browser();$tempBrowser->login(86);$tempIntent=json_decode(insurancePost($tempBrowser,['action'=>'request','membership_id'=>$tempMember,'consent'=>'1'])['body'],true);
-check('Temporaryも加入意思記録だけで可否保留',$tempIntent['policy_hold']===true && $tempIntent['insurance_active']===false);
+$tempBrowser=new Browser();$tempBrowser->login(86);$tempIntent=insurancePost($tempBrowser,['action'=>'request','membership_id'=>$tempMember,'consent'=>'1']);
+check('Temporaryは保険加入意思を受付しない',$tempIntent['status']===422);
+$db->exec("INSERT INTO portal_insurance_requests(membership_id,year,club_year_id,consented_at) VALUES($tempMember,$insuranceYear,101,UTC_TIMESTAMP(6))");$oldTempIntent=(int)$db->lastInsertId();
+check('以前のTemporary意思は代表一覧から除外',!in_array($oldTempIntent,array_column(json_decode($insRep->request('/manage/insurance.php?format=json&club_year_id=101')['body'],true)['requests'],'id')));
+check('以前のTemporary意思の出力を拒否',insurancePost($insRep,['action'=>'export','club_year_id'=>101,'request_ids'=>[$oldTempIntent]])['status']===409);
 $before=insuranceCounts($db);$replayed=json_decode(insurancePost($insOwner,$insData)['body'],true);
 check('加入意思再送は重複しない',$replayed['id']===$intent['id'] && $replayed['replayed'] && insuranceCounts($db)===$before);
 check('保険本人一覧は他人の申請なし',count(json_decode($insOwner->request('/manage/insurance.php?format=json')['body'],true)['requests'])===1);
@@ -62,7 +65,7 @@ check('保険出力の形式とキャッシュ禁止',str_contains($headers,'spr
 file_put_contents('/tmp/insurance-preview.xlsx',$file['body']);
 $tmp=tempnam('/tmp','insurance-test-');file_put_contents($tmp,$file['body']);$zip=new ZipArchive();$zip->open($tmp);$sheet=$zip->getFromName('xl/worksheets/sheet1.xml');
 check('保険Excelに氏名ふりがな生年月日',$sheet!==false && str_contains($sheet,'保険60') && str_contains($sheet,'カクウ') && str_contains($sheet,'1990.04.01'));
-check('保険Excelに確認用と条件保留',$sheet!==false && str_contains($sheet,'提出不可') && str_contains($sheet,'加入条件未確定') && !str_contains($sheet,'<f>'));
+check('保険Excelに確認用と条件保留',$sheet!==false && str_contains($sheet,'提出不可') && str_contains($sheet,'保険料・期間未確定') && !str_contains($sheet,'<f>'));
 check('保険Excelは年齢区分を判定しない',str_contains($sheet,'r="B11" s=') && !str_contains($sheet,'<t xml:space="preserve">Ｃ</t>'));
 check('保険Excelの計算チェーンを削除',$zip->getFromName('xl/calcChain.xml')===false && !str_contains($zip->getFromName('xl/_rels/workbook.xml.rels'),'/calcChain'));
 $source=new ZipArchive();$source->open('/srv/auth/templates/insurance/sports.security.insurance_form_club.xlsx');

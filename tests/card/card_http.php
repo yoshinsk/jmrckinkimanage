@@ -63,10 +63,10 @@ $before=cardCounts($db);$again=json_decode(cardPost($owner,$member)['body'],true
 check('同一発行の再送は番号・QRを増やさない',$again['qr_url']===$card['qr_url'] && cardCounts($db)===$before);
 check('本人HTMLにも会員証を表示',str_contains($owner->request('/manage/card.php?id='.$member)['body'],$license.'-G-100003'));
 $public=verifyQr($anonymous,$token);$headers=implode("\n",$anonymous->lastHeaders);
-check('匿名照会は有効の真偽だけ',$public['status']===200 && json_decode($public['body'],true)===['active'=>true]);
+check('匿名照会は有効時に氏名・会員番号だけ',$public['status']===200 && json_decode($public['body'],true)===['active'=>true,'name'=>$renamed['name'],'member_number'=>$card['member_number']]);
 check('公開レスポンスはキャッシュ禁止・参照元送信禁止',stripos($headers,'Cache-Control: no-store')!==false && stripos($headers,'Referrer-Policy: no-referrer')!==false);
 check('匿名照会でCookieを発行しない',stripos($headers,'Set-Cookie:')===false);
-check('公開照会に個人情報なし',!str_contains($public['body'],$license) && !str_contains($public['body'],'club') && !str_contains($public['body'],(string)$nowYear));
+check('公開照会に所属・年度・生年月日なし',!str_contains($public['body'],'club') && !str_contains($public['body'],'year') && !str_contains($public['body'],'birthday'));
 check('公開照会GETは拒否',$anonymous->request('/manage/card-verify.php?token='.$token)['status']===405);
 check('未知・改竄トークンは無効',!qrActive($anonymous,str_repeat('a',64)) && !qrActive($anonymous,substr($token,0,63).($token[63]==='a'?'b':'a')));
 check('配列トークンも無効',json_decode(verifyQr($anonymous,['bad'])['body'],true)===['active'=>false]);
