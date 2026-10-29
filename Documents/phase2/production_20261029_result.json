@@ -1,0 +1,141 @@
+{
+  "status": "PASS",
+  "matched_files": 50,
+  "deployment": {
+    "release": "076a4b1000eaa1885ad02bfc5e82cf8fbc8163dc",
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/20261029T092700Z",
+    "phase": "verified",
+    "entry_files": [
+      "common/portal_billing.php",
+      "common/portal_registration.php",
+      "register_handler.php",
+      "entrant/entries.php",
+      "common/auth.php",
+      "common/csrf.php",
+      "login.php",
+      "logout.php"
+    ],
+    "office_user_id": 3,
+    "unchanged_user_snapshot": "305\t296\tf97c156840f25bc93f6dcc266c368c86cc0e41ad1d40ab7c8f58480784330740",
+    "user_snapshot_matches_backup": true,
+    "legacy_session_until": "2026-10-29T10:42:22Z",
+    "initial_release": "36e5e1791d7796df3db49b8607467189525ecd5c",
+    "verified_at_utc": "2026-10-29T09:48:32.383628+00:00",
+    "deployed_file_hashes_matched": 50
+  },
+  "live_verification": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "匿名manageはログインへ",
+        "result": "PASS"
+      },
+      {
+        "case": "既存サインイン画面が正常",
+        "result": "PASS"
+      },
+      {
+        "case": "匿名の無効QRは個人情報なし",
+        "result": "PASS"
+      },
+      {
+        "case": "非公開設定を取得できない",
+        "result": "PASS"
+      },
+      {
+        "case": "既存アカウントの本番サインイン",
+        "result": "PASS"
+      },
+      {
+        "case": "既存の競技会画面が正常",
+        "result": "PASS"
+      },
+      {
+        "case": "同じ認証でmanageへ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "受付開始前の案内を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "指定事務局に入金先設定権限あり",
+        "result": "PASS"
+      },
+      {
+        "case": "指定事務局に会員情報訂正権限あり",
+        "result": "PASS"
+      },
+      {
+        "case": "不正CSRFを拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "共通ログアウトが成功",
+        "result": "PASS"
+      },
+      {
+        "case": "manageログアウトが旧entryへ反映",
+        "result": "PASS"
+      },
+      {
+        "case": "既存305ユーザーの認証情報を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "全既存ユーザーに認証状態あり",
+        "result": "PASS"
+      },
+      {
+        "case": "年度の資格参照先は未切替",
+        "result": "PASS"
+      }
+    ],
+    "existing_users": 305,
+    "verified_existing_users": 296,
+    "synthetic_users_created": false,
+    "business_records_created": false,
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/20261029T092700Z"
+  },
+  "existing_data": {
+    "status": "PASS",
+    "existing_data": {
+      "users": {
+        "equal": true,
+        "rows": 305
+      },
+      "roles": {
+        "equal": true,
+        "rows": 3
+      },
+      "entrants": {
+        "equal": true,
+        "rows": 290
+      },
+      "clubs": {
+        "equal": true,
+        "rows": 8
+      },
+      "jmrc_affiliated_clubs": {
+        "equal": true,
+        "rows": 110
+      },
+      "jmrc_annual_memberships": {
+        "equal": true,
+        "rows": 293
+      },
+      "jmrc_events": {
+        "equal": true,
+        "rows": 11
+      },
+      "jmrc_entries": {
+        "equal": true,
+        "rows": 1200
+      },
+      "jmrc_entry_fees": {
+        "equal": true,
+        "rows": 1508
+      }
+    }
+  }
+}

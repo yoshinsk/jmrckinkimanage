@@ -189,6 +189,22 @@ def main():
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
         result=docker('exec','--user','www-data',NAMES[1],'php','/srv/tests/run_http.php',timeout=180)
         report=json.loads(result.stdout)
+        # Pleskのclear_env相当で環境変数なしの既定パスも検証する。隔離コンテナ内だけのsymlink。
+        fallback='/var/www/vhosts/gymkinki.com/private/jmrc-portal'
+        docker('exec',NAMES[1],'mkdir','-p',fallback)
+        docker('exec',NAMES[1],'ln','-s','/srv/auth',fallback+'/current')
+        docker('exec',NAMES[1],'ln','-s','/srv/private/auth.config.php',fallback+'/auth.config.php')
+        fallback_cases=[]
+        for path in ['/srv/web/manage/_bootstrap.php','/srv/web/entry/common/auth.php','/srv/web/manage/card-verify.php']:
+            code="$_SERVER['REQUEST_METHOD']='POST';$_POST['token']=str_repeat('0',64);require "+json.dumps(path)+";"
+            if not path.endswith('card-verify.php'):
+                code+="echo 'BOOTSTRAP_OK';"
+            out=docker('exec','-i','--user','www-data',NAMES[1],'env','-u','JMRC_AUTH_BOOTSTRAP','-u','JMRC_AUTH_CONFIG','php',data=('<?php '+code).encode())
+            expected=b'{"active":false}' if path.endswith('card-verify.php') else b'BOOTSTRAP_OK'
+            assert out.stdout==expected and not out.stderr,path
+            fallback_cases.append({'case':'環境変数なしの既定パス '+path.rsplit('/',1)[-1],'result':'PASS'})
+        report['production_bootstrap_validation']={'status':'PASS','cases':fallback_cases}
+
         insurance_artifacts=ROOT/'tmp/insurance_validation'
         insurance_artifacts.mkdir(exist_ok=True)
         insurance_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',insurance_artifacts.as_posix()]).stdout.decode().strip()

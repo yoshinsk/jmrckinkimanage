@@ -2674,6 +2674,23 @@
     "競技会GETは既存実コード。POSTは会費追加拒否のみ検証、通常申込完走/メール/帳票は別工程",
     "ブラウザーJS/画面外観は未検証"
   ],
+  "production_bootstrap_validation": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "環境変数なしの既定パス _bootstrap.php",
+        "result": "PASS"
+      },
+      {
+        "case": "環境変数なしの既定パス auth.php",
+        "result": "PASS"
+      },
+      {
+        "case": "環境変数なしの既定パス card-verify.php",
+        "result": "PASS"
+      }
+    ]
+  },
   "insurance_workbook_validation": {
     "status": "PASS",
     "cases": [
@@ -3208,7 +3225,7 @@
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-29T09:40:05.345380+00:00",
+  "checked_at_utc": "2026-10-29T09:48:57.538064+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -3269,7 +3286,7 @@
     "public\\manage\\profile-correct.php": "262d93c282fb01e1871dba8154b83d80df32512b6901a87fc0b95ddf7d3c4077",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
-    "public\\manage\\_card-public.php": "49a9dadd09571b3e36a4ea3493ade87768c66fb3e3cb2a76336ccea9b2010fb2"
+    "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
@@ -3359,7 +3376,7 @@
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
     "tests\\auth\\run_http.php": "986b2089f5ccfe61f52fdf84bb0f9919958b6975cddc900d06615f7e7e2dce2a",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "d581d559f6eb1dfd96c3de91fa276c105bcef96bff053daa33aacc3b8a5ee59f"
+    "tests\\auth\\validate_auth.py": "396166a317361a59fffc469287e27ba06f1b40ba26ea29f8affdfedebf741fbe"
   },
   "php_lint_files": 82,
   "network_internal": true,

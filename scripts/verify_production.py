@@ -29,6 +29,7 @@ def main():
     # FPMの対象ファイルだけを無効化し、他サイト全体のOPcacheをリセットしない。
     private=Path('/var/www/vhosts/gymkinki.com/private/jmrc-portal')
     probe=private/'cache_refresh.php';paths=[str(p) for p in (private/'current/src').rglob('*.php')]
+    paths += [str(p) for p in Path('/var/www/vhosts/gymkinki.com/httpdocs/manage').glob('*.php')]
     entry=Path('/var/www/vhosts/gymkinki.com/httpdocs/entry')
     paths += [str(entry/p) for p in ['common/auth.php','common/csrf.php','common/portal_billing.php','common/portal_registration.php','register_handler.php','entrant/entries.php','login.php','logout.php']]
     array=','.join("'"+p+"'" for p in paths)
