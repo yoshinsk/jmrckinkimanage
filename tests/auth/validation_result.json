@@ -2667,6 +2667,66 @@
     {
       "case": "ポータル情報がある未確認IDは再登録破壊を防止",
       "result": "PASS"
+    },
+    {
+      "case": "マイページの事務局専用メニュー",
+      "result": "PASS"
+    },
+    {
+      "case": "マイページの事務局クラブ登録と会計",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局globalだけではTemporary主催承認を出さない",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブscopeの年度登録とTemporaryメニュー",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ代表へ事務局設定を表示しない",
+      "result": "PASS"
+    },
+    {
+      "case": "旧管理者ロールだけではポータル管理メニューなし",
+      "result": "PASS"
+    },
+    {
+      "case": "会員メニューは切替済み年度で表示",
+      "result": "PASS"
+    },
+    {
+      "case": "マイページ個人表示はno-store",
+      "result": "PASS"
+    },
+    {
+      "case": "誤ったglobalのクラブ代表に管理導線なし",
+      "result": "PASS"
+    },
+    {
+      "case": "マイページに事務局権限取消を即反映",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局取消後も独立した財務権限を保持",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ権限取消で年度登録と承認メニューを除外",
+      "result": "PASS"
+    },
+    {
+      "case": "shadowだけの時は登録・会計・会員証を準備中にする",
+      "result": "PASS"
+    },
+    {
+      "case": "アカウント表示をHTMLとして実行させない",
+      "result": "PASS"
+    },
+    {
+      "case": "マイページ閲覧で申請・請求・入金を作らない",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -3309,7 +3369,985 @@
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-30T00:35:39.751827+00:00",
+  "dashboard_browser_validation": {
+    "status": "PASS",
+    "cases": [
+      {
+        "case": "chromium 通常 entrant 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 切替済み年度の会員導線",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant クラブ権限の導線",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 entrant 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 切替済み年度の会員導線",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office クラブ権限の導線",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 office 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 切替済み年度の会員導線",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club クラブ権限の導線",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 通常 club 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 切替済み年度の会員導線",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant クラブ権限の導線",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 entrant 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 切替済み年度の会員導線",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office クラブ権限の導線",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 office 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 切替済み年度の会員導線",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club クラブ権限の導線",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 通常 club 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 保留中の書込導線がリンクにならない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 展開後も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 準備中をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 entrant 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 保留中の書込導線がリンクにならない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 展開後も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 準備中をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 保留中の書込導線がリンクにならない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 展開後も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 準備中をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 保留中の書込導線がリンクにならない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 展開後も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 準備中をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 保留中の書込導線がリンクにならない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 展開後も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 準備中をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 office 共通ログアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 本人アカウントを表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅320pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅320pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅375pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅375pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅390pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅390pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅412pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅412pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅844pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅844pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅1280pxで横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 幅1280pxで操作対象44px以上",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 事務局メニューの出し分け",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 保留中の書込導線がリンクにならない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 展開後も横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 準備中をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 長いメールと200%文字でも横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 既存entryへタッチ移動",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club 共通ログアウト後は再認証",
+        "result": "PASS"
+      }
+    ],
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "hold_javascript_disabled": true
+  },
+  "checked_at_utc": "2026-10-30T01:00:11.359059+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -3363,7 +4401,7 @@
     "public\\manage\\card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "43026f1d5afa8cba105b94470ea548693ac0a0b45ea7e391f24e403cf310dbaf",
+    "public\\manage\\index.php": "80cb17249aba10f3e5351b46f1fee5be118caa4fa2f7ba0497d957962966f327",
     "public\\manage\\insurance.php": "8ff65b26ce182991afa216af9c918b8ffdab62cd32aa6315c456e36fdce6c58b",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
@@ -3382,7 +4420,8 @@
   "license_permissions_sha256": "35fd3eb64ac364d86647d6801a7019b5aafd5def513c024e2e0d8571270e11b8",
   "license_test_source_sha256": {
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
-    "tests\\license\\Dockerfile.browser": "12cb17b7e8590612df74b4d90964363abd160f3ac8266484ca3726f1eb954f95",
+    "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
+    "tests\\license\\Dockerfile.browser": "4effc26f0ecd9cf3200a8b81210412f222a4a73b70f99b6ab71faccdddc0ec10",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
     "tests\\license\\mobile_browser.cjs": "b3472da533d9e230ebf5f5bf0f630e1348a51816d3027e0a75a9ce08bccbbbd1",
     "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
@@ -3427,6 +4466,7 @@
     "public\\manage\\assets\\card-check.js": "8472b0bbc89b7a0400fbfa1480c5cd20a74300d5f2ca65ca4bea16043075120b",
     "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
     "public\\manage\\assets\\cards.js": "e82a67943380f3818129cdc3a594cb513d85ce5c8ef59c6abee5c99f45685c3f",
+    "public\\manage\\assets\\dashboard.css": "4e13c8ce3cf5b88576ce580c95f78ff3dd7d660c59f301431789930967f4f514",
     "public\\manage\\assets\\insurance.css": "b990180c862e178d3e937e41da188b547ca79f5c84978ca09c6be35e75b54c6d",
     "public\\manage\\assets\\licenses.css": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
     "public\\manage\\assets\\qrcodegen.js": "2511bc17f40a3c41d4a0578995db956b38997334d3d20113a5d4dc5c49c69480",
@@ -3452,19 +4492,20 @@
   },
   "test_source_sha256": {
     "tests\\auth\\auth.config.php": "fd680c7b9249ebaf050ca4a27b51fb6b0ace3fa9ff8b2f2444d055c8d3ca9aa7",
+    "tests\\auth\\dashboard_http.php": "3289e51822c42d2ad2c7d5c4f03e91d9e718e166f038a7fefe863ecc7def966d",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "fa723464ab6aeddec80305ce30cf9108878ba9b43a12e58537e2a811675ccdc0",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "df9ba20ad8402f9468af962952524694efdf19f05a4468844314977faf2432b4",
+    "tests\\auth\\README.md": "584d5a61f4100d2ef319a3ec82f79414bb717f850ab18c360524c6e740886e45",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
-    "tests\\auth\\run_http.php": "986b2089f5ccfe61f52fdf84bb0f9919958b6975cddc900d06615f7e7e2dce2a",
+    "tests\\auth\\run_http.php": "a76c185979d8004f1f08711f135556075daf7a918a84f5a50f242519374373a3",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "4df47d76d8ea8945c39fe12ce8d99c87976be903ddcd6f34842b2bb318ee2e63"
+    "tests\\auth\\validate_auth.py": "bdb0804bbbf743dd41518ad5772ec766e6f30436d9f4e30797e7dfd4ae99d610"
   },
-  "php_lint_files": 82,
+  "php_lint_files": 83,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

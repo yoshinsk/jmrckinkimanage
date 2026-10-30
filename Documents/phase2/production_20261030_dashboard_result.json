@@ -1,0 +1,296 @@
+{
+  "date_jst": "2026-10-30",
+  "changed_production_files": [
+    "/var/www/vhosts/gymkinki.com/httpdocs/manage/index.php",
+    "/var/www/vhosts/gymkinki.com/httpdocs/manage/assets/dashboard.css"
+  ],
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/dashboard-layout-20261030T010105Z",
+  "php_sha256": "80cb17249aba10f3e5351b46f1fee5be118caa4fa2f7ba0497d957962966f327",
+  "css_sha256": "4e13c8ce3cf5b88576ce580c95f78ff3dd7d660c59f301431789930967f4f514",
+  "isolated_cases": 1063,
+  "php_lint_files": 83,
+  "production": {
+    "status": "PASS",
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium entrant 既存アカウントでマイページ表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 受付開始前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant ローカルCSSが正常",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 幅320pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 幅375pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 幅390pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 幅412pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 幅844pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 幅1280pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 準備中の機能に操作リンクなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 事務局専用リンクの権限分離",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant キーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 管理経路のサーバー権限",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 共通認証で既存entryへ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant サインアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 既存アカウントでマイページ表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 受付開始前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office ローカルCSSが正常",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅320pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅375pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅390pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅412pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅844pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅1280pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 準備中の機能に操作リンクなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 事務局専用リンクの権限分離",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office キーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 管理経路のサーバー権限",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 共通認証で既存entryへ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office サインアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 既存アカウントでマイページ表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 受付開始前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant ローカルCSSが正常",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 幅320pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 幅375pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 幅390pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 幅412pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 幅844pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 幅1280pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 準備中の機能に操作リンクなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 事務局専用リンクの権限分離",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant キーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 管理経路のサーバー権限",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 共通認証で既存entryへ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant サインアウト後は再認証",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 既存アカウントでマイページ表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 受付開始前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office ローカルCSSが正常",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅320pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅375pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅390pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅412pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅844pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅1280pxの表示とタップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 準備中の機能に操作リンクなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 事務局専用リンクの権限分離",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 準備中をタッチで展開",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office キーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 管理経路のサーバー権限",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 共通認証で既存entryへ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office サインアウト後は再認証",
+        "result": "PASS"
+      }
+    ]
+  },
+  "state": {
+    "live_sources_match": true,
+    "protected_state_unchanged_after_signin": true,
+    "users": 305,
+    "entries": 1200,
+    "entry_fees": 1508,
+    "year_2027": "shadow",
+    "applications": 0,
+    "invoices": 0,
+    "payments": 0
+  }
+}

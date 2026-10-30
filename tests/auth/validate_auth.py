@@ -64,7 +64,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
@@ -236,6 +236,33 @@ def main():
         artifacts.mkdir(exist_ok=True)
         artifact_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
         docker('cp',BROWSER+':/artifacts/.',artifact_linux)
+        # 通常設定と本番相当の保留設定を同じ隔離環境で描画する。後者は全業務試験の終了後だけに適用。
+        dashboard_reports=[]
+        for hold in [False,True]:
+            if hold:
+                db_sql("UPDATE portal_years SET source_mode='shadow'")
+                config_code="""<?php
+rename('/srv/private/auth.config.php','/srv/private/dashboard-active.config.php');
+file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
+"""
+                docker('exec','-i',NAMES[1],'php',data=config_code.encode())
+            name='jmrc-dashboard-'+('hold' if hold else 'active')+'-20261030'
+            docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+                   '-e','DASHBOARD_HOLD='+('1' if hold else '0'),'jmrc-license-browser:20261028','node','dashboard_browser.cjs')
+            created.append(name)
+            for _ in range(240):
+                state=json.loads(docker('inspect',name).stdout)[0]
+                if not state['State']['Running']:
+                    docker('cp',name+':/artifacts/.',artifact_linux)
+                    if state['State']['ExitCode']!=0:
+                        raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
+                    break
+                time.sleep(0.5)
+            else:
+                raise RuntimeError('Dashboard browser timed out')
+            dashboard_reports.append(json.loads(docker('logs',name).stdout))
+        report['dashboard_browser_validation']={'status':'PASS','cases':[case for result in dashboard_reports for case in result['cases']],
+                                                'browsers':dashboard_reports[0]['browsers'],'hold_javascript_disabled':True}
         report['checked_at_utc']=datetime.now(timezone.utc).isoformat()
         report['legacy_source_sha256']=sources
         report['legacy_commit']=command(['git','-C',str(LEGACY.parents[1]),'rev-parse','HEAD']).stdout.decode().strip()
