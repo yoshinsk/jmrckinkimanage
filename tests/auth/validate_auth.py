@@ -38,6 +38,11 @@ def db_sql(sql):
 
 def main():
     (ROOT/'tmp/auth_validation.json').unlink(missing_ok=True)
+    # 長い検証の途中でソースが変わった場合、未検証の末尾ハッシュを成功証跡として記録しない。
+    review_paths=['public/manage/index.php','public/manage/review.php','public/manage/_review-catalog.php',
+                  'public/manage/_review-workspace.php','public/manage/assets/review.css',
+                  'tests/auth/review_http.php','tests/license/review_browser.cjs']
+    review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
     for folder in ['site/entry/common','site/manage','src','tests']:
@@ -64,7 +69,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
@@ -300,6 +305,25 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
         else:
             raise RuntimeError('Office browser timed out')
         report['office_browser_validation']=json.loads(docker('logs',name).stdout)
+        print('Testing office review workspace: 24 screens and independent fictional workflows',flush=True)
+        name='jmrc-review-workspace-20261030'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+               'jmrc-license-browser:20261028','node','review_browser.cjs')
+        created.append(name)
+        for _ in range(480):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                docker('cp',name+':/artifacts/.',artifact_linux)
+                if state['State']['ExitCode']!=0:
+                    raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2500:])
+                break
+            time.sleep(0.5)
+        else:
+            raise RuntimeError('Review browser timed out')
+        report['review_browser_validation']=json.loads(docker('logs',name).stdout)
+        docker('cp',NAMES[1]+':/tmp/review-insurance.xlsx',artifact_linux+'/review-insurance.xlsx')
+        assert review_inputs=={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}, 'Review sources changed during validation'
+        report['review_workspace_sha256']=review_inputs
         report['checked_at_utc']=datetime.now(timezone.utc).isoformat()
         report['legacy_source_sha256']=sources
         report['legacy_commit']=command(['git','-C',str(LEGACY.parents[1]),'rev-parse','HEAD']).stdout.decode().strip()

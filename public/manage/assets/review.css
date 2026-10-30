@@ -1,0 +1,15 @@
+/* Path: public/manage/assets/review.css
+ * 機能: 架空データの操作確認を識別し、スマートフォン・文字拡大でもフォームと状態を読みやすくする。
+ */
+.review-banner { border: 2px solid #997404; border-radius: .375rem; background: #fff3cd; color: #332701; padding: 1rem; }
+.review-banner p { margin: .5rem 0 0; }
+.review-tag { display: inline-block; font-size: .875rem; font-weight: 600; background: #e9ecef; color: #343a40; padding: .25rem .5rem; border-radius: .25rem; margin: .25rem 0; }
+.review-pad { padding: 0 1rem 1rem; }
+.review-error { padding: 1rem; border: 1px solid #842029; color: #842029; background: #f8d7da; border-radius: .375rem; }
+.review-checks { list-style: none; padding: 0; display: grid; gap: .5rem; }
+.review-checks li { display: flex; gap: .75rem; align-items: start; }
+.review-checks span { flex: 0 0 3.5em; font-weight: 600; }
+.review-card { border: 2px solid #495057; border-radius: .5rem; padding: 1.25rem; background: #f8f9fa; }
+.review-card p { overflow-wrap: anywhere; }
+.review-pad .office-form { margin-bottom: 1rem; }
+@media print { .portal-header, form, .office-actions, .office-bottom { display: none; } .review-banner { border: 2px solid #000; } }

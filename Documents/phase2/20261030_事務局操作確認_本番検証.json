@@ -1,0 +1,970 @@
+{
+  "status": "PASS",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "version": "156.0.8078.4",
+      "device": "Pixel 7"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "device": "iPhone 13"
+    }
+  ],
+  "cases": [
+    {
+      "case": "chromium office 既存サインイン維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 受付保留を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 確認入口の事務局限定",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 24画面",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office GET /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空・保留の案内 /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 小画面 /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 文字200% /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空の有効会員証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空の入金取消を反映",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 架空Excel生成",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office Excel用CSVに確認メモ",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 確認データ初期化",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 既存entryと共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office ログアウト後401",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 実業務POSTの試行なし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 既存サインイン維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 受付保留を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 確認入口の事務局限定",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 権限外アクセス拒否 review.php",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 権限外アクセス拒否 review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 権限外アクセス拒否 review.php?download=notes-csv",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 権限外アクセス拒否 review.php?screen=insurance&download=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 既存entryと共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant ログアウト後401",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 実業務POSTの試行なし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 既存サインイン維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 受付保留を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 確認入口の事務局限定",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 24画面",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=billing",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=bank",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=card",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=events",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=directory",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=notices",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=documents",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=links",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=relief",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=fund",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office GET /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空・保留の案内 /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 小画面 /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 文字200% /manage/review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空の有効会員証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空の入金取消を反映",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 架空Excel生成",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office Excel用CSVに確認メモ",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 確認データ初期化",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 既存entryと共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office ログアウト後401",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 実業務POSTの試行なし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 既存サインイン維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 受付保留を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 確認入口の事務局限定",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 権限外アクセス拒否 review.php",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 権限外アクセス拒否 review.php?screen=operations",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 権限外アクセス拒否 review.php?download=notes-csv",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 権限外アクセス拒否 review.php?screen=insurance&download=insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 既存entryと共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant ログアウト後401",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 実業務POSTの試行なし",
+      "result": "PASS"
+    }
+  ],
+  "verified_at_utc": "2026-10-30T03:23:20.305592+00:00",
+  "production_checks": {
+    "status": "PASS",
+    "protected_files": 19,
+    "table_checksums": 22,
+    "protected_state_unchanged": true,
+    "browser_cases": 236,
+    "verified_at_utc": "2026-10-30T03:23:20.305592+00:00"
+  }
+}

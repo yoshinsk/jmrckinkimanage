@@ -2771,6 +2771,446 @@
     {
       "case": "本人受付の開始前は申請フォームなし",
       "result": "PASS"
+    },
+    {
+      "case": "操作確認の非更新比較13表が実在",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認は匿名401",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認は実権限なし403 会員",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認の書出しも実権限なし403 会員",
+      "result": "PASS"
+    },
+    {
+      "case": "実権限なしのマイページに確認入口なし 会員",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認は実権限なし403 クラブ代表",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認の書出しも実権限なし403 クラブ代表",
+      "result": "PASS"
+    },
+    {
+      "case": "実権限なしのマイページに確認入口なし クラブ代表",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認は実権限なし403 旧entry管理者",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認の書出しも実権限なし403 旧entry管理者",
+      "result": "PASS"
+    },
+    {
+      "case": "実権限なしのマイページに確認入口なし 旧entry管理者",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局の確認入口",
+      "result": "PASS"
+    },
+    {
+      "case": "本番同等の情報公開権限なし事務局で確認画面200",
+      "result": "PASS"
+    },
+    {
+      "case": "本番同等の情報公開権限なし事務局に確認入口",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 clubs",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 licenses",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 preregistration",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 affiliations",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 temporary",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET billing",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 billing",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET bank",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 bank",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 accounts",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET card",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 card",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 insurance",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET events",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 events",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET directory",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 directory",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET notices",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 notices",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET documents",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 documents",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 handbook",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET links",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 links",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET relief",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 relief",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET fund",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 fund",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 meetings",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 inquiries",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 notifications",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 privacy",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面GET operations",
+      "result": "PASS"
+    },
+    {
+      "case": "確認画面は非キャッシュ・外部送信禁止 operations",
+      "result": "PASS"
+    },
+    {
+      "case": "確認補助PHPの直接実行拒否 _review-workspace.php",
+      "result": "PASS"
+    },
+    {
+      "case": "確認補助PHPの直接実行拒否 _review-catalog.php",
+      "result": "PASS"
+    },
+    {
+      "case": "未知の確認画面は404",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認のCSRF欠落拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認のPUT拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "架空の有効状態を設定",
+      "result": "PASS"
+    },
+    {
+      "case": "確認用会員証は有効",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ事務局でも別セッションへ状態が漏れない",
+      "result": "PASS"
+    },
+    {
+      "case": "確認メモを保存",
+      "result": "PASS"
+    },
+    {
+      "case": "確認メモのHTMLをエスケープ",
+      "result": "PASS"
+    },
+    {
+      "case": "確認票を書出し",
+      "result": "PASS"
+    },
+    {
+      "case": "Excel用確認票にBOM・式注入対策",
+      "result": "PASS"
+    },
+    {
+      "case": "公開閲覧例へ変更",
+      "result": "PASS"
+    },
+    {
+      "case": "公開照会例は有効時に氏名番号のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "公開立場から会計画面へ直接GET拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "公開立場の確認票書出し拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "保険はTemporaryを受付しない",
+      "result": "PASS"
+    },
+    {
+      "case": "保険の架空4名設定",
+      "result": "PASS"
+    },
+    {
+      "case": "確認Excelを指定形式で生成",
+      "result": "PASS"
+    },
+    {
+      "case": "空の資料取下げも失敗しない",
+      "result": "PASS"
+    },
+    {
+      "case": "委員会資料の公開を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "危険なURL拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "配列入力を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "古いフォーム再送409",
+      "result": "PASS"
+    },
+    {
+      "case": "操作確認の権限失効を即時反映",
+      "result": "PASS"
+    },
+    {
+      "case": "失効時は確認Excelも拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "ライセンスなしGeneral拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未入金のクラブ承認拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "同年度の確認申請と請求は一意",
+      "result": "PASS"
+    },
+    {
+      "case": "不足入金で資格を有効にしない",
+      "result": "PASS"
+    },
+    {
+      "case": "必要承認と満額で資格有効",
+      "result": "PASS"
+    },
+    {
+      "case": "同じ入金の再操作でも二重計上しない",
+      "result": "PASS"
+    },
+    {
+      "case": "識別番号の別金額流用を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "取消を会員証へ即反映",
+      "result": "PASS"
+    },
+    {
+      "case": "番号変更後は旧会員証を失効",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporary同日別イベント拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局の立場だけでは主催承認できない",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporaryの主催承認と独立請求",
+      "result": "PASS"
+    },
+    {
+      "case": "CSV再取込・再照合は二重計上しない",
+      "result": "PASS"
+    },
+    {
+      "case": "曖昧なCSV入金は手動確認",
+      "result": "PASS"
+    },
+    {
+      "case": "無効な状態例 suspended",
+      "result": "PASS"
+    },
+    {
+      "case": "無効な状態例 expired",
+      "result": "PASS"
+    },
+    {
+      "case": "無効な状態例 pending",
+      "result": "PASS"
+    },
+    {
+      "case": "無効な状態例 unpaid",
+      "result": "PASS"
+    },
+    {
+      "case": "公開一覧へ非公開記事を漏らさない",
+      "result": "PASS"
+    },
+    {
+      "case": "公開立場の投稿を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "削除例ではプロフィールのみ消し会計を保持",
+      "result": "PASS"
+    },
+    {
+      "case": "すべての操作確認で本番相当の業務13表を更新しない",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -6659,7 +7099,1762 @@
     ],
     "javascript_disabled": true
   },
-  "checked_at_utc": "2026-10-30T02:06:10.477251+00:00",
+  "review_browser_validation": {
+    "status": "PASS",
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium 24画面の入口",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 架空と保留を明示 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 全POSTの送信先を確認領域に限定 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 有効会員証を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 入金取消で資格無効",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 再入金で資格を再判定",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 同日別イベントを拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium クラブ代表で主催承認",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 events",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 notices",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 relief",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 下書き保存 accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 公開例は公開記事だけ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 公開例に投稿フォームなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium QR公開項目の例",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium Temporary保険は対象外",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 確認Excel生成",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium メモ24画面を書出し",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 本番相当の受付保留を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium ログアウト後は確認画面401",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 24画面の入口",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=clubs",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=licenses",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=memberships",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=preregistration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=affiliations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=temporary",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=billing",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=bank",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=card",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=insurance",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=directory",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=fund",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=privacy",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 架空と保留を明示 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 全POSTの送信先を確認領域に限定 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/review.php?screen=operations",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 有効会員証を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 入金取消で資格無効",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 再入金で資格を再判定",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 同日別イベントを拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit クラブ代表で主催承認",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 events",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 notices",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 handbook",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 relief",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 meetings",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 inquiries",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 notifications",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 下書き保存 accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 公開例は公開記事だけ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 公開例に投稿フォームなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit QR公開項目の例",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit Temporary保険は対象外",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 確認Excel生成",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit メモ24画面を書出し",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 本番相当の受付保留を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit ログアウト後は確認画面401",
+        "result": "PASS"
+      }
+    ],
+    "javascript_disabled": true
+  },
+  "review_workspace_sha256": {
+    "public/manage/index.php": "d0d1d106ac6f2b91010021a834971f9446b8eb8f085a01d2a24f22505db34e8f",
+    "public/manage/review.php": "cc57526074c8a224395e282df48299a7111d3eb3fbc22597c8b4df6fbd1fe35a",
+    "public/manage/_review-catalog.php": "421d3f532fcbc6f77aac6575090e33eeda429927992d7409e93e70e706cbab66",
+    "public/manage/_review-workspace.php": "8eac219b65bd6e8560aa819c37b612351d7dbc7892d3a33c3172fb99d1b80752",
+    "public/manage/assets/review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440",
+    "tests/auth/review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
+    "tests/license/review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a"
+  },
+  "checked_at_utc": "2026-10-30T03:17:57.345869+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -6713,17 +8908,20 @@
     "public\\manage\\card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "80cb17249aba10f3e5351b46f1fee5be118caa4fa2f7ba0497d957962966f327",
+    "public\\manage\\index.php": "d0d1d106ac6f2b91010021a834971f9446b8eb8f085a01d2a24f22505db34e8f",
     "public\\manage\\insurance.php": "8ff65b26ce182991afa216af9c918b8ffdab62cd32aa6315c456e36fdce6c58b",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "23a8980246362ae48fc5c6110fbc74c7aa4c7500dfa15c826b6bdb04453b29c9",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
+    "public\\manage\\review.php": "cc57526074c8a224395e282df48299a7111d3eb3fbc22597c8b4df6fbd1fe35a",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
     "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
-    "public\\manage\\_office-layout.php": "da644ada7f74bac62d4a13db24334302bf45d8decfd6d705eefb7adebfda658e"
+    "public\\manage\\_office-layout.php": "da644ada7f74bac62d4a13db24334302bf45d8decfd6d705eefb7adebfda658e",
+    "public\\manage\\_review-catalog.php": "421d3f532fcbc6f77aac6575090e33eeda429927992d7409e93e70e706cbab66",
+    "public\\manage\\_review-workspace.php": "8eac219b65bd6e8560aa819c37b612351d7dbc7892d3a33c3172fb99d1b80752"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
@@ -6734,14 +8932,15 @@
   "license_test_source_sha256": {
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
-    "tests\\license\\Dockerfile.browser": "7ba35cb0336754e5126a48e514f076039507e521480006d14fbae71a198caa54",
+    "tests\\license\\Dockerfile.browser": "7a580ca50ce2fca8834d53625a8d55d56c3dd08d270c1e0aebed85c70c457aa0",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
     "tests\\license\\member_browser.cjs": "192fb3bca23f206ae9060d6d3f57fc5e65667dd2d6955039f08612442c7dfb13",
     "tests\\license\\mobile_browser.cjs": "b3472da533d9e230ebf5f5bf0f630e1348a51816d3027e0a75a9ce08bccbbbd1",
     "tests\\license\\mobile_seed.php": "b254ae8ffce0c62420340f89008fd0a27d32a422b1b9e57d6c9fa1420b4ae47a",
     "tests\\license\\office_browser.cjs": "32180da339027443efdd0c087e6cb541743ab9887e2bd240ba48f3e7bbaec9f0",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
-    "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
+    "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8",
+    "tests\\license\\review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a"
   },
   "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
   "insurance_source_sha256": {
@@ -6786,7 +8985,8 @@
     "public\\manage\\assets\\licenses.css": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
     "public\\manage\\assets\\office.css": "8b6619b1f0ebff0ea0cf3ac09e00e01db86718d9233b93b51a7dde3542af3a67",
     "public\\manage\\assets\\qrcodegen.js": "2511bc17f40a3c41d4a0578995db956b38997334d3d20113a5d4dc5c49c69480",
-    "public\\manage\\assets\\README.md": "172e836b7a087a1fa1bb70bdb08acf5c0149c75d745ec038b2e62b2df7b36f9f"
+    "public\\manage\\assets\\README.md": "172e836b7a087a1fa1bb70bdb08acf5c0149c75d745ec038b2e62b2df7b36f9f",
+    "public\\manage\\assets\\review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440"
   },
   "club_permissions_sha256": "4f6a506952e237e56a40347ced217aab0ab151d76ed9c4b6abf33f7567872b90",
   "club_test_source_sha256": {
@@ -6810,7 +9010,7 @@
     "tests\\auth\\auth.config.php": "fd680c7b9249ebaf050ca4a27b51fb6b0ace3fa9ff8b2f2444d055c8d3ca9aa7",
     "tests\\auth\\dashboard_http.php": "3289e51822c42d2ad2c7d5c4f03e91d9e718e166f038a7fefe863ecc7def966d",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
-    "tests\\auth\\Dockerfile.php": "fa723464ab6aeddec80305ce30cf9108878ba9b43a12e58537e2a811675ccdc0",
+    "tests\\auth\\Dockerfile.php": "56e6a672143f1a7ab8f9e80b60b67c0e1b594fa6637891d80b5d2d50336d25a4",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\member_layout_http.php": "47ca52eadd3f86b64164d0b2fbf1932cf1633d66ac2277463150f397377000b1",
@@ -6818,11 +9018,12 @@
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
     "tests\\auth\\README.md": "05a15f7c3cbba2376331c541b9cc8a81e33570de5c91f49ab32dc9fd0855a0b3",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
-    "tests\\auth\\run_http.php": "c10e8966d9ae51945ad10207d0c903bbc0b228637c602abcb615b3f3d7c0c64f",
+    "tests\\auth\\review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
+    "tests\\auth\\run_http.php": "8c15ba7d15ad189caead764202acb0dbab2ffe4657ebe9dbea6db81b7aceb24b",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "adcd4570a0e1abf478fc02464e2729fdad00839aa2f87c6f6c2da6d7e098a604"
+    "tests\\auth\\validate_auth.py": "2a11cf6b256f10030a8c53938767b797e02053f38a0ddb031854c06cda7b68e0"
   },
-  "php_lint_files": 85,
+  "php_lint_files": 89,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

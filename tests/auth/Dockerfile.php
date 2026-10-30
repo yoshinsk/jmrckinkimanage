@@ -14,5 +14,6 @@ COPY scripts/ /srv/auth/scripts/
 COPY templates/ /srv/auth/templates/
 COPY tls.crt /srv/tests/tls.crt
 RUN printf 'clear_env = no\n' > /usr/local/etc/php-fpm.d/zz-lab.conf \
-    && printf 'display_errors=Off\nlog_errors=On\nexpose_php=Off\n' > /usr/local/etc/php/conf.d/zz-lab.ini
+    # テスト途中で通常設定から受付保留へ切り替えるため、FPMが古い設定を2秒キャッシュしないようにする。
+    && printf 'display_errors=Off\nlog_errors=On\nexpose_php=Off\nopcache.revalidate_freq=0\n' > /usr/local/etc/php/conf.d/zz-lab.ini
 ENV JMRC_AUTH_BOOTSTRAP=/srv/auth/src/bootstrap.php JMRC_AUTH_CONFIG=/srv/private/auth.config.php
