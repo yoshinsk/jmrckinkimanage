@@ -1,6 +1,6 @@
 <?php
 // Path: integration/jmrckinki/login.php → entry/login.php
-// 機能: 共通認証と許可済み戻り先を使うログイン。既存header/footerとrole別既定先を維持する。
+// 機能: 共通認証と許可済み戻り先を使うログイン。既存のレスポンシブなフォームとrole別既定先を維持する。
 declare(strict_types=1);
 require_once __DIR__ . '/common/csrf.php';
 
@@ -30,15 +30,24 @@ if (auth_user()) {
 require_once __DIR__ . '/common/header.php';
 ?>
 <h1 class="h4 mb-3">サインイン</h1>
-<?php if ($error): ?><p role="alert"><?=h($error)?></p><?php endif; ?>
+<?php if ($error): ?><div class="alert alert-danger" role="alert"><?=h($error)?></div><?php endif; ?>
+<!-- 既存headerのBootstrapに合わせ、ラベル・入力欄を項目ごとに縦配置する。 -->
 <form method="post">
   <?=csrf_field()?>
   <?php foreach (['app'=>$app,'return_key'=>$key,'next'=>$next] as $name=>$value): ?>
     <?php if ($value !== null): ?><input type="hidden" name="<?=h($name)?>" value="<?=h($value)?>"><?php endif; ?>
   <?php endforeach; ?>
-  <label>メールアドレス<input type="email" name="email" autocomplete="username" required></label>
-  <label>パスワード<input type="password" name="password" autocomplete="current-password" required></label>
-  <button type="submit">サインイン</button>
+  <div class="mb-3">
+    <label class="form-label" for="login-email">メールアドレス</label>
+    <input id="login-email" class="form-control" type="email" name="email" autocomplete="username" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="login-password">パスワード</label>
+    <input id="login-password" class="form-control" type="password" name="password" autocomplete="current-password" required>
+  </div>
+  <button class="btn btn-primary" type="submit">サインイン</button>
 </form>
-<p><a href="/entry/forgot.php">パスワード再設定</a></p>
+<div class="mt-3">
+  <a href="/entry/forgot.php">パスワードがわからない場合やパスワードの変更はこちら</a>
+</div>
 <?php require_once __DIR__ . '/common/footer.php'; ?>

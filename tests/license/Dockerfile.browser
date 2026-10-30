@@ -7,5 +7,6 @@ RUN npm ci --ignore-scripts --no-audit --no-fund \
  && apt-get update && apt-get install -y --no-install-recommends fonts-noto-cjk \
  && rm -rf /var/lib/apt/lists/*
 COPY mobile_browser.cjs ./
+COPY vendor/ ./vendor/
 RUN mkdir /artifacts
 CMD ["node","mobile_browser.cjs"]

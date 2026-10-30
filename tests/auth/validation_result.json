@@ -2958,6 +2958,46 @@
     ],
     "cases": [
       {
+        "case": "chromium-mobile manageから共通ログインへ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile サインイン幅320pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile サインイン幅375pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile サインイン幅390pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile サインイン幅412pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile サインイン幅844pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile サインイン幅1280pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 空欄はブラウザーが送信を抑止",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 認証失敗は401とエラー案内",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium-mobile 認証失敗後もmanageへの戻り先を保持",
+        "result": "PASS"
+      },
+      {
         "case": "chromium-mobile ライセンス入力画面も横はみ出しなし",
         "result": "PASS"
       },
@@ -3079,6 +3119,46 @@
       },
       {
         "case": "chromium-mobile 無効な公開画面は氏名・番号を消去",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile manageから共通ログインへ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile サインイン幅320pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile サインイン幅375pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile サインイン幅390pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile サインイン幅412pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile サインイン幅844pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile サインイン幅1280pxの縦配置・入力幅・余白",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 空欄はブラウザーが送信を抑止",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 認証失敗は401とエラー案内",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit-mobile 認証失敗後もmanageへの戻り先を保持",
         "result": "PASS"
       },
       {
@@ -3213,6 +3293,8 @@
       "chromium-mobile-changed.png",
       "chromium-mobile-insurance.png",
       "chromium-mobile-license.png",
+      "chromium-mobile-login-error.png",
+      "chromium-mobile-login.png",
       "chromium-mobile-profile-correct.png",
       "chromium-mobile-valid.png",
       "webkit-mobile-bank-settings.png",
@@ -3221,16 +3303,20 @@
       "webkit-mobile-changed.png",
       "webkit-mobile-insurance.png",
       "webkit-mobile-license.png",
+      "webkit-mobile-login-error.png",
+      "webkit-mobile-login.png",
       "webkit-mobile-profile-correct.png",
       "webkit-mobile-valid.png"
     ]
   },
-  "checked_at_utc": "2026-10-29T09:48:57.538064+00:00",
+  "checked_at_utc": "2026-10-30T00:35:39.751827+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
     "common/functions.php": "20a9dce573235f1789ba3b85438f011e19d46655c0762d13ed6667def6bdf31c",
     "common/db.php": "3a9b0e496f65759fb336d5d4a06be15c0c4e0521c750fe35e23222b21df2ea76",
+    "assets/app.css": "70d24b29c906632a6407cf64e4cfca04812cdf61a21745666a1cd62997bed999",
+    "assets/validation.js": "73db0f51b14091c4d0adcadfe927c5d923702edfc444caf321166f1f0910b8ee",
     "register_handler.php": "5657f3b31435691540663a2459bdc0b94ce3c156d48683c498534821ea612cdd",
     "verify.php": "3d92cafe860f23dac8e5dde080c4a26500062a8bae932b65e14575d530bdb0bd",
     "reset_handler.php": "4682eaeebd469bf33d0b92076765f46bd30888ef877adf51b092acf4f4fc118d",
@@ -3264,7 +3350,7 @@
     "src\\License\\LicenseService.php": "4f9b533e72ead707c7642b6571dd58fe0bf7987ea59f58a7c61af46ba3c818ae",
     "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
     "src\\Profile\\ProfileService.php": "d0b2c559ec111f53d6125d3a0e5f2f3c4e7704a9ee7a460fafa7d8c60ebea357",
-    "integration\\jmrckinki\\login.php": "05f27f559df1d4b8fdc3994880cf33e15f8820511a21a27cab4d48ef1ad7574e",
+    "integration\\jmrckinki\\login.php": "88ff22a70c4b56cc047132cf8178ee16d6343ccb7afa4e3fea8675fbb6f673ce",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
     "integration\\jmrckinki\\common\\auth.php": "7473f6be7b0f7e6b9740872f129c5a10646c8f6c27a6a2ded00fa9775585edd9",
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
@@ -3296,9 +3382,9 @@
   "license_permissions_sha256": "35fd3eb64ac364d86647d6801a7019b5aafd5def513c024e2e0d8571270e11b8",
   "license_test_source_sha256": {
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
-    "tests\\license\\Dockerfile.browser": "982acd602cb72bc523a73489d5ee1302d73af0b519d4372c19db42fccb049a4e",
+    "tests\\license\\Dockerfile.browser": "12cb17b7e8590612df74b4d90964363abd160f3ac8266484ca3726f1eb954f95",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
-    "tests\\license\\mobile_browser.cjs": "5e55efb1e6a3668b9ea0a8917fb717a666e3633a71b4d24c94e6d236ecb42792",
+    "tests\\license\\mobile_browser.cjs": "b3472da533d9e230ebf5f5bf0f630e1348a51816d3027e0a75a9ce08bccbbbd1",
     "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
@@ -3376,7 +3462,7 @@
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
     "tests\\auth\\run_http.php": "986b2089f5ccfe61f52fdf84bb0f9919958b6975cddc900d06615f7e7e2dce2a",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "396166a317361a59fffc469287e27ba06f1b40ba26ea29f8affdfedebf741fbe"
+    "tests\\auth\\validate_auth.py": "4df47d76d8ea8945c39fe12ce8d99c87976be903ddcd6f34842b2bb318ee2e63"
   },
   "php_lint_files": 82,
   "network_internal": true,

@@ -4,7 +4,33 @@
 const {chromium,webkit,devices}=require('playwright'),assert=require('node:assert/strict'),crypto=require('node:crypto'),fs=require('node:fs'),jsQR=require('jsqr'),{PNG}=require('pngjs');
 const cases=[],browsers=[];let currentCase='setup';
 function check(name,value){currentCase=name;assert.ok(value,name);cases.push({case:name,result:'PASS'});}
-async function makeContext(browser,device){const c=await browser.newContext({...devices[device],ignoreHTTPSErrors:true,locale:'ja-JP',timezoneId:'Asia/Tokyo',serviceWorkers:'block'});await c.route('**/*',route=>new URL(route.request().url()).hostname==='web'?route.continue():route.abort());return c;}
+async function makeContext(browser,device){const c=await browser.newContext({...devices[device],ignoreHTTPSErrors:true,locale:'ja-JP',timezoneId:'Asia/Tokyo',serviceWorkers:'block'});await c.route('**/*',route=>{
+    // 既存ヘッダーのCSSだけを固定ファイルから供給し、外部通信は遮断する。
+    if(route.request().url()==='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css')return route.fulfill({path:__dirname+'/vendor/bootstrap-5.3.3.min.css',contentType:'text/css'});
+    return new URL(route.request().url()).hostname==='web'?route.continue():route.abort();
+});return c;}
+/** 既存CSSで狭幅・横向き・PCを描画し、縦配置と認証エラーからの再入力を確認する。 */
+async function checkLoginLayout(context,name,device,uid){
+    const page=await context.newPage();await page.goto('https://web/manage/login.php');
+    check(name+' manageから共通ログインへ',new URL(page.url()).pathname==='/entry/login.php' && new URL(page.url()).searchParams.get('app')==='manage');
+    for(const width of [320,375,390,412,844,1280]){
+        await page.setViewportSize({width,height:width===844?390:844});
+        const layout=await page.evaluate(()=>{
+            const email=document.querySelector('[name=email]'),password=document.querySelector('[name=password]'),button=document.querySelector('button[type=submit]');
+            const e=email.getBoundingClientRect(),p=password.getBoundingClientRect(),b=button.getBoundingClientRect(),form=email.form.getBoundingClientRect();
+            return document.documentElement.scrollWidth<=innerWidth+1 && e.x>=0 && e.right<=innerWidth && p.y>=e.bottom+16 && b.y>=p.bottom+16 && Math.abs(e.width-form.width)<1 && Math.abs(p.width-e.width)<1 && parseFloat(getComputedStyle(email).fontSize)>=16 && getComputedStyle(button).backgroundColor==='rgb(13, 110, 253)';
+        });
+        check(name+' サインイン幅'+width+'pxの縦配置・入力幅・余白',layout);
+    }
+    await page.setViewportSize(devices[device].viewport);await page.screenshot({path:`/artifacts/${name}-login.png`,fullPage:true});
+    let submits=0;page.on('request',r=>{if(r.method()==='POST')submits++;});
+    await page.getByRole('button',{name:'サインイン',exact:true}).tap();check(name+' 空欄はブラウザーが送信を抑止',submits===0 && !await page.locator('form').evaluate(f=>f.checkValidity()));
+    await page.getByLabel('メールアドレス').fill(`u${uid}@example.invalid`);await page.getByLabel('パスワード').fill('incorrect-lab-password');
+    const response=page.waitForResponse(r=>new URL(r.url()).pathname==='/entry/login.php' && r.request().method()==='POST');await page.getByRole('button',{name:'サインイン',exact:true}).tap();
+    check(name+' 認証失敗は401とエラー案内',(await response).status()===401 && (await page.getByRole('alert').innerText()).includes('サインインに失敗しました'));
+    check(name+' 認証失敗後もmanageへの戻り先を保持',await page.locator('[name=app]').inputValue()==='manage' && await page.locator('[name=return_key]').inputValue()==='dashboard' && await page.getByLabel('パスワード').inputValue()==='');
+    await page.screenshot({path:`/artifacts/${name}-login-error.png`,fullPage:true});await page.close();
+}
 async function login(context,id){const p=await context.newPage();await p.goto('https://web/entry/login.php?app=manage&return_key=dashboard');await p.getByLabel('メールアドレス').fill(`u${id}@example.invalid`);await p.getByLabel('パスワード').fill('lab-password-only');await Promise.all([p.waitForURL('https://web/manage/'),p.getByRole('button',{name:'サインイン',exact:true}).tap()]);return p;}
 async function post(context,path,csrf,data){const r=await context.request.post('https://web'+path,{form:{...data,_csrf:csrf}});assert.ok(r.ok(),'API status '+r.status());return r.json();}
 async function publicState(page,active){await page.getByRole('button',{name:'最新の資格を照会する'}).tap();await page.waitForFunction(v=>document.getElementById('verification-status').dataset.active===String(v),active);}
@@ -12,6 +38,7 @@ async function run(engine,name,device,uid){
     const browser=await engine.launch({headless:true});try{
         browsers.push({engine:name,version:browser.version(),device});
         const owner=await makeContext(browser,device),office=await makeContext(browser,device),anon=await makeContext(browser,device);
+        await checkLoginLayout(owner,name,device,uid);
         const page=await login(owner,uid),finance=await login(office,7);const officeCsrf=await finance.locator('input[name=_csrf]').first().inputValue();
         await page.goto('https://web/manage/licenses.php');const ownCsrf=await page.locator('input[name=_csrf]').first().inputValue();
         check(name+' ライセンス入力画面も横はみ出しなし',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));

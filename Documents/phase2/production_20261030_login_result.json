@@ -1,0 +1,166 @@
+{
+  "date_jst": "2026-10-30",
+  "changed_production_files": [
+    "/var/www/vhosts/gymkinki.com/httpdocs/entry/login.php"
+  ],
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/login-layout-20261030T003617Z",
+  "source_sha256": "88ff22a70c4b56cc047132cf8178ee16d6343ccb7afa4e3fea8675fbb6f673ce",
+  "isolated_cases": 808,
+  "php_lint_files": 82,
+  "production": {
+    "status": "PASS",
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium 共通ログインへ誘導",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 表示幅320px",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 表示幅375px",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 表示幅390px",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 表示幅412px",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 表示幅844px",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 表示幅1280px",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 既存エントラントでmanageへサインイン",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 受付開始前の案内を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 同じログインで既存エントリーへ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium エントラントの事務局画面を拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留機能bank.phpの無効を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留機能insurance.phpの無効を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 共通ログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 既存エントリーもログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entryから通常サインイン",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 共通ログインへ誘導",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 表示幅320px",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 表示幅375px",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 表示幅390px",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 表示幅412px",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 表示幅844px",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 表示幅1280px",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 既存エントラントでmanageへサインイン",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 受付開始前の案内を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 同じログインで既存エントリーへ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit エントラントの事務局画面を拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留機能bank.phpの無効を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留機能insurance.phpの無効を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 共通ログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 既存エントリーもログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entryから通常サインイン",
+        "result": "PASS"
+      }
+    ]
+  },
+  "state": {
+    "live_source_matches": true,
+    "protected_state_unchanged_after_signin": true,
+    "users": 305,
+    "entries": 1200,
+    "entry_fees": 1508,
+    "year_2027": "shadow",
+    "applications": 0,
+    "invoices": 0,
+    "payments": 0
+  }
+}

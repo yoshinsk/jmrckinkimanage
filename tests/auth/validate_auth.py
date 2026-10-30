@@ -16,7 +16,7 @@ LABEL = 'jmrc.auth.lab=true'
 NAMES = ['jmrc-auth-web-20261027', 'jmrc-auth-app-20261027', 'jmrc-auth-db-20261027']
 BROWSER = 'jmrc-license-browser-20261028'
 DB_IMAGE = 'mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce'
-SOURCE_FILES = ['common/header.php','common/footer.php','common/functions.php','common/db.php',
+SOURCE_FILES = ['common/header.php','common/footer.php','common/functions.php','common/db.php','assets/app.css','assets/validation.js',
                 'register_handler.php','verify.php','reset_handler.php','admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
 
 
