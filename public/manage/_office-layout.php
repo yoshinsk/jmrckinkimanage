@@ -1,6 +1,6 @@
 <?php
 // Path: public/manage/_office-layout.php
-// 機能: 権限確認済みの事務局画面に、マイページと共通のヘッダー・戻り先・フッターを出力する。
+// 機能: 認証済みの会員・事務局画面に、マイページと共通のヘッダー・戻り先・フッターを出力する。
 declare(strict_types=1);
 // この補助ファイル自体を公開画面として実行しない。
 if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE__) {
@@ -8,10 +8,11 @@ if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE__) {
     exit;
 }
 
-/** 呼出側で本人確認・専用権限・機能フラグを検査した後、HTML応答の場合だけ利用する。 */
-function jmrc_office_header(string $title): void
+/** 本人確認・画面ごとの権限検査後に利用する。既存事務局画面の呼出しはそのまま維持する。 */
+function jmrc_office_header(string $title, string $section = '事務局'): void
 {
     $title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+    $section = htmlspecialchars($section, ENT_QUOTES, 'UTF-8');
     $csrf = htmlspecialchars(jmrc_auth()->csrfToken(), ENT_QUOTES, 'UTF-8');
     ?>
 <!doctype html>
@@ -19,7 +20,7 @@ function jmrc_office_header(string $title): void
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?=$title?> | JMRC近畿ポータル</title>
   <link rel="stylesheet" href="/manage/assets/dashboard.css?v=20261030">
-  <link rel="stylesheet" href="/manage/assets/office.css?v=20261030">
+  <link rel="stylesheet" href="/manage/assets/office.css?v=20261030-2">
 </head><body>
 <a class="skip-link" href="#main">本文へ移動</a>
 <header class="portal-header"><div class="portal-container portal-header-inner">
@@ -27,7 +28,7 @@ function jmrc_office_header(string $title): void
   <form method="post" action="/manage/logout.php"><input type="hidden" name="_csrf" value="<?=$csrf?>"><button class="signout" type="submit">サインアウト</button></form>
 </div></header>
 <main id="main" class="portal-container office-page" tabindex="-1">
-<nav class="office-breadcrumb" aria-label="現在の位置"><a href="/manage/">マイページへ</a><span aria-hidden="true">/</span><span>事務局</span></nav>
+<nav class="office-breadcrumb" aria-label="現在の位置"><a href="/manage/">マイページへ</a><span aria-hidden="true">/</span><span><?=$section?></span></nav>
 <h1><?=$title?></h1>
     <?php
 }

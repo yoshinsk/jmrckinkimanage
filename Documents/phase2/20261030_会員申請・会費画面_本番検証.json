@@ -1,0 +1,530 @@
+{
+  "status": "PASS",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "version": "156.0.8078.4",
+      "device": "Pixel 7"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "device": "iPhone 13"
+    }
+  ],
+  "cases": [
+    {
+      "case": "chromium office 既存アカウントでサインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office マイページの申請・会費メニューは保留",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office applications 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office billing 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 受付前の確認画面を相互移動",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank-settings.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank-settings.php 事務局表示維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank-settings.php 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile-correct.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile-correct.php 事務局表示維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile-correct.php 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office マイページへ戻る",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 未認証のmemberships.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 未認証のbilling.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 既存アカウントでサインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant マイページの申請・会費メニューは保留",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant applications 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant billing 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 受付前の確認画面を相互移動",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant bank-settings.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant profile-correct.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant マイページへ戻る",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 未認証のmemberships.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 未認証のbilling.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 既存アカウントでサインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office マイページの申請・会費メニューは保留",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office applications 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office billing 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 受付前の確認画面を相互移動",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank-settings.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank-settings.php 事務局表示維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank-settings.php 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile-correct.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile-correct.php 事務局表示維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile-correct.php 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office マイページへ戻る",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 未認証のmemberships.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 未認証のbilling.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 既存アカウントでサインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant マイページの申請・会費メニューは保留",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant applications 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 受付保留と業務フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 共通スタイル",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 幅320px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 幅375px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 幅390px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 幅412px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 幅844px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 幅1280px",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant billing 文字200%",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 受付前の確認画面を相互移動",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant bank-settings.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant profile-correct.php の権限維持",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant マイページへ戻る",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 未認証のmemberships.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 未認証のbilling.phpは401",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 業務POSTなし",
+      "result": "PASS"
+    }
+  ],
+  "verified_at_utc": "2026-10-30T02:08:30.650977+00:00"
+}

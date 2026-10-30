@@ -1,5 +1,5 @@
 /* Path: public/manage/assets/office.css
- * 機能: 事務局の口座設定・会員訂正・履歴・削除候補を、マイページと同じ配色で小画面へ最適化する。
+ * 機能: 会員申請・会費と事務局フォーム・履歴を、マイページと同じ配色で小画面へ最適化する。
  */
 .office-page h1, .office-page h2, .office-page h3 { overflow-wrap: anywhere; }
 .office-page h2 { font-size: 1.25rem; }
@@ -34,6 +34,7 @@
 .office-check input { flex: 0 0 1.25rem; width: 1.25rem; height: 1.25rem; margin: .125rem 0 0; accent-color: #0d6efd; }
 .office-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: .625rem 1rem; border: 1px solid transparent; border-radius: .375rem; background: #0d6efd; color: #fff; text-align: center; text-decoration: none; font: inherit; cursor: pointer; overflow-wrap: anywhere; }
 .office-button:hover { background: #0b5ed7; }
+.office-button:disabled { background: #e9ecef; color: #495057; border-color: #adb5bd; cursor: not-allowed; }
 .office-button.secondary { background: #fff; border-color: #6c757d; color: #343a40; }
 .office-button.secondary:hover { background: #f8f9fa; }
 .office-submit { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .75rem; }
@@ -51,6 +52,10 @@
 .office-definition { margin: 0; }
 .office-definition dt { margin-top: .75rem; color: #495057; font-size: .9375rem; }
 .office-definition dd { margin: .25rem 0 1rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.office-amounts dd { font-size: 1.5rem; font-weight: 600; }
+.office-records { list-style: none; padding: 0; margin: 0; }
+.office-records > li { padding-block: 1rem; overflow-wrap: anywhere; }
+.office-records > li + li { border-top: 1px solid #dee2e6; }
 .office-readonly { padding: 1rem; margin-block: 1rem; border-left: 4px solid #6c757d; background: #f8f9fa; }
 .office-candidates li { display: flex; flex-direction: column; gap: .25rem; padding-block: .75rem; }
 /* 日付入力の固有最小幅と長いラベルも、狭幅・文字拡大時にフォームの外へ出さない。 */

@@ -64,7 +64,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
@@ -238,6 +238,7 @@ def main():
         docker('cp',BROWSER+':/artifacts/.',artifact_linux)
         # 通常設定と本番相当の保留設定を同じ隔離環境で描画する。後者は全業務試験の終了後だけに適用。
         dashboard_reports=[]
+        member_reports=[]
         for hold in [False,True]:
             if hold:
                 db_sql("UPDATE portal_years SET source_mode='shadow'")
@@ -261,8 +262,26 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
             else:
                 raise RuntimeError('Dashboard browser timed out')
             dashboard_reports.append(json.loads(docker('logs',name).stdout))
+            print('Testing membership/billing layout: '+('hold' if hold else 'active'),flush=True)
+            name='jmrc-member-'+('hold' if hold else 'active')+'-20261030'
+            docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+                   '-e','MEMBER_HOLD='+('1' if hold else '0'),'jmrc-license-browser:20261028','node','member_browser.cjs')
+            created.append(name)
+            for _ in range(360):
+                state=json.loads(docker('inspect',name).stdout)[0]
+                if not state['State']['Running']:
+                    docker('cp',name+':/artifacts/.',artifact_linux)
+                    if state['State']['ExitCode']!=0:
+                        raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
+                    break
+                time.sleep(0.5)
+            else:
+                raise RuntimeError('Member browser timed out')
+            member_reports.append(json.loads(docker('logs',name).stdout))
         report['dashboard_browser_validation']={'status':'PASS','cases':[case for result in dashboard_reports for case in result['cases']],
                                                 'browsers':dashboard_reports[0]['browsers'],'hold_javascript_disabled':True}
+        report['member_browser_validation']={'status':'PASS','cases':[case for result in member_reports for case in result['cases']],
+                                             'browsers':member_reports[0]['browsers'],'javascript_disabled':True}
         # 隔離DBの架空会員60を未更新に戻し、候補あり/再申請中の除外を実画面で確認する。
         # 全業務試験後の使い捨てDBだけが対象。本番設定・本番データは読み込まない。
         db_sql(f"UPDATE portal_applications a JOIN portal_memberships m ON m.application_id=a.id SET a.status='rejected' WHERE m.user_id=60 AND m.year>{datetime.now(timezone.utc).year-2}")
