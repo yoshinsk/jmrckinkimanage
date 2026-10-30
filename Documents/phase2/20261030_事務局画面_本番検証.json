@@ -1,0 +1,481 @@
+{
+  "status": "PASS",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "version": "156.0.8078.4",
+      "device": "Pixel 7"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2",
+      "device": "iPhone 13"
+    }
+  ],
+  "cases": [
+    {
+      "case": "chromium office 既存アカウントで共通サインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank-settings.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank-settings.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile-correct.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile-correct.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office bank 銀行CSV保留",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office source 銀行CSV保留",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office profile 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office candidates 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 期限前の候補確認だけを表示",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office マイページへ戻る",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 共通サインアウト",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium office 補助レイアウトの直接アクセスは404",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 既存アカウントで共通サインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant bank-settings.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant bank-settings.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant profile-correct.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant profile-correct.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 共通サインアウト",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium entrant 補助レイアウトの直接アクセスは404",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 既存アカウントで共通サインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank-settings.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank-settings.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile-correct.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile-correct.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office bank 銀行CSV保留",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office source 銀行CSV保留",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office profile 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 正常表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates CSS読み込み",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 幅320pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 幅375pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 幅390pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 幅412pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 幅844pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 幅1280pxの表示・タップ寸法",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office candidates 文字200%の表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 期限前の候補確認だけを表示",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office マイページへ戻る",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 共通サインアウト",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit office 補助レイアウトの直接アクセスは404",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 既存アカウントで共通サインイン",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant bank-settings.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant bank-settings.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant profile-correct.php 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant profile-correct.php?format=json 権限",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 業務POSTなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 既存entryへの共通認証",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 共通サインアウト",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit entrant 補助レイアウトの直接アクセスは404",
+      "result": "PASS"
+    }
+  ]
+}

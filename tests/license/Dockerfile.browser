@@ -8,6 +8,7 @@ RUN npm ci --ignore-scripts --no-audit --no-fund \
  && rm -rf /var/lib/apt/lists/*
 COPY mobile_browser.cjs ./
 COPY dashboard_browser.cjs ./
+COPY office_browser.cjs ./
 COPY vendor/ ./vendor/
 RUN mkdir /artifacts
 CMD ["node","mobile_browser.cjs"]

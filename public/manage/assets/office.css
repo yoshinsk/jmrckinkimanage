@@ -1,0 +1,61 @@
+/* Path: public/manage/assets/office.css
+ * 機能: 事務局の口座設定・会員訂正・履歴・削除候補を、マイページと同じ配色で小画面へ最適化する。
+ */
+.office-page h1, .office-page h2, .office-page h3 { overflow-wrap: anywhere; }
+.office-page h2 { font-size: 1.25rem; }
+.office-page h3 { font-size: 1.0625rem; margin: 0 0 .75rem; }
+.office-page p, .office-page li { overflow-wrap: anywhere; }
+.office-breadcrumb, .office-actions, .office-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+.office-breadcrumb { margin: -.5rem 0 .75rem; color: #495057; }
+.office-breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; }
+.office-actions { margin-block: 1.25rem; }
+.office-bottom { margin-top: 1.5rem; }
+.office-intro { margin-bottom: 1.25rem; color: #495057; }
+.office-panel, .office-disclosure { margin-block: 1.25rem; border: 1px solid #dee2e6; border-radius: .375rem; min-width: 0; }
+.office-panel { padding: 1.25rem; }
+.office-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.office-columns > * { min-width: 0; }
+.office-columns > .office-disclosure { margin: 0; }
+.office-disclosure summary { padding: 1rem; min-height: 48px; cursor: pointer; font-weight: 600; overflow-wrap: anywhere; }
+.office-disclosure > ul, .office-disclosure > p { margin: 0 1rem 1rem; }
+.office-form, .office-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
+.office-form { margin-top: 1rem; }
+.office-form > fieldset { grid-column: 1 / -1; border: 0; padding: 0; margin: 0; min-width: 0; }
+.office-form legend { padding: 0; margin-bottom: 1rem; font-weight: 600; }
+.office-field { min-width: 0; }
+.office-wide { grid-column: 1 / -1; }
+.office-field > label { display: block; margin-bottom: .5rem; font-weight: 600; overflow-wrap: anywhere; }
+.office-form input:not([type="hidden"]):not([type="checkbox"]), .office-form select, .office-form textarea { display: block; width: 100%; min-width: 0; max-width: 100%; min-height: 48px; padding: .625rem .75rem; border: 1px solid #adb5bd; border-radius: .375rem; background: #fff; color: #212529; font: inherit; box-sizing: border-box; }
+.office-form textarea { resize: vertical; }
+.office-form input[readonly] { background: #e9ecef; }
+.office-form input:focus-visible, .office-form select:focus-visible, .office-form textarea:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+.office-help { margin: .5rem 0 0; color: #495057; font-size: .9375rem; }
+.office-check { display: flex; align-items: flex-start; gap: .75rem; min-height: 48px; padding: .75rem; border: 1px solid #dee2e6; border-radius: .375rem; overflow-wrap: anywhere; cursor: pointer; }
+.office-check input { flex: 0 0 1.25rem; width: 1.25rem; height: 1.25rem; margin: .125rem 0 0; accent-color: #0d6efd; }
+.office-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: .625rem 1rem; border: 1px solid transparent; border-radius: .375rem; background: #0d6efd; color: #fff; text-align: center; text-decoration: none; font: inherit; cursor: pointer; overflow-wrap: anywhere; }
+.office-button:hover { background: #0b5ed7; }
+.office-button.secondary { background: #fff; border-color: #6c757d; color: #343a40; }
+.office-button.secondary:hover { background: #f8f9fa; }
+.office-submit { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .75rem; }
+.office-success { margin-block: 1rem; padding: 1rem; border: 1px solid #a3cfbb; border-radius: .375rem; background: #d1e7dd; color: #0a3622; }
+.office-success p { margin: 0 0 .75rem; }
+.office-success p:last-child { margin-bottom: 0; }
+.office-list { list-style: none; padding: 0; margin: 0; }
+.office-list li + li { border-top: 1px solid #dee2e6; }
+.office-list a { display: block; min-height: 48px; padding: .75rem 0; overflow-wrap: anywhere; }
+.office-list strong, .office-list small { display: block; }
+.office-list small { color: #495057; font-size: .875rem; }
+.office-meta { color: #495057; font-size: .9375rem; }
+.office-history { padding-block: 1rem; border-top: 1px solid #dee2e6; min-width: 0; }
+.office-history p { white-space: pre-wrap; }
+.office-definition { margin: 0; }
+.office-definition dt { margin-top: .75rem; color: #495057; font-size: .9375rem; }
+.office-definition dd { margin: .25rem 0 1rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.office-readonly { padding: 1rem; margin-block: 1rem; border-left: 4px solid #6c757d; background: #f8f9fa; }
+.office-candidates li { display: flex; flex-direction: column; gap: .25rem; padding-block: .75rem; }
+/* 日付入力の固有最小幅と長いラベルも、狭幅・文字拡大時にフォームの外へ出さない。 */
+@media (max-width: 767px) {
+  .office-columns, .office-form, .office-fields { grid-template-columns: minmax(0, 1fr); }
+  .office-panel { padding: 1rem; }
+  .office-actions > a, .office-submit > button, .office-bottom > a { width: 100%; }
+}

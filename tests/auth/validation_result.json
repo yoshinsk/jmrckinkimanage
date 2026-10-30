@@ -4347,7 +4347,889 @@
     ],
     "hold_javascript_disabled": true
   },
-  "checked_at_utc": "2026-10-30T01:00:11.359059+00:00",
+  "office_browser_validation": {
+    "status": "PASS",
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium 事務局 登録済み実口座コードは読取専用",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 保留設定でも事務局の取込元設定を保存",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 日付の秒以下とJSTからUTCへの保存",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 URL・CSV対応・無効状態の維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 訂正結果とエスケープした理由を履歴表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 候補を抽出しても削除せず再申請中を除外",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 候補画面に削除実行POSTなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-new CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 account-edit CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-new CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 source-edit CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 history CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-search 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 profile-edit 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 candidates 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 not-due 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 口座選択一覧をタッチで開く",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 一覧をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 共通マイページへ戻る",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 事務局 事務局画面から共通サインアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 未認証 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 未認証 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 未認証 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 未認証 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium エントラント bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium エントラント bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium エントラント profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium エントラント profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 財務専用 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 財務専用 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 財務専用 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 財務専用 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium クラブ代表 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium クラブ代表 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium クラブ代表 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium クラブ代表 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 旧管理者 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 旧管理者 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 旧管理者 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 旧管理者 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 登録済み実口座コードは読取専用",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 保留設定でも事務局の取込元設定を保存",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 日付の秒以下とJSTからUTCへの保存",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 URL・CSV対応・無効状態の維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 訂正結果とエスケープした理由を履歴表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 候補を抽出しても削除せず再申請中を除外",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 候補画面に削除実行POSTなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-new CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 account-edit CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-new CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 source-edit CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 history CSV取込は保留",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-search 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 profile-edit 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 candidates 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 幅320pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 幅375pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 幅390pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 幅412pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 幅844pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 幅1280pxの表示・タップ寸法",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 not-due 200%文字拡大で横はみ出しなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 口座選択一覧をタッチで開く",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 一覧をキーボードで閉じる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 共通マイページへ戻る",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 事務局 事務局画面から共通サインアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 未認証 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 未認証 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 未認証 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 未認証 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit エントラント bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit エントラント bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit エントラント profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit エントラント profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 財務専用 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 財務専用 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 財務専用 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 財務専用 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit クラブ代表 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit クラブ代表 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit クラブ代表 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit クラブ代表 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 旧管理者 bank-settings.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 旧管理者 bank-settings.php?format=json 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 旧管理者 profile-correct.php 権限拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 旧管理者 profile-correct.php?format=json 権限拒否",
+        "result": "PASS"
+      }
+    ],
+    "javascript_disabled": true
+  },
+  "checked_at_utc": "2026-10-30T01:32:56.690075+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -4394,7 +5276,7 @@
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
     "integration\\jmrckinki\\common\\portal_billing.php": "23d675eea230094019bbb69fd047674e66c97a87735a85d059912c2bbfdc6d84",
     "integration\\jmrckinki\\common\\portal_registration.php": "266e809502606f4b9bc1f63d8a6566670f7457227ad544390f1753098b6c4b70",
-    "public\\manage\\bank-settings.php": "1297d83d2e95a4f967ec20b9637c324dc6a8e0eb762582aaa068ef9bc6286d1a",
+    "public\\manage\\bank-settings.php": "d6dfde863c2a1570f8caf6c7a4ca4cd9747a82dea864fa61a3b2c8e644e85b1d",
     "public\\manage\\bank.php": "f5717501a8fb004b304ef20624b039197c3a5542638c5df07dd03bd28a3a78fb",
     "public\\manage\\billing.php": "371a53387b5dc7213e284a9282847f21e690d84c0a69ebec6f7e488db10f7109",
     "public\\manage\\card-check.php": "0a88e4164a8b4343927cfd065457fcb9e7a1515f82f9cd75b6b149c0fb5fb9d7",
@@ -4407,10 +5289,11 @@
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "5d66bb47cf51b440d393e01c7dc7b40ff55564defb4e5953058a472be773c973",
-    "public\\manage\\profile-correct.php": "262d93c282fb01e1871dba8154b83d80df32512b6901a87fc0b95ddf7d3c4077",
+    "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
-    "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871"
+    "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
+    "public\\manage\\_office-layout.php": "1b16af274ec56720c9ba6a1c23339147680230542b7dcbd62c3fc923b957377d"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
@@ -4421,10 +5304,11 @@
   "license_test_source_sha256": {
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
-    "tests\\license\\Dockerfile.browser": "4effc26f0ecd9cf3200a8b81210412f222a4a73b70f99b6ab71faccdddc0ec10",
+    "tests\\license\\Dockerfile.browser": "f65bd8fadf1af905dae740e7c78f36c4a4e936339625ee32cf0a6447e9ed1237",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
     "tests\\license\\mobile_browser.cjs": "b3472da533d9e230ebf5f5bf0f630e1348a51816d3027e0a75a9ce08bccbbbd1",
     "tests\\license\\mobile_seed.php": "790e98515e856a4a64ffa1e142ad0c47fcbe98e28e3a762f163ba967f37f0f97",
+    "tests\\license\\office_browser.cjs": "32180da339027443efdd0c087e6cb541743ab9887e2bd240ba48f3e7bbaec9f0",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8"
   },
@@ -4469,6 +5353,7 @@
     "public\\manage\\assets\\dashboard.css": "4e13c8ce3cf5b88576ce580c95f78ff3dd7d660c59f301431789930967f4f514",
     "public\\manage\\assets\\insurance.css": "b990180c862e178d3e937e41da188b547ca79f5c84978ca09c6be35e75b54c6d",
     "public\\manage\\assets\\licenses.css": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
+    "public\\manage\\assets\\office.css": "8b416fbd59f23e17a683a8b219efd8496a17d64b404edcee03f375bb2e090f9d",
     "public\\manage\\assets\\qrcodegen.js": "2511bc17f40a3c41d4a0578995db956b38997334d3d20113a5d4dc5c49c69480",
     "public\\manage\\assets\\README.md": "172e836b7a087a1fa1bb70bdb08acf5c0149c75d745ec038b2e62b2df7b36f9f"
   },
@@ -4499,13 +5384,13 @@
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "584d5a61f4100d2ef319a3ec82f79414bb717f850ab18c360524c6e740886e45",
+    "tests\\auth\\README.md": "05a15f7c3cbba2376331c541b9cc8a81e33570de5c91f49ab32dc9fd0855a0b3",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
     "tests\\auth\\run_http.php": "a76c185979d8004f1f08711f135556075daf7a918a84f5a50f242519374373a3",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "bdb0804bbbf743dd41518ad5772ec766e6f30436d9f4e30797e7dfd4ae99d610"
+    "tests\\auth\\validate_auth.py": "221531d1d62da011c84bded42b753eecae7cf953b60dc889fb649b2ccec16b2a"
   },
-  "php_lint_files": 83,
+  "php_lint_files": 84,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

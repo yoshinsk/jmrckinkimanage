@@ -263,6 +263,24 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
             dashboard_reports.append(json.loads(docker('logs',name).stdout))
         report['dashboard_browser_validation']={'status':'PASS','cases':[case for result in dashboard_reports for case in result['cases']],
                                                 'browsers':dashboard_reports[0]['browsers'],'hold_javascript_disabled':True}
+        # 隔離DBの架空会員60を未更新に戻し、候補あり/再申請中の除外を実画面で確認する。
+        # 全業務試験後の使い捨てDBだけが対象。本番設定・本番データは読み込まない。
+        db_sql(f"UPDATE portal_applications a JOIN portal_memberships m ON m.application_id=a.id SET a.status='rejected' WHERE m.user_id=60 AND m.year>{datetime.now(timezone.utc).year-2}")
+        name='jmrc-office-layout-20261030'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+               'jmrc-license-browser:20261028','node','office_browser.cjs')
+        created.append(name)
+        for _ in range(360):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                docker('cp',name+':/artifacts/.',artifact_linux)
+                if state['State']['ExitCode']!=0:
+                    raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
+                break
+            time.sleep(0.5)
+        else:
+            raise RuntimeError('Office browser timed out')
+        report['office_browser_validation']=json.loads(docker('logs',name).stdout)
         report['checked_at_utc']=datetime.now(timezone.utc).isoformat()
         report['legacy_source_sha256']=sources
         report['legacy_commit']=command(['git','-C',str(LEGACY.parents[1]),'rev-parse','HEAD']).stdout.decode().strip()
