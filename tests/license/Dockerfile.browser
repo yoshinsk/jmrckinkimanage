@@ -11,6 +11,7 @@ COPY dashboard_browser.cjs ./
 COPY office_browser.cjs ./
 COPY member_browser.cjs ./
 COPY review_browser.cjs ./
+COPY information_browser.cjs ./
 COPY vendor/ ./vendor/
 RUN mkdir /artifacts
 CMD ["node","mobile_browser.cjs"]

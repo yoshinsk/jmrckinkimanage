@@ -1,0 +1,1038 @@
+<!doctype html>
+<html lang="ja"><head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+  <title>旧HPの情報ページ・確認用 | JMRC近畿ポータル</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+  <style>/* Path: public/manage/assets/dashboard.css
+ * 機能: 既存entryのBootstrap配色・文字・余白に合わせたマイページ。外部ライブラリ・JavaScriptは不要。
+ */
+:root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #212529; background: #fff; line-height: 1.5; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-size: 1rem; }
+a { color: #0d6efd; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #0d6efd; outline-offset: 4px; }
+.portal-container { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: 1rem; }
+.portal-header { background: #212529; color: #fff; }
+.portal-header-inner { display: flex; align-items: center; justify-content: space-between; gap: .5rem 1rem; flex-wrap: wrap; padding-block: .75rem; }
+.portal-brand { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.125rem; color: #fff; text-decoration: none; overflow-wrap: anywhere; }
+.portal-header form { margin: 0; }
+.signout { display: inline-block; min-height: 44px; padding: .5rem .75rem; border: 1px solid #adb5bd; border-radius: .375rem; background: transparent; color: #fff; font: inherit; cursor: pointer; }
+.signout:hover { background: #fff; color: #212529; }
+.portal-header a:focus-visible, .portal-header button:focus-visible { outline-color: #fff; }
+main.portal-container { padding-block: 1.5rem 2rem; }
+h1 { margin: 0 0 .75rem; font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.3; font-weight: 600; }
+h2 { margin: 0 0 .5rem; font-size: 1.125rem; font-weight: 600; line-height: 1.5; }
+p { margin-top: 0; }
+.account { display: flex; flex-wrap: wrap; gap: .25rem .75rem; margin-bottom: 1.25rem; color: #495057; }
+.account > span { min-width: 0; }
+.account-email { overflow-wrap: anywhere; }
+.portal-notice { margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ffe69c; border-radius: .375rem; color: #664d03; background: #fff3cd; overflow-wrap: anywhere; }
+.entry-panel { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem; border: 1px solid #dee2e6; border-radius: .375rem; background: #f8f9fa; }
+.entry-panel > div { flex: 1 1 22rem; min-width: 0; }
+.entry-panel p { margin: 0; color: #495057; }
+.entry-link { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: .75rem 1rem; border-radius: .375rem; background: #0d6efd; color: #fff; text-decoration: none; text-align: center; overflow-wrap: anywhere; }
+.entry-link:hover { background: #0b5ed7; }
+.menu-section { margin-top: 1.75rem; }
+.menu-section h2 { margin-bottom: .75rem; }
+.menu-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; list-style: none; padding: 0; margin: 0; }
+.menu-list li { min-width: 0; }
+.menu-link { position: relative; display: flex; flex-direction: column; gap: .25rem; height: 100%; min-height: 72px; padding: 1rem 2.25rem 1rem 1rem; border: 1px solid #dee2e6; border-radius: .375rem; text-decoration: none; overflow-wrap: anywhere; }
+.menu-link::after { content: ""; position: absolute; right: 1rem; top: 50%; width: .5rem; height: .5rem; border-top: 2px solid currentColor; border-right: 2px solid currentColor; transform: translateY(-50%) rotate(45deg); }
+.menu-link:hover { background: #f8f9fa; border-color: #0d6efd; }
+.menu-title { font-weight: 600; }
+.menu-description { color: #495057; font-size: .9375rem; }
+.pending-features { margin-top: 1.75rem; border: 1px solid #dee2e6; border-radius: .375rem; }
+.pending-features summary { min-height: 48px; padding: 1rem; cursor: pointer; font-weight: 600; overflow-wrap: anywhere; }
+.pending-count { display: inline-block; margin-left: .5rem; padding: .125rem .5rem; border-radius: .25rem; font-size: .875rem; font-weight: 400; background: #e9ecef; color: #495057; }
+.pending-note { margin: 0 1rem 1rem; color: #495057; }
+.pending-features ul { list-style: none; padding: 0; margin: 0 1rem 1rem; }
+.pending-features li { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .5rem; padding: .75rem 0; border-top: 1px solid #dee2e6; overflow-wrap: anywhere; }
+.pending-features li > span:first-child { flex: 1 1 12rem; min-width: 0; }
+.pending-badge { padding: .125rem .5rem; border-radius: .25rem; font-size: .875rem; color: #495057; background: #e9ecef; }
+.portal-footer { padding-block: 1.5rem; border-top: 1px solid #dee2e6; color: #6c757d; text-align: center; }
+.skip-link { position: absolute; top: .5rem; left: 1rem; z-index: 1; padding: .75rem 1rem; background: #fff; transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+/* 小画面では操作先を1列にし、長いメールアドレスや200%の文字拡大でも横へ押し出さない。 */
+@media (max-width: 767px) {
+  .menu-list { grid-template-columns: minmax(0, 1fr); }
+  .entry-panel { padding: 1rem; }
+  .entry-link { width: 100%; }
+}
+/* Path: public/manage/assets/office.css
+ * 機能: 会員申請・会費と事務局フォーム・履歴を、マイページと同じ配色で小画面へ最適化する。
+ */
+.office-page h1, .office-page h2, .office-page h3 { overflow-wrap: anywhere; }
+.office-page h2 { font-size: 1.25rem; }
+.office-page h3 { font-size: 1.0625rem; margin: 0 0 .75rem; }
+.office-page p, .office-page li { overflow-wrap: anywhere; }
+.office-breadcrumb, .office-actions, .office-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+.office-breadcrumb { margin: -.5rem 0 .75rem; color: #495057; }
+.office-breadcrumb a { display: inline-flex; align-items: center; min-height: 44px; }
+.office-actions { margin-block: 1.25rem; }
+.office-bottom { margin-top: 1.5rem; }
+.office-intro { margin-bottom: 1.25rem; color: #495057; }
+.office-panel, .office-disclosure { margin-block: 1.25rem; border: 1px solid #dee2e6; border-radius: .375rem; min-width: 0; }
+.office-panel { padding: 1.25rem; }
+.office-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.office-columns > * { min-width: 0; }
+.office-columns > .office-disclosure { margin: 0; }
+.office-disclosure summary { padding: 1rem; min-height: 48px; cursor: pointer; font-weight: 600; overflow-wrap: anywhere; }
+.office-disclosure > ul, .office-disclosure > p { margin: 0 1rem 1rem; }
+.office-form, .office-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; }
+.office-form { margin-top: 1rem; }
+.office-form > fieldset { grid-column: 1 / -1; border: 0; padding: 0; margin: 0; min-width: 0; }
+.office-form legend { padding: 0; margin-bottom: 1rem; font-weight: 600; }
+.office-field { min-width: 0; }
+.office-wide { grid-column: 1 / -1; }
+.office-field > label { display: block; margin-bottom: .5rem; font-weight: 600; overflow-wrap: anywhere; }
+.office-form input:not([type="hidden"]):not([type="checkbox"]), .office-form select, .office-form textarea { display: block; width: 100%; min-width: 0; max-width: 100%; min-height: 48px; padding: .625rem .75rem; border: 1px solid #adb5bd; border-radius: .375rem; background: #fff; color: #212529; font: inherit; box-sizing: border-box; }
+.office-form textarea { resize: vertical; }
+.office-form input[readonly] { background: #e9ecef; }
+.office-form input:focus-visible, .office-form select:focus-visible, .office-form textarea:focus-visible { outline: 3px solid #0d6efd; outline-offset: 2px; }
+.office-help { margin: .5rem 0 0; color: #495057; font-size: .9375rem; }
+.office-check { display: flex; align-items: flex-start; gap: .75rem; min-height: 48px; padding: .75rem; border: 1px solid #dee2e6; border-radius: .375rem; overflow-wrap: anywhere; cursor: pointer; }
+.office-check input { flex: 0 0 1.25rem; width: 1.25rem; height: 1.25rem; margin: .125rem 0 0; accent-color: #0d6efd; }
+.office-button { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: .625rem 1rem; border: 1px solid transparent; border-radius: .375rem; background: #0d6efd; color: #fff; text-align: center; text-decoration: none; font: inherit; cursor: pointer; overflow-wrap: anywhere; }
+.office-button:hover { background: #0b5ed7; }
+.office-button:disabled { background: #e9ecef; color: #495057; border-color: #adb5bd; cursor: not-allowed; }
+.office-button.secondary { background: #fff; border-color: #6c757d; color: #343a40; }
+.office-button.secondary:hover { background: #f8f9fa; }
+.office-submit { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .75rem; }
+.office-success { margin-block: 1rem; padding: 1rem; border: 1px solid #a3cfbb; border-radius: .375rem; background: #d1e7dd; color: #0a3622; }
+.office-success p { margin: 0 0 .75rem; }
+.office-success p:last-child { margin-bottom: 0; }
+.office-list { list-style: none; padding: 0; margin: 0; }
+.office-list li + li { border-top: 1px solid #dee2e6; }
+.office-list a { display: block; min-height: 48px; padding: .75rem 0; overflow-wrap: anywhere; }
+.office-list strong, .office-list small { display: block; }
+.office-list small { color: #495057; font-size: .875rem; }
+.office-meta { color: #495057; font-size: .9375rem; }
+.office-history { padding-block: 1rem; border-top: 1px solid #dee2e6; min-width: 0; }
+.office-history p { white-space: pre-wrap; }
+.office-definition { margin: 0; }
+.office-definition dt { margin-top: .75rem; color: #495057; font-size: .9375rem; }
+.office-definition dd { margin: .25rem 0 1rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.office-amounts dd { font-size: 1.5rem; font-weight: 600; }
+.office-records { list-style: none; padding: 0; margin: 0; }
+.office-records > li { padding-block: 1rem; overflow-wrap: anywhere; }
+.office-records > li + li { border-top: 1px solid #dee2e6; }
+.office-readonly { padding: 1rem; margin-block: 1rem; border-left: 4px solid #6c757d; background: #f8f9fa; }
+.office-candidates li { display: flex; flex-direction: column; gap: .25rem; padding-block: .75rem; }
+/* 日付入力の固有最小幅と長いラベルも、狭幅・文字拡大時にフォームの外へ出さない。 */
+@media (max-width: 767px) {
+  .office-columns, .office-form, .office-fields { grid-template-columns: minmax(0, 1fr); }
+  .office-panel { padding: 1rem; }
+  .office-actions > a, .office-submit > button, .office-bottom > a { width: 100%; }
+}
+/* Path: public/manage/assets/information.css
+ * 機能: 旧HP情報ページの確認画面。既存ポータルの配色・タッチサイズ・文字拡大に合わせる。
+ */
+.info-banner { padding: 1rem; border: 2px solid #997404; border-radius: .375rem; background: #fff3cd; color: #332701; }
+.info-banner p { margin: .5rem 0 0; }
+.info-nav, .info-categories { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.25rem; }
+.info-nav a, .info-categories a { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: .5rem .875rem; border: 1px solid #adb5bd; border-radius: .375rem; text-decoration: none; overflow-wrap: anywhere; }
+.info-nav a[aria-current], .info-categories a[aria-current] { background: #0d6efd; color: #fff; border-color: #0d6efd; }
+.info-section { margin-block: 2rem; scroll-margin-top: 1rem; }
+.info-section > h2 { border-bottom: 2px solid #0d6efd; padding-bottom: .75rem; font-size: 1.5rem; }
+.info-filter { padding: 1rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: .375rem; margin-bottom: 1.25rem; }
+.info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; list-style: none; padding: 0; }
+.info-grid > li { min-width: 0; border: 1px solid #dee2e6; border-radius: .375rem; }
+.info-grid article { padding: 1.25rem; height: 100%; display: flex; flex-direction: column; }
+.info-grid h3 { font-size: 1.125rem; }
+.info-grid h3 a { display: flex; align-items: center; min-height: 48px; }
+.info-meta, .info-card-foot { color: #495057; font-size: .9375rem; }
+.info-card-foot { display: flex; flex-wrap: wrap; gap: .5rem 1rem; justify-content: space-between; margin: auto 0 0; padding-top: .75rem; border-top: 1px solid #dee2e6; }
+.info-status { display: inline-block; padding: .25rem .625rem; font-size: .9375rem; background: #fff3cd; color: #664d03; border-radius: .25rem; }
+.info-body { font-size: 1.125rem; line-height: 1.8; }
+.info-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.info-facts > div { min-width: 0; border-top: 1px solid #dee2e6; padding-top: .75rem; }
+.info-facts dt { color: #495057; font-size: .9375rem; }
+.info-facts dd { margin: .25rem 0 0; overflow-wrap: anywhere; }
+.info-facts small, .info-source-link span { display: block; }
+.info-inset { padding: 1rem; }
+.info-notes-heading { margin: 0; }
+.info-source-link { display: block; min-height: 48px; padding-block: .5rem; overflow-wrap: anywhere; }
+.info-source-link span { font-size: .875rem; }
+.info-calendar { list-style: none; padding: 0; }
+.info-calendar > li { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1.25rem; border-bottom: 1px solid #dee2e6; padding-block: 1.25rem; }
+.info-calendar > li > div { min-width: 0; }
+.info-date { display: flex; flex-direction: column; gap: .25rem; overflow-wrap: anywhere; }
+.info-date time { font-size: 1.125rem; font-weight: 600; }
+@media (max-width: 767px) { .info-grid, .info-facts, .info-calendar > li { grid-template-columns: minmax(0, 1fr); } .info-grid article { padding: 1rem; } .info-nav a { flex: 1 1 10rem; } }
+@media print { .portal-header, .info-nav, form { display: none; } .info-banner { border-color: #000; } .info-grid { display: block; } .info-grid > li { margin-bottom: 1rem; } }
+</style>
+  </head><body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="portal-header"><div class="portal-container portal-header-inner">
+  <a class="portal-brand" href="#main">JMRC近畿ポータル</a>
+  <span>閲覧専用の確認資料</span></div></header>
+<main id="main" class="portal-container office-page" tabindex="-1">
+    <h1>旧HPから引き継ぐ情報ページ</h1>
+  <p class="office-intro">お知らせ・資料・日程・関連リンクの配置と、内容の探しやすさをご確認ください。</p>
+  <aside class="info-banner" aria-label="確認用画面の注意"><strong>事務局の確認用・一般公開前</strong><p>掲載本文は構成を確認するための説明です。旧記事・名簿・添付の原文はまだ移していません。カレンダーは架空例です。公開・申請受付・送信は行いません。</p></aside>
+  <p class="office-help">このHTMLは閲覧専用です。見出しを開いて詳細を確認できます。検索・日程の絞り込みは隔離サーバー版で確認できます。外部リンクを選んだ場合だけ元サイトへ移動します。</p>  <nav class="info-nav" aria-label="情報ページの種類">
+    <a href="#information" >お知らせ</a><a href="#documents" >資料・制度の案内</a><a href="#calendar" >統一カレンダー</a><a href="#links" >部会・関連リンク</a><a href="#migration" >引継ぎ対象の確認</a>  </nav>
+      <section id="information" class="info-section" aria-label="お知らせ">
+      <h2>お知らせ</h2>
+                <p>事務局・運営委員会・全国JMRC・JMRC近畿の4分類で案内します。公開を承認する担当者はQ10で確認します。</p>
+                                  <p class="office-meta" role="status">11件の確認対象</p>
+                          <ul class="info-grid">            <li data-topic="HP-01"><article><p class="info-meta">事務局 · P21</p><h3><a href="#HP-01">事務局からのお知らせ</a></h3><p>事務局の案内、新着情報、会員制度の説明をまとめます。旧年度の案内は対象年度を明示します。</p><p class="info-card-foot">HP-01 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-02"><article><p class="info-meta">事務局 · P22</p><h3><a href="#HP-02">代表者会議・表彰式</a></h3><p>代表者会議や表彰式の開催案内、表彰式の様子を掲載する構成です。開催内容と対象年度は原本確認後に差し替えます。</p><p class="info-card-foot">HP-02 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-03"><article><p class="info-meta">事務局 · P22</p><h3><a href="#HP-03">Bライセンス講習会</a></h3><p>講習会の案内を掲載する構成です。現在の開催日・申込先は確認待ちです。新たな講習会申込システムは設けません。</p><p class="info-card-foot">HP-03 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-09"><article><p class="info-meta">JMRC近畿 · P23～25</p><h3><a href="#HP-09">シリーズ表彰・全国大会のご案内</a></h3><p>シリーズ表彰者、JAF CUP、西日本フェスティバル等の案内を掲載する構成です。表彰者の氏名・所属や対象年度は承認前のため掲載しません。</p><p class="info-card-foot">HP-09 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-13"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-13">個人会員制度のご案内</a></h3><p>GeneralはJAFライセンス必須、年会費2,000円です。Temporaryは1イベント500円、主催クラブの承認を受け、開催日のみ有効です。同日複数イベントには利用できません。個人会員の受付開始は保留中です。</p><p class="info-card-foot">HP-13 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-14"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-14">レンタル機器のご案内</a></h3><p>光電管、レスキューツール、KED・バキュームスプリント、重量計、タバード、バックボード、AEDの案内・様式が引継ぎ候補です。貸出条件・様式の年度は確認待ちです。予約・在庫管理は今回の対象に含みません。</p><p class="info-card-foot">HP-14 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-15"><article><p class="info-meta">JMRC近畿 · P26</p><h3><a href="#HP-15">シリーズ概要</a></h3><p>対象年度と版を付けてシリーズ概要を案内します。正式な規則原本の確認前に旧年度の条件を新年度へ読み替えません。</p><p class="info-card-foot">HP-15 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-17"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-17">JAF競技保険・オフィシャル名簿様式</a></h3><p>JAF公認競技保険・クローズド競技保険の案内と空の様式を対象にします。記入済みのオフィシャル名簿は掲載しません。</p><p class="info-card-foot">HP-17 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-19"><article><p class="info-meta">運営委員会 · P27</p><h3><a href="#HP-19">運営委員会からのお知らせ</a></h3><p>運営委員名簿と公開決定事項を案内する構成です。名簿の公開項目は確認待ちです。非公開の委員会資料や資料BOXはこのページに掲載しません。</p><p class="info-card-foot">HP-19 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-20"><article><p class="info-meta">全国JMRC · P27</p><h3><a href="#HP-20">会則・見舞金細則・協議会規程</a></h3><p>協議会会則、見舞金細則、全国協議会規程を案内する構成です。分類名と発行団体を分けて確認します。協議会見舞金の請求は今回保留です。</p><p class="info-card-foot">HP-20 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-21"><article><p class="info-meta">JMRC近畿 · P27</p><h3><a href="#HP-21">クラブ年度登録・クラブ名簿</a></h3><p>クラブ年度登録の案内と公表用のクラブ／団体名簿を扱う構成です。実際の年度登録記録から名簿を自動公開しません。現年度・過年度の公開範囲は確認待ちです。</p><p class="info-card-foot">HP-21 <span>公開前の確認用</span></p></article></li>
+          </ul>
+                  </section>
+        <section id="documents" class="info-section" aria-label="資料・制度の案内">
+      <h2>資料・制度の案内</h2>
+                <p>制度の説明、会則・規程、空の様式、レンタル機器の案内を探せる構成です。原本の年度・版・公開可否が未確認のため、添付ダウンロードは保留しています。</p><p class="office-readonly">非公開の委員会資料、記入済み名簿、保険の個人帳票はこのページに掲載しません。</p>
+                        <p class="office-meta" role="status">11件の確認対象</p>
+                          <ul class="info-grid">            <li data-topic="HP-11"><article><p class="info-meta">JMRC近畿 · P23・25</p><h3><a href="#HP-11">部会の救済基金・互助会</a></h3><p>ジムカーナ部会救済基金、ラリー部会互助会の案内は各部会HPで扱います。スポーツ安全保険や協議会見舞金と別の制度です。</p><p class="info-card-foot">HP-11 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-12"><article><p class="info-meta">JMRC近畿 · P26</p><h3><a href="#HP-12">競技会の申込書・誓約書</a></h3><p>競技の参加申込書、誓約書、ナビゲーター追加申込書は各部会HPへ案内します。オンラインエントリーは既存の仕組みを継続します。</p><p class="info-card-foot">HP-12 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-13"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-13">個人会員制度のご案内</a></h3><p>GeneralはJAFライセンス必須、年会費2,000円です。Temporaryは1イベント500円、主催クラブの承認を受け、開催日のみ有効です。同日複数イベントには利用できません。個人会員の受付開始は保留中です。</p><p class="info-card-foot">HP-13 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-14"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-14">レンタル機器のご案内</a></h3><p>光電管、レスキューツール、KED・バキュームスプリント、重量計、タバード、バックボード、AEDの案内・様式が引継ぎ候補です。貸出条件・様式の年度は確認待ちです。予約・在庫管理は今回の対象に含みません。</p><p class="info-card-foot">HP-14 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-15"><article><p class="info-meta">JMRC近畿 · P26</p><h3><a href="#HP-15">シリーズ概要</a></h3><p>対象年度と版を付けてシリーズ概要を案内します。正式な規則原本の確認前に旧年度の条件を新年度へ読み替えません。</p><p class="info-card-foot">HP-15 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-16"><article><p class="info-meta">全国JMRC · P26</p><h3><a href="#HP-16">JAF国内競技規則・車両規則</a></h3><p>JAFの国内競技規則、車両規則、公認車両一覧は公式ページを参照する構成です。原本を独自に更新・自動複製しません。</p><p class="info-card-foot">HP-16 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-17"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-17">JAF競技保険・オフィシャル名簿様式</a></h3><p>JAF公認競技保険・クローズド競技保険の案内と空の様式を対象にします。記入済みのオフィシャル名簿は掲載しません。</p><p class="info-card-foot">HP-17 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-18"><article><p class="info-meta">事務局 · P26</p><h3><a href="#HP-18">スポーツ安全保険のご案内</a></h3><p>加入対象はGeneralです。初回は年度クラブ単位で4名が必要です。2027年の保険料・期間・追加加入の手順は確認待ちです。加入意思の登録と正式な加入は区別します。</p><p class="info-card-foot">HP-18 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-19"><article><p class="info-meta">運営委員会 · P27</p><h3><a href="#HP-19">運営委員会からのお知らせ</a></h3><p>運営委員名簿と公開決定事項を案内する構成です。名簿の公開項目は確認待ちです。非公開の委員会資料や資料BOXはこのページに掲載しません。</p><p class="info-card-foot">HP-19 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-20"><article><p class="info-meta">全国JMRC · P27</p><h3><a href="#HP-20">会則・見舞金細則・協議会規程</a></h3><p>協議会会則、見舞金細則、全国協議会規程を案内する構成です。分類名と発行団体を分けて確認します。協議会見舞金の請求は今回保留です。</p><p class="info-card-foot">HP-20 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-21"><article><p class="info-meta">JMRC近畿 · P27</p><h3><a href="#HP-21">クラブ年度登録・クラブ名簿</a></h3><p>クラブ年度登録の案内と公表用のクラブ／団体名簿を扱う構成です。実際の年度登録記録から名簿を自動公開しません。現年度・過年度の公開範囲は確認待ちです。</p><p class="info-card-foot">HP-21 <span>公開前の確認用</span></p></article></li>
+          </ul>
+                  </section>
+        <section id="calendar" class="info-section" aria-label="統一カレンダー">
+      <h2>統一カレンダー</h2>
+              <p>競技会・会議・事務局在席／休業日をまとめた表示例です。日付・時間はすべて日本時間（Asia/Tokyo）で、実際の予定ではありません。</p>
+        <aside class="office-readonly"><strong>Q11：更新担当・公開範囲・元データは確認待ち</strong><p>競技会の詳細は各部会HPへ案内する方針です。事務局の在席情報を一般公開するかは未決定です。</p></aside>
+                <ol class="info-calendar">          <li data-source-key="demo-competition-1"><div class="info-date"><time datetime="2027-04-10">2027-04-10</time><span>終日（日本時間）</span></div><div><p class="info-status">予定の表示例</p><h3>競技会の表示例（架空）</h3><p>競技会の詳細は各部会HPへ案内します。実際の競技日程ではありません。</p><small>公開範囲・担当者：確認待ち</small></div></li>
+                  <li data-source-key="demo-meeting-1"><div class="info-date"><time datetime="2027-04-11">2027-04-11</time><span>13:00～15:00（日本時間）</span></div><div><p class="info-status">予定の表示例</p><h3>代表者会議の表示例（架空）</h3><p>案内・出欠受付の担当と公開範囲は確認待ちです。</p><small>公開範囲・担当者：確認待ち</small></div></li>
+                  <li data-source-key="demo-office-1"><div class="info-date"><time datetime="2027-04-12">2027-04-12</time><span>10:00～16:00（日本時間）</span></div><div><p class="info-status">予定の表示例</p><h3>事務局在席の表示例（架空）</h3><p>実際の在席時間ではありません。公開範囲はQ11で確認します。</p><small>公開範囲・担当者：確認待ち</small></div></li>
+                  <li data-source-key="demo-office-2"><div class="info-date"><time datetime="2027-04-13">2027-04-13</time><span>終日（日本時間）</span></div><div><p class="info-status">休業の表示例</p><h3>事務局休業の表示例（架空）</h3><p>実際の休業日ではありません。</p><small>公開範囲・担当者：確認待ち</small></div></li>
+                  <li data-source-key="demo-competition-2"><div class="info-date"><time datetime="2027-04-18">2027-04-18</time><span>終日（日本時間）</span></div><div><p class="info-status">中止の表示例</p><h3>中止した競技会の表示例（架空）</h3><p>中止情報を残す場合の見え方です。申込や取消の処理は行いません。</p><small>公開範囲・担当者：確認待ち</small></div></li>
+        </ol>
+        <p><a class="office-button secondary" href="#HP-05">旧日程表と引継ぎ方針を確認</a></p>
+          </section>
+        <section id="links" class="info-section" aria-label="部会・関連リンク">
+      <h2>部会・関連リンク</h2>
+                <p>競技の詳細は各部会HP、JAF規則等は公式ページへ案内します。詳細欄の元URLは引継ぎ候補です。正式な移行先・部会からの結果リンク・問い合わせ先はQ06・Q12・Q14で確認します。</p>
+                        <p class="office-meta" role="status">10件の確認対象</p>
+                          <ul class="info-grid">            <li data-topic="HP-04"><article><p class="info-meta">JMRC近畿 · P22</p><h3><a href="#HP-04">競技部会のご案内</a></h3><p>ジムカーナ、ダートトライアル、ラリー、レース、競技会審査委員会の情報は各部会HPへ案内します。旧HP内の案内ページと部会HPは区別します。</p><p class="info-card-foot">HP-04 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-06"><article><p class="info-meta">JMRC近畿 · P23</p><h3><a href="#HP-06">ジムカーナのシリーズポイント</a></h3><p>各部会HPから結果ページへリンクする方針です。新しい集計の管理場所・公開先・規則が未確定のため、点数や順位は掲載しません。</p><p class="info-card-foot">HP-06 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-07"><article><p class="info-meta">JMRC近畿 · P24</p><h3><a href="#HP-07">ダートトライアルのシリーズポイント</a></h3><p>各部会HPから結果ページへリンクする方針です。過年度のPDFを現年度の結果として掲載しません。</p><p class="info-card-foot">HP-07 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-08"><article><p class="info-meta">JMRC近畿 · P25</p><h3><a href="#HP-08">ラリーのシリーズポイント</a></h3><p>各部会HPから結果ページへリンクする方針です。ドライバー／ナビゲーターの集計単位を含め、正式な結果の掲載条件は確認待ちです。</p><p class="info-card-foot">HP-08 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-10"><article><p class="info-meta">JMRC近畿 · P23～26</p><h3><a href="#HP-10">特別規則・リザルト・練習会</a></h3><p>各競技の特別規則、リザルト、イベント、練習会は各部会HPへ案内します。練習会申込やフォーラムはポータルに統合しません。</p><p class="info-card-foot">HP-10 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-11"><article><p class="info-meta">JMRC近畿 · P23・25</p><h3><a href="#HP-11">部会の救済基金・互助会</a></h3><p>ジムカーナ部会救済基金、ラリー部会互助会の案内は各部会HPで扱います。スポーツ安全保険や協議会見舞金と別の制度です。</p><p class="info-card-foot">HP-11 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-12"><article><p class="info-meta">JMRC近畿 · P26</p><h3><a href="#HP-12">競技会の申込書・誓約書</a></h3><p>競技の参加申込書、誓約書、ナビゲーター追加申込書は各部会HPへ案内します。オンラインエントリーは既存の仕組みを継続します。</p><p class="info-card-foot">HP-12 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-16"><article><p class="info-meta">全国JMRC · P26</p><h3><a href="#HP-16">JAF国内競技規則・車両規則</a></h3><p>JAFの国内競技規則、車両規則、公認車両一覧は公式ページを参照する構成です。原本を独自に更新・自動複製しません。</p><p class="info-card-foot">HP-16 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-22"><article><p class="info-meta">全国JMRC · P28</p><h3><a href="#HP-22">JAFのご案内</a></h3><p>JAF関西本部、お知らせ、公示、Motor Sports News、ライセンス講習会、全日本選手権の情報はJAFへのリンクで案内します。</p><p class="info-card-foot">HP-22 <span>公開前の確認用</span></p></article></li>
+                      <li data-topic="HP-23"><article><p class="info-meta">JMRC近畿 · P29</p><h3><a href="#HP-23">関連リンク・お問い合わせ</a></h3><p>各部会、各地域JMRC、JAFへのリンクをまとめます。問い合わせ先の移設先は確認待ちです。この試作から問い合わせは送信しません。</p><p class="info-card-foot">HP-23 <span>公開前の確認用</span></p></article></li>
+          </ul>
+                  </section>
+        <section id="migration" class="info-section" aria-label="引継ぎ対象の確認">
+      <h2>引継ぎ対象の確認</h2>
+                <p>HP-01～HP-24の対応と、旧URLの154件の候補を確認できます。HP-24は移行対象外です。旧サイトの削除や転送設定は行っていません。</p>
+                        <p class="office-meta" role="status">24件の確認対象</p>
+                          <details class="office-disclosure" id="HP-01"><summary>HP-01 事務局からのお知らせ</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-01">
+      <p class="info-meta">HP-01 · 事務局 · P21</p>
+      <h2>事務局からのお知らせ</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">事務局の案内、新着情報、会員制度の説明をまとめます。旧年度の案内は対象年度を明示します。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認、2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。旧年度の案内は年度を明示して選別</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（3件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>トップの新着・固定案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/index.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/index.html</span></a>            </li>
+                      <li><strong>夏季休業のお知らせ。</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/jimukyoku/jimu_2026.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/jimukyoku/jimu_2026.html</span></a>            </li>
+                      <li><strong>事務局からのお知らせ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/jimukyoku_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/jimukyoku_info.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-02"><summary>HP-02 代表者会議・表彰式</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-02">
+      <p class="info-meta">HP-02 · 事務局 · P22</p>
+      <h2>代表者会議・表彰式</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">代表者会議や表彰式の開催案内、表彰式の様子を掲載する構成です。開催内容と対象年度は原本確認後に差し替えます。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。出欠受付は既存の会議要件に接続</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（3件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ＪＡＦ近畿地方選手権・ＪＭＲＣ近畿シリーズ表彰式 開催案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/awardceremony_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/awardceremony_info.html</span></a>            </li>
+                      <li><strong>表彰式の全表彰順について</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/awardceremony_info2.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/awardceremony_info2.html</span></a>            </li>
+                      <li><strong>クラブ・団体代表者会議（総会）開催案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/generalmeeting_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/generalmeeting_info.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-03"><summary>HP-03 Bライセンス講習会</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-03">
+      <p class="info-meta">HP-03 · 事務局 · P22</p>
+      <h2>Bライセンス講習会</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">講習会の案内を掲載する構成です。現在の開催日・申込先は確認待ちです。新たな講習会申込システムは設けません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。講習会申込システムの新設は含めない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（1件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>Ｂライセンス講習会申し込みはこちら</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/blicense.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/blicense.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-04"><summary>HP-04 競技部会のご案内</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-04">
+      <p class="info-meta">HP-04 · JMRC近畿 · P22</p>
+      <h2>競技部会のご案内</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">ジムカーナ、ダートトライアル、ラリー、レース、競技会審査委員会の情報は各部会HPへ案内します。旧HP内の案内ページと部会HPは区別します。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q14。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>各部会のHPへ移行またはリンク。現在の内部案内ページと実際の部会HPを区別</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（5件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ダートトライアル専門部会</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/dirt_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/dirt_info.html</span></a>            </li>
+                      <li><strong>ジムカーナ専門部会</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/gym_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/gym_info.html</span></a>            </li>
+                      <li><strong>競技会審査委員会（旧：審査委員グループ）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/judge/judge_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/judge/judge_info.html</span></a>            </li>
+                      <li><strong>レース専門部会</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/race_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/race_info.html</span></a>            </li>
+                      <li><strong>ラリー専門部会</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/rally_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/rally_info.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-05"><summary>HP-05 統一カレンダー</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-05">
+      <p class="info-meta">HP-05 · 事務局 · P22</p>
+      <h2>統一カレンダー</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">競技会・JMRCの会議・事務局在席／休業日を種別付きで表示します。次の予定はすべて架空の表示例です。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q11・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>統一カレンダー。部会別詳細日程・規則は部会HPへ</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（3件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>一覧</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_calendar_all.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_calendar_all.pdf</span></a>            </li>
+                      <li><strong>トップの事務局カレンダー</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/index.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/index.html</span></a>            </li>
+                      <li><strong>ＪＭＲＣカレンダー</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/jmrc_calendar.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/jmrc_calendar.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-06"><summary>HP-06 ジムカーナのシリーズポイント</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-06">
+      <p class="info-meta">HP-06 · JMRC近畿 · P23</p>
+      <h2>ジムカーナのシリーズポイント</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">各部会HPから結果ページへリンクする方針です。新しい集計の管理場所・公開先・規則が未確定のため、点数や順位は掲載しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q06～Q09・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>各部会HPから結果ページへリンクする方針。リンク先と新集計の公開場所はQ06・12</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（2件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ミドルシリーズ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://b10b0f54-3008-4957-9111-76f46439a2b8.filesusr.com/ugd/eefd37_a5bf073a839942708b232a02f1fa5b52.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://b10b0f54-3008-4957-9111-76f46439a2b8.filesusr.com/ugd/eefd37_a5bf073a839942708b232a02f1fa5b52.pdf</span></a>            </li>
+                      <li><strong>チャンピオンシリーズ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://b10b0f54-3008-4957-9111-76f46439a2b8.filesusr.com/ugd/eefd37_c9179bc2d5504b25a2c7ff6ae571ebe8.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://b10b0f54-3008-4957-9111-76f46439a2b8.filesusr.com/ugd/eefd37_c9179bc2d5504b25a2c7ff6ae571ebe8.pdf</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-07"><summary>HP-07 ダートトライアルのシリーズポイント</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-07">
+      <p class="info-meta">HP-07 · JMRC近畿 · P24</p>
+      <h2>ダートトライアルのシリーズポイント</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">各部会HPから結果ページへリンクする方針です。過年度のPDFを現年度の結果として掲載しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q06～Q09・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>HP-06と同じ。既存の過年度PDFを現年度結果として転記しない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（2件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>チャンピオンシリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2025_dirt_point_champion.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2025_dirt_point_champion.pdf</span></a>            </li>
+                      <li><strong>ジュニアシリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2025_dirt_point_junior.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2025_dirt_point_junior.pdf</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-08"><summary>HP-08 ラリーのシリーズポイント</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-08">
+      <p class="info-meta">HP-08 · JMRC近畿 · P25</p>
+      <h2>ラリーのシリーズポイント</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">各部会HPから結果ページへリンクする方針です。ドライバー／ナビゲーターの集計単位を含め、正式な結果の掲載条件は確認待ちです。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q06～Q09・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>HP-06と同じ。ドライバー・ナビゲーターの集計単位はQ07</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（2件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>アベレージラリーシリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="https://jmrc-kinki-rally.com/documents/2025/2025_average_point.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://jmrc-kinki-rally.com/documents/2025/2025_average_point.pdf</span></a>            </li>
+                      <li><strong>ＳＳラリーシリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="https://jmrc-kinki-rally.com/documents/2025/2025_ss_point.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://jmrc-kinki-rally.com/documents/2025/2025_ss_point.pdf</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-09"><summary>HP-09 シリーズ表彰・全国大会のご案内</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-09">
+      <p class="info-meta">HP-09 · JMRC近畿 · P23～25</p>
+      <h2>シリーズ表彰・全国大会のご案内</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">シリーズ表彰者、JAF CUP、西日本フェスティバル等の案内を掲載する構成です。表彰者の氏名・所属や対象年度は承認前のため掲載しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12・Q13。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+      <p class="office-help">配置は確認用の案。正式な分類・担当はQ10・Q12で確認。</p>      <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026、2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション。JMRC全国オールスター等、添付画面にある大会案内も移行候補として個別確認</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（35件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>公式通知 No.1（審査委員の変更）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_bulletin.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_bulletin.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entryform.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entryform.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entryform.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entryform.xlsx</span></a>            </li>
+                      <li><strong>暫定エントラントリスト</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entrylist_provisional.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entrylist_provisional.pdf</span></a>            </li>
+                      <li><strong>金曜日練習会案内</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_fridayinfo.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_fridayinfo.pdf</span></a>            </li>
+                      <li><strong>大会ポスター</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_officialposter.jpg" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_officialposter.jpg</span></a>            </li>
+                      <li><strong>公開練習案内</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_practice_info.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_practice_info.pdf</span></a>            </li>
+                      <li><strong>特別規則書</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_regulation.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_regulation.pdf</span></a>            </li>
+                      <li><strong>公式通知 No.1（施設見取図）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_bulletin1.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_bulletin1.pdf</span></a>            </li>
+                      <li><strong>PDF版</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entryform.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entryform.pdf</span></a>            </li>
+                      <li><strong>Excel版</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entryform.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entryform.xlsx</span></a>            </li>
+                      <li><strong>公開練習エントラントリスト</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entrylist_practice" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entrylist_practice</span></a>            </li>
+                      <li><strong>暫定エントラントリスト（10/29 修正版）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entrylist_provisional.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entrylist_provisional.pdf</span></a>            </li>
+                      <li><strong>JAF：Eラーニング受講のお願い</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_jaf_subcommittee.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_jaf_subcommittee.pdf</span></a>            </li>
+                      <li><strong>大会ポスター</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_officialposter.jpg" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_officialposter.jpg</span></a>            </li>
+                      <li><strong>information No.3（パドックリスト）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_paddocklist.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_paddocklist.pdf</span></a>            </li>
+                      <li><strong>特別規則書</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_regulation.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_regulation.pdf</span></a>            </li>
+                      <li><strong>PDF版</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entryform.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entryform.pdf</span></a>            </li>
+                      <li><strong>Excel版</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entryform.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entryform.xlsx</span></a>            </li>
+                      <li><strong>暫定エントラントリスト</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entrylist_provisional.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entrylist_provisional.pdf</span></a>            </li>
+                      <li><strong>information No.1（年少者のサービス登録）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_info.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_info.pdf</span></a>            </li>
+                      <li><strong>大会ポスター</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_officialposter.jpg" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_officialposter.jpg</span></a>            </li>
+                      <li><strong>大会ポスター</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_officialposter.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_officialposter.pdf</span></a>            </li>
+                      <li><strong>パドック配置図</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_paddocklayout.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_paddocklayout.pdf</span></a>            </li>
+                      <li><strong>パドックリスト</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_paddocklist.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_paddocklist.pdf</span></a>            </li>
+                      <li><strong>公開練習リザルト</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_practice_result.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_practice_result.pdf</span></a>            </li>
+                      <li><strong>特別規則書（草案）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_regulation.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_regulation.pdf</span></a>            </li>
+                      <li><strong>リザルト</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_result.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_result.pdf</span></a>            </li>
+                      <li><strong>大型車の進入ルート図</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_routemap.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_routemap.pdf</span></a>            </li>
+                      <li><strong>ＪＡＦ近畿地方選手権</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/award/dirt_award_JAF2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/award/dirt_award_JAF2025.html</span></a>            </li>
+                      <li><strong>ＪＭＲＣ近畿シリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/award/dirt_award_JMRC2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/award/dirt_award_JMRC2025.html</span></a>            </li>
+                      <li><strong>ＪＡＦ近畿地方選手権</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/award/gym_award_JAF2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/award/gym_award_JAF2025.html</span></a>            </li>
+                      <li><strong>ＪＭＲＣ近畿シリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/award/gym_award_JMRC2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/award/gym_award_JMRC2025.html</span></a>            </li>
+                      <li><strong>ＪＡＦ近畿地方選手権</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/award/rally_award_JAF2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/award/rally_award_JAF2025.html</span></a>            </li>
+                      <li><strong>ＪＭＲＣ近畿シリーズ</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/award/rally_award_JMRC2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/award/rally_award_JMRC2025.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-10"><summary>HP-10 特別規則・リザルト・練習会</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-10">
+      <p class="info-meta">HP-10 · JMRC近畿 · P23～26</p>
+      <h2>特別規則・リザルト・練習会</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">各競技の特別規則、リザルト、イベント、練習会は各部会HPへ案内します。練習会申込やフォーラムはポータルに統合しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q14。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>各部会HP。練習会の申込やフォーラムをポータルへ統合する要件は追加しない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（9件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ダートトライアルカレンダー</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_calendar_dirt.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_calendar_dirt.pdf</span></a>            </li>
+                      <li><strong>ジムカーナカレンダー</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_calendar_gym.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_calendar_gym.pdf</span></a>            </li>
+                      <li><strong>ラリーカレンダー</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_calendar_rally.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_calendar_rally.pdf</span></a>            </li>
+                      <li><strong>ダートトライアル</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_dirttrial_regulation.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_dirttrial_regulation.pdf</span></a>            </li>
+                      <li><strong>ジムカーナ</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_gymkhana_regulation.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_gymkhana_regulation.pdf</span></a>            </li>
+                      <li><strong>ラリー</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_rally_regulation.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_rally_regulation.pdf</span></a>            </li>
+                      <li><strong>ダートトライアル</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/judge/judgingcommittee_list_dirt.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/judge/judgingcommittee_list_dirt.html</span></a>            </li>
+                      <li><strong>ジムカーナ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/judge/judgingcommittee_list_gym.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/judge/judgingcommittee_list_gym.html</span></a>            </li>
+                      <li><strong>ラリー</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/judge/judgingcommittee_list_rally.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/judge/judgingcommittee_list_rally.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-11"><summary>HP-11 部会の救済基金・互助会</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-11">
+      <p class="info-meta">HP-11 · JMRC近畿 · P23・25</p>
+      <h2>部会の救済基金・互助会</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">ジムカーナ部会救済基金、ラリー部会互助会の案内は各部会HPで扱います。スポーツ安全保険や協議会見舞金と別の制度です。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q14。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認、2022 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>各部会HP。スポーツ安全保険・協議会見舞金の状態に読み替えない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（2件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ＪＭＲＣ近畿ジムカーナ救済基金規定</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JMRCkinki_gym_relieffund_rule.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JMRCkinki_gym_relieffund_rule.pdf</span></a>            </li>
+                      <li><strong>ＪＭＲＣ近畿ラリー部会互助会制度（2022年4月1日 改正）</strong><p class="office-meta">元年度候補：2022</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JMRCkinki_rally_gojyokai_20220401.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JMRCkinki_rally_gojyokai_20220401.pdf</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-12"><summary>HP-12 競技会の申込書・誓約書</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-12">
+      <p class="info-meta">HP-12 · JMRC近畿 · P26</p>
+      <h2>競技会の申込書・誓約書</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">競技の参加申込書、誓約書、ナビゲーター追加申込書は各部会HPへ案内します。オンラインエントリーは既存の仕組みを継続します。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q14。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2025、2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>各部会HP。既存 `/entry/` の申込導線は維持</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（6件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2025_entryform_dirt.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2025_entryform_dirt.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2025_entryform_dirt.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2025_entryform_dirt.xlsx</span></a>            </li>
+                      <li><strong>誓約書（アベレージラリーシリーズ用）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_entry_averally_pledge.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_entry_averally_pledge.pdf</span></a>            </li>
+                      <li><strong>ラリー参加申込書（アベレージラリーシリーズ用）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_entryform_averally.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_entryform_averally.pdf</span></a>            </li>
+                      <li><strong>ナビゲーター追加申込書（アベレージラリーシリーズ用）</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_entryform_averally_navi.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_entryform_averally_navi.pdf</span></a>            </li>
+                      <li><strong>(WEBエントリーリンク)</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://gymkinki.com/entry/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://gymkinki.com/entry/</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-13"><summary>HP-13 個人会員制度のご案内</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-13">
+      <p class="info-meta">HP-13 · 事務局 · P26</p>
+      <h2>個人会員制度のご案内</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">GeneralはJAFライセンス必須、年会費2,000円です。Temporaryは1イベント500円、主催クラブの承認を受け、開催日のみ有効です。同日複数イベントには利用できません。個人会員の受付開始は保留中です。</p>
+            <p><button class="office-button" type="button" disabled>受付開始は保留</button></p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>ポータルの個人会員申請へ案内。受付保留中は説明と開始予定を表示</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（5件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>2026年度 個人会員入会申込書</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_kojinkaiin_form.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_kojinkaiin_form.pdf</span></a>            </li>
+                      <li><strong>個人会員入会申込書</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_kojinkaiin_form2.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_kojinkaiin_form2.pdf</span></a>            </li>
+                      <li><strong>個人会員入会申込書 記入例・書き方</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/kojinkaiin_form_example.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/kojinkaiin_form_example.pdf</span></a>            </li>
+                      <li><strong>ＪＭＲＣ近畿個人会員のご案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/kojinkaiin_info.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/kojinkaiin_info.pdf</span></a>            </li>
+                      <li><strong>個人会員入会申込みのご案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/kojinkaiin.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/kojinkaiin.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-14"><summary>HP-14 レンタル機器のご案内</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-14">
+      <p class="info-meta">HP-14 · 事務局 · P26</p>
+      <h2>レンタル機器のご案内</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">光電管、レスキューツール、KED・バキュームスプリント、重量計、タバード、バックボード、AEDの案内・様式が引継ぎ候補です。貸出条件・様式の年度は確認待ちです。予約・在庫管理は今回の対象に含みません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。光電管、レスキューツール、KED・バキュームスプリント、重量計、タバード、バックボード、AEDを対象候補とする。予約・在庫管理の新設は含めない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（12件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>（書き込み可）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_AED2.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_AED2.pdf</span></a>            </li>
+                      <li><strong>（書き込み可）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_KED2.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_KED2.pdf</span></a>            </li>
+                      <li><strong>（書き込み可）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_RESCUETOOL2.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_RESCUETOOL2.pdf</span></a>            </li>
+                      <li><strong>（書き込み可）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_TABARD2.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_TABARD2.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_aed.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_aed.pdf</span></a>            </li>
+                      <li><strong>バックボードレンタル申込書</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_backboard.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_backboard.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_ked.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_ked.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_rescuetool.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_rescuetool.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_tabard.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_tabard.pdf</span></a>            </li>
+                      <li><strong>光電管レンタル申込書</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_timing.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_timing.pdf</span></a>            </li>
+                      <li><strong>車両重量計レンタル申込書</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/rental_weightgauge.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/rental_weightgauge.pdf</span></a>            </li>
+                      <li><strong>レンタル機器申込みのご案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/rental.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/rental.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-15"><summary>HP-15 シリーズ概要</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-15">
+      <p class="info-meta">HP-15 · JMRC近畿 · P26</p>
+      <h2>シリーズ概要</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">対象年度と版を付けてシリーズ概要を案内します。正式な規則原本の確認前に旧年度の条件を新年度へ読み替えません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+      <p class="office-help">配置は確認用の案。正式な分類・担当はQ10・Q12で確認。</p>      <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション。年度・版を管理</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（1件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>各シリーズ概要等</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_outline.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_outline.pdf</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-16"><summary>HP-16 JAF国内競技規則・車両規則</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-16">
+      <p class="info-meta">HP-16 · 全国JMRC · P26</p>
+      <h2>JAF国内競技規則・車両規則</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">JAFの国内競技規則、車両規則、公認車両一覧は公式ページを参照する構成です。原本を独自に更新・自動複製しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>JAF</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>JAF公式ページへのリンク。原本の独自更新や自動複製は行わない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（2件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ＪＡＦ国内競技規則・ＪＡＦ国内競技車両規則 等</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://motorsports.jaf.or.jp/regulations/information" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://motorsports.jaf.or.jp/regulations/information</span></a>            </li>
+                      <li><strong>公認車両一覧・登録車両一覧</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://motorsports.jaf.or.jp/regulations/vehicles" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://motorsports.jaf.or.jp/regulations/vehicles</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-17"><summary>HP-17 JAF競技保険・オフィシャル名簿様式</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-17">
+      <p class="info-meta">HP-17 · 事務局 · P26</p>
+      <h2>JAF競技保険・オフィシャル名簿様式</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">JAF公認競技保険・クローズド競技保険の案内と空の様式を対象にします。記入済みのオフィシャル名簿は掲載しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12・Q13。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認、2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。公表可能な案内・空の様式を対象とし、記入済み名簿を自動公開しない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（8件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_form.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_form.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_form.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_form.xlsx</span></a>            </li>
+                      <li><strong>2026年度ＪＡＦ届出スピード競技クローズド保険案内</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_info_2026.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_info_2026.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_form.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_form.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_form.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_form.xlsx</span></a>            </li>
+                      <li><strong>2026年度ＪＡＦ公認スピード競技保険案内</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_info_2026.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_info_2026.pdf</span></a>            </li>
+                      <li><strong>オフィシャル名簿・PDF</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JMRCkinki_officiallist.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JMRCkinki_officiallist.pdf</span></a>            </li>
+                      <li><strong>オフィシャル名簿・Excel</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/JMRCkinki_officiallist.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/JMRCkinki_officiallist.xlsx</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-18"><summary>HP-18 スポーツ安全保険のご案内</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-18">
+      <p class="info-meta">HP-18 · 事務局 · P26</p>
+      <h2>スポーツ安全保険のご案内</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">加入対象はGeneralです。初回は年度クラブ単位で4名が必要です。2027年の保険料・期間・追加加入の手順は確認待ちです。加入意思の登録と正式な加入は区別します。</p>
+            <p><button class="office-button" type="button" disabled>受付開始は保留</button></p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q01～Q03・Q12・Q13。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認、2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>スポーツ安全保険の申込セクション。公表用案内と本人・クラブの申込記録を分ける</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（11件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_addition.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_addition.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_addition.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_addition.xlsx</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_club.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_club.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_club.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_club.xlsx</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_organizer.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_organizer.pdf</span></a>            </li>
+                      <li><strong>画像リンク（添付原本で要確認）</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_organizer.xlsx" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_organizer.xlsx</span></a>            </li>
+                      <li><strong>スポーツ安全保険案内</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/sports.security.insurance_info_2026.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/sports.security.insurance_info_2026.pdf</span></a>            </li>
+                      <li><strong>ＪＭＲＣ近畿個人会員様へスポーツ安全保険のご案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/sports_insurance.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/sports_insurance.html</span></a>            </li>
+                      <li><strong>2026年度（令和８年度）スポーツ安全保険加入登録クラブ名簿</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/sports_insurance_club.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/sports_insurance_club.html</span></a>            </li>
+                      <li><strong>2026年度 スポーツ安全保険加入登録クラブ名簿</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/sports_insurance_club.html#compe" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/sports_insurance_club.html#compe</span></a>            </li>
+                      <li><strong>(外部リンク)</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://www.sportsanzen.org/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://www.sportsanzen.org/</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-19"><summary>HP-19 運営委員会からのお知らせ</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-19">
+      <p class="info-meta">HP-19 · 運営委員会 · P27</p>
+      <h2>運営委員会からのお知らせ</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">運営委員名簿と公開決定事項を案内する構成です。名簿の公開項目は確認待ちです。非公開の委員会資料や資料BOXはこのページに掲載しません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q13。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026、2027 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「運営委員会」。公開済み情報の引継ぎであり、非公開会議資料を公開する指示ではない</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（2件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>2026年度 役員・委員会名簿</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/meibo.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/meibo.html</span></a>            </li>
+                      <li><strong>運営委員会決定事項（2027年度 代表者会議の開催日及び会場が正式に決定）</strong><p class="office-meta">元年度候補：2027</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/steeringcommittee_decisions.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/steeringcommittee_decisions.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-20"><summary>HP-20 会則・見舞金細則・協議会規程</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-20">
+      <p class="info-meta">HP-20 · 全国JMRC · P27</p>
+      <h2>会則・見舞金細則・協議会規程</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">協議会会則、見舞金細則、全国協議会規程を案内する構成です。分類名と発行団体を分けて確認します。協議会見舞金の請求は今回保留です。</p>
+            <p><button class="office-button" type="button" disabled>見舞金の請求は保留</button></p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q13。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+      <p class="office-help">資料の分類名案。近畿地域の規程も含むためQ13で確認。</p>      <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認、2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>資料注記の分類は「全国JMRC」。近畿地域の規程も含まれるため、発行団体を別項目で保持し、分類名はQ13で確認</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（4件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ＪＭＲＣ全国協議会専門委員会規程</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/zenkoku_expertcommittee.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/zenkoku_expertcommittee.pdf</span></a>            </li>
+                      <li><strong>ＪＭＲＣ全国協議会会則・細則</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/zenkoku_kaisoku.saisoku.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/zenkoku_kaisoku.saisoku.pdf</span></a>            </li>
+                      <li><strong>ＪＡＦ近畿地域クラブ協議会会則</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/kaisoku.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/kaisoku.html</span></a>            </li>
+                      <li><strong>JAF近畿地域協議会見舞金給付細則</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/mimaikin20250401.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/mimaikin20250401.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-21"><summary>HP-21 クラブ年度登録・クラブ名簿</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-21">
+      <p class="info-meta">HP-21 · JMRC近畿 · P27</p>
+      <h2>クラブ年度登録・クラブ名簿</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">クラブ年度登録の案内と公表用のクラブ／団体名簿を扱う構成です。実際の年度登録記録から名簿を自動公開しません。現年度・過年度の公開範囲は確認待ちです。</p>
+            <p><button class="office-button" type="button" disabled>受付開始は保留</button></p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q10・Q12・Q13。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2026、原本確認、2008、2009、2010、2011、2012、2013、2014、2015、2016、2017、2018、2019、2020、2021、2022、2023、2024、2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>インフォメーション「JMRC近畿」。現年度の業務登録と公表用名簿は別データ。過年度の保存・公開範囲はQ12</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（20件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>2026年度 登録クラブ</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/_userdata/2026_clubs.pdf" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/_userdata/2026_clubs.pdf</span></a>            </li>
+                      <li><strong>クラブ・団体年度更新及び加入のご案内</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/club_koushin_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/club_koushin_info.html</span></a>            </li>
+                      <li><strong>2008年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2008</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2008clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2008clubs.html</span></a>            </li>
+                      <li><strong>2009年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2009</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2009clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2009clubs.html</span></a>            </li>
+                      <li><strong>2010年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2010</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2010clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2010clubs.html</span></a>            </li>
+                      <li><strong>2011年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2011</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2011clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2011clubs.html</span></a>            </li>
+                      <li><strong>2012年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2012</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2012clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2012clubs.html</span></a>            </li>
+                      <li><strong>2013年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2013</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2013clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2013clubs.html</span></a>            </li>
+                      <li><strong>2014年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2014</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2014clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2014clubs.html</span></a>            </li>
+                      <li><strong>2015年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2015</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2015clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2015clubs.html</span></a>            </li>
+                      <li><strong>2016年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2016</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2016clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2016clubs.html</span></a>            </li>
+                      <li><strong>2017年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2017</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2017clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2017clubs.html</span></a>            </li>
+                      <li><strong>2018年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2018</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2018clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2018clubs.html</span></a>            </li>
+                      <li><strong>2019年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2019</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2019clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2019clubs.html</span></a>            </li>
+                      <li><strong>2020年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2020</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2020clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2020clubs.html</span></a>            </li>
+                      <li><strong>2021年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2021</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2021clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2021clubs.html</span></a>            </li>
+                      <li><strong>2022年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2022</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2022clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2022clubs.html</span></a>            </li>
+                      <li><strong>2023年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2023</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2023clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2023clubs.html</span></a>            </li>
+                      <li><strong>2024年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2024</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2024clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2024clubs.html</span></a>            </li>
+                      <li><strong>2025年度 登録クラブ・団体名簿</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/clubs/2025clubs.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/clubs/2025clubs.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-22"><summary>HP-22 JAFのご案内</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-22">
+      <p class="info-meta">HP-22 · 全国JMRC · P28</p>
+      <h2>JAFのご案内</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">JAF関西本部、お知らせ、公示、Motor Sports News、ライセンス講習会、全日本選手権の情報はJAFへのリンクで案内します。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q14。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2025、2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>JAF</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>JAFへのリンクで案内</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（7件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>2025年度カレンダー</strong><p class="office-meta">元年度候補：2025</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/aj_cal_2025.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/aj_cal_2025.html</span></a>            </li>
+                      <li><strong>2026年度カレンダー</strong><p class="office-meta">元年度候補：2026</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/aj_cal_2026.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/aj_cal_2026.html</span></a>            </li>
+                      <li><strong>ＪＡＦからのお知らせ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/jaf_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/jaf_info.html</span></a>            </li>
+                      <li><strong>ＪＡＦ関西本部からのお知らせ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/jaf_kansai_info.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/jaf_kansai_info.html</span></a>            </li>
+                      <li><strong>Ａライセンス講習会スケジュール</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&amp;pref=00&amp;subGenre=301" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&amp;pref=00&amp;subGenre=301</span></a>            </li>
+                      <li><strong>Ｂライセンス講習会スケジュール</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&amp;pref=00&amp;subGenre=302" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&amp;pref=00&amp;subGenre=302</span></a>            </li>
+                      <li><strong>公認審判員講習会スケジュール</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&amp;pref=00&amp;subGenre=303" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&amp;pref=00&amp;subGenre=303</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-23"><summary>HP-23 関連リンク・お問い合わせ</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-23">
+      <p class="info-meta">HP-23 · JMRC近畿 · P29</p>
+      <h2>関連リンク・お問い合わせ</h2>
+      <p class="info-status">確認用の説明・原文未移行</p>
+      <p class="info-body">各部会、各地域JMRC、JAFへのリンクをまとめます。問い合わせ先の移設先は確認待ちです。この試作から問い合わせは送信しません。</p>
+            <p><button class="office-button" type="button" disabled>問い合わせ先は確認中</button></p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q12・Q14。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>関連リンク。お問い合わせは既存の問い合わせ要件を継続し、具体的な移設先を確認</dd></div>
+        <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（8件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ＪＡＦモータースポーツ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://jaf-sports.jp/index.htm" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://jaf-sports.jp/index.htm</span></a>            </li>
+                      <li><strong>ＪＭＲＣ北海道</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://jmrc-hokkaido.org/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://jmrc-hokkaido.org/</span></a>            </li>
+                      <li><strong>ダートトライアル専門部会</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://jmrc.kinkidirt.com/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://jmrc.kinkidirt.com/</span></a>            </li>
+                      <li><strong>一般社団法人 日本自動車連盟</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jaf.or.jp/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jaf.or.jp/</span></a>            </li>
+                      <li><strong>お問い合わせ</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/inquiry.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/inquiry.html</span></a>            </li>
+                      <li><strong>特別規則書・リザルト</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://gymkinki.wixsite.com/mysite" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://gymkinki.wixsite.com/mysite</span></a>            </li>
+                      <li><strong>ＪＭＲＣ全国ラリー振興事業委員会</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://info.jmrc.jp/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://info.jmrc.jp/</span></a>            </li>
+                      <li><strong>(部会HP)</strong><p class="office-meta">元年度候補：原本確認</p>
+              <a class="info-source-link" href="https://jmrc-kinki-rally.com/" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>https://jmrc-kinki-rally.com/</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  <details class="office-disclosure" id="HP-24"><summary>HP-24 移行対象外：2020年のアンケート</summary><div class="info-inset">    <article class="info-detail" data-topic="HP-24">
+      <p class="info-meta">HP-24 · JMRC近畿 · P29</p>
+      <h2>移行対象外：2020年のアンケート</h2>
+      <p class="info-status">移行対象外</p>
+      <p class="info-body">2020年の新型コロナウイルスに関するアンケートは新ポータルへの移行対象外です。旧サイトや保存資料の削除は行いません。</p>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>対象外はP29で明記。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <dl class="info-facts">
+        <div><dt>元資料の年度候補</dt><dd>2020 <small>現年度の有効性を示すものではありません。</small></dd></div>
+        <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>引継ぎ方針</dt><dd>新ポータルへの移行対象外。元サイト・保存済み資料の削除を意味しない</dd></div>
+        <div><dt>公開状態</dt><dd>移行対象外</dd></div>
+      </dl>
+      <details class="office-disclosure info-sources"><summary>旧HPの参照元候補（1件）</summary>
+        <div class="info-inset"><p>2026年10月31日の台帳です。以下は元URLであり、正式な移行先ではありません。本文・年度・リンク先の到達性は移行前に確認します。</p>
+          <ul class="office-records">            <li><strong>ＪＭＲＣ近畿シリーズ・新型コロナウイルスに関するアンケート（2020.6.12〜7.8）</strong><p class="office-meta">元年度候補：2020</p>
+              <a class="info-source-link" href="http://www.jmrc-kinki.net/questionnaire202006.html" target="_blank" rel="noopener noreferrer">旧ページを確認（別タブ）<span>http://www.jmrc-kinki.net/questionnaire202006.html</span></a>            </li>
+          </ul>
+        </div>
+      </details>
+    </article>
+    </div></details>
+                  </section>
+        <section class="office-disclosure"><h2 class="info-inset info-notes-heading">事務局で確認いただきたいこと</h2><ul><li>お知らせ・資料・関連リンクの分類と配置</li><li>過年度を含む引継ぎ対象と、名簿・資料の公開範囲</li><li>カレンダーの更新担当・表示範囲、正式な移行先</li></ul><p>回答は既存スプレッドシートのQ01～Q14へ記入してください。画面を確認しても、公開承認や受付開始にはなりません。</p><p><a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202610271&amp;range=A15:I28" target="_blank" rel="noopener noreferrer">追加確認14項目の回答表を開く</a></p></section>
+</main><footer class="portal-footer"><div class="portal-container"><small>2026年10月31日版 · JMRC近畿ポータル／情報ページ確認用 · 本番未反映</small></div></footer>
+</body></html>

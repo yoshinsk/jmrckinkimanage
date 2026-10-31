@@ -69,6 +69,7 @@ header('Content-Type: text/html; charset=utf-8');
 jmrc_office_header($screen==='overview'?'機能の操作確認':$catalog[$screen]['title'],'事務局・操作確認');
 ?>
 <link rel="stylesheet" href="/manage/assets/review.css?v=20261030">
+<?php if($role==='office'): ?><p><a class="office-button secondary" href="/manage/information-preview.php">旧HPの情報ページを確認</a></p><?php endif; ?>
 <aside class="review-banner" aria-label="操作確認の注意"><strong>操作確認専用・架空データ</strong><p>本番の受付・入金・資格・メール送信には反映しません。個人情報や実口座を入力しないでください。操作結果とメモはこのサインイン中だけ保持し、2時間経過後の再表示・サインアウト・初期化で利用できなくなります。</p></aside>
 <?php if($message!==''): ?><p class="office-success" role="status"><?=$e($message)?></p><?php endif; ?>
 <?php if($error!==''): ?><p class="review-error" role="alert"><?=$e($error)?></p><?php endif; ?>

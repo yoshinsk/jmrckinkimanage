@@ -1,0 +1,36 @@
+/* Path: public/manage/assets/information.css
+ * 機能: 旧HP情報ページの確認画面。既存ポータルの配色・タッチサイズ・文字拡大に合わせる。
+ */
+.info-banner { padding: 1rem; border: 2px solid #997404; border-radius: .375rem; background: #fff3cd; color: #332701; }
+.info-banner p { margin: .5rem 0 0; }
+.info-nav, .info-categories { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1.25rem; }
+.info-nav a, .info-categories a { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: .5rem .875rem; border: 1px solid #adb5bd; border-radius: .375rem; text-decoration: none; overflow-wrap: anywhere; }
+.info-nav a[aria-current], .info-categories a[aria-current] { background: #0d6efd; color: #fff; border-color: #0d6efd; }
+.info-section { margin-block: 2rem; scroll-margin-top: 1rem; }
+.info-section > h2 { border-bottom: 2px solid #0d6efd; padding-bottom: .75rem; font-size: 1.5rem; }
+.info-filter { padding: 1rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: .375rem; margin-bottom: 1.25rem; }
+.info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; list-style: none; padding: 0; }
+.info-grid > li { min-width: 0; border: 1px solid #dee2e6; border-radius: .375rem; }
+.info-grid article { padding: 1.25rem; height: 100%; display: flex; flex-direction: column; }
+.info-grid h3 { font-size: 1.125rem; }
+.info-grid h3 a { display: flex; align-items: center; min-height: 48px; }
+.info-meta, .info-card-foot { color: #495057; font-size: .9375rem; }
+.info-card-foot { display: flex; flex-wrap: wrap; gap: .5rem 1rem; justify-content: space-between; margin: auto 0 0; padding-top: .75rem; border-top: 1px solid #dee2e6; }
+.info-status { display: inline-block; padding: .25rem .625rem; font-size: .9375rem; background: #fff3cd; color: #664d03; border-radius: .25rem; }
+.info-body { font-size: 1.125rem; line-height: 1.8; }
+.info-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.info-facts > div { min-width: 0; border-top: 1px solid #dee2e6; padding-top: .75rem; }
+.info-facts dt { color: #495057; font-size: .9375rem; }
+.info-facts dd { margin: .25rem 0 0; overflow-wrap: anywhere; }
+.info-facts small, .info-source-link span { display: block; }
+.info-inset { padding: 1rem; }
+.info-notes-heading { margin: 0; }
+.info-source-link { display: block; min-height: 48px; padding-block: .5rem; overflow-wrap: anywhere; }
+.info-source-link span { font-size: .875rem; }
+.info-calendar { list-style: none; padding: 0; }
+.info-calendar > li { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: 1.25rem; border-bottom: 1px solid #dee2e6; padding-block: 1.25rem; }
+.info-calendar > li > div { min-width: 0; }
+.info-date { display: flex; flex-direction: column; gap: .25rem; overflow-wrap: anywhere; }
+.info-date time { font-size: 1.125rem; font-weight: 600; }
+@media (max-width: 767px) { .info-grid, .info-facts, .info-calendar > li { grid-template-columns: minmax(0, 1fr); } .info-grid article { padding: 1rem; } .info-nav a { flex: 1 1 10rem; } }
+@media print { .portal-header, .info-nav, form { display: none; } .info-banner { border-color: #000; } .info-grid { display: block; } .info-grid > li { margin-bottom: 1rem; } }

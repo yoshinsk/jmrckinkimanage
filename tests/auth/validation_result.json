@@ -3211,6 +3211,506 @@
     {
       "case": "すべての操作確認で本番相当の業務13表を更新しない",
       "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の比較対象表が実在",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は匿名401",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 1",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 1?item=HP-19",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 1?section=migration",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 1?download=all",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作入口を権限なしに表示しない 1",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 2",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 2?item=HP-19",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 2?section=migration",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 2?download=all",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作入口を権限なしに表示しない 2",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 3",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 3?item=HP-19",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 3?section=migration",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の直URL拒否 3?download=all",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作入口を権限なしに表示しない 3",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局へ旧HP試作入口を表示",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は24対応・154候補",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の一覧 information",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 information no-store",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 information frame-ancestors",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 information noindex",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 information no-referrer",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の一覧 documents",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 documents no-store",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 documents frame-ancestors",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 documents noindex",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 documents no-referrer",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の一覧 calendar",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 calendar no-store",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 calendar frame-ancestors",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 calendar noindex",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 calendar no-referrer",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の一覧 links",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 links no-store",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 links frame-ancestors",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 links noindex",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 links no-referrer",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の一覧 migration",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 migration no-store",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 migration frame-ancestors",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 migration noindex",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の応答保護 migration no-referrer",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-01",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-01",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-02",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-02",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-03",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-03",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-04",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-04",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-05",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-05",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-06",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-06",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-07",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-07",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-08",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-08",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-09",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-09",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-10",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-10",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-11",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-11",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-12",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-12",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-13",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-13",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-14",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-14",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-15",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-15",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-16",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-16",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-17",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-17",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-18",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-18",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-19",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-19",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-20",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-20",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-21",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-21",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-22",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-22",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-23",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-23",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作の詳細 HP-24",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作は資料ダウンロードなし HP-24",
+      "result": "PASS"
+    },
+    {
+      "case": "お知らせ分類の絞込",
+      "result": "PASS"
+    },
+    {
+      "case": "過年度を現年度に変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "競技部会の絞込",
+      "result": "PASS"
+    },
+    {
+      "case": "該当なしの案内",
+      "result": "PASS"
+    },
+    {
+      "case": "検索値のHTMLをエスケープ",
+      "result": "PASS"
+    },
+    {
+      "case": "不正フィルターを拒否 ?section[]=links",
+      "result": "PASS"
+    },
+    {
+      "case": "不正フィルターを拒否 ?category=bad",
+      "result": "PASS"
+    },
+    {
+      "case": "不正フィルターを拒否 ?division=bad",
+      "result": "PASS"
+    },
+    {
+      "case": "不正フィルターを拒否 ?year=2027x",
+      "result": "PASS"
+    },
+    {
+      "case": "不正フィルターを拒否 ?kind=bad",
+      "result": "PASS"
+    },
+    {
+      "case": "不正フィルターを拒否 ?q=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "result": "PASS"
+    },
+    {
+      "case": "任意ファイルを詳細として指定不可",
+      "result": "PASS"
+    },
+    {
+      "case": "POSTで公開や保存はできない",
+      "result": "PASS"
+    },
+    {
+      "case": "閲覧専用のAllow",
+      "result": "PASS"
+    },
+    {
+      "case": "PUTも拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "カタログ原本は公開領域外 /src/Content/information-catalog.php",
+      "result": "PASS"
+    },
+    {
+      "case": "カタログ原本は公開領域外 /src/Content/information-template.php",
+      "result": "PASS"
+    },
+    {
+      "case": "カタログ原本は公開領域外 /manage/information-catalog.php",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な参照URLをリンクにしない javascript:alert(1)",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な参照URLをリンクにしない data:text/html,bad",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な参照URLをリンクにしない //example.org",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な参照URLをリンクにしない https://user:pass@example.org/",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な参照URLをリンクにしない https://example.org/\\x0a",
+      "result": "PASS"
+    },
+    {
+      "case": "危険な参照URLをリンクにしない https://example.org\\@evil.test",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HTTP URLを勝手にHTTPS化しない",
+      "result": "PASS"
+    },
+    {
+      "case": "カレンダーの更新元は一意",
+      "result": "PASS"
+    },
+    {
+      "case": "架空の事務局予定だけ表示",
+      "result": "PASS"
+    },
+    {
+      "case": "HP24をお知らせに混入しない",
+      "result": "PASS"
+    },
+    {
+      "case": "HP24は移行対象外の確認のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "権限取消を次の一覧に反映",
+      "result": "PASS"
+    },
+    {
+      "case": "権限取消を詳細に反映",
+      "result": "PASS"
+    },
+    {
+      "case": "権限取消でマイページ入口も消える",
+      "result": "PASS"
+    },
+    {
+      "case": "旧HP試作で既存entry・全業務表を変更しない",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -8845,16 +9345,1009 @@
     ],
     "javascript_disabled": true
   },
+  "information_browser_validation": {
+    "status": "PASS",
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium 確認用バナー",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 四分類の入口",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium GET /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅320 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅390 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅844 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 幅1280 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文字200% /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 運営委員会分類",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 非公開資料の分離",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 参照元を開ける",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 年度検索を操作",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium キーワード検索を操作",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium カレンダーの種別検索",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium サインアウト後の再表示拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 確認用バナー",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 四分類の入口",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=documents",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=calendar",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=links",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=migration",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-01",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-02",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-03",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-09",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-13",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-14",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-15",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-17",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-19",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-20",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit GET /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 業務送信フォームなし /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅320 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅390 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅844 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 幅1280 /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文字200% /manage/information-preview.php?section=information&item=HP-21",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 運営委員会分類",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 非公開資料の分離",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 参照元を開ける",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 年度検索を操作",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit キーワード検索を操作",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit カレンダーの種別検索",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit サインアウト後の再表示拒否",
+        "result": "PASS"
+      }
+    ],
+    "javascript_disabled": true
+  },
   "review_workspace_sha256": {
-    "public/manage/index.php": "d0d1d106ac6f2b91010021a834971f9446b8eb8f085a01d2a24f22505db34e8f",
-    "public/manage/review.php": "cc57526074c8a224395e282df48299a7111d3eb3fbc22597c8b4df6fbd1fe35a",
+    "public/manage/index.php": "f54958ad8e494f1b9532bfd9eb5d4a950b47dc639751c7950b6b1b55c1603c18",
+    "public/manage/review.php": "7481faed64456f8bf92d212e0e90468c9fa11886c3f91a5daddc7d986fba0c9f",
     "public/manage/_review-catalog.php": "421d3f532fcbc6f77aac6575090e33eeda429927992d7409e93e70e706cbab66",
     "public/manage/_review-workspace.php": "8eac219b65bd6e8560aa819c37b612351d7dbc7892d3a33c3172fb99d1b80752",
     "public/manage/assets/review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440",
     "tests/auth/review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
-    "tests/license/review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a"
+    "tests/license/review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a",
+    "public/manage/information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
+    "public/manage/assets/information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
+    "src/Content/InformationPreview.php": "1f7edeb2e86a30e73af2308fbe4916ddf584588cd8a4c0abb6280f2969615130",
+    "src/Content/information-catalog.php": "021639d8175bc6c22f69b8ca86a7300ce6b3115bd5c474b39ea630fe9b041650",
+    "src/Content/information-template.php": "97f0c1afe8296741ab0a5b1d1ce571d628900f30f1b1ef6d3ecbd997d2b2aa6e",
+    "tests/auth/information_http.php": "a48fe780f5b509b44ff832c5abff7f6f58391ea043a51428ecba2bf000928d04",
+    "tests/license/information_browser.cjs": "8be9f92360b8e048293577aa32c06ca660d896335c9628ec6ab21447942b8e6c"
   },
-  "checked_at_utc": "2026-10-30T03:17:57.345869+00:00",
+  "checked_at_utc": "2026-10-31T09:46:06.991461+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -8877,7 +10370,7 @@
   },
   "legacy_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
   "adapter_sha256": {
-    "src\\bootstrap.php": "f712234ba111c6c8f24b7793bb5272a2f5eab36b2d10ff377f7a891f44e54f07",
+    "src\\bootstrap.php": "49154afb886b186bf001cb9cb39d01d9d811ee7e0b788e938ad8154b66fd04c6",
     "src\\Auth\\HttpFailure.php": "c0a7ec455ff7e3b6c5118467cc70b169db87a1bb1785d141317e2cbe91507602",
     "src\\Auth\\SharedAuth.php": "2efcc915b1e69461fdabc14aa65159d2b1517cb3ba7e399203ff3d24910a897c",
     "src\\Bank\\BankMasterService.php": "622498b9655c9e77efb491231c509880a04804b1520e762581b6d910d7683fa0",
@@ -8889,6 +10382,9 @@
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
+    "src\\Content\\information-catalog.php": "021639d8175bc6c22f69b8ca86a7300ce6b3115bd5c474b39ea630fe9b041650",
+    "src\\Content\\information-template.php": "97f0c1afe8296741ab0a5b1d1ce571d628900f30f1b1ef6d3ecbd997d2b2aa6e",
+    "src\\Content\\InformationPreview.php": "1f7edeb2e86a30e73af2308fbe4916ddf584588cd8a4c0abb6280f2969615130",
     "src\\Insurance\\InsuranceService.php": "ed0facf96d8cb6881ae41b02167b111ebf0c50db36e3f59a398b39c1faaaac54",
     "src\\Insurance\\InsuranceWorkbook.php": "2401485c195249579ccba85ff8cccb81cef30293a4b3c19c79c1c97856be5bf0",
     "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
@@ -8908,14 +10404,15 @@
     "public\\manage\\card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public\\manage\\card.php": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
     "public\\manage\\clubs.php": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
-    "public\\manage\\index.php": "d0d1d106ac6f2b91010021a834971f9446b8eb8f085a01d2a24f22505db34e8f",
+    "public\\manage\\index.php": "f54958ad8e494f1b9532bfd9eb5d4a950b47dc639751c7950b6b1b55c1603c18",
+    "public\\manage\\information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public\\manage\\insurance.php": "8ff65b26ce182991afa216af9c918b8ffdab62cd32aa6315c456e36fdce6c58b",
     "public\\manage\\licenses.php": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "23a8980246362ae48fc5c6110fbc74c7aa4c7500dfa15c826b6bdb04453b29c9",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
-    "public\\manage\\review.php": "cc57526074c8a224395e282df48299a7111d3eb3fbc22597c8b4df6fbd1fe35a",
+    "public\\manage\\review.php": "7481faed64456f8bf92d212e0e90468c9fa11886c3f91a5daddc7d986fba0c9f",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
     "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
@@ -8932,7 +10429,9 @@
   "license_test_source_sha256": {
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
-    "tests\\license\\Dockerfile.browser": "7a580ca50ce2fca8834d53625a8d55d56c3dd08d270c1e0aebed85c70c457aa0",
+    "tests\\license\\Dockerfile.browser": "07da8c1991e1eeeb5b7925426c822701faef3c593fa4a70a973db10e10de7c36",
+    "tests\\license\\information_browser.cjs": "8be9f92360b8e048293577aa32c06ca660d896335c9628ec6ab21447942b8e6c",
+    "tests\\license\\information_offline_browser.cjs": "b63713ce5641546d88f95d91afa7b7861d31afa2bff0a2f771fd13c9d4ab5cb9",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
     "tests\\license\\member_browser.cjs": "192fb3bca23f206ae9060d6d3f57fc5e65667dd2d6955039f08612442c7dfb13",
     "tests\\license\\mobile_browser.cjs": "b3472da533d9e230ebf5f5bf0f630e1348a51816d3027e0a75a9ce08bccbbbd1",
@@ -8981,6 +10480,7 @@
     "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
     "public\\manage\\assets\\cards.js": "e82a67943380f3818129cdc3a594cb513d85ce5c8ef59c6abee5c99f45685c3f",
     "public\\manage\\assets\\dashboard.css": "4e13c8ce3cf5b88576ce580c95f78ff3dd7d660c59f301431789930967f4f514",
+    "public\\manage\\assets\\information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
     "public\\manage\\assets\\insurance.css": "b990180c862e178d3e937e41da188b547ca79f5c84978ca09c6be35e75b54c6d",
     "public\\manage\\assets\\licenses.css": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
     "public\\manage\\assets\\office.css": "8b6619b1f0ebff0ea0cf3ac09e00e01db86718d9233b93b51a7dde3542af3a67",
@@ -9012,18 +10512,19 @@
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "56e6a672143f1a7ab8f9e80b60b67c0e1b594fa6637891d80b5d2d50336d25a4",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
+    "tests\\auth\\information_http.php": "a48fe780f5b509b44ff832c5abff7f6f58391ea043a51428ecba2bf000928d04",
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\member_layout_http.php": "47ca52eadd3f86b64164d0b2fbf1932cf1633d66ac2277463150f397377000b1",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "05a15f7c3cbba2376331c541b9cc8a81e33570de5c91f49ab32dc9fd0855a0b3",
+    "tests\\auth\\README.md": "f89a9240a0a78d0175e8e2e79c972aa6fdf546822a236e9e4d7d6c94d44aefec",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
     "tests\\auth\\review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
-    "tests\\auth\\run_http.php": "8c15ba7d15ad189caead764202acb0dbab2ffe4657ebe9dbea6db81b7aceb24b",
+    "tests\\auth\\run_http.php": "4b9d9e61b8e79b3521fcd6a2bf73be216e9a2a160e224700314a22ea8731f74a",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "2a11cf6b256f10030a8c53938767b797e02053f38a0ddb031854c06cda7b68e0"
+    "tests\\auth\\validate_auth.py": "7d2c57fe80f0549bd21780f251f414a1f33c30f3d04e58c53acbdae765082a21"
   },
-  "php_lint_files": 89,
+  "php_lint_files": 94,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

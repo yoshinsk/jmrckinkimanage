@@ -51,6 +51,7 @@ if ($auth->can('profiles.correct')) {
     $groups['事務局の設定'][] = ['title'=>'会員情報の訂正・削除候補','url'=>'profile-correct.php','description'=>'氏名・生年月日の訂正と、削除候補の確認を行います。','enabled'=>($config['profile_corrections_enabled']??false)===true];
     // 付与済みの事務局権限で架空画面を説明する。情報公開など新たな実業務権限は付与しない。
     $groups['事務局の設定'][] = ['title'=>'機能の操作確認','url'=>'review.php','description'=>'架空データで登録・会計・公開情報の流れを確認します。受付は開始しません。','enabled'=>true];
+    $groups['事務局の設定'][] = ['title'=>'旧HPの情報ページを確認','url'=>'information-preview.php','description'=>'お知らせ・資料・カレンダー・関連リンクの引継ぎ案を確認します。一般公開前の試作です。','enabled'=>true];
 }
 $pending = [];
 foreach ($groups as $items) {

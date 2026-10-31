@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "browsers": [
+    {
+      "engine": "chromium",
+      "version": "156.0.8078.4"
+    },
+    {
+      "engine": "webkit",
+      "version": "27.2"
+    }
+  ],
+  "cases": [
+    {
+      "case": "chromium 配布版は全5区画",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 24件の詳細がある",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 送信フォームとスクリプトなし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 既存アカウント情報なし",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 関連リンクへ移動",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 分類保留の詳細を開ける",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 発行団体と表示分類を分離",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 旧資料参照元を開ける",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 配布版幅320",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 配布版幅390",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 配布版幅844",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 配布版幅1280",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 配布版200%文字",
+      "result": "PASS"
+    },
+    {
+      "case": "chromium 配布版の自動外部通信なし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版は全5区画",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 24件の詳細がある",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 送信フォームとスクリプトなし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 既存アカウント情報なし",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 関連リンクへ移動",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 分類保留の詳細を開ける",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 発行団体と表示分類を分離",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 旧資料参照元を開ける",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版幅320",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版幅390",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版幅844",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版幅1280",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版200%文字",
+      "result": "PASS"
+    },
+    {
+      "case": "webkit 配布版の自動外部通信なし",
+      "result": "PASS"
+    }
+  ],
+  "network": "none",
+  "javascript_disabled": true,
+  "checked_at_utc": "2026-10-31T09:33:35.654303+00:00",
+  "source_records": 154,
+  "source_ledger_sha256": "d3322d14ce2e337e9453d9af9dc7944bed21c00766d583b8ccbe6907e9807189",
+  "artifact_sha256": "1f7e57e686ffa18c641cfcefcd98383b869302d01f444ef5d73ee1c9fd7b21b8",
+  "artifact_bytes": 146362,
+  "production_changed": false
+}
