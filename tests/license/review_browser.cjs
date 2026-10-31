@@ -14,7 +14,7 @@ async function run(engine,name,device){
   await Promise.all([p.waitForURL('https://web/manage/'),p.getByRole('button',{name:'サインイン',exact:true}).tap()]);
   await p.getByRole('link',{name:'機能の操作確認',exact:false}).tap();await p.waitForURL('**/review.php');
   const links=await p.locator('.menu-list a').evaluateAll(xs=>xs.map(x=>x.getAttribute('href')));check(name+' 24画面の入口',links.length===24);
-  await p.screenshot({path:`/artifacts/${name}-review-overview.png`,fullPage:true});
+  await p.screenshot({path:`/artifacts/${name}-review-overview.png`,fullPage:false});
   for(const href of links){
    const r=await p.goto('https://web'+href);check(name+' GET '+href,r.status()===200);
    check(name+' 架空と保留を明示 '+href,await p.locator('.review-banner').count()===1 && await p.getByText('確認が残る事項',{exact:true}).count()===1);
@@ -27,9 +27,15 @@ async function run(engine,name,device){
   }
   await p.setViewportSize(devices[device].viewport);
   async function go(screen){const r=await p.goto('https://web/manage/review.php?screen='+screen);assert.equal(r.status(),200,screen);}
-  async function submit(label){await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:label,exact:true}).tap()]);}
+  async function submit(label){
+   const button=p.getByRole('button',{name:label,exact:true});
+   const invalid=await button.evaluate(b=>b.form.noValidate?[]:Array.from(b.form.elements).filter(e=>e.willValidate&&!e.validity.valid).map(e=>({name:e.name,value:e.value,message:e.validationMessage})));
+   assert.deepEqual(invalid,[],name+' 入力検証 '+label);
+   await Promise.all([p.waitForNavigation(),button.tap()]);
+  }
   async function role(value){const details=p.locator('details').first();if(!await details.getAttribute('open'))await details.locator('summary').tap();await p.getByLabel('立場を切り替える').selectOption(value);await submit('立場を変更');}
-  await go('operations');await p.getByLabel('Generalの状態例').selectOption('active');await submit('状態例を表示する');await go('card');
+  await go('overview');await submit('会員証の例を見る');
+  check(name+' 初心者の固定例から会員証へ',new URL(p.url()).searchParams.get('screen')==='card');
   check(name+' 有効会員証を表示',await p.locator('[data-eligibility=active]').count()===1 && (await p.locator('.review-card').innerText()).includes('確認 太郎'));
   await p.screenshot({path:`/artifacts/${name}-review-card.png`,fullPage:true});
   await go('billing');await submit('最後の入金を取り消す');check(name+' 入金取消で資格無効',await p.locator('[data-eligibility=inactive]').count()===1);
@@ -39,9 +45,17 @@ async function run(engine,name,device){
   await role('club');await go('temporary');await submit('主催クラブとして承認する');check(name+' クラブ代表で主催承認',(await p.locator('.office-panel .office-records').innerText()).includes('主催承認 済'));
   await role('office');
   // 下書きを作成し、保存結果と閲覧対象を確認。外部サービスへ送信する操作は存在しない。
-  for(const [screen,button] of [['events','日程の下書きを保存する'],['notices','記事の下書きを保存する'],['documents','資料情報を保存する'],['handbook','文書情報を保存する'],['links','リンク案を保存する'],['relief','申請内容の下書きを保存する'],['meetings','案内・回答を保存する'],['inquiries','問い合わせを試す'],['notifications','通知文案を保存する'],['accounts','対応付けを試す']]){
+  for(const [screen,button] of [['events','日程の下書きを保存する'],['notices','記事の下書きを保存する'],['documents','資料情報を保存する'],['handbook','文書情報を保存する'],['links','リンク案を保存する'],['meetings','案内・回答を保存する'],['inquiries','問い合わせを試す'],['notifications','通知文案を保存する'],['accounts','対応付けを試す']]){
    await go(screen);await submit(button);check(name+' 下書き保存 '+screen,await p.getByRole('status').count()===1 && (await p.locator('.office-records dl').count())>=1);
   }
+  await go('relief');check(name+' 見送りの見舞金は説明だけ',await p.locator('#field-date,#field-event').count()===0 && (await p.locator('main').innerText()).includes('今回は見送ります'));
+  await go('memberships');check(name+' 運転免許の2項目は任意',!(await p.getByLabel('免許証番号（架空）').evaluate(e=>e.required)) && !(await p.getByLabel('免許有効期限（架空）').evaluate(e=>e.required)));
+  await p.getByLabel('免許証番号（架空）').fill('');await p.getByLabel('免許有効期限（架空）').fill('');await submit('General申請を試す');
+  check(name+' ブラウザーも空欄の免許で操作可能',await p.getByRole('alert').count()===0 && await p.getByRole('status').count()===1);
+  await p.getByLabel('氏名（架空）',{exact:true}).fill('');await submit('General申請を試す');
+  check(name+' 必須の氏名はサーバーで拒否',await p.getByRole('alert').count()===1);
+  await p.locator('#review-help > summary').tap();await p.setViewportSize({width:320,height:844});await p.evaluate(()=>document.documentElement.style.fontSize='200%');
+  check(name+' 使い方展開320px・文字200%',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.evaluate(()=>document.documentElement.style.fontSize='');
   await go('notices');await p.getByLabel('見出し').fill('PUBLIC-REVIEW');await p.getByLabel('公開範囲').selectOption('public');await submit('記事の下書きを保存する');
   await role('public');await go('notices');check(name+' 公開例は公開記事だけ',(await p.locator('.office-records dl').count())===1 && (await p.locator('.office-panel .office-records').innerText()).includes('PUBLIC-REVIEW'));
   check(name+' 公開例に投稿フォームなし',await p.getByRole('button',{name:'記事の下書きを保存する',exact:true}).count()===0);

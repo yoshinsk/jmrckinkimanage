@@ -1,5 +1,5 @@
 # Path: scripts/deploy_information_preview.py
-# 機能: 旧HP試作の初回8ファイルまたは回答反映3ファイルだけを配置し、DB・設定を変えずに復元する。
+# 機能: 旧HP試作8ファイル、回答反映3ファイル、操作案内3ファイルのいずれかを限定配置・復元する。
 import argparse
 import hashlib
 import json
@@ -21,7 +21,8 @@ ORDER = ['src/Content/InformationPreview.php', 'src/Content/information-catalog.
          'public/manage/review.php', 'public/manage/index.php']
 EXISTING = ['src/bootstrap.php', 'public/manage/review.php', 'public/manage/index.php']
 ANSWER_FILES = ['src/Content/information-catalog.php', 'src/Content/InformationPreview.php', 'src/Content/information-template.php']
-PROFILES = {'initial': (ORDER, EXISTING), 'answers': (ANSWER_FILES, ANSWER_FILES)}
+REVIEW_FILES = ['public/manage/_review-catalog.php', 'public/manage/_review-workspace.php', 'public/manage/review.php']
+PROFILES = {'initial': (ORDER, EXISTING), 'answers': (ANSWER_FILES, ANSWER_FILES), 'review': (REVIEW_FILES, REVIEW_FILES)}
 
 
 def require(condition, message):
@@ -210,7 +211,7 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = 'information-preview-' if self.profile == 'initial' else 'information-answers-'
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',

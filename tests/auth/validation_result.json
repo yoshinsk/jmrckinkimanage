@@ -3065,6 +3065,26 @@
       "result": "PASS"
     },
     {
+      "case": "初心者向け手順と共有注意を表示",
+      "result": "PASS"
+    },
+    {
+      "case": "固定例のボタンから会員証へ移動",
+      "result": "PASS"
+    },
+    {
+      "case": "固定例の作成後も確認メモを保持",
+      "result": "PASS"
+    },
+    {
+      "case": "対象外の見舞金には申請フォームなし",
+      "result": "PASS"
+    },
+    {
+      "case": "対象外の見舞金の旧POSTも拒否",
+      "result": "PASS"
+    },
+    {
       "case": "Excel用確認票にBOM・式注入対策",
       "result": "PASS"
     },
@@ -3130,6 +3150,18 @@
     },
     {
       "case": "未入金のクラブ承認拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "任意免許でも氏名の必須検証を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "免許の番号と期限の片側だけを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "免許なしGeneralを確認できる",
       "result": "PASS"
     },
     {
@@ -8575,6 +8607,10 @@
         "result": "PASS"
       },
       {
+        "case": "chromium 初心者の固定例から会員証へ",
+        "result": "PASS"
+      },
+      {
         "case": "chromium 有効会員証を表示",
         "result": "PASS"
       },
@@ -8615,10 +8651,6 @@
         "result": "PASS"
       },
       {
-        "case": "chromium 下書き保存 relief",
-        "result": "PASS"
-      },
-      {
         "case": "chromium 下書き保存 meetings",
         "result": "PASS"
       },
@@ -8632,6 +8664,26 @@
       },
       {
         "case": "chromium 下書き保存 accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 見送りの見舞金は説明だけ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 運転免許の2項目は任意",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium ブラウザーも空欄の免許で操作可能",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 必須の氏名はサーバーで拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 使い方展開320px・文字200%",
         "result": "PASS"
       },
       {
@@ -9439,6 +9491,10 @@
         "result": "PASS"
       },
       {
+        "case": "webkit 初心者の固定例から会員証へ",
+        "result": "PASS"
+      },
+      {
         "case": "webkit 有効会員証を表示",
         "result": "PASS"
       },
@@ -9479,10 +9535,6 @@
         "result": "PASS"
       },
       {
-        "case": "webkit 下書き保存 relief",
-        "result": "PASS"
-      },
-      {
         "case": "webkit 下書き保存 meetings",
         "result": "PASS"
       },
@@ -9496,6 +9548,26 @@
       },
       {
         "case": "webkit 下書き保存 accounts",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 見送りの見舞金は説明だけ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 運転免許の2項目は任意",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit ブラウザーも空欄の免許で操作可能",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 必須の氏名はサーバーで拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 使い方展開320px・文字200%",
         "result": "PASS"
       },
       {
@@ -10561,12 +10633,12 @@
   },
   "review_workspace_sha256": {
     "public/manage/index.php": "f54958ad8e494f1b9532bfd9eb5d4a950b47dc639751c7950b6b1b55c1603c18",
-    "public/manage/review.php": "7481faed64456f8bf92d212e0e90468c9fa11886c3f91a5daddc7d986fba0c9f",
-    "public/manage/_review-catalog.php": "421d3f532fcbc6f77aac6575090e33eeda429927992d7409e93e70e706cbab66",
-    "public/manage/_review-workspace.php": "8eac219b65bd6e8560aa819c37b612351d7dbc7892d3a33c3172fb99d1b80752",
+    "public/manage/review.php": "da4690c55ad124c7d3d04af0855695f77b76f4cf9305bd0f415df33d4d3fef22",
+    "public/manage/_review-catalog.php": "8bb7292c669b71b127642ff9e2566c231bb7e01261287a67a6a0a98c72b7318a",
+    "public/manage/_review-workspace.php": "f90af5d895a796e44071303656a7f2d3b3b80398adc255f915506d1dd147fc3e",
     "public/manage/assets/review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440",
-    "tests/auth/review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
-    "tests/license/review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a",
+    "tests/auth/review_http.php": "730d2602f5213397e0547f682a0a52ae0527ccad498fffbdfc00639d082afd91",
+    "tests/license/review_browser.cjs": "e93d730445d67af7dab78665d1095fe4b6915a93ef85e6aae92473f3cc244435",
     "public/manage/information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public/manage/assets/information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
     "src/Content/InformationPreview.php": "5c10219cb3194a495ad205ecb0758452d5e23ee831af01a2cd70e1e3f71e229b",
@@ -10575,7 +10647,7 @@
     "tests/auth/information_http.php": "1c93e88d678466daf17c7a823b5ceba8c997dc801831982646e86eb1e7c03fc7",
     "tests/license/information_browser.cjs": "cd39db9b1e36b574edc083f70dc7b8611d82d626621ad756a56f9e511a9f8f8a"
   },
-  "checked_at_utc": "2026-10-31T14:09:57.415275+00:00",
+  "checked_at_utc": "2026-10-31T15:19:19.837097+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -10642,13 +10714,13 @@
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "23a8980246362ae48fc5c6110fbc74c7aa4c7500dfa15c826b6bdb04453b29c9",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
-    "public\\manage\\review.php": "7481faed64456f8bf92d212e0e90468c9fa11886c3f91a5daddc7d986fba0c9f",
+    "public\\manage\\review.php": "da4690c55ad124c7d3d04af0855695f77b76f4cf9305bd0f415df33d4d3fef22",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
     "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
     "public\\manage\\_office-layout.php": "da644ada7f74bac62d4a13db24334302bf45d8decfd6d705eefb7adebfda658e",
-    "public\\manage\\_review-catalog.php": "421d3f532fcbc6f77aac6575090e33eeda429927992d7409e93e70e706cbab66",
-    "public\\manage\\_review-workspace.php": "8eac219b65bd6e8560aa819c37b612351d7dbc7892d3a33c3172fb99d1b80752"
+    "public\\manage\\_review-catalog.php": "8bb7292c669b71b127642ff9e2566c231bb7e01261287a67a6a0a98c72b7318a",
+    "public\\manage\\_review-workspace.php": "f90af5d895a796e44071303656a7f2d3b3b80398adc255f915506d1dd147fc3e"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
@@ -10669,7 +10741,7 @@
     "tests\\license\\office_browser.cjs": "32180da339027443efdd0c087e6cb541743ab9887e2bd240ba48f3e7bbaec9f0",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8",
-    "tests\\license\\review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a"
+    "tests\\license\\review_browser.cjs": "e93d730445d67af7dab78665d1095fe4b6915a93ef85e6aae92473f3cc244435"
   },
   "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
   "insurance_source_sha256": {
@@ -10748,9 +10820,9 @@
     "tests\\auth\\member_layout_http.php": "47ca52eadd3f86b64164d0b2fbf1932cf1633d66ac2277463150f397377000b1",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests\\auth\\README.md": "f89a9240a0a78d0175e8e2e79c972aa6fdf546822a236e9e4d7d6c94d44aefec",
+    "tests\\auth\\README.md": "b3a41303f15004fcc2c1f1bafb57af847e5366542c148321bc3eb084756d06d6",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
-    "tests\\auth\\review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
+    "tests\\auth\\review_http.php": "730d2602f5213397e0547f682a0a52ae0527ccad498fffbdfc00639d082afd91",
     "tests\\auth\\run_http.php": "e514e4a3f3732799f223781e107cc16e881550070dc9c9b579484ec6b2df6579",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
     "tests\\auth\\validate_auth.py": "d609a9f4a7c463766ecb834809b7404aca0e05d69ba2e8941294a6ab7a8075c8"

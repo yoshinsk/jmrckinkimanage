@@ -74,12 +74,17 @@ final class JmrcReviewWorkspace
             $value=$input[$key]??$default;
             if(!is_string($value) || strlen($value)>4000 || preg_match('//u',$value)!==1 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/',$value)) { $this->fail($label.'を確認してください'); }
             $value=trim($value);
-            if($value==='' && $key!=='fee') { $this->fail($label.'を入力してください'); }
+            // GeneralはJAFライセンスが必須。運転免許のない審判員もいるため、免許の2項目は任意にする。
+            $optional=$key==='fee' || ($screen==='memberships' && in_array($key,['driver','driver_expiry'],true));
+            if($value==='' && !$optional) { $this->fail($label.'を入力してください'); }
             if(is_array($type) && !array_key_exists($value,$type)) { $this->fail($label.'を選択してください'); }
             if($type==='number' && $value!=='' && (!ctype_digit($value) || (int)$value>10000000)) { $this->fail($label.'は0〜10000000の整数で入力してください'); }
-            if($type==='date') { $d=DateTimeImmutable::createFromFormat('!Y-m-d',$value);if(!$d || $d->format('Y-m-d')!==$value) { $this->fail($label.'を確認してください'); } }
+            if($type==='date' && $value!=='') { $d=DateTimeImmutable::createFromFormat('!Y-m-d',$value);if(!$d || $d->format('Y-m-d')!==$value) { $this->fail($label.'を確認してください'); } }
             if($type==='url' && (!filter_var($value,FILTER_VALIDATE_URL) || parse_url($value,PHP_URL_SCHEME)!=='https' || parse_url($value,PHP_URL_USER)!==null || parse_url($value,PHP_URL_PASS)!==null)) { $this->fail('URLは認証情報を含まないhttpsで入力してください'); }
             $out[$key]=$value;
+        }
+        if($screen==='memberships' && (($out['driver']==='') !== ($out['driver_expiry']===''))) {
+            $this->fail('運転免許がない場合は番号と有効期限を両方空欄にしてください。ある場合は両方を入力してください');
         }
         return $out;
     }

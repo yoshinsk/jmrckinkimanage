@@ -190,6 +190,31 @@ class ReleaseTest(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'allowlist'):
             LabRelease(self.root, profile='answers').target('src/bootstrap.php')
 
+    def test_review_profile_restores_three_existing_files(self):
+        self.deployed()
+        baseline = self.hashes()
+        update = LabRelease(self.root, profile='review')
+        for name in update.order:
+            if not update.target(name).exists():
+                update.target(name).write_text('<?php // original review helper\n')
+            destination = self.stage/name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text('<?php // updated review guidance\n')
+        payload = update.preflight()
+        payload['profile'] = 'review'
+        for name in update.order:
+            payload['files'][name]['new_sha256'] = deploy.sha(self.stage/name)
+        (self.stage/'payload.json').write_text(json.dumps(payload))
+        result = update.apply(self.stage)
+        backup = Path(result['backup'])
+        self.assertTrue(backup.name.startswith('review-guidance-'))
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        self.assertEqual(self.hashes(), baseline)
+        for name in update.order:
+            self.assertEqual(deploy.sha(update.target(name)), payload['files'][name]['old_sha256'])
+        with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+            update.target('public/manage/index.php')
+
     def test_profile_mismatch_refused(self):
         self.payload['profile'] = 'answers'
         self.write_payload()

@@ -48,6 +48,12 @@ check('確認メモを保存',$rPost($rOffice,'card','note',['decision'=>'change
 $html=$rOffice->request('/manage/review.php?screen=card')['body'];
 check('確認メモのHTMLをエスケープ',!str_contains($html,'<script>alert(1)</script>') && str_contains($html,'&lt;script&gt;'));
 check('確認票を書出し',str_contains($rOffice->request('/manage/review.php?download=notes')['body'],'画面別確認'));
+check('初心者向け手順と共有注意を表示',str_contains($rOffice->request('/manage/review.php')['body'],'会員証の例を見る') && str_contains($html,'ほかの担当者には届きません'));
+$quick=$rPost($rOffice,'operations','save',['status'=>'active','date'=>'2027-04-10','return_to'=>'card']);
+check('固定例のボタンから会員証へ移動',$quick['status']===303 && (bool)array_filter($rOffice->lastHeaders,static fn($h)=>str_contains($h,'Location: /manage/review.php?screen=card')));
+check('固定例の作成後も確認メモを保持',str_contains($rOffice->request('/manage/review.php?download=notes')['body'],'alert(1)'));
+check('対象外の見舞金には申請フォームなし',!str_contains($rOffice->request('/manage/review.php?screen=relief')['body'],'name="date"'));
+check('対象外の見舞金の旧POSTも拒否',$rPost($rOffice,'relief','save')['status']===403);
 $rPost($rOffice,'card','note',['decision'=>'change','note'=>'=1+1']);
 $csv=$rOffice->request('/manage/review.php?download=notes-csv');
 check('Excel用確認票にBOM・式注入対策',$csv['status']===200 && str_starts_with($csv['body'],"\xEF\xBB\xBF") && str_contains($csv['body'],"'=1+1"));
@@ -85,7 +91,12 @@ $reject=static function(string $name,string $screen,string $action,array $values
 $reject('ライセンスなしGeneral拒否','memberships','save');
 $act('clubs','save',['fee'=>'10000']);$act('clubs','issue');$reject('未入金のクラブ承認拒否','clubs','approve');
 $act('billing','confirm',['target'=>'club','amount'=>'10000','reference'=>'CLUB-1']);$act('clubs','approve');
-$act('licenses','save');$act('memberships','save');$act('memberships','save');
+$act('licenses','save');
+$reject('任意免許でも氏名の必須検証を維持','memberships','save',['name'=>'','driver'=>'','driver_expiry'=>'']);
+$reject('免許の番号と期限の片側だけを拒否','memberships','save',['driver'=>'','driver_expiry'=>'2027-12-31']);
+$act('memberships','save',['driver'=>'','driver_expiry'=>'']);
+check('免許なしGeneralを確認できる',$model->state['profile']['driver']==='' && $model->state['member']['submitted']);
+$act('memberships','save');
 check('同年度の確認申請と請求は一意',count($model->state['invoices'])===2 && !$model->eligibility()['active']);
 $act('affiliations','approve');$act('billing','confirm',['amount'=>'1000','reference'=>'PART-1']);
 check('不足入金で資格を有効にしない',!$model->eligibility()['active']);

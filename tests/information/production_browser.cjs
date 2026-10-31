@@ -78,6 +78,19 @@ async function run(engine,name,device){
           const links=await page.locator('.menu-list a').evaluateAll(xs=>xs.map(x=>x.getAttribute('href')));
           check(prefix+' 既存24画面を維持',links.length===24);
           for(const link of links)check(prefix+' 既存確認画面GET '+link,(await context.request.get(origin+link)).status()===200);
+          check(prefix+' 初心者用の使い方と固定例の入口',await page.locator('#review-help[open]').count()===1 && await page.getByRole('button',{name:'会員証の例を見る',exact:true}).count()===1);
+          check(prefix+' 確認メモの共有方法を明記',(await page.locator('#review-help').innerText()).includes('ほかの担当者には届きません'));
+          check(prefix+' 追加確認へのリンク',await page.locator('#review-help a[href$="gid=202611011"]').count()===1);
+          await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
+          check(prefix+' 使い方320px・文字200%',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+          await page.evaluate(()=>document.documentElement.style.fontSize='');await page.setViewportSize(devices[device].viewport);
+          await page.screenshot({path:`/artifacts/${name}-review-live-guidance.png`,fullPage:false});
+          await page.goto(origin+'/manage/review.php?screen=memberships');
+          check(prefix+' 免許2項目は任意',!(await page.getByLabel('免許証番号（架空）').evaluate(e=>e.required)) && !(await page.getByLabel('免許有効期限（架空）').evaluate(e=>e.required)));
+          await page.goto(origin+'/manage/review.php?screen=relief');
+          check(prefix+' 見舞金申請は説明だけ',await page.locator('#field-date,#field-event').count()===0 && (await page.locator('main').innerText()).includes('今回は見送ります'));
+          await page.goto(origin+'/manage/review.php?screen=temporary');
+          check(prefix+' 当日取消なしを表示',(await page.locator('main').innerText()).includes('当日取消・返金はありません'));
           for(const path of ['bank-settings.php','profile-correct.php','profile-correct.php?last_year=9998'])
             check(prefix+' 既存事務局画面GET '+path,(await context.request.get(origin+'/manage/'+path)).status()===200);
         }else{
