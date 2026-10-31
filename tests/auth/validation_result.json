@@ -3289,6 +3289,50 @@
       "result": "PASS"
     },
     {
+      "case": "追加回答14件と既存4件を表示",
+      "result": "PASS"
+    },
+    {
+      "case": "会則は文書別の両分類に現れる committee",
+      "result": "PASS"
+    },
+    {
+      "case": "会則の分類内原本は2件 committee",
+      "result": "PASS"
+    },
+    {
+      "case": "別分類の原本は混在しない committee",
+      "result": "PASS"
+    },
+    {
+      "case": "会則は文書別の両分類に現れる national",
+      "result": "PASS"
+    },
+    {
+      "case": "会則の分類内原本は2件 national",
+      "result": "PASS"
+    },
+    {
+      "case": "別分類の原本は混在しない national",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局編集・事務局長承認の回答反映",
+      "result": "PASS"
+    },
+    {
+      "case": "有効戦数の切上げと最新照会を画面にも反映",
+      "result": "PASS"
+    },
+    {
+      "case": "保険は氏名とクラブ名の連絡のみ",
+      "result": "PASS"
+    },
+    {
+      "case": "旧クラブ名簿などの移行対象見直し",
+      "result": "PASS"
+    },
+    {
       "case": "旧HP試作の一覧 information",
       "result": "PASS"
     },
@@ -3710,6 +3754,150 @@
     },
     {
       "case": "旧HP試作で既存entry・全業務表を変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 0戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 1戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 2戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 3戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 4戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 7戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 10戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 11戦",
+      "result": "PASS"
+    },
+    {
+      "case": "70パーセント切上げ 20戦",
+      "result": "PASS"
+    },
+    {
+      "case": "負数・桁あふれ開催数を拒否 -1",
+      "result": "PASS"
+    },
+    {
+      "case": "負数・桁あふれ開催数を拒否 9223372036854775807",
+      "result": "PASS"
+    },
+    {
+      "case": "申込時にGeneralと有効クラブで権利あり",
+      "result": "PASS"
+    },
+    {
+      "case": "申込時未加入は後から権利を推定しない",
+      "result": "PASS"
+    },
+    {
+      "case": "申込時クラブ未更新は対象外",
+      "result": "PASS"
+    },
+    {
+      "case": "Temporaryはポイント対象外",
+      "result": "PASS"
+    },
+    {
+      "case": "履歴不足の所属を未加入と誤判定しない",
+      "result": "PASS"
+    },
+    {
+      "case": "他地区等の未確定区分をGeneralと推定しない",
+      "result": "PASS"
+    },
+    {
+      "case": "shadow等の非正本の状態は正式判定にしない",
+      "result": "PASS"
+    },
+    {
+      "case": "主催照会の期間境界 2027-04-01T17:59:59+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "期間内でも担当外は拒否 2027-04-01T17:59:59+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "主催照会の期間境界 2027-04-01T18:00:00+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "期間内でも担当外は拒否 2027-04-01T18:00:00+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "主催照会の期間境界 2027-04-01T09:00:00Z",
+      "result": "PASS"
+    },
+    {
+      "case": "期間内でも担当外は拒否 2027-04-01T09:00:00Z",
+      "result": "PASS"
+    },
+    {
+      "case": "主催照会の期間境界 2027-04-17T16:59:59+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "期間内でも担当外は拒否 2027-04-17T16:59:59+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "主催照会の期間境界 2027-04-17T17:00:00+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "期間内でも担当外は拒否 2027-04-17T17:00:00+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "終了日時なしは照会期間を補完しない",
+      "result": "PASS"
+    },
+    {
+      "case": "逆転したイベント期間を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "期間外には資格2項目も返さない",
+      "result": "PASS"
+    },
+    {
+      "case": "照会では最新の無効と確認不能を区別",
+      "result": "PASS"
+    },
+    {
+      "case": "主催者へ注意し自動受付停止しない",
+      "result": "PASS"
+    },
+    {
+      "case": "現在の訂正でも申込時の権利を自動変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "現在の正会員クラブへの移籍後も申込時の権利継続",
+      "result": "PASS"
+    },
+    {
+      "case": "最新両資格が有効なら注意なし",
       "result": "PASS"
     }
   ],
@@ -9829,6 +10017,26 @@
         "result": "PASS"
       },
       {
+        "case": "chromium 文書別分類 committee",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 文書別分類 national",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 追加回答18項目を開ける",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 資格の基準時点と70%切上げ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 回答を開いた状態の320px・200%",
+        "result": "PASS"
+      },
+      {
         "case": "chromium 年度検索を操作",
         "result": "PASS"
       },
@@ -10313,6 +10521,26 @@
         "result": "PASS"
       },
       {
+        "case": "webkit 文書別分類 committee",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 文書別分類 national",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 追加回答18項目を開ける",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 資格の基準時点と70%切上げ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 回答を開いた状態の320px・200%",
+        "result": "PASS"
+      },
+      {
         "case": "webkit 年度検索を操作",
         "result": "PASS"
       },
@@ -10341,13 +10569,13 @@
     "tests/license/review_browser.cjs": "285aa409ce3985f035941ea377d4ce339bab7103cc915f297bfc26a1c8c88c5a",
     "public/manage/information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public/manage/assets/information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
-    "src/Content/InformationPreview.php": "1f7edeb2e86a30e73af2308fbe4916ddf584588cd8a4c0abb6280f2969615130",
-    "src/Content/information-catalog.php": "021639d8175bc6c22f69b8ca86a7300ce6b3115bd5c474b39ea630fe9b041650",
-    "src/Content/information-template.php": "dacd6bfdb2c54a9d3a266a5ab5956b609566d61a70a3097d89cc2cbfbcacee40",
-    "tests/auth/information_http.php": "a48fe780f5b509b44ff832c5abff7f6f58391ea043a51428ecba2bf000928d04",
-    "tests/license/information_browser.cjs": "8be9f92360b8e048293577aa32c06ca660d896335c9628ec6ab21447942b8e6c"
+    "src/Content/InformationPreview.php": "5c10219cb3194a495ad205ecb0758452d5e23ee831af01a2cd70e1e3f71e229b",
+    "src/Content/information-catalog.php": "a1b0720d73b0da999f2e25653192b99b899a887051627f5e550ce8c45ab195d1",
+    "src/Content/information-template.php": "35c111239e82b65a868559c39c58b964d5692486b91e2438098368b964949c70",
+    "tests/auth/information_http.php": "1c93e88d678466daf17c7a823b5ceba8c997dc801831982646e86eb1e7c03fc7",
+    "tests/license/information_browser.cjs": "cd39db9b1e36b574edc083f70dc7b8611d82d626621ad756a56f9e511a9f8f8a"
   },
-  "checked_at_utc": "2026-10-31T13:03:04.731388+00:00",
+  "checked_at_utc": "2026-10-31T14:09:57.415275+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -10382,15 +10610,17 @@
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
-    "src\\Content\\information-catalog.php": "021639d8175bc6c22f69b8ca86a7300ce6b3115bd5c474b39ea630fe9b041650",
-    "src\\Content\\information-template.php": "dacd6bfdb2c54a9d3a266a5ab5956b609566d61a70a3097d89cc2cbfbcacee40",
-    "src\\Content\\InformationPreview.php": "1f7edeb2e86a30e73af2308fbe4916ddf584588cd8a4c0abb6280f2969615130",
+    "src\\Content\\information-catalog.php": "a1b0720d73b0da999f2e25653192b99b899a887051627f5e550ce8c45ab195d1",
+    "src\\Content\\information-template.php": "35c111239e82b65a868559c39c58b964d5692486b91e2438098368b964949c70",
+    "src\\Content\\InformationPreview.php": "5c10219cb3194a495ad205ecb0758452d5e23ee831af01a2cd70e1e3f71e229b",
+    "src\\Events\\OrganizerEligibilityPolicy.php": "b60d0fbfbf4d46d4e34cc0b54a8b87045e8ac8a4f250f11f2add202cd9b04063",
     "src\\Insurance\\InsuranceService.php": "ed0facf96d8cb6881ae41b02167b111ebf0c50db36e3f59a398b39c1faaaac54",
     "src\\Insurance\\InsuranceWorkbook.php": "2401485c195249579ccba85ff8cccb81cef30293a4b3c19c79c1c97856be5bf0",
     "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
     "src\\License\\LicenseService.php": "4f9b533e72ead707c7642b6571dd58fe0bf7987ea59f58a7c61af46ba3c818ae",
     "src\\Membership\\MembershipService.php": "75324e6b160e71143aee064149a037463c31e094f17ff92b2c60774d874e1c8a",
     "src\\Profile\\ProfileService.php": "d0b2c559ec111f53d6125d3a0e5f2f3c4e7704a9ee7a460fafa7d8c60ebea357",
+    "src\\Series\\SeriesRules.php": "7d0a19077517cdd799a1294a6f89e53cdc207c93056762dc2d0a4ec1b88fdffc",
     "integration\\jmrckinki\\login.php": "88ff22a70c4b56cc047132cf8178ee16d6343ccb7afa4e3fea8675fbb6f673ce",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
     "integration\\jmrckinki\\common\\auth.php": "7473f6be7b0f7e6b9740872f129c5a10646c8f6c27a6a2ded00fa9775585edd9",
@@ -10430,7 +10660,7 @@
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
     "tests\\license\\Dockerfile.browser": "07da8c1991e1eeeb5b7925426c822701faef3c593fa4a70a973db10e10de7c36",
-    "tests\\license\\information_browser.cjs": "8be9f92360b8e048293577aa32c06ca660d896335c9628ec6ab21447942b8e6c",
+    "tests\\license\\information_browser.cjs": "cd39db9b1e36b574edc083f70dc7b8611d82d626621ad756a56f9e511a9f8f8a",
     "tests\\license\\information_offline_browser.cjs": "b63713ce5641546d88f95d91afa7b7861d31afa2bff0a2f771fd13c9d4ab5cb9",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
     "tests\\license\\member_browser.cjs": "192fb3bca23f206ae9060d6d3f57fc5e65667dd2d6955039f08612442c7dfb13",
@@ -10507,12 +10737,13 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
+    "tests\\auth\\answer_rules.php": "752e1dc1c985c545c0c968cfc51b41d1d991f4819c7947f4793e5daefc2441d5",
     "tests\\auth\\auth.config.php": "fd680c7b9249ebaf050ca4a27b51fb6b0ace3fa9ff8b2f2444d055c8d3ca9aa7",
     "tests\\auth\\dashboard_http.php": "3289e51822c42d2ad2c7d5c4f03e91d9e718e166f038a7fefe863ecc7def966d",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "56e6a672143f1a7ab8f9e80b60b67c0e1b594fa6637891d80b5d2d50336d25a4",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
-    "tests\\auth\\information_http.php": "a48fe780f5b509b44ff832c5abff7f6f58391ea043a51428ecba2bf000928d04",
+    "tests\\auth\\information_http.php": "1c93e88d678466daf17c7a823b5ceba8c997dc801831982646e86eb1e7c03fc7",
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\member_layout_http.php": "47ca52eadd3f86b64164d0b2fbf1932cf1633d66ac2277463150f397377000b1",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
@@ -10520,11 +10751,11 @@
     "tests\\auth\\README.md": "f89a9240a0a78d0175e8e2e79c972aa6fdf546822a236e9e4d7d6c94d44aefec",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
     "tests\\auth\\review_http.php": "f3e656cd2861ed7636f0dcaf09019b70a88a06af8def2a4fe1d4f53ae6917e42",
-    "tests\\auth\\run_http.php": "4b9d9e61b8e79b3521fcd6a2bf73be216e9a2a160e224700314a22ea8731f74a",
+    "tests\\auth\\run_http.php": "e514e4a3f3732799f223781e107cc16e881550070dc9c9b579484ec6b2df6579",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "7d2c57fe80f0549bd21780f251f414a1f33c30f3d04e58c53acbdae765082a21"
+    "tests\\auth\\validate_auth.py": "d609a9f4a7c463766ecb834809b7404aca0e05d69ba2e8941294a6ab7a8075c8"
   },
-  "php_lint_files": 94,
+  "php_lint_files": 97,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

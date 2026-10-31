@@ -68,7 +68,7 @@ final class InformationPreview
     {
         return array_filter($catalog['topics'], static function (array $topic, string $id) use ($selected, $catalog): bool {
             if ($selected['section'] !== 'migration' && !in_array($selected['section'], $topic['sections'], true)) { return false; }
-            if ($selected['category'] !== '' && $selected['category'] !== $topic['category']) { return false; }
+            if ($selected['category'] !== '' && !in_array($selected['category'], $topic['categories'] ?? [$topic['category']], true)) { return false; }
             if ($selected['division'] !== '' && !in_array($selected['division'], $topic['divisions'], true)) { return false; }
             $sources = $catalog['sources'][$id] ?? [];
             if ($selected['year'] !== '' && !in_array($selected['year'], array_column($sources, 'year'), true)) { return false; }
@@ -82,7 +82,7 @@ final class InformationPreview
     {
         $rows = [
             ['key'=>'demo-competition-1','kind'=>'competition','title'=>'競技会の表示例（架空）','date'=>'2027-04-10','time'=>'終日','status'=>'予定の表示例','detail'=>'競技会の詳細は各部会HPへ案内します。実際の競技日程ではありません。'],
-            ['key'=>'demo-meeting-1','kind'=>'meeting','title'=>'代表者会議の表示例（架空）','date'=>'2027-04-11','time'=>'13:00～15:00','status'=>'予定の表示例','detail'=>'案内・出欠受付の担当と公開範囲は確認待ちです。'],
+            ['key'=>'demo-meeting-1','kind'=>'meeting','title'=>'代表者会議の表示例（架空）','date'=>'2027-04-11','time'=>'13:00～15:00','status'=>'予定の表示例','detail'=>'日程は事務局員が編集し、事務局長が承認します。実際の案内・公開範囲と出欠受付は確認待ちです。'],
             ['key'=>'demo-office-1','kind'=>'office','title'=>'事務局在席の表示例（架空）','date'=>'2027-04-12','time'=>'10:00～16:00','status'=>'予定の表示例','detail'=>'実際の在席時間ではありません。公開範囲はQ11で確認します。'],
             ['key'=>'demo-office-2','kind'=>'office','title'=>'事務局休業の表示例（架空）','date'=>'2027-04-13','time'=>'終日','status'=>'休業の表示例','detail'=>'実際の休業日ではありません。'],
             ['key'=>'demo-competition-2','kind'=>'competition','title'=>'中止した競技会の表示例（架空）','date'=>'2027-04-18','time'=>'終日','status'=>'中止の表示例','detail'=>'中止情報を残す場合の見え方です。申込や取消の処理は行いません。'],

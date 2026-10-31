@@ -56,6 +56,18 @@ async function run(engine,name,device){
           }
           await page.goto(origin+base+'?section=information&category=committee');
           check(prefix+' 分類による絞り込み',await page.locator('[data-topic="HP-19"]').count()===1 && await page.locator('[data-topic="HP-13"]').count()===0);
+          for(const category of ['committee','national']){
+            await page.goto(origin+base+'?item=HP-20&category='+category);
+            check(prefix+' 回答済みの文書分類 '+category,await page.locator('[data-document-category="'+category+'"]').count()===2);
+            check(prefix+' 分類内の文書のみ '+category,await page.locator('.info-source-link').count()===2);
+          }
+          await page.goto(origin+base);await page.locator('.info-answer-decisions > summary').tap();
+          check(prefix+' 回答18項目が閲覧可能',await page.locator('[data-answer]').count()===18 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' 最新資格・切上げ回答を反映',(await page.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await page.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
+          await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
+          check(prefix+' 回答展開320px・文字200%',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+          await page.evaluate(()=>document.documentElement.style.fontSize='');
+          await page.screenshot({path:`/artifacts/${name}-information-live-answers.png`,fullPage:false});
           await page.goto(origin+base+'?q='+encodeURIComponent('存在しないXYZ'));
           check(prefix+' 検索該当なし',await page.getByText('該当する確認対象はありません。',{exact:false}).count()===1);
           for(const path of ['/src/Content/information-catalog.php','/manage/information-catalog.php','/private/jmrc-portal/auth.config.php']){

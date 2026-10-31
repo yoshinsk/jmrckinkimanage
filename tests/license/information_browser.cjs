@@ -31,12 +31,22 @@ async function run(engine,name,device){
   }
   await p.setViewportSize(devices[device].viewport);await p.goto('https://web/manage/information-preview.php');
   await Promise.all([p.waitForURL('**/information-preview.php?section=information&category=committee'),p.getByRole('navigation',{name:'お知らせの分類'}).getByRole('link',{name:'運営委員会',exact:true}).tap()]);
-  check(name+' 運営委員会分類',await p.locator('.info-grid > li').count()===1&&await p.locator('[data-topic="HP-19"]').count()===1);
+  check(name+' 運営委員会分類',await p.locator('.info-grid > li').count()===2&&await p.locator('[data-topic="HP-19"]').count()===1&&await p.locator('[data-topic="HP-20"]').count()===1);
   await Promise.all([p.waitForURL('**/information-preview.php?section=information&item=HP-19'),p.getByRole('link',{name:'運営委員会からのお知らせ',exact:true}).tap()]);
   check(name+' 非公開資料の分離',(await p.locator('.info-detail').innerText()).includes('非公開の委員会資料や資料BOXはこのページに掲載しません'));
   await p.locator('.info-sources summary').tap();
   check(name+' 参照元を開ける',await p.locator('.info-source-link').first().isVisible());
   await p.screenshot({path:`/artifacts/${name}-information-detail.png`,fullPage:true});
+  for(const category of ['committee','national']){
+   await p.goto('https://web/manage/information-preview.php?item=HP-20&category='+category);
+   await p.locator('.info-sources summary').tap();
+   check(name+' 文書別分類 '+category,await p.locator('[data-document-category="'+category+'"]').count()===2 && await p.locator('.info-source-link').count()===2);
+  }
+  await p.goto('https://web/manage/information-preview.php');await p.locator('.info-answer-decisions > summary').tap();
+  check(name+' 追加回答18項目を開ける',await p.locator('[data-answer]').count()===18 && await p.locator('[data-answer="Q05"]').isVisible());
+  check(name+' 資格の基準時点と70%切上げ', (await p.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await p.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
+  await p.setViewportSize({width:320,height:844});await p.evaluate(()=>document.documentElement.style.fontSize='200%');
+  check(name+' 回答を開いた状態の320px・200%',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.evaluate(()=>document.documentElement.style.fontSize='');
   await p.goto('https://web/manage/information-preview.php?section=migration');
   await p.getByLabel('元資料の年度候補').fill('2008');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'絞り込む',exact:true}).tap()]);
   check(name+' 年度検索を操作',await p.locator('.info-grid > li').count()===1&&await p.locator('[data-topic="HP-21"]').count()===1);

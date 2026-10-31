@@ -7,6 +7,118 @@ return json_decode(<<<'CATALOG'
   "snapshot": "2026-10-31",
   "source_file": "20261031_旧HP移行元URL台帳.csv",
   "source_sha256": "d3322d14ce2e337e9453d9af9dc7944bed21c00766d583b8ccbe6907e9807189",
+  "answer_source": "Documents/answers/20261031_追加14項目回答.json",
+  "answer_sha256": "d7291edc54ad65ff904bc96a501f7c5756580408bb3ff51db14245d04c1b5376",
+  "decisions": [
+    {
+      "id": "R05",
+      "title": "振込の識別",
+      "confirmed": "振込名義の末尾IDは不要。クラブ・個人・保険の用途を区別し、申込時に識別IDを発行する。",
+      "pending": "識別IDと銀行明細の照合方法は別途確認。名義末尾や曖昧な候補による自動確定はしない。"
+    },
+    {
+      "id": "R06",
+      "title": "事務局の複数登録・CSV",
+      "confirmed": "事務局は複数アカウントを登録できる。CSVは出力列を選べる設計とし、クラブ代表は担当範囲に限る。",
+      "pending": "追加アカウントの指定・承認と、財務用CSVの列・権限は未確定。権限は自動付与しない。"
+    },
+    {
+      "id": "R08",
+      "title": "保存・バックアップ",
+      "confirmed": "操作ログは2年。バックアップは実装側で保存方針を決める。ドラフトのログアウト時保存は要望として継続する。",
+      "pending": "日次30世代・月次12世代、四半期の復元確認を採用方針として文書化。実ジョブ・自動削除は未適用。ドラフト3か月の起算点は確認待ち。"
+    },
+    {
+      "id": "R11",
+      "title": "運営担当者の登録承認",
+      "confirmed": "運営委員会の担当者登録は事務局長が承認する。主催クラブと代表アカウントは共通で扱う。",
+      "pending": "事務局長のアカウント対応、通知先・文面は別途確認。名簿上の役職だけでシステム権限を与えない。"
+    },
+    {
+      "id": "Q01",
+      "title": "保険の連絡対象",
+      "confirmed": "対象は保険加入済みの被保険者。ポータルのほか、旧システム・紙で申し込んだ被保険者も事務局へ連絡できる。",
+      "pending": "システム内の加入記録との一致を必須条件にしない。加入意思の登録を加入済みとは扱わない。"
+    },
+    {
+      "id": "Q02",
+      "title": "クラブ代表からの連絡",
+      "confirmed": "本人だけでなくクラブ代表からの連絡も受け付ける。事務局が当人へ連絡し、保険手続きはシステム外で進める。",
+      "pending": "代表の担当クラブ確認を維持し、被保険者を氏名だけで他アカウントへ結び付けない。正式送信は保留。"
+    },
+    {
+      "id": "Q03",
+      "title": "保険連絡の入力項目",
+      "confirmed": "入力は被保険者名・クラブ名の2項目。事故日・事故概要・連絡先・添付を追加要求しない。",
+      "pending": "実際の連絡先・送信先の接続は保留。給付確定や保険会社への正式請求は行わない。"
+    },
+    {
+      "id": "Q04",
+      "title": "主催者の権限",
+      "confirmed": "対象はオンラインエントリーで受け付けるイベント。イベント登録・主催権限は既存エントリー側の決定に従う。",
+      "pending": "イベント登録承認者、共同主催、代理担当の対応は未確定。新しい主催権限を自動付与しない。"
+    },
+    {
+      "id": "Q05",
+      "title": "主催者の資格照会",
+      "confirmed": "申込締切以降からイベント終了1週間後まで照会できる。照会時点の最新資格で「個人会員か」「正会員クラブに所属しているか」の2点を表示する。",
+      "pending": "確認できない場合は主催者へ注意を表示し、申込受理を自動停止しない。既存イベントの権限・終了日時との接続は保留。"
+    },
+    {
+      "id": "Q06",
+      "title": "ポイントの管理場所・リンク",
+      "confirmed": "ポイントの登録・確定は既存エントリー側に置く。ポータルからの関連リンクは各部会のトップページを基本とする。",
+      "pending": "正式な部会トップURLと、集計の公開開始条件は別途確認する。"
+    },
+    {
+      "id": "Q07",
+      "title": "シリーズ・クラスの範囲",
+      "confirmed": "ジムカーナと将来のダートトライアルに対応する。同じ選手の複数クラス・競技参加を分けて扱う。ラリーのオンラインエントリー移行は現時点の対象外。",
+      "pending": "2027年度規則・提出済みクラス一覧は未受領。順位別点数、不成立・失格・中止等を推定しない。"
+    },
+    {
+      "id": "Q08",
+      "title": "ポイント対象資格",
+      "confirmed": "Generalだけが対象。申込時に個人会員かつ正会員クラブ所属であることが必要。正会員クラブ間の後日の所属変更で権利を失わない。",
+      "pending": "他地区会員は参加費割引のみで会場にて会員証確認。後日の資格停止・入金訂正の得点への影響は確認待ち。"
+    },
+    {
+      "id": "Q09",
+      "title": "集計・表示・訂正",
+      "confirmed": "クラス別に順位、各イベントのポイント、有効ポイント、氏名、クラブ略称を表示する。有効戦数は開催数の70％を切り上げる（全7戦なら5戦）。",
+      "pending": "部会HPからの取込・訂正版の再読込は要望として採用。高得点回数・後開催優先の同点規則の細部、正式取込元・形式・確定担当は確認待ち。自動公開はしない。"
+    },
+    {
+      "id": "Q10",
+      "title": "インフォメーションの担当",
+      "confirmed": "4分類すべてを事務局員が編集し、事務局長が承認する。部会名等の分類で編集権限を与えない。",
+      "pending": "事務局長アカウントの指定と正式原稿の確認後に公開機能を接続する。現在は閲覧専用。"
+    },
+    {
+      "id": "Q11",
+      "title": "カレンダーの担当",
+      "confirmed": "事務局員が更新し、事務局長が承認する。Googleカレンダーのような表示を目指す。元データの形式は任意。",
+      "pending": "予定ごとの公開範囲・実日程・入力元は未確定。Googleとの自動同期が決まったわけではない。"
+    },
+    {
+      "id": "Q12",
+      "title": "引継ぎ対象",
+      "confirmed": "各部会の旧記事は各部会へ移管する。クラブ名簿、旧年度の規則・様式は原則として新ポータルへ移さない。別途バックアップを相談する。",
+      "pending": "稼働中の旧サーバーは廃止希望だが、残置先・移管先・時期は別途協議。既存データの削除は行わない。"
+    },
+    {
+      "id": "Q13",
+      "title": "会則・規程の分類",
+      "confirmed": "近畿の協議会会則・見舞金規則は「運営委員会」、全国協議会会則・細則と専門委員会規程は「全国JMRC」に分ける。",
+      "pending": "役員・保険加入クラブ等の名簿公開項目は未回答。非公開の委員会資料は公開しない。"
+    },
+    {
+      "id": "Q14",
+      "title": "旧HPの残置・移行作業",
+      "confirmed": "旧ページは約1年残す方針。更新担当は事務局員。ポータル公開後に事務局が移管作業を行い、間に合わない内容は「事務局から」で告知する。",
+      "pending": "残置期間の起算日、旧サーバー廃止との調整、移管先・転送設定・公開の最終判断者は未確定。"
+    }
+  ],
   "topics": {
     "HP-01": {
       "title": "事務局からのお知らせ",
@@ -20,11 +132,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション「事務局」。旧年度の案内は年度を明示して選別",
       "page": "P21",
-      "pending": "Q10・Q12",
+      "pending": "Q10：編集は事務局員、承認は事務局長。現行案内の原稿・年度・公開日は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-02": {
       "title": "代表者会議・表彰式",
@@ -38,11 +153,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション「事務局」。出欠受付は既存の会議要件に接続",
       "page": "P22",
-      "pending": "Q10・Q12",
+      "pending": "Q10・Q12：編集・承認担当は確定。対象案内・対象年度と出欠受付の開始条件は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-03": {
       "title": "Bライセンス講習会",
@@ -56,15 +174,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション「事務局」。講習会申込システムの新設は含めない",
       "page": "P22",
-      "pending": "Q10・Q12",
+      "pending": "現行の開催日・正式な申込先と原稿の確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-04": {
       "title": "競技部会のご案内",
-      "summary": "ジムカーナ、ダートトライアル、ラリー、レース、競技会審査委員会の情報は各部会HPへ案内します。旧HP内の案内ページと部会HPは区別します。",
+      "summary": "各競技部会の情報は各部会へ移管します。関連リンクは各部会のトップページを基本とし、個別PDFへの恒久リンクを前提にしません。",
       "sections": [
         "links"
       ],
@@ -78,15 +199,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "各部会のHPへ移行またはリンク。現在の内部案内ページと実際の部会HPを区別",
       "page": "P22",
-      "pending": "Q12・Q14",
+      "pending": "Q06・Q12・Q14：正式なトップURL、移管先と時期は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-05": {
       "title": "統一カレンダー",
-      "summary": "競技会・JMRCの会議・事務局在席／休業日を種別付きで表示します。次の予定はすべて架空の表示例です。",
+      "summary": "競技会・会議・事務局在席／休業日をまとめます。事務局員が更新し、事務局長が承認します。次の予定は架空の表示例です。",
       "sections": [
         "calendar"
       ],
@@ -96,15 +220,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "統一カレンダー。部会別詳細日程・規則は部会HPへ",
       "page": "P22",
-      "pending": "Q11・Q12",
+      "pending": "Q11：予定ごとの公開範囲、実日程、入力元は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-06": {
       "title": "ジムカーナのシリーズポイント",
-      "summary": "各部会HPから結果ページへリンクする方針です。新しい集計の管理場所・公開先・規則が未確定のため、点数や順位は掲載しません。",
+      "summary": "ポイントの登録・確定は既存エントリー側で管理します。ポータルからはジムカーナ部会トップへ案内し、集計表示は正式規則・原結果の確認後に接続します。",
       "sections": [
         "links"
       ],
@@ -112,17 +239,20 @@ return json_decode(<<<'CATALOG'
       "divisions": [
         "gym"
       ],
-      "policy": "各部会HPから結果ページへリンクする方針。リンク先と新集計の公開場所はQ06・12",
+      "policy": "Q06～09により登録・確定は既存entry。部会トップへのリンクを基本とする。自動集計表示は規則・取込元の確認後",
       "page": "P23",
-      "pending": "Q06～Q09・Q12",
+      "pending": "Q07～Q09：2027規則、正式取込元・形式、同点処理の細部と訂正担当は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-07": {
       "title": "ダートトライアルのシリーズポイント",
-      "summary": "各部会HPから結果ページへリンクする方針です。過年度のPDFを現年度の結果として掲載しません。",
+      "summary": "ダートトライアルのポイント登録・確定も既存エントリー側で扱う方針です。部会トップへの案内と、競技・シリーズ・クラスを分けた集計を準備します。",
       "sections": [
         "links"
       ],
@@ -130,17 +260,20 @@ return json_decode(<<<'CATALOG'
       "divisions": [
         "dirt"
       ],
-      "policy": "HP-06と同じ。既存の過年度PDFを現年度結果として転記しない",
+      "policy": "HP-06と同じ。競技・シリーズ・クラスを分ける。過年度PDFを現年度結果として転記しない",
       "page": "P24",
-      "pending": "Q06～Q09・Q12",
+      "pending": "Q07～Q09：2027規則、クラス一覧、取込元と公開開始条件は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-08": {
       "title": "ラリーのシリーズポイント",
-      "summary": "各部会HPから結果ページへリンクする方針です。ドライバー／ナビゲーターの集計単位を含め、正式な結果の掲載条件は確認待ちです。",
+      "summary": "ラリーの情報はラリー部会へ案内します。現時点ではオンラインエントリー移行と新しいポイント集計の対象に含めません。",
       "sections": [
         "links"
       ],
@@ -148,17 +281,20 @@ return json_decode(<<<'CATALOG'
       "divisions": [
         "rally"
       ],
-      "policy": "HP-06と同じ。ドライバー・ナビゲーターの集計単位はQ07",
+      "policy": "ラリー部会へ案内。Q07により現時点ではentry移行・新集計の対象外",
       "page": "P25",
-      "pending": "Q06～Q09・Q12",
+      "pending": "Q06・Q07・Q12：正式な部会トップURLと既存記事の移管先は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-09": {
       "title": "シリーズ表彰・全国大会のご案内",
-      "summary": "シリーズ表彰者、JAF CUP、西日本フェスティバル等の案内を掲載する構成です。表彰者の氏名・所属や対象年度は承認前のため掲載しません。",
+      "summary": "各部会の旧記事・表彰記事は各部会へ移管します。今後の全国大会等の案内は、事務局員が作成し事務局長が承認する構成です。",
       "sections": [
         "information"
       ],
@@ -168,13 +304,16 @@ return json_decode(<<<'CATALOG'
         "dirt",
         "rally"
       ],
-      "policy": "インフォメーション。JMRC全国オールスター等、添付画面にある大会案内も移行候補として個別確認",
+      "policy": "Q12により部会の旧記事は部会へ移管。新規案内の掲載は事務局編集・事務局長承認",
       "page": "P23～25",
-      "pending": "Q10・Q12・Q13",
+      "pending": "Q10・Q12・Q13：新しい原稿・対象年度・氏名等の公開範囲は確認待ち",
       "publisher": "原本確認待ち",
-      "classification_note": "配置は確認用の案。正式な分類・担当はQ10・Q12で確認。",
+      "classification_note": "編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-10": {
       "title": "特別規則・リザルト・練習会",
@@ -191,11 +330,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "各部会HP。練習会の申込やフォーラムをポータルへ統合する要件は追加しない",
       "page": "P23～26",
-      "pending": "Q12・Q14",
+      "pending": "Q12・Q14：部会への具体的な移管先・時期とリンク先の確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-11": {
       "title": "部会の救済基金・互助会",
@@ -211,15 +353,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "各部会HP。スポーツ安全保険・協議会見舞金の状態に読み替えない",
       "page": "P23・25",
-      "pending": "Q12・Q14",
+      "pending": "Q12・Q14：部会の正式な案内先と移管手順の確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-12": {
       "title": "競技会の申込書・誓約書",
-      "summary": "競技の参加申込書、誓約書、ナビゲーター追加申込書は各部会HPへ案内します。オンラインエントリーは既存の仕組みを継続します。",
+      "summary": "競技会の案内・資料は各部会へ移管します。旧年度の様式は原則として新ポータルへ移さず、現行の申込導線は既存エントリーを継続します。",
       "sections": [
         "documents",
         "links"
@@ -230,13 +375,16 @@ return json_decode(<<<'CATALOG'
         "dirt",
         "rally"
       ],
-      "policy": "各部会HP。既存 `/entry/` の申込導線は維持",
+      "policy": "各部会HP。旧年度様式は原則移行せず別途保存相談。既存entryの申込導線は維持",
       "page": "P26",
-      "pending": "Q12・Q14",
+      "pending": "Q12：現行様式と案内先を確認。過年度の保存は別途バックアップ相談",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-13": {
       "title": "個人会員制度のご案内",
@@ -251,11 +399,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "ポータルの個人会員申請へ案内。受付保留中は説明と開始予定を表示",
       "page": "P26",
-      "pending": "Q10・Q12",
+      "pending": "R12：受付開始は保留。現行の案内原稿と正式な開始判断は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-14": {
       "title": "レンタル機器のご案内",
@@ -270,15 +421,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション「事務局」。光電管、レスキューツール、KED・バキュームスプリント、重量計、タバード、バックボード、AEDを対象候補とする。予約・在庫管理の新設は含めない",
       "page": "P26",
-      "pending": "Q10・Q12",
+      "pending": "Q10・Q12：編集・承認担当は確定。現行の貸出条件・様式と年度は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-15": {
       "title": "シリーズ概要",
-      "summary": "対象年度と版を付けてシリーズ概要を案内します。正式な規則原本の確認前に旧年度の条件を新年度へ読み替えません。",
+      "summary": "対象年度と版を付けてシリーズ概要を案内します。2027年度の正式な規則は未受領です。旧年度の規則・様式は原則として移行せず、各部会記事は各部会へ移管します。",
       "sections": [
         "information",
         "documents"
@@ -291,11 +445,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション。年度・版を管理",
       "page": "P26",
-      "pending": "Q10・Q12",
+      "pending": "Q07・Q12：2027年度の正式原稿・クラス一覧の提供待ち",
       "publisher": "原本確認待ち",
-      "classification_note": "配置は確認用の案。正式な分類・担当はQ10・Q12で確認。",
+      "classification_note": "編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-16": {
       "title": "JAF国内競技規則・車両規則",
@@ -310,11 +467,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "JAF公式ページへのリンク。原本の独自更新や自動複製は行わない",
       "page": "P26",
-      "pending": "Q12",
+      "pending": "JAFの正式な現行リンクと対象版の確認待ち",
       "publisher": "JAF",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "national"
+      ]
     },
     "HP-17": {
       "title": "JAF競技保険・オフィシャル名簿様式",
@@ -329,15 +489,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション「事務局」。公表可能な案内・空の様式を対象とし、記入済み名簿を自動公開しない",
       "page": "P26",
-      "pending": "Q10・Q12・Q13",
+      "pending": "Q12・Q13：現行の公表可能な案内・空の様式と、名簿の公開項目は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-18": {
       "title": "スポーツ安全保険のご案内",
-      "summary": "加入対象はGeneralです。初回は年度クラブ単位で4名が必要です。2027年の保険料・期間・追加加入の手順は確認待ちです。加入意思の登録と正式な加入は区別します。",
+      "summary": "加入対象はGeneral、初回は年度クラブ単位で4名です。加入済みの被保険者は、本人またはクラブ代表から氏名・クラブ名だけで事務局へ連絡する方針です。旧システム・紙の加入者も対象とします。",
       "sections": [
         "documents"
       ],
@@ -347,11 +510,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "スポーツ安全保険の申込セクション。公表用案内と本人・クラブの申込記録を分ける",
       "page": "P26",
-      "pending": "Q01～Q03・Q12・Q13",
+      "pending": "2027年の料率・保険期間、正式な受付・通知先の接続は保留。事務局から当人へ連絡し、保険手続きはシステム外で進める",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "office"
+      ]
     },
     "HP-19": {
       "title": "運営委員会からのお知らせ",
@@ -366,15 +532,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "インフォメーション「運営委員会」。公開済み情報の引継ぎであり、非公開会議資料を公開する指示ではない",
       "page": "P27",
-      "pending": "Q10・Q13",
+      "pending": "Q10・Q13：編集は事務局員、承認は事務局長。名簿の公開項目と原稿は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "committee"
+      ]
     },
     "HP-20": {
       "title": "会則・見舞金細則・協議会規程",
-      "summary": "協議会会則、見舞金細則、全国協議会規程を案内する構成です。分類名と発行団体を分けて確認します。協議会見舞金の請求は今回保留です。",
+      "summary": "近畿の協議会会則・見舞金規則を「運営委員会」、全国協議会の会則・細則と専門委員会規程を「全国JMRC」に分けます。協議会見舞金の請求は保留です。",
       "sections": [
         "information",
         "documents"
@@ -383,17 +552,21 @@ return json_decode(<<<'CATALOG'
       "divisions": [
         "common"
       ],
-      "policy": "資料注記の分類は「全国JMRC」。近畿地域の規程も含まれるため、発行団体を別項目で保持し、分類名はQ13で確認",
+      "policy": "Q13で訂正。近畿の会則・見舞金規則は運営委員会、全国の会則・細則・専門委員会規程は全国JMRC。文書ごとに発行団体を保持",
       "page": "P27",
-      "pending": "Q12・Q13",
+      "pending": "Q13の分類訂正は確定。移行する現行原本・版と公開承認は確認待ち",
       "publisher": "原本確認待ち",
-      "classification_note": "資料の分類名案。近畿地域の規程も含むためQ13で確認。",
+      "classification_note": "Q13の回答でP27の分類を訂正済み。文書ごとに分類と発行団体を表示します。",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "committee",
+        "national"
+      ]
     },
     "HP-21": {
       "title": "クラブ年度登録・クラブ名簿",
-      "summary": "クラブ年度登録の案内と公表用のクラブ／団体名簿を扱う構成です。実際の年度登録記録から名簿を自動公開しません。現年度・過年度の公開範囲は確認待ちです。",
+      "summary": "クラブ年度登録の案内を掲載する構成です。旧HPのクラブ名簿は原則として新ポータルへ移行せず、別途バックアップを相談します。実際の登録記録から名簿を自動公開しません。",
       "sections": [
         "information",
         "documents"
@@ -402,13 +575,16 @@ return json_decode(<<<'CATALOG'
       "divisions": [
         "common"
       ],
-      "policy": "インフォメーション「JMRC近畿」。現年度の業務登録と公表用名簿は別データ。過年度の保存・公開範囲はQ12",
+      "policy": "登録案内はJMRC近畿。Q12により旧HPのクラブ名簿は原則移行せず別途保存相談。業務登録データは保持",
       "page": "P27",
-      "pending": "Q10・Q12・Q13",
+      "pending": "Q12・Q13：新しい公表用名簿の公開項目は未確定。年度登録の受付開始も保留",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-22": {
       "title": "JAFのご案内",
@@ -422,15 +598,18 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "JAFへのリンクで案内",
       "page": "P28",
-      "pending": "Q12・Q14",
+      "pending": "現行の公式リンクとリンク切れの確認待ち",
       "publisher": "JAF",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "national"
+      ]
     },
     "HP-23": {
       "title": "関連リンク・お問い合わせ",
-      "summary": "各部会、各地域JMRC、JAFへのリンクをまとめます。問い合わせ先の移設先は確認待ちです。この試作から問い合わせは送信しません。",
+      "summary": "各部会・各地域JMRC・JAFへのリンクをまとめます。部会リンクはトップページを基本とします。旧ページは約1年残す方針ですが、具体的な移管・問い合わせ先は別途調整します。",
       "sections": [
         "links"
       ],
@@ -440,11 +619,14 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "関連リンク。お問い合わせは既存の問い合わせ要件を継続し、具体的な移設先を確認",
       "page": "P29",
-      "pending": "Q12・Q14",
+      "pending": "Q06・Q12・Q14：正式なトップURL、移管先、問い合わせ先は確認待ち",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 1
+      "revision": 2,
+      "categories": [
+        "kinki"
+      ]
     },
     "HP-24": {
       "title": "移行対象外：2020年のアンケート",
@@ -462,7 +644,10 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "excluded",
-      "revision": 1
+      "revision": 1,
+      "categories": [
+        "kinki"
+      ]
     }
   },
   "sources": {
@@ -1193,25 +1378,33 @@ return json_decode(<<<'CATALOG'
         "title": "ＪＭＲＣ全国協議会専門委員会規程",
         "url": "http://www.jmrc-kinki.net/_userdata/zenkoku_expertcommittee.pdf",
         "year": "原本確認",
-        "verification": "未確認（トップHTMLのhrefから抽出）"
+        "verification": "未確認（トップHTMLのhrefから抽出）",
+        "category": "national",
+        "publisher": "JMRC全国協議会"
       },
       {
         "title": "ＪＭＲＣ全国協議会会則・細則",
         "url": "http://www.jmrc-kinki.net/_userdata/zenkoku_kaisoku.saisoku.pdf",
         "year": "原本確認",
-        "verification": "未確認（トップHTMLのhrefから抽出）"
+        "verification": "未確認（トップHTMLのhrefから抽出）",
+        "category": "national",
+        "publisher": "JMRC全国協議会"
       },
       {
         "title": "ＪＡＦ近畿地域クラブ協議会会則",
         "url": "http://www.jmrc-kinki.net/kaisoku.html",
         "year": "原本確認",
-        "verification": "未確認（トップHTMLのhrefから抽出）"
+        "verification": "未確認（トップHTMLのhrefから抽出）",
+        "category": "committee",
+        "publisher": "JMRC近畿"
       },
       {
         "title": "JAF近畿地域協議会見舞金給付細則",
         "url": "http://www.jmrc-kinki.net/mimaikin20250401.html",
         "year": "2025",
-        "verification": "未確認（トップHTMLのhrefから抽出）"
+        "verification": "未確認（トップHTMLのhrefから抽出）",
+        "category": "committee",
+        "publisher": "JMRC近畿"
       }
     ],
     "HP-21": [

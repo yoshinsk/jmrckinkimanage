@@ -167,6 +167,36 @@ class ReleaseTest(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'not office-only'):
             self.release.preflight()
 
+    def test_answers_update_and_restore_keeps_original_preview(self):
+        # 初回配置の後に3ファイルだけを更新し、回答版の復元では初回試作の5新規ファイルも残す。
+        self.deployed()
+        baseline = self.hashes()
+        update = LabRelease(self.root, profile='answers')
+        payload = update.preflight()
+        payload['profile'] = 'answers'
+        for name in update.order:
+            (self.stage/name).write_text('<?php // answers update '+name+'\n')
+            payload['files'][name]['new_sha256'] = deploy.sha(self.stage/name)
+        (self.stage/'payload.json').write_text(json.dumps(payload))
+        backup = Path(update.apply(self.stage)['backup'])
+        manifest = json.loads((backup/'manifest.json').read_text())
+        self.assertEqual(manifest['profile'], 'answers')
+        self.assertEqual(len(manifest['files']), 3)
+        update.restore(backup, manifest)
+        self.assertEqual(self.hashes(), baseline)
+        self.assertTrue(self.release.target('public/manage/information-preview.php').is_file())
+
+    def test_answers_profile_refuses_bootstrap(self):
+        with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+            LabRelease(self.root, profile='answers').target('src/bootstrap.php')
+
+    def test_profile_mismatch_refused(self):
+        self.payload['profile'] = 'answers'
+        self.write_payload()
+        with self.assertRaisesRegex(RuntimeError, 'profile mismatch'):
+            self.release.apply(self.stage)
+        self.assert_original()
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,5 @@
 # Path: scripts/deploy_information_preview.py
-# 機能: 旧HP試作の8ファイルを限定配置し、DB・設定を変更せずに検査・バックアップ・復元する。
+# 機能: 旧HP試作の初回8ファイルまたは回答反映3ファイルだけを配置し、DB・設定を変えずに復元する。
 import argparse
 import hashlib
 import json
@@ -20,6 +20,8 @@ ORDER = ['src/Content/InformationPreview.php', 'src/Content/information-catalog.
          'src/bootstrap.php', 'public/manage/information-preview.php',
          'public/manage/review.php', 'public/manage/index.php']
 EXISTING = ['src/bootstrap.php', 'public/manage/review.php', 'public/manage/index.php']
+ANSWER_FILES = ['src/Content/information-catalog.php', 'src/Content/InformationPreview.php', 'src/Content/information-template.php']
+PROFILES = {'initial': (ORDER, EXISTING), 'answers': (ANSWER_FILES, ANSWER_FILES)}
 
 
 def require(condition, message):
@@ -35,7 +37,10 @@ def sha(path):
 
 class Release:
     """currentのリンク先を固定し、許可したファイル以外への書込を拒否する。"""
-    def __init__(self, site=SITE):
+    def __init__(self, site=SITE, profile='initial'):
+        require(profile in PROFILES, 'Unknown deployment profile')
+        self.profile = profile
+        self.order, self.existing = PROFILES[profile]
         self.site = site.resolve()
         self.private = self.site/'private/jmrc-portal'
         self.source = (self.private/'current').resolve(strict=True)
@@ -45,7 +50,7 @@ class Release:
 
     def target(self, name):
         """currentだけを既知のリンクとして許可し、その先の各親と対象のリンクを拒否する。"""
-        require(name in ORDER, 'Path is not in release allowlist')
+        require(name in self.order, 'Path is not in release allowlist')
         require((self.private/'current').resolve(strict=True) == self.source, 'Current release changed')
         root = self.web if name.startswith('public/') else self.source
         path = root/(name[len('public/'):] if name.startswith('public/') else name)
@@ -59,7 +64,7 @@ class Release:
 
     def snapshot(self):
         """既存ソース・設定と業務表を読み取りだけで比較。認証操作の監査表だけを除く。"""
-        excluded = {self.target(n) for n in ORDER}
+        excluded = {self.target(n) for n in self.order}
         paths = set()
         for root in [self.web/'manage', self.source/'src', self.web/'entry']:
             # セッション・添付・実行時キャッシュを走査対象に含めない。
@@ -98,23 +103,23 @@ class Release:
                                           "ON p.role_id=r.id WHERE p.permission_code='profiles.correct' ORDER BY r.code;")}
 
     def preflight(self):
-        """必要な保留設定と既存3・新規5ファイルの状態を、変更せずに取得する。"""
+        """保留設定と選択profileの対象ファイルを、変更せずに取得する。"""
         state = self.snapshot()
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
         require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
-        return {'before': state, 'files': {n: {'old_sha256': sha(self.target(n))} for n in ORDER}}
+        return {'before': state, 'files': {n: {'old_sha256': sha(self.target(n))} for n in self.order}}
 
     def cache(self):
         """公開URLや全体再起動を使わず、変更したPHPだけを既存FPMソケットで失効させる。"""
         probe = self.private/('information_cache_'+str(os.getpid())+'.php')
         require(not probe.exists() and not probe.is_symlink(), 'Cache probe path occupied')
-        targets = [str(self.target(n)) for n in ORDER if n.endswith('.php')]
+        targets = [str(self.target(n)) for n in self.order if n.endswith('.php')]
         code = "<?php $ok=true;foreach(json_decode('"+json.dumps(targets)+"') as $p){$ok=" \
             "(!function_exists('opcache_invalidate') || !opcache_is_script_cached($p) || " \
             "opcache_invalidate($p,true)) && $ok;}if($ok)echo 'INFORMATION_CACHE_OK';"
-        st = self.target('src/bootstrap.php').stat()
+        st = (self.source/'src/bootstrap.php').stat()
         # 原子作成・非公開0600。例外時にもプローブを残さない。
         try:
             with probe.open('x') as handle:
@@ -145,8 +150,8 @@ class Release:
     def replace(self, source, name, metadata=None):
         """同一ディレクトリでlint・原子renameし、既存所有者とモードを引き継ぐ。"""
         target = self.target(name)
-        reference = 'public/manage/index.php' if name.startswith('public/') else 'src/bootstrap.php'
-        st = (target if target.exists() else self.target(reference)).stat()
+        reference = self.web/'manage/index.php' if name.startswith('public/') else self.source/'src/bootstrap.php'
+        st = (target if target.exists() else reference).stat()
         mode, uid, gid = metadata or (st.st_mode & 0o777, st.st_uid, st.st_gid)
         candidate = target.with_name('.information-release-'+str(os.getpid())+target.suffix)
         require(not candidate.exists() and not candidate.is_symlink(), 'Candidate path occupied')
@@ -162,19 +167,20 @@ class Release:
             candidate.unlink(missing_ok=True)
 
     def restore(self, backup, manifest, strict=True):
-        """全対象の後続変更を先に検査し、元の3ファイルを復元・新規5ファイルだけを撤去する。"""
-        require(set(manifest['files']) == set(ORDER), 'Manifest file allowlist mismatch')
+        """後続変更を検査し、profileに従い原本を復元。初回配置の場合だけ新規ファイルを撤去する。"""
+        require(manifest.get('profile', 'initial') == self.profile, 'Manifest profile mismatch')
+        require(set(manifest['files']) == set(self.order), 'Manifest file allowlist mismatch')
         require(manifest['before']['release_root'] == str(self.source), 'Release root changed')
-        for name in ORDER:
+        for name in self.order:
             spec = manifest['files'][name]
             allowed = [spec['new_sha256']] if strict else [spec['old_sha256'], spec['new_sha256']]
             require(sha(self.target(name)) in allowed, 'Later source change: '+name)
-            require((spec['old_sha256'] is not None) == (name in EXISTING), 'Unexpected prior file state')
-        for name in EXISTING:
+            require((spec['old_sha256'] is not None) == (name in self.existing), 'Unexpected prior file state')
+        for name in self.existing:
             require(sha(backup/'original'/name) == manifest['files'][name]['old_sha256'], 'Backup integrity failure')
-        # 導線→新しい入口の撤去→bootstrap→私有依存ファイルの順に戻す。
-        for name in reversed(ORDER):
-            if name in EXISTING:
+        # 配置と逆順に復元する。answersは元の試作を維持し、公開入口を撤去しない。
+        for name in reversed(self.order):
+            if name in self.existing:
                 self.replace(backup/'original'/name, name, manifest['files'][name]['metadata'])
             else:
                 self.target(name).unlink(missing_ok=True)
@@ -191,10 +197,11 @@ class Release:
     def apply(self, stage):
         """全事前条件を満たした時だけバックアップを作り、失敗時は限定したコードを戻す。"""
         expected = json.loads((stage/'payload.json').read_text())
-        require(set(expected['files']) == set(ORDER), 'Payload file allowlist mismatch')
-        for name in ORDER:
+        require(expected.get('profile', 'initial') == self.profile, 'Payload profile mismatch')
+        require(set(expected['files']) == set(self.order), 'Payload file allowlist mismatch')
+        for name in self.order:
             spec = expected['files'][name]
-            require((spec['old_sha256'] is not None) == (name in EXISTING), 'Unexpected prior file state')
+            require((spec['old_sha256'] is not None) == (name in self.existing), 'Unexpected prior file state')
             require(sha(self.target(name)) == spec['old_sha256'], 'Live source drift: '+name)
             source = stage/name
             require(source.is_file() and not source.is_symlink(), 'Missing staged file: '+name)
@@ -203,11 +210,12 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        backup = self.backups/('information-preview-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
+        prefix = 'information-preview-' if self.profile == 'initial' else 'information-answers-'
+        backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
-        manifest = {**expected, 'backup': str(backup), 'phase': 'backed_up',
+        manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',
                     'created_content_directory': not (self.source/'src/Content').exists()}
-        for name in EXISTING:
+        for name in self.existing:
             source = self.target(name)
             st = source.stat()
             manifest['files'][name]['metadata'] = [st.st_mode & 0o777, st.st_uid, st.st_gid]
@@ -227,12 +235,12 @@ class Release:
                 parent = (self.source/'src').stat()
                 (self.source/'src/Content').mkdir(mode=parent.st_mode & 0o777)
                 os.chown(self.source/'src/Content', parent.st_uid, parent.st_gid)
-            for name in ORDER:
+            for name in self.order:
                 self.replace(stage/name, name)
                 if name == 'src/bootstrap.php':
                     self.cache()
             self.cache()
-            require(all(sha(self.target(n)) == expected['files'][n]['new_sha256'] for n in ORDER), 'Deployed source mismatch')
+            require(all(sha(self.target(n)) == expected['files'][n]['new_sha256'] for n in self.order), 'Deployed source mismatch')
             require(self.snapshot() == expected['before'], 'Protected state changed after apply')
         except Exception:
             try:
@@ -253,13 +261,14 @@ class Release:
 def main():
     """rootでの明示モード指定のみ許可。復元対象は私有バックアップ配下の固定manifestに限る。"""
     parser = argparse.ArgumentParser()
+    parser.add_argument('--profile', choices=PROFILES, default='initial')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('--preflight', action='store_true')
     group.add_argument('--apply', type=Path, metavar='STAGE')
     group.add_argument('--rollback', type=Path, metavar='BACKUP')
     args = parser.parse_args()
     require(os.geteuid() == 0, 'Root required')
-    release = Release()
+    release = Release(profile=args.profile)
     if args.preflight:
         result = release.preflight()
     elif args.apply:
@@ -268,6 +277,8 @@ def main():
         backup = args.rollback.resolve(strict=True)
         require(backup.parent == release.backups and not args.rollback.is_symlink(), 'Unexpected backup path')
         manifest = json.loads((backup/'manifest.json').read_text())
+        # 復元時は保存済みの固定profileを採用する。初回版のmanifestはinitialとして互換を保つ。
+        release = Release(profile=manifest.get('profile', 'initial'))
         require(manifest['phase'] in ['applied', 'backed_up', 'rollback_failed'], 'Backup already restored or invalid')
         before = release.snapshot()
         release.restore(backup, manifest, strict=manifest['phase'] == 'applied')

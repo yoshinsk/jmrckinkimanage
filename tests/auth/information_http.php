@@ -24,6 +24,20 @@ foreach ($infoUsers as $id=>$browser) {
 check('事務局へ旧HP試作入口を表示',str_contains($infoOffice->request('/manage/')['body'],'href="'.$base.'"'));
 $catalog = InformationPreview::catalog();
 check('旧HP試作は24対応・154候補',count($catalog['topics'])===24 && array_sum(array_map('count',$catalog['sources']))===154);
+check('追加回答14件と既存4件を表示',count($catalog['decisions'])===18);
+foreach (['committee','national'] as $category) {
+    $filtered = $infoOffice->request($base.'?section=information&category='.$category);
+    check('会則は文書別の両分類に現れる '.$category,str_contains($filtered['body'],'data-topic="HP-20"'));
+    $detail = $infoOffice->request($base.'?item=HP-20&category='.$category);
+    $other = $category==='committee'?'national':'committee';
+    check('会則の分類内原本は2件 '.$category,substr_count($detail['body'],'data-document-category="'.$category.'"')===2);
+    check('別分類の原本は混在しない '.$category,!str_contains($detail['body'],'data-document-category="'.$other.'"'));
+}
+$answered = $infoOffice->request($base)['body'];
+check('事務局編集・事務局長承認の回答反映',str_contains($answered,'すべて事務局員が編集し、事務局長が承認'));
+check('有効戦数の切上げと最新照会を画面にも反映',str_contains($answered,'全7戦なら5戦') && str_contains($answered,'照会時点の最新資格'));
+check('保険は氏名とクラブ名の連絡のみ',str_contains($answered,'入力は被保険者名・クラブ名の2項目'));
+check('旧クラブ名簿などの移行対象見直し',str_contains($answered,'クラブ名簿、旧年度の規則・様式は原則として新ポータルへ移さない'));
 foreach (InformationPreview::SECTIONS as $section=>$title) {
     $page = $infoOffice->request($base.'?section='.$section);
     check('旧HP試作の一覧 '.$section,$page['status']===200 && str_contains($page['body'],$title) && str_contains($page['body'],'事務局の確認用・一般公開前'));
