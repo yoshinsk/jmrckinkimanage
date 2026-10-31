@@ -117,5 +117,5 @@ $detail = static function (string $id, array $topic) use ($catalog, $e): void {
     <?php endforeach; ?>
   <?php endif; ?>
   <section class="office-disclosure"><h2 class="info-inset info-notes-heading">事務局で確認いただきたいこと</h2><ul><li>お知らせ・資料・関連リンクの分類と配置</li><li>過年度を含む引継ぎ対象と、名簿・資料の公開範囲</li><li>カレンダーの更新担当・表示範囲、正式な移行先</li></ul><p>回答は既存スプレッドシートのQ01～Q14へ記入してください。画面を確認しても、公開承認や受付開始にはなりません。</p><p><a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202610271&amp;range=A15:I28" target="_blank" rel="noopener noreferrer">追加確認14項目の回答表を開く</a></p></section>
-</main><footer class="portal-footer"><div class="portal-container"><small>2026年10月31日版 · JMRC近畿ポータル／情報ページ確認用 · 本番未反映</small></div></footer>
+</main><footer class="portal-footer"><div class="portal-container"><small>2026年10月31日版 · JMRC近畿ポータル／情報ページ確認用 · 一般公開・受付開始は保留</small></div></footer>
 </body></html>

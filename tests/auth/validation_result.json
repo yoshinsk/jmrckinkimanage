@@ -10343,11 +10343,11 @@
     "public/manage/assets/information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
     "src/Content/InformationPreview.php": "1f7edeb2e86a30e73af2308fbe4916ddf584588cd8a4c0abb6280f2969615130",
     "src/Content/information-catalog.php": "021639d8175bc6c22f69b8ca86a7300ce6b3115bd5c474b39ea630fe9b041650",
-    "src/Content/information-template.php": "97f0c1afe8296741ab0a5b1d1ce571d628900f30f1b1ef6d3ecbd997d2b2aa6e",
+    "src/Content/information-template.php": "dacd6bfdb2c54a9d3a266a5ab5956b609566d61a70a3097d89cc2cbfbcacee40",
     "tests/auth/information_http.php": "a48fe780f5b509b44ff832c5abff7f6f58391ea043a51428ecba2bf000928d04",
     "tests/license/information_browser.cjs": "8be9f92360b8e048293577aa32c06ca660d896335c9628ec6ab21447942b8e6c"
   },
-  "checked_at_utc": "2026-10-31T09:46:06.991461+00:00",
+  "checked_at_utc": "2026-10-31T13:03:04.731388+00:00",
   "legacy_source_sha256": {
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
     "common/footer.php": "8de73dde60eb10f8da9373ca37b31fc3778ec46a034669d7a871b53a9e91af5f",
@@ -10383,7 +10383,7 @@
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubService.php": "1a3c69fd3c17567e947c832dded01b7adc24bc05851ba5096fbefd7214bc14a5",
     "src\\Content\\information-catalog.php": "021639d8175bc6c22f69b8ca86a7300ce6b3115bd5c474b39ea630fe9b041650",
-    "src\\Content\\information-template.php": "97f0c1afe8296741ab0a5b1d1ce571d628900f30f1b1ef6d3ecbd997d2b2aa6e",
+    "src\\Content\\information-template.php": "dacd6bfdb2c54a9d3a266a5ab5956b609566d61a70a3097d89cc2cbfbcacee40",
     "src\\Content\\InformationPreview.php": "1f7edeb2e86a30e73af2308fbe4916ddf584588cd8a4c0abb6280f2969615130",
     "src\\Insurance\\InsuranceService.php": "ed0facf96d8cb6881ae41b02167b111ebf0c50db36e3f59a398b39c1faaaac54",
     "src\\Insurance\\InsuranceWorkbook.php": "2401485c195249579ccba85ff8cccb81cef30293a4b3c19c79c1c97856be5bf0",

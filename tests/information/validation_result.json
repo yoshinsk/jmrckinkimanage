@@ -126,10 +126,10 @@
   ],
   "network": "none",
   "javascript_disabled": true,
-  "checked_at_utc": "2026-10-31T09:33:35.654303+00:00",
+  "checked_at_utc": "2026-10-31T13:01:12.930076+00:00",
   "source_records": 154,
   "source_ledger_sha256": "d3322d14ce2e337e9453d9af9dc7944bed21c00766d583b8ccbe6907e9807189",
-  "artifact_sha256": "1f7e57e686ffa18c641cfcefcd98383b869302d01f444ef5d73ee1c9fd7b21b8",
-  "artifact_bytes": 146362,
+  "artifact_sha256": "1919f8c2b73aa5745a7f18f234df5765ae7e72c1104af52c4bd81adedb43182b",
+  "artifact_bytes": 146383,
   "production_changed": false
 }
