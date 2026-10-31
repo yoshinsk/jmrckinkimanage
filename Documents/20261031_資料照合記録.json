@@ -1,0 +1,92 @@
+{
+  "review_date": "2026-10-31",
+  "new_source": {
+    "path": "Documents/20261021JMRC近畿ポータル仕様案_P20以降追加既存ＨＰから引き継ぎ.pptx",
+    "sha256": "88c0d14dd940dd5a3e17028028eeddfb8420e524c977115b54bfd8ec1efcd9e3",
+    "slides": 29
+  },
+  "comparison_source": {
+    "path": "Documents/20260928JMRC近畿ポータル仕様案個人会員区分追加.pptx",
+    "sha256": "554fb04878526b88331c7d1726790d095c494de3824267b148fc2117b867b9ce",
+    "slides": 19
+  },
+  "changed_existing_slides": [
+    1,
+    18,
+    19
+  ],
+  "added_slides": [
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "common_slide_image_changes": [],
+  "theme_changes": [],
+  "nonempty_speaker_notes": [],
+  "rendering": "Microsoft PowerPoint read-only, all 29 slides to PNG, 1600x900",
+  "visually_reviewed_slides": [
+    1,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "legacy_site": {
+    "url": "http://www.jmrc-kinki.net/index.html",
+    "http_status": 200,
+    "method": "HTTP GET; no JavaScript execution",
+    "html_bytes": 198324,
+    "html_sha256": "22375bf61404db21a4ad647f3fd86e6fdf488d1ee943f13c49dd1412461400e5",
+    "http_link_occurrences": 657,
+    "unique_http_urls": 570,
+    "migration_candidates": 154,
+    "candidate_groups": [
+      "HP-01",
+      "HP-02",
+      "HP-03",
+      "HP-04",
+      "HP-05",
+      "HP-06",
+      "HP-07",
+      "HP-08",
+      "HP-09",
+      "HP-10",
+      "HP-11",
+      "HP-12",
+      "HP-13",
+      "HP-14",
+      "HP-15",
+      "HP-16",
+      "HP-17",
+      "HP-18",
+      "HP-19",
+      "HP-20",
+      "HP-21",
+      "HP-22",
+      "HP-23",
+      "HP-24"
+    ],
+    "linked_page_contents_and_availability": "not checked; candidates only",
+    "candidate_unique_urls": 153
+  },
+  "portal_commit": "d15a745bd6cd14cb905542e6ffc01db30006de11",
+  "legacy_repo_commit": "3db6283ff02adf48d22d12a8dccaf886f1f8a626",
+  "google_sheet_refetched": false,
+  "production_changes": false,
+  "source_modified": false
+}

@@ -1,0 +1,155 @@
+﻿HP_ID,資料ページ,対象区分,旧リンク表示,移行元URL,元年度候補,移行方針,引継ぎ先区分,確定移行先URL,リンク先到達性,内容・公開範囲確認,担当者,回答・確認日,備考
+HP-01,21,事務局案内,トップの新着・固定案内,http://www.jmrc-kinki.net/index.html,原本確認,記事移行,事務局インフォメーション,,トップHTMLをHTTP GETで200確認・該当区画の内容精査は移行時,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-01,21,事務局案内,夏季休業のお知らせ。,http://www.jmrc-kinki.net/jimukyoku/jimu_2026.html,2026,記事移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-01,21,事務局案内,事務局からのお知らせ,http://www.jmrc-kinki.net/jimukyoku_info.html,原本確認,記事移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-02,22,会議・表彰式,ＪＡＦ近畿地方選手権・ＪＭＲＣ近畿シリーズ表彰式 開催案内,http://www.jmrc-kinki.net/awardceremony_info.html,原本確認,記事移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-02,22,会議・表彰式,表彰式の全表彰順について,http://www.jmrc-kinki.net/awardceremony_info2.html,原本確認,記事移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-02,22,会議・表彰式,クラブ・団体代表者会議（総会）開催案内,http://www.jmrc-kinki.net/generalmeeting_info.html,原本確認,記事移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-03,22,講習会,Ｂライセンス講習会申し込みはこちら,http://www.jmrc-kinki.net/blicense.html,原本確認,記事移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-04,22,専門部会案内,ダートトライアル専門部会,http://www.jmrc-kinki.net/dirt_info.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-04,22,専門部会案内,ジムカーナ専門部会,http://www.jmrc-kinki.net/gym_info.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-04,22,専門部会案内,競技会審査委員会（旧：審査委員グループ）,http://www.jmrc-kinki.net/judge/judge_info.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-04,22,専門部会案内,レース専門部会,http://www.jmrc-kinki.net/race_info.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-04,22,専門部会案内,ラリー専門部会,http://www.jmrc-kinki.net/rally_info.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-05,22,統一カレンダー,一覧,http://www.jmrc-kinki.net/_userdata/2026_calendar_all.pdf,2026,カレンダー移行,統一カレンダー,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-05,22,統一カレンダー,トップの事務局カレンダー,http://www.jmrc-kinki.net/index.html,原本確認,カレンダー移行,統一カレンダー,,トップHTMLをHTTP GETで200確認・該当区画の内容精査は移行時,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-05,22,統一カレンダー,ＪＭＲＣカレンダー,http://www.jmrc-kinki.net/jmrc_calendar.html,原本確認,カレンダー移行,統一カレンダー,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-06,23,ジムカーナポイント,ミドルシリーズ,https://b10b0f54-3008-4957-9111-76f46439a2b8.filesusr.com/ugd/eefd37_a5bf073a839942708b232a02f1fa5b52.pdf,原本確認,リンク元・先確認,各部会HPから結果ページ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-06,23,ジムカーナポイント,チャンピオンシリーズ,https://b10b0f54-3008-4957-9111-76f46439a2b8.filesusr.com/ugd/eefd37_c9179bc2d5504b25a2c7ff6ae571ebe8.pdf,原本確認,リンク元・先確認,各部会HPから結果ページ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-07,24,ダートトライアルポイント,チャンピオンシリーズ,http://www.jmrc-kinki.net/_userdata/2025_dirt_point_champion.pdf,2025,リンク元・先確認,各部会HPから結果ページ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-07,24,ダートトライアルポイント,ジュニアシリーズ,http://www.jmrc-kinki.net/_userdata/2025_dirt_point_junior.pdf,2025,リンク元・先確認,各部会HPから結果ページ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-08,25,ラリーポイント,アベレージラリーシリーズ,https://jmrc-kinki-rally.com/documents/2025/2025_average_point.pdf,2025,リンク元・先確認,各部会HPから結果ページ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-08,25,ラリーポイント,ＳＳラリーシリーズ,https://jmrc-kinki-rally.com/documents/2025/2025_ss_point.pdf,2025,リンク元・先確認,各部会HPから結果ページ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,公式通知 No.1（審査委員の変更）,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_bulletin.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entryform.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entryform.xlsx,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,暫定エントラントリスト,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_entrylist_provisional.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,金曜日練習会案内,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_fridayinfo.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,大会ポスター,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_officialposter.jpg,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,公開練習案内,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_practice_info.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,特別規則書,http://www.jmrc-kinki.net/_userdata/2026_allstar_gym_regulation.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,公式通知 No.1（施設見取図）,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_bulletin1.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,PDF版,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entryform.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,Excel版,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entryform.xlsx,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,公開練習エントラントリスト,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entrylist_practice,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,暫定エントラントリスト（10/29 修正版）,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_entrylist_provisional.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,JAF：Eラーニング受講のお願い,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_jaf_subcommittee.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,大会ポスター,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_officialposter.jpg,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,information No.3（パドックリスト）,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_paddocklist.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,特別規則書,http://www.jmrc-kinki.net/_userdata/2026_jafcup_dirt_regulation.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,PDF版,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entryform.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,Excel版,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entryform.xlsx,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,暫定エントラントリスト,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_entrylist_provisional.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,information No.1（年少者のサービス登録）,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_info.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,大会ポスター,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_officialposter.jpg,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,大会ポスター,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_officialposter.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,パドック配置図,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_paddocklayout.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,パドックリスト,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_paddocklist.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,公開練習リザルト,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_practice_result.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,特別規則書（草案）,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_regulation.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,リザルト,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_result.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,大型車の進入ルート図,http://www.jmrc-kinki.net/_userdata/2026_westjapanfestival_dirt_routemap.pdf,2026,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,ＪＡＦ近畿地方選手権,http://www.jmrc-kinki.net/award/dirt_award_JAF2025.html,2025,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,ＪＭＲＣ近畿シリーズ,http://www.jmrc-kinki.net/award/dirt_award_JMRC2025.html,2025,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,ＪＡＦ近畿地方選手権,http://www.jmrc-kinki.net/award/gym_award_JAF2025.html,2025,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,ＪＭＲＣ近畿シリーズ,http://www.jmrc-kinki.net/award/gym_award_JMRC2025.html,2025,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,ＪＡＦ近畿地方選手権,http://www.jmrc-kinki.net/award/rally_award_JAF2025.html,2025,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-09,23-25,表彰者・大会情報,ＪＭＲＣ近畿シリーズ,http://www.jmrc-kinki.net/award/rally_award_JMRC2025.html,2025,記事移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ダートトライアルカレンダー,http://www.jmrc-kinki.net/_userdata/2026_calendar_dirt.pdf,2026,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ジムカーナカレンダー,http://www.jmrc-kinki.net/_userdata/2026_calendar_gym.pdf,2026,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ラリーカレンダー,http://www.jmrc-kinki.net/_userdata/2026_calendar_rally.pdf,2026,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ダートトライアル,http://www.jmrc-kinki.net/_userdata/2026_dirttrial_regulation.pdf,2026,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ジムカーナ,http://www.jmrc-kinki.net/_userdata/2026_gymkhana_regulation.pdf,2026,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ラリー,http://www.jmrc-kinki.net/_userdata/2026_rally_regulation.pdf,2026,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ダートトライアル,http://www.jmrc-kinki.net/judge/judgingcommittee_list_dirt.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ジムカーナ,http://www.jmrc-kinki.net/judge/judgingcommittee_list_gym.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-10,22-26,部会の規則・日程等,ラリー,http://www.jmrc-kinki.net/judge/judgingcommittee_list_rally.html,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-11,"23,25",部会基金・互助会,ＪＭＲＣ近畿ジムカーナ救済基金規定,http://www.jmrc-kinki.net/_userdata/JMRCkinki_gym_relieffund_rule.pdf,原本確認,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-11,"23,25",部会基金・互助会,ＪＭＲＣ近畿ラリー部会互助会制度（2022年4月1日 改正）,http://www.jmrc-kinki.net/_userdata/JMRCkinki_rally_gojyokai_20220401.pdf,2022,部会移管,各部会HP,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-12,26,競技申込書,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/2025_entryform_dirt.pdf,2025,部会移管,各部会HP・既存entry,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-12,26,競技申込書,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/2025_entryform_dirt.xlsx,2025,部会移管,各部会HP・既存entry,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-12,26,競技申込書,誓約書（アベレージラリーシリーズ用）,http://www.jmrc-kinki.net/_userdata/2026_entry_averally_pledge.pdf,2026,部会移管,各部会HP・既存entry,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-12,26,競技申込書,ラリー参加申込書（アベレージラリーシリーズ用）,http://www.jmrc-kinki.net/_userdata/2026_entryform_averally.pdf,2026,部会移管,各部会HP・既存entry,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-12,26,競技申込書,ナビゲーター追加申込書（アベレージラリーシリーズ用）,http://www.jmrc-kinki.net/_userdata/2026_entryform_averally_navi.pdf,2026,部会移管,各部会HP・既存entry,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-12,26,競技申込書,(WEBエントリーリンク),https://gymkinki.com/entry/,原本確認,部会移管,各部会HP・既存entry,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-13,26,個人会員案内・様式,2026年度 個人会員入会申込書,http://www.jmrc-kinki.net/_userdata/2026_kojinkaiin_form.pdf,2026,申請導線変更,ポータル個人会員申請,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-13,26,個人会員案内・様式,個人会員入会申込書,http://www.jmrc-kinki.net/_userdata/2026_kojinkaiin_form2.pdf,2026,申請導線変更,ポータル個人会員申請,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-13,26,個人会員案内・様式,個人会員入会申込書 記入例・書き方,http://www.jmrc-kinki.net/_userdata/kojinkaiin_form_example.pdf,原本確認,申請導線変更,ポータル個人会員申請,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-13,26,個人会員案内・様式,ＪＭＲＣ近畿個人会員のご案内,http://www.jmrc-kinki.net/_userdata/kojinkaiin_info.pdf,原本確認,申請導線変更,ポータル個人会員申請,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-13,26,個人会員案内・様式,個人会員入会申込みのご案内,http://www.jmrc-kinki.net/kojinkaiin.html,原本確認,申請導線変更,ポータル個人会員申請,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,（書き込み可）,http://www.jmrc-kinki.net/_userdata/rental_AED2.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,（書き込み可）,http://www.jmrc-kinki.net/_userdata/rental_KED2.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,（書き込み可）,http://www.jmrc-kinki.net/_userdata/rental_RESCUETOOL2.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,（書き込み可）,http://www.jmrc-kinki.net/_userdata/rental_TABARD2.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/rental_aed.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,バックボードレンタル申込書,http://www.jmrc-kinki.net/_userdata/rental_backboard.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/rental_ked.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/rental_rescuetool.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/rental_tabard.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,光電管レンタル申込書,http://www.jmrc-kinki.net/_userdata/rental_timing.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,車両重量計レンタル申込書,http://www.jmrc-kinki.net/_userdata/rental_weightgauge.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-14,26,レンタル機器,レンタル機器申込みのご案内,http://www.jmrc-kinki.net/rental.html,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-15,26,シリーズ概要,各シリーズ概要等,http://www.jmrc-kinki.net/_userdata/2026_outline.pdf,2026,記事・資料移行,インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-16,26,JAF規則・公認車両,ＪＡＦ国内競技規則・ＪＡＦ国内競技車両規則 等,https://motorsports.jaf.or.jp/regulations/information,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-16,26,JAF規則・公認車両,公認車両一覧・登録車両一覧,https://motorsports.jaf.or.jp/regulations/vehicles,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_form.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_form.xlsx,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,2026年度ＪＡＦ届出スピード競技クローズド保険案内,http://www.jmrc-kinki.net/_userdata/JAF_speed.closed.competition.insurance_info_2026.pdf,2026,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_form.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_form.xlsx,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,2026年度ＪＡＦ公認スピード競技保険案内,http://www.jmrc-kinki.net/_userdata/JAF_speed.competition.insurance_info_2026.pdf,2026,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,オフィシャル名簿・PDF,http://www.jmrc-kinki.net/_userdata/JMRCkinki_officiallist.pdf,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-17,26,JAF競技保険・様式,オフィシャル名簿・Excel,http://www.jmrc-kinki.net/_userdata/JMRCkinki_officiallist.xlsx,原本確認,記事・資料移行,事務局インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_addition.pdf,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_addition.xlsx,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_club.pdf,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_club.xlsx,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_organizer.pdf,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,画像リンク（添付原本で要確認）,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_form_organizer.xlsx,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,スポーツ安全保険案内,http://www.jmrc-kinki.net/_userdata/sports.security.insurance_info_2026.pdf,2026,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,ＪＭＲＣ近畿個人会員様へスポーツ安全保険のご案内,http://www.jmrc-kinki.net/sports_insurance.html,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,2026年度（令和８年度）スポーツ安全保険加入登録クラブ名簿,http://www.jmrc-kinki.net/sports_insurance_club.html,2026,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,2026年度 スポーツ安全保険加入登録クラブ名簿,http://www.jmrc-kinki.net/sports_insurance_club.html#compe,2026,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-18,26,スポーツ安全保険案内・様式,(外部リンク),https://www.sportsanzen.org/,原本確認,記事・資料移行,保険申込セクション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-19,27,運営委員会,2026年度 役員・委員会名簿,http://www.jmrc-kinki.net/meibo.html,2026,記事・資料移行,運営委員会インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-19,27,運営委員会,運営委員会決定事項（2027年度 代表者会議の開催日及び会場が正式に決定）,http://www.jmrc-kinki.net/steeringcommittee_decisions.html,2027,記事・資料移行,運営委員会インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-20,27,会則・見舞金細則,ＪＭＲＣ全国協議会専門委員会規程,http://www.jmrc-kinki.net/_userdata/zenkoku_expertcommittee.pdf,原本確認,記事・資料移行,全国JMRC分類案・発行団体は別管理,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-20,27,会則・見舞金細則,ＪＭＲＣ全国協議会会則・細則,http://www.jmrc-kinki.net/_userdata/zenkoku_kaisoku.saisoku.pdf,原本確認,記事・資料移行,全国JMRC分類案・発行団体は別管理,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-20,27,会則・見舞金細則,ＪＡＦ近畿地域クラブ協議会会則,http://www.jmrc-kinki.net/kaisoku.html,原本確認,記事・資料移行,全国JMRC分類案・発行団体は別管理,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-20,27,会則・見舞金細則,JAF近畿地域協議会見舞金給付細則,http://www.jmrc-kinki.net/mimaikin20250401.html,2025,記事・資料移行,全国JMRC分類案・発行団体は別管理,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2026年度 登録クラブ,http://www.jmrc-kinki.net/_userdata/2026_clubs.pdf,2026,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,クラブ・団体年度更新及び加入のご案内,http://www.jmrc-kinki.net/club_koushin_info.html,原本確認,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2008年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2008clubs.html,2008,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2009年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2009clubs.html,2009,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2010年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2010clubs.html,2010,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2011年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2011clubs.html,2011,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2012年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2012clubs.html,2012,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2013年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2013clubs.html,2013,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2014年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2014clubs.html,2014,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2015年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2015clubs.html,2015,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2016年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2016clubs.html,2016,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2017年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2017clubs.html,2017,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2018年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2018clubs.html,2018,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2019年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2019clubs.html,2019,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2020年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2020clubs.html,2020,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2021年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2021clubs.html,2021,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2022年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2022clubs.html,2022,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2023年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2023clubs.html,2023,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2024年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2024clubs.html,2024,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-21,27,クラブ案内・名簿,2025年度 登録クラブ・団体名簿,http://www.jmrc-kinki.net/clubs/2025clubs.html,2025,記事・資料移行,JMRC近畿インフォメーション,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,2025年度カレンダー,http://www.jmrc-kinki.net/aj_cal_2025.html,2025,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,2026年度カレンダー,http://www.jmrc-kinki.net/aj_cal_2026.html,2026,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,ＪＡＦからのお知らせ,http://www.jmrc-kinki.net/jaf_info.html,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,ＪＡＦ関西本部からのお知らせ,http://www.jmrc-kinki.net/jaf_kansai_info.html,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,Ａライセンス講習会スケジュール,https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&pref=00&subGenre=301,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,Ｂライセンス講習会スケジュール,https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&pref=00&subGenre=302,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-22,28,JAF情報,公認審判員講習会スケジュール,https://jaf.or.jp/common/safety-drive/practical-training/seminars?genre=3&pref=00&subGenre=303,原本確認,外部リンク,JAF公式,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,ＪＡＦモータースポーツ,http://jaf-sports.jp/index.htm,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,ＪＭＲＣ北海道,http://jmrc-hokkaido.org/,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,ダートトライアル専門部会,http://jmrc.kinkidirt.com/,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,一般社団法人 日本自動車連盟,http://www.jaf.or.jp/,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,お問い合わせ,http://www.jmrc-kinki.net/inquiry.html,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,特別規則書・リザルト,https://gymkinki.wixsite.com/mysite,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,ＪＭＲＣ全国ラリー振興事業委員会,https://info.jmrc.jp/,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-23,29,関連リンク・問い合わせ,(部会HP),https://jmrc-kinki-rally.com/,原本確認,リンク・窓口確認,関連リンク・問い合わせ,,未確認（トップHTMLのhrefから抽出）,未確認,,,内容は移行前に原本照合。新年度の値へ自動採用しない
+HP-24,29,2020年アンケート,ＪＭＲＣ近畿シリーズ・新型コロナウイルスに関するアンケート（2020.6.12〜7.8）,http://www.jmrc-kinki.net/questionnaire202006.html,2020,移行対象外,新ポータルには掲載しない,,未確認（トップHTMLのhrefから抽出）,未確認,,,元サイトやファイルの削除は行わない
