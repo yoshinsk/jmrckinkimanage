@@ -48,6 +48,8 @@ def main():
                       'jmrc-license-browser:20261028','node','information_offline_browser.cjs'])
     report = json.loads(output)
     report.update(checked_at_utc=datetime.now(timezone.utc).isoformat(),source_records=154,source_ledger_sha256=catalog['source_sha256'],
+                  catalog_sha256=hashlib.sha256(source_file.read_bytes()).hexdigest(),
+                  answers_sha256=catalog['answer_sha256'],
                   artifact_sha256=hashlib.sha256(content).hexdigest(),artifact_bytes=len(content),production_changed=False)
     report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'status':report['status'],'browser_cases':len(report['cases']),'source_records':154}))

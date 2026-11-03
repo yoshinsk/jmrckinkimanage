@@ -9,10 +9,10 @@ function jmrc_review_catalog(): array
 {
     $all = ['office','club','member','finance','public'];
     $visibility = ['private'=>'事務局のみ','members'=>'会員向け','public'=>'公開'];
-    return [
+    $catalog = [
         'clubs'=>['title'=>'正会員クラブの年度登録','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','club'],
             'flow'=>'クラブ申請 → 年会費請求 → 入金確認 → 事務局承認',
-            'pending'=>'会費表の候補は受領済みです。2027年度への適用・クラブ区分との対応・新規入会金は確認中です。下の金額は説明用です。',
+            'pending'=>'2027年度は2026年度と同額です。下の料金計算で新規・更新・再加入を比較できます。賛助のコード対応と既存登録の照合は保留で、本番請求は始まりません。',
             'fields'=>['name'=>['クラブ正式名','text','操作確認クラブ'],'short'=>['クラブ略称','text','確認CLUB'],'category'=>['クラブ区分',['1'=>'1 公認','2'=>'2 加盟','3'=>'3 準加盟','6'=>'6 加盟団体'],'1'],'base'=>['不変の5桁コード','text','00001'],'representative'=>['代表者名（架空）','text','確認 代表'],'contact'=>['連絡先名（架空）','text','確認 担当'],'email'=>['メール（架空）','text','club@example.invalid'],'address'=>['住所（架空）','text','確認用のクラブ住所'],'phone'=>['電話（架空）','text','000-0000-0000'],'fee'=>['説明用のクラブ年会費（円）','number','']],
             'actions'=>['save'=>'年度登録を試す','issue'=>'年会費請求を試す','approve'=>'事務局承認を試す']],
         'licenses'=>['title'=>'ライセンス登録・更新','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','member'],
@@ -32,7 +32,7 @@ function jmrc_review_catalog(): array
             'actions'=>['save'=>'事前照合を試す']],
         'affiliations'=>['title'=>'所属承認・変更','group'=>'登録・資格','stage'=>'一部業務処理あり','roles'=>['office','club'],
             'flow'=>'申請一覧 → 代表承認または事務局代行 → 資格を再判定',
-            'pending'=>'所属変更時の会員番号再発行は保留です。代表は担当クラブだけを扱う運用を確認してください。',
+            'pending'=>'所属変更で会員番号は変わります。ポイント履歴は共通の個人IDで引き継ぎます。正式な再発行・移籍手順は保留です。代表は担当クラブだけを扱います。',
             'fields'=>['reason'=>['確認・差戻し理由','text','申請内容を確認しました']],
             'actions'=>['approve'=>'所属を承認する','return'=>'所属を差し戻す','change'=>'別クラブへの変更例を見る']],
         'temporary'=>['title'=>'Temporary申請・主催クラブ承認','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','club','member'],
@@ -61,7 +61,7 @@ function jmrc_review_catalog(): array
             'fields'=>[],'actions'=>[]],
         'insurance'=>['title'=>'スポーツ安全保険・確認Excel','group'=>'会計・保険','stage'=>'業務処理あり','roles'=>['office','club','member'],
             'flow'=>'Generalの加入意思 → 年度クラブ単位の初回4名確認 → 確認用Excel',
-            'pending'=>'2027年の保険料・期間・追加加入手順は未確定です。正式申請、保険料請求、加入済みへの変更は保留します。',
+            'pending'=>'2027年度の保険料は64歳以下2,000円、65歳以上1,200円です。年齢判定日・期間・追加加入手順は未確定のため、正式申請と保険料請求は保留します。請求連絡では事務局がクラブ員名簿から連絡し、同姓同名は電話で確認します。',
             'fields'=>['type'=>['会員区分',['general'=>'General','temporary'=>'Temporary（対象外）'],'general'],'count'=>['同じ年度クラブの有効General人数（架空）','number','4']],
             'actions'=>['save'=>'加入意思・人数を確認する']],
         'events'=>['title'=>'イベントカレンダー・参加者','group'=>'公開情報','stage'=>'画面試作','roles'=>$all,
@@ -84,7 +84,7 @@ function jmrc_review_catalog(): array
             'actions'=>['save'=>'資料情報を保存する','remove'=>'最後の資料を取り下げる']],
         'handbook'=>['title'=>'会則・シリーズ規則','group'=>'公開情報','stage'=>'画面試作','roles'=>$all,
             'flow'=>'全体情報の版を登録 → 閲覧範囲確認 → 部会HPへの案内',
-            'pending'=>'ハンドブック冊子は廃止する方針です。正式な2027年の会則・規程原本の提供を待っています。部会情報は部会HP、全体情報は事務局で扱います。',
+            'pending'=>'ハンドブック冊子は廃止する方針です。正式な2027年の会則・規程原本の提供を待っています。確定した成立条件と有効戦数は下の計算例で確認できます。表彰人数の計算に使う競技会数や同点者の扱いは確認待ちです。部会情報は部会HP、全体情報は事務局で扱います。',
             'fields'=>['title'=>['文書名・版','text','2027年シリーズ規則（確認例）'],'body'=>['内容の説明','textarea','正式な規程原本の受領後に差し替えます。'],'visibility'=>['閲覧対象',$visibility,'private']],
             'actions'=>['save'=>'文書情報を保存する']],
         'links'=>['title'=>'関連リンク','group'=>'公開情報','stage'=>'画面試作','roles'=>$all,
@@ -111,7 +111,7 @@ function jmrc_review_catalog(): array
             'actions'=>['save'=>'問い合わせを試す','reply'=>'回答案を保存する']],
         'notifications'=>['title'=>'通知・承認依頼の文面','group'=>'事務局業務','stage'=>'画面試作','roles'=>['office'],
             'flow'=>'宛先区分 → 文面確認 → 運営承認後の送信準備',
-            'pending'=>'通知先と文面承認者は未確定です。宛先は区分表示のみで、メール送信機能には接続しません。',
+            'pending'=>'通知先は個人会員・クラブ代表・事務局です。表彰対象者への案内も追加します。送信時期・文面の承認手順は未確定です。確認画面からメールは送信されません。',
             'fields'=>['target'=>['宛先区分',['member'=>'申請者','club'=>'クラブ代表','office'=>'事務局'],'member'],'title'=>['件名','text','個人会員申請の状況について（例）'],'body'=>['通知文案','textarea','申請内容をご確認ください。これは確認用の文面です。']],
             'actions'=>['save'=>'通知文案を保存する']],
         'privacy'=>['title'=>'個人情報訂正・削除候補','group'=>'事務局業務','stage'=>'一部業務処理あり','roles'=>['office'],
@@ -121,8 +121,20 @@ function jmrc_review_catalog(): array
             'actions'=>['save'=>'訂正を試す','erase'=>'架空プロフィールの削除例を見る']],
         'operations'=>['title'=>'年度設定・権限・移行・保存方針','group'=>'事務局業務','stage'=>'運用確認','roles'=>['office'],
             'flow'=>'年度受付・費用を確認 → 権限確認 → 移行・復元 → 受付開始判断',
-            'pending'=>'2027年度の切替・ライセンス移行・受付開始・本番権限付与は行いません。バックアップは日次30世代・月次12世代・四半期復元試験を設計値としています。保存先・担当・自動運転、ドラフト保存の起算点、公開開始の判断者は確認待ちです。',
+            'pending'=>'2027年度の切替・ライセンス移行・受付開始・本番権限付与は行いません。運営委員は事務局と同等です。事務局・運営委員の登録は承認者が承認し、承認者の登録は運営委員が承認します。自己承認はできません。バックアップは日次30世代・月次12世代・四半期復元試験を設計値としています。保存先・担当・自動運転、ドラフト保存の起算点、公開開始の判断者は確認待ちです。',
             'fields'=>['date'=>['資格照会の確認日（架空）','date','2027-04-10'],'status'=>['Generalの状態例',['pending'=>'承認・入金待ち','active'=>'必要条件が揃った状態','unpaid'=>'入金訂正で未入金','suspended'=>'資格停止','expired'=>'期間終了'],'pending']],
             'actions'=>['save'=>'状態例を表示する']],
     ];
+    // C02/C06～C16/C24: 確定条件の計算と操作例を、既存の24画面内に追加する。
+    $catalog['memberships']['fields'] += ['competition_type'=>['競技ライセンス種別（架空）','text','確認用競技種別'], 'official_type'=>['審判員ライセンス種別（架空・非保有は「なし」）','text','確認用審判種別']];
+    $catalog['clubs']['fields'] += ['rate_category'=>['料金計算の区分',['official'=>'公認','affiliated'=>'加盟','associate'=>'準加盟','organization'=>'登録団体','business'=>'関連団体・企業'],'official'], 'membership_class'=>['料金計算の会員区分',['regular'=>'正会員','supporting'=>'賛助会員'],'regular'], 'registration_kind'=>['料金計算の登録方法',['new'=>'新規','renewal'=>'年度更新','rejoin'=>'再加入'],'renewal']];
+    $catalog['clubs']['actions']['quote']='2027年度の料金を計算';
+    $catalog['operations']['fields'] += ['requested_role'=>['登録する役職',['OFFICE'=>'事務局','COMMITTEE'=>'運営委員','APPROVER'=>'承認者'],'OFFICE'], 'role_subject'=>['登録対象',['other'=>'別の架空担当者','self'=>'操作している本人'],'other']];
+    $catalog['operations']['actions']['approve_role']='役職の承認可否を試す';
+    $catalog['handbook']['fields'] += ['rounds'=>['成立した当該クラスの戦数','number','7'], 'starters'=>['1競技会の出走台数（成立判定用）','number','3'], 'cancelled'=>['その競技会は中止か',['no'=>'開催','yes'=>'中止'],'no'], 'season_ended'=>['シリーズは終了したか',['yes'=>'終了','no'=>'開催中'],'yes'], 'total_starters'=>['表彰人数の計算例：年間延べ出走台数','number','70'], 'award_events'=>['表彰人数の計算例：対象競技会数（正式な範囲は確認待ち）','number','7']];
+    $catalog['handbook']['actions']['calculate']='成立条件・有効戦数・表彰人数を試算';
+    $catalog['notifications']['actions']['award_draft']='表彰案内の文案を作る';
+    $catalog['insurance']['claim_fields']=['insured_name'=>['被保険者名（架空）','text','確認 太郎'], 'club_name'=>['所属クラブ名（架空）','text','操作確認クラブ']];
+    $catalog['insurance']['actions']['claim_notice']='請求連絡の2項目を確認する';
+    return $catalog;
 }

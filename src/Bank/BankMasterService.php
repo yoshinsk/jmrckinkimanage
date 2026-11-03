@@ -16,8 +16,8 @@ final class BankMasterService
         if(($this->config['bank_master_enabled']??false)!==true){throw new HttpFailure(503,'入金先設定は準備中です');}
         if(!$this->one("SELECT g.id FROM users u JOIN portal_account_controls c ON c.user_id=u.id JOIN portal_user_role_grants g ON g.user_id=u.id
             JOIN portal_roles r ON r.id=g.role_id JOIN portal_role_permissions p ON p.role_id=r.id
-            WHERE u.id=? AND u.email_verified=1 AND c.status='active' AND r.code='OFFICE' AND p.permission_code='billing.accounts.manage'
-            AND g.scope_type='global' AND g.status='active' AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL
+            WHERE u.id=? AND u.email_verified=1 AND c.status='active' AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND p.permission_code='billing.accounts.manage'
+            AND g.scope_type='global' AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL
             AND g.valid_from<=UTC_TIMESTAMP(6) AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1",[$actor])){throw new HttpFailure(403,'事務局の入金先設定権限が必要です');}
     }
     /** 一覧は口座番号やURLを含めない。編集対象を選んだときだけ保護された詳細を返す。 */

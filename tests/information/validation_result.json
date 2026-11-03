@@ -126,10 +126,12 @@
   ],
   "network": "none",
   "javascript_disabled": true,
-  "checked_at_utc": "2026-10-31T14:06:29.806607+00:00",
+  "checked_at_utc": "2026-11-03T08:34:19.988406+00:00",
   "source_records": 154,
   "source_ledger_sha256": "d3322d14ce2e337e9453d9af9dc7944bed21c00766d583b8ccbe6907e9807189",
-  "artifact_sha256": "b498160b774cd34abf8009bc6a56a555ded56796ea037110a055f5f6e7285ef6",
-  "artifact_bytes": 160753,
+  "catalog_sha256": "fc0a6f12ead7714bf2deb8b8b937641a6022d866b9e75bcd50fe2f970e621755",
+  "answers_sha256": "69d3d9f7fc5dc1328c16df09ced0664cfbd68d5013f8c25ae11ae6d13efed3b2",
+  "artifact_sha256": "bf2aa150324ab85b8967fa2e1a3812cf2204337a0454bbdb4e5f833391040c84",
+  "artifact_bytes": 166369,
   "production_changed": false
 }

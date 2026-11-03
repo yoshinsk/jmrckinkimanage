@@ -16,9 +16,9 @@ final class ProfileService
         if(($this->config['profile_corrections_enabled']??false)!==true){throw new HttpFailure(503,'会員情報の訂正は準備中です');}
         if(!$this->one("SELECT g.id FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id
             JOIN portal_role_permissions p ON p.role_id=r.id JOIN users u ON u.id=g.user_id
-            JOIN portal_account_controls c ON c.user_id=u.id WHERE g.user_id=? AND r.code='OFFICE'
+            JOIN portal_account_controls c ON c.user_id=u.id WHERE g.user_id=? AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER')
             AND p.permission_code='profiles.correct' AND g.scope_type='global' AND g.status='active'
-            AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
+            AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
             AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) AND u.email_verified=1 AND c.status='active'",[$actor])){
             throw new HttpFailure(403,'事務局の会員情報訂正権限が必要です');
         }

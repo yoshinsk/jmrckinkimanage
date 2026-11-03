@@ -173,7 +173,7 @@ p { margin-top: 0; }
   <aside class="info-banner" aria-label="確認用画面の注意"><strong>事務局の確認用・一般公開前</strong><p>掲載本文は構成を確認するための説明です。旧記事・名簿・添付の原文はまだ移していません。カレンダーは架空例です。公開・申請受付・送信は行いません。</p></aside>
   <p class="office-help">このHTMLは閲覧専用です。見出しを開いて詳細を確認できます。検索・日程の絞り込みは事務局用の認証画面で確認できます。外部リンクを選んだ場合だけ元サイトへ移動します。</p>    <details class="office-disclosure info-answer-decisions"><summary>10月31日の追加回答を確認する（Q01～Q14・既存4項目）</summary><div class="info-inset">
     <p>回答とユーザーへの追加確認を反映しました。一般公開・受付開始・外部通知は保留です。以下は確定した方針と、実運用までに確認・実装が必要な事項です。</p>
-    <section class="office-panel" data-answer="R05"><h3>R05 振込の識別</h3><p>振込名義の末尾IDは不要。クラブ・個人・保険の用途を区別し、申込時に識別IDを発行する。</p><p class="office-help">識別IDと銀行明細の照合方法は別途確認。名義末尾や曖昧な候補による自動確定はしない。</p></section><section class="office-panel" data-answer="R06"><h3>R06 事務局の複数登録・CSV</h3><p>事務局は複数アカウントを登録できる。CSVは出力列を選べる設計とし、クラブ代表は担当範囲に限る。</p><p class="office-help">追加アカウントの指定・承認と、財務用CSVの列・権限は未確定。権限は自動付与しない。</p></section><section class="office-panel" data-answer="R08"><h3>R08 保存・バックアップ</h3><p>操作ログは2年。バックアップは実装側で保存方針を決める。ドラフトのログアウト時保存は要望として継続する。</p><p class="office-help">日次30世代・月次12世代、四半期の復元確認を採用方針として文書化。実ジョブ・自動削除は未適用。ドラフト3か月の起算点は確認待ち。</p></section><section class="office-panel" data-answer="R11"><h3>R11 運営担当者の登録承認</h3><p>運営委員会の担当者登録は事務局長が承認する。主催クラブと代表アカウントは共通で扱う。</p><p class="office-help">事務局長のアカウント対応、通知先・文面は別途確認。名簿上の役職だけでシステム権限を与えない。</p></section><section class="office-panel" data-answer="Q01"><h3>Q01 保険の連絡対象</h3><p>対象は保険加入済みの被保険者。ポータルのほか、旧システム・紙で申し込んだ被保険者も事務局へ連絡できる。</p><p class="office-help">システム内の加入記録との一致を必須条件にしない。加入意思の登録を加入済みとは扱わない。</p></section><section class="office-panel" data-answer="Q02"><h3>Q02 クラブ代表からの連絡</h3><p>本人だけでなくクラブ代表からの連絡も受け付ける。事務局が当人へ連絡し、保険手続きはシステム外で進める。</p><p class="office-help">代表の担当クラブ確認を維持し、被保険者を氏名だけで他アカウントへ結び付けない。正式送信は保留。</p></section><section class="office-panel" data-answer="Q03"><h3>Q03 保険連絡の入力項目</h3><p>入力は被保険者名・クラブ名の2項目。事故日・事故概要・連絡先・添付を追加要求しない。</p><p class="office-help">実際の連絡先・送信先の接続は保留。給付確定や保険会社への正式請求は行わない。</p></section><section class="office-panel" data-answer="Q04"><h3>Q04 主催者の権限</h3><p>対象はオンラインエントリーで受け付けるイベント。イベント登録・主催権限は既存エントリー側の決定に従う。</p><p class="office-help">イベント登録承認者、共同主催、代理担当の対応は未確定。新しい主催権限を自動付与しない。</p></section><section class="office-panel" data-answer="Q05"><h3>Q05 主催者の資格照会</h3><p>申込締切以降からイベント終了1週間後まで照会できる。照会時点の最新資格で「個人会員か」「正会員クラブに所属しているか」の2点を表示する。</p><p class="office-help">確認できない場合は主催者へ注意を表示し、申込受理を自動停止しない。既存イベントの権限・終了日時との接続は保留。</p></section><section class="office-panel" data-answer="Q06"><h3>Q06 ポイントの管理場所・リンク</h3><p>ポイントの登録・確定は既存エントリー側に置く。ポータルからの関連リンクは各部会のトップページを基本とする。</p><p class="office-help">正式な部会トップURLと、集計の公開開始条件は別途確認する。</p></section><section class="office-panel" data-answer="Q07"><h3>Q07 シリーズ・クラスの範囲</h3><p>ジムカーナと将来のダートトライアルに対応する。同じ選手の複数クラス・競技参加を分けて扱う。ラリーのオンラインエントリー移行は現時点の対象外。</p><p class="office-help">2027年度規則・提出済みクラス一覧は未受領。順位別点数、不成立・失格・中止等を推定しない。</p></section><section class="office-panel" data-answer="Q08"><h3>Q08 ポイント対象資格</h3><p>Generalだけが対象。申込時に個人会員かつ正会員クラブ所属であることが必要。正会員クラブ間の後日の所属変更で権利を失わない。</p><p class="office-help">他地区会員は参加費割引のみで会場にて会員証確認。後日の資格停止・入金訂正の得点への影響は確認待ち。</p></section><section class="office-panel" data-answer="Q09"><h3>Q09 集計・表示・訂正</h3><p>クラス別に順位、各イベントのポイント、有効ポイント、氏名、クラブ略称を表示する。有効戦数は開催数の70％を切り上げる（全7戦なら5戦）。</p><p class="office-help">部会HPからの取込・訂正版の再読込は要望として採用。高得点回数・後開催優先の同点規則の細部、正式取込元・形式・確定担当は確認待ち。自動公開はしない。</p></section><section class="office-panel" data-answer="Q10"><h3>Q10 インフォメーションの担当</h3><p>4分類すべてを事務局員が編集し、事務局長が承認する。部会名等の分類で編集権限を与えない。</p><p class="office-help">事務局長アカウントの指定と正式原稿の確認後に公開機能を接続する。現在は閲覧専用。</p></section><section class="office-panel" data-answer="Q11"><h3>Q11 カレンダーの担当</h3><p>事務局員が更新し、事務局長が承認する。Googleカレンダーのような表示を目指す。元データの形式は任意。</p><p class="office-help">予定ごとの公開範囲・実日程・入力元は未確定。Googleとの自動同期が決まったわけではない。</p></section><section class="office-panel" data-answer="Q12"><h3>Q12 引継ぎ対象</h3><p>各部会の旧記事は各部会へ移管する。クラブ名簿、旧年度の規則・様式は原則として新ポータルへ移さない。別途バックアップを相談する。</p><p class="office-help">稼働中の旧サーバーは廃止希望だが、残置先・移管先・時期は別途協議。既存データの削除は行わない。</p></section><section class="office-panel" data-answer="Q13"><h3>Q13 会則・規程の分類</h3><p>近畿の協議会会則・見舞金規則は「運営委員会」、全国協議会会則・細則と専門委員会規程は「全国JMRC」に分ける。</p><p class="office-help">役員・保険加入クラブ等の名簿公開項目は未回答。非公開の委員会資料は公開しない。</p></section><section class="office-panel" data-answer="Q14"><h3>Q14 旧HPの残置・移行作業</h3><p>旧ページは約1年残す方針。更新担当は事務局員。ポータル公開後に事務局が移管作業を行い、間に合わない内容は「事務局から」で告知する。</p><p class="office-help">残置期間の起算日、旧サーバー廃止との調整、移管先・転送設定・公開の最終判断者は未確定。</p></section>  </div></details>
+    <section class="office-panel" data-answer="R05"><h3>R05 振込の識別</h3><p>振込名義の末尾IDは不要。クラブ・個人・保険の用途を区別し、申込時に識別IDを発行する。</p><p class="office-help">識別IDと銀行明細の照合方法は別途確認。名義末尾や曖昧な候補による自動確定はしない。</p></section><section class="office-panel" data-answer="R06"><h3>R06 事務局の複数登録・CSV</h3><p>事務局は複数アカウントを登録できる。CSVは出力列を選べる設計とし、クラブ代表は担当範囲に限る。</p><p class="office-help">運営委員の権限は事務局と同等。追加アカウントは相互承認で扱う。実運用CSVの列選択仕様は確認待ち。</p></section><section class="office-panel" data-answer="R08"><h3>R08 保存・バックアップ</h3><p>操作ログは2年。バックアップは実装側で保存方針を決める。ドラフトのログアウト時保存は要望として継続する。</p><p class="office-help">日次30世代・月次12世代、四半期の復元確認を採用方針として文書化。実ジョブ・自動削除は未適用。ドラフト3か月の起算点は確認待ち。</p></section><section class="office-panel" data-answer="R11"><h3>R11 事務局・運営委員・承認者の登録承認</h3><p>事務局と運営委員は同等の業務権限。事務局・運営委員の登録は承認者、承認者の登録は運営委員が承認する。自己承認は禁止。</p><p class="office-help">運営委員長・副委員長・事務局長は承認者に統一。通常の役職申請受付は保留。</p></section><section class="office-panel" data-answer="Q01"><h3>Q01 保険の連絡対象</h3><p>対象は保険加入済みの被保険者。ポータルのほか、旧システム・紙で申し込んだ被保険者も事務局へ連絡できる。</p><p class="office-help">システム内の加入記録との一致を必須条件にしない。加入意思の登録を加入済みとは扱わない。</p></section><section class="office-panel" data-answer="Q02"><h3>Q02 クラブ代表からの連絡</h3><p>本人だけでなくクラブ代表からの連絡も受け付ける。事務局が当人へ連絡し、保険手続きはシステム外で進める。</p><p class="office-help">代表の担当クラブ確認を維持し、被保険者を氏名だけで他アカウントへ結び付けない。正式送信は保留。</p></section><section class="office-panel" data-answer="Q03"><h3>Q03 保険連絡の入力項目</h3><p>入力は被保険者名・クラブ名の2項目。事故日・事故概要・連絡先・添付を追加要求しない。</p><p class="office-help">事務局がクラブ員名簿から本人へ連絡し、同姓同名は電話で確認する。正式送信先との接続・保険会社への正式請求は保留。</p></section><section class="office-panel" data-answer="Q04"><h3>Q04 主催者の権限</h3><p>対象はオンラインエントリーで受け付けるイベント。イベント登録・主催権限は既存エントリー側の決定に従う。</p><p class="office-help">イベント登録承認者、共同主催、代理担当の対応は未確定。新しい主催権限を自動付与しない。</p></section><section class="office-panel" data-answer="Q05"><h3>Q05 主催者の資格照会</h3><p>担当イベントの締切から終了日の7日後23:59まで、照会時点の最新資格2項目を表示する。</p><p class="office-help">既存イベントの締切・終了日時との対応と、実データ照会の接続は保留。</p></section><section class="office-panel" data-answer="Q06"><h3>Q06 ポイントの管理場所・リンク</h3><p>ポイントの登録・確定は既存エントリー側に置く。ポータルからの関連リンクは各部会のトップページを基本とする。</p><p class="office-help">正式な部会トップURLと、集計の公開開始条件は別途確認する。</p></section><section class="office-panel" data-answer="Q07"><h3>Q07 シリーズ・クラスの範囲</h3><p>ジムカーナと将来のダートトライアルに対応する。同じ選手の複数クラス・競技参加を分けて扱う。ラリーのオンラインエントリー移行は現時点の対象外。</p><p class="office-help">2027年度規則・提出済みクラス一覧は未受領。C15で成立条件と有効戦数を確認済み。順位別配点・失格等の扱いは推定しない。</p></section><section class="office-panel" data-answer="Q08"><h3>Q08 ポイント対象資格</h3><p>Generalだけが対象。申込時に個人会員かつ正会員クラブ所属であることが必要。正会員クラブ間の後日の所属変更で権利を失わない。</p><p class="office-help">他地区会員は参加費割引のみで会場にて会員証確認。後日の資格停止・入金訂正の得点への影響は確認待ち。</p></section><section class="office-panel" data-answer="Q09"><h3>Q09 集計・表示・訂正</h3><p>クラス別に順位、各イベントのポイント、有効ポイント、氏名、クラブ略称を表示する。有効戦数は成立5戦以下は全戦、それ以上は成立戦数の70％を四捨五入する（全7戦なら5戦、6戦なら4戦）。</p><p class="office-help">各部会長が確認し、ポータル取込時の追加承認は不要。同点比較の細部、正式取込元・形式・訂正版の対応付けは確認待ち。自動公開はしない。</p></section><section class="office-panel" data-answer="Q10"><h3>Q10 インフォメーションの担当</h3><p>4分類すべてを事務局員が編集し、事務局長が承認する。部会名等の分類で編集権限を与えない。</p><p class="office-help">事務局長アカウントの指定と正式原稿の確認後に公開機能を接続する。現在は閲覧専用。</p></section><section class="office-panel" data-answer="Q11"><h3>Q11 カレンダーの担当</h3><p>事務局員が更新し、事務局長が承認する。Googleカレンダーのような表示を目指す。元データの形式は任意。</p><p class="office-help">予定ごとの公開範囲・実日程・入力元は未確定。Googleとの自動同期が決まったわけではない。</p></section><section class="office-panel" data-answer="Q12"><h3>Q12 引継ぎ対象</h3><p>各部会の旧記事は各部会へ移管する。クラブ名簿、旧年度の規則・様式は原則として新ポータルへ移さない。別途バックアップを相談する。</p><p class="office-help">稼働中の旧サーバーは廃止希望だが、残置先・移管先・時期は別途協議。既存データの削除は行わない。</p></section><section class="office-panel" data-answer="Q13"><h3>Q13 会則・規程の分類</h3><p>近畿の協議会会則・見舞金規則は「運営委員会」、全国協議会会則・細則と専門委員会規程は「全国JMRC」に分ける。</p><p class="office-help">役員・保険加入クラブ等の名簿公開項目は未回答。非公開の委員会資料は公開しない。</p></section><section class="office-panel" data-answer="Q14"><h3>Q14 旧HPの残置と移行完了</h3><p>残置期間の起算日は2026年12月31日で、期間は1年間。</p><p class="office-help">旧サーバー廃止後も旧ページを閲覧可能にする方法・残置先・移行完了確認者は未確定。</p></section><section class="office-panel" data-answer="C02"><h3>C02 JAF種別・会員番号と履歴</h3><p>競技・審判員の番号は共通。申請で両方の種別を申告する。移籍で会員番号は変わるが、ポイントは共通の個人IDで引き継ぐ。</p><p class="office-help">再発行・名義訂正などの正式な移行手順は保留。</p></section><section class="office-panel" data-answer="C06"><h3>C06 2027年度の料金</h3><p>クラブ年会費と保険料は2026年度と同額。年度ごとの変更はマスター管理する。</p><p class="office-help">保険の年齢判定日・期間・追加加入手順は未確定。2028年度以降へ自動繰越ししない。</p></section><section class="office-panel" data-answer="C07"><h3>C07 賛助会員の年度登録</h3><p>賛助会員も年度登録対象。登録団体は10,000円、関連団体・企業は50,000円。</p><p class="office-help">地区外の主催クラブの例外を会則第5条と照合中。賛助のクラブコード対応は保留。</p></section><section class="office-panel" data-answer="C08"><h3>C08 入会金</h3><p>新規クラブ・登録団体は賛助を含め10,000円。更新・再加入・賛助の関連団体／企業は入会金なし（11月3日補足）。</p><p class="office-help">旧会則には未更新後の新規扱いがあるため、2027年度の規程に今回の回答を明記する必要がある。</p></section><section class="office-panel" data-answer="C09"><h3>C09 銀行CSV原本</h3><p>サンプルを依頼中との回答。</p><p class="office-help">現物未受領。CSV形式の確定と本番取込は保留。</p></section><section class="office-panel" data-answer="C10"><h3>C10 役職と相互承認</h3><p>財務委員を運営委員へ改称し、事務局と同等にする。承認者を上位の登録承認役職として設け、自己承認を禁止する。</p><p class="office-help">初期設定と通常の役職申請を分ける。記事等の承認担当は個別の決定も保持する。</p></section><section class="office-panel" data-answer="C11"><h3>C11 運営委員の業務権限</h3><p>運営委員は事務局と同等の業務権限を持つ。</p><p class="office-help">対象クラブに限定されるTemporary主催承認を、全体権限だけで行うことはできない。</p></section><section class="office-panel" data-answer="C12"><h3>C12 主催者照会の終了時刻</h3><p>イベント終了日の7日後23:59まで（日本時間）。翌日0:00から照会不可。</p><p class="office-help">イベント日時との対応確認後に実データへ接続する。</p></section><section class="office-panel" data-answer="C13"><h3>C13 年またぎのポイント資格</h3><p>12月開催のポイントイベントはない見込みとの回答。</p><p class="office-help">12月中に翌年イベントへ申し込む場合と、2月7日前のクラブ更新猶予の扱いは未回答。例外は実装しない。</p></section><section class="office-panel" data-answer="C14"><h3>C14 部会の確認と表彰案内</h3><p>ポイント確認担当は各部会長。ポータル取込時の追加承認は不要。シリーズ終了後、各クラス6位以内かつ年間平均参加台数の1/2以内を表彰し、メール案内する。</p><p class="office-help">平均の対象競技会・同点者・宛先対応・送信文面は未確定。人数の試算と案内文の確認まで。実送信は保留。</p></section><section class="office-panel" data-answer="C15"><h3>C15 クラス・シリーズ成立と有効戦</h3><p>出走3台以上でクラス成立、中止・不成立は戦数から除外。終了時3戦以上でシリーズ成立。5戦以下は全戦、それ以上は70％を四捨五入して高得点順に合計。同点比較は有効戦のみ。</p><p class="office-help">正式な2027年度規則と配点・同点比較の詳細は原本待ち。2026年資料を自動的に2027年規則へ採用しない。</p></section><section class="office-panel" data-answer="C16"><h3>C16 保険請求連絡後の本人確認</h3><p>入力は被保険者名とクラブ名の2項目。事務局がクラブ員名簿を確認して本人へ連絡し、同姓同名は電話で確認する。</p><p class="office-help">旧制度・紙申請も含む受付への実接続は保留。氏名だけでアカウントを自動対応付けしない。</p></section><section class="office-panel" data-answer="C17"><h3>C17 個人情報削除の時期と複製</h3><p>削除はポータル会員個人情報に限定し、共通アカウント・エントリー履歴・会計・操作ログは残す。</p><p class="office-help">今回の記入は質問のため、削除範囲への追加合意とは扱わない。翌年4月30日の候補と、年度内の個別退会・訂正・削除、CSV・バックアップを区別して確認する。</p></section><section class="office-panel" data-answer="C18"><h3>C18 旧HP残置の起算日</h3><p>2026年12月31日から1年間。</p><p class="office-help">旧サーバーを止めても旧ページを見られるようにする保管先や移行方式は未回答。サーバー・DNS・転送設定は変更しない。</p></section><section class="office-panel" data-answer="C24"><h3>C24 通知先</h3><p>回答入力G24を参照し、個人会員・クラブ代表・事務局への通知を確定。</p><p class="office-help">文面承認者・送信時点・通信方法は未確定。今回の確認画面では文案まで。</p></section>  </div></details>
     <nav class="info-nav" aria-label="情報ページの種類">
     <a href="#information" >お知らせ</a><a href="#documents" >資料・制度の案内</a><a href="#calendar" >統一カレンダー</a><a href="#links" >部会・関連リンク</a><a href="#migration" >引継ぎ対象の確認</a>  </nav>
       <section id="information" class="info-section" aria-label="お知らせ">
@@ -251,7 +251,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認、2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。旧年度の案内は年度を明示して選別</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -277,7 +277,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。出欠受付は既存の会議要件に接続</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -303,7 +303,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。講習会申込システムの新設は含めない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -325,7 +325,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>各部会のHPへ移行またはリンク。現在の内部案内ページと実際の部会HPを区別</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -355,7 +355,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>統一カレンダー。部会別詳細日程・規則は部会HPへ</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -377,11 +377,11 @@ p { margin-top: 0; }
       <h2>ジムカーナのシリーズポイント</h2>
       <p class="info-status">確認用の説明・原文未移行</p>
       <p class="info-body">ポイントの登録・確定は既存エントリー側で管理します。ポータルからはジムカーナ部会トップへ案内し、集計表示は正式規則・原結果の確認後に接続します。</p>
-            <aside class="office-readonly"><strong>確認が残る事項</strong><p>Q07～Q09：2027規則、正式取込元・形式、同点処理の細部と訂正担当は確認待ち。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>2027規則、正式取込元・形式、同点処理・訂正版の対応付けは確認待ち。確認担当は各部会長で、取込時の追加承認は不要。。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>Q06～09により登録・確定は既存entry。部会トップへのリンクを基本とする。自動集計表示は規則・取込元の確認後</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -405,7 +405,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>HP-06と同じ。競技・シリーズ・クラスを分ける。過年度PDFを現年度結果として転記しない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -429,7 +429,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>ラリー部会へ案内。Q07により現時点ではentry移行・新集計の対象外</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -453,7 +453,7 @@ p { margin-top: 0; }
       <p class="office-help">編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。</p>      <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026、2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>Q12により部会の旧記事は部会へ移管。新規案内の掲載は事務局編集・事務局長承認</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -543,7 +543,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>各部会HP。練習会の申込やフォーラムをポータルへ統合する要件は追加しない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -581,7 +581,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認、2022 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>各部会HP。スポーツ安全保険・協議会見舞金の状態に読み替えない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -605,7 +605,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2025、2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>各部会HP。旧年度様式は原則移行せず別途保存相談。既存entryの申込導線は維持</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -638,7 +638,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>ポータルの個人会員申請へ案内。受付保留中は説明と開始予定を表示</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -668,7 +668,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。光電管、レスキューツール、KED・バキュームスプリント、重量計、タバード、バックボード、AEDを対象候補とする。予約・在庫管理の新設は含めない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -712,7 +712,7 @@ p { margin-top: 0; }
       <p class="office-help">編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。</p>      <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション。年度・版を管理</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -734,7 +734,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>JAF</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>JAF公式ページへのリンク。原本の独自更新や自動複製は行わない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -758,7 +758,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認、2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション「事務局」。公表可能な案内・空の様式を対象とし、記入済み名簿を自動公開しない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -791,11 +791,11 @@ p { margin-top: 0; }
       <p class="info-status">確認用の説明・原文未移行</p>
       <p class="info-body">加入対象はGeneral、初回は年度クラブ単位で4名です。加入済みの被保険者は、本人またはクラブ代表から氏名・クラブ名だけで事務局へ連絡する方針です。旧システム・紙の加入者も対象とします。</p>
             <p><button class="office-button" type="button" disabled>受付開始は保留</button></p>
-            <aside class="office-readonly"><strong>確認が残る事項</strong><p>2027年の料率・保険期間、正式な受付・通知先の接続は保留。事務局から当人へ連絡し、保険手続きはシステム外で進める。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
+            <aside class="office-readonly"><strong>確認が残る事項</strong><p>2027年度は64歳以下2,000円・65歳以上1,200円。年齢判定日・保険期間・正式受付は保留。事務局が名簿から連絡し、同姓同名は電話で確認する。。対象年度・本文・添付・公開項目・正式な移行先は、回答と原本の確認後に反映します。</p></aside>
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認、2026 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>スポーツ安全保険の申込セクション。公表用案内と本人・クラブの申込記録を分ける</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -837,7 +837,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026、2027 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>インフォメーション「運営委員会」。公開済み情報の引継ぎであり、非公開会議資料を公開する指示ではない</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -862,7 +862,7 @@ p { margin-top: 0; }
       <p class="office-help">Q13の回答でP27の分類を訂正済み。文書ごとに分類と発行団体を表示します。</p>      <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認、2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>Q13で訂正。近畿の会則・見舞金規則は運営委員会、全国の会則・細則・専門委員会規程は全国JMRC。文書ごとに発行団体を保持</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -891,7 +891,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2026、原本確認、2008、2009、2010、2011、2012、2013、2014、2015、2016、2017、2018、2019、2020、2021、2022、2023、2024、2025 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>登録案内はJMRC近畿。Q12により旧HPのクラブ名簿は原則移行せず別途保存相談。業務登録データは保持</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -951,7 +951,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2025、2026、原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>JAF</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>JAFへのリンクで案内</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -986,7 +986,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>原本確認 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 2。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>関連リンク。お問い合わせは既存の問い合わせ要件を継続し、具体的な移設先を確認</dd></div>
         <div><dt>公開状態</dt><dd>運営確認中・公開未承認</dd></div>
       </dl>
@@ -1022,7 +1022,7 @@ p { margin-top: 0; }
             <dl class="info-facts">
         <div><dt>元資料の年度候補</dt><dd>2020 <small>現年度の有効性を示すものではありません。</small></dd></div>
         <div><dt>発行団体</dt><dd>原本確認待ち</dd></div>
-        <div><dt>本文・添付の版</dt><dd>画面確認版 1。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
+        <div><dt>本文・添付の版</dt><dd>画面確認版 3。原本・添付の版は未確認。資料ファイルは未掲載。</dd></div>
         <div><dt>引継ぎ方針</dt><dd>新ポータルへの移行対象外。元サイト・保存済み資料の削除を意味しない</dd></div>
         <div><dt>公開状態</dt><dd>移行対象外</dd></div>
       </dl>

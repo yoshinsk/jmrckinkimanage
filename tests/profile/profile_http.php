@@ -51,7 +51,7 @@ $ready=json_decode($pOffice->request('/manage/insurance.php?format=json&club_yea
 // 既存会計経路で4名を申請・承認・入金し、3名/4名の境界を確認する。
 foreach([63,64,65,66] as $uid){
     $b=new Browser();$b->login($uid);$ident=$db->query("SELECT id FROM portal_identifiers WHERE user_id=$uid LIMIT 1")->fetchColumn();
-    $sub=submitMember($b,['member_type'=>'general','year'=>$nowYear,'club_year_id'=>900,'identifier_id'=>$ident]);$midNew=(int)json_decode($sub['body'],true)['id'];
+    $sub=submitMember($b,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$nowYear,'club_year_id'=>900,'identifier_id'=>$ident]);$midNew=(int)json_decode($sub['body'],true)['id'];
     $inv=json_decode(billPost($b,'issue',$midNew)['body'],true);billPost($pOffice,'approve',$midNew);billPost($pOffice,'confirm',(int)$inv['id'],['amount'=>$inv['amount_yen'],'reference'=>'INSURANCE-FOUR-'.$uid]);
     insurancePost($b,['action'=>'request','membership_id'=>$midNew,'consent'=>'1']);
     $ready=json_decode($pOffice->request('/manage/insurance.php?format=json&club_year_id=900')['body'],true)['readiness'];

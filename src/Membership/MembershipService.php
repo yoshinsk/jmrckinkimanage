@@ -26,8 +26,8 @@ final class MembershipService
                 WHERE m.id=? AND m.member_type='general' AND cy.status='approved' AND cc.enabled=1 FOR UPDATE",[$membershipId]);
             if (!$m) { throw new HttpFailure(404,'承認対象がありません'); }
             $grant=$this->one("SELECT g.id FROM portal_user_role_grants g JOIN portal_role_permissions p ON p.role_id=g.role_id JOIN portal_roles r ON r.id=g.role_id
-                WHERE g.user_id=? AND p.permission_code='club.affiliations.approve' AND ((g.scope_type='global' AND r.code='OFFICE') OR (g.scope_type='club' AND g.scope_club_id=?))
-                AND g.status='active' AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
+                WHERE g.user_id=? AND p.permission_code='club.affiliations.approve' AND ((g.scope_type='global' AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER')) OR (g.scope_type='club' AND g.scope_club_id=?))
+                AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
                 AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1 FOR UPDATE",[$actorId,$m['club_id']]);
             if (!$grant) { throw new HttpFailure(403,'所属クラブまたは事務局の承認権限が必要です'); }
             if ($m['approval']==='approved') { return $this->result($membershipId,true); }
@@ -41,12 +41,18 @@ final class MembershipService
     }
 
     /** 年度内のGeneral申請を新設する。Temporaryからの差額切替や資格有効化は行わない。 */
-    public function submitGeneral(int $actorId, int $year, int $clubYearId, int $identifierId, string $requestKey): array
+    public function submitGeneral(int $actorId, int $year, int $clubYearId, int $identifierId, string $requestKey, array $declaration = []): array
     {
-        return $this->transaction(function () use ($actorId,$year,$clubYearId,$identifierId,$requestKey): array {
+        return $this->transaction(function () use ($actorId,$year,$clubYearId,$identifierId,$requestKey,$declaration): array {
             $this->actor($actorId);
             $existing = $this->replay($actorId,$requestKey,'general',$year,null,$identifierId,$clubYearId);
-            if ($existing) { return $existing; }
+            if ($existing) {
+                $saved=$this->one('SELECT competition_type,official_type FROM portal_membership_declarations WHERE membership_id=?',[$existing['id']]);
+                if (!$saved || $saved !== array_map(static fn($v)=>is_string($v)?trim($v):$v,['competition_type'=>$declaration['competition_type']??null,'official_type'=>$declaration['official_type']??null])) {
+                    throw new HttpFailure(409,'申告内容が異なります。既存申請を確認してください');
+                }
+                return $existing;
+            }
             $this->openYear($year);
             $club = $this->one("SELECT cy.id FROM portal_club_years cy
                 JOIN portal_club_categories cc ON cc.category_digit=cy.category_digit
@@ -55,6 +61,7 @@ final class MembershipService
             $license = $this->one("SELECT * FROM portal_identifiers WHERE id=? AND user_id=?
                 AND kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(value_cipher)>0 FOR UPDATE",[$identifierId,$actorId]);
             if (!$license) { throw new HttpFailure(422,'Generalは本人のJAF競技・審判員ライセンスが必要です'); }
+            $declared=LicenseDeclaration::validate($declaration,$license['kind']);
             $today = (new DateTimeImmutable('now',new DateTimeZone('Asia/Tokyo')))->format('Y-m-d');
             if ($license['expires_on'] !== null && $license['expires_on'] < $today) {
                 throw new HttpFailure(422,'期限切れのライセンスは使用できません');
@@ -63,6 +70,7 @@ final class MembershipService
             $this->execute("INSERT INTO portal_memberships(user_id,year,member_type,application_id,general_license_identifier_id,general_license_kind)
                 VALUES (?,?,'general',?,?,?)",[$actorId,$year,$application,$identifierId,$license['kind']]);
             $id=(int)$this->db->lastInsertId();
+            $this->execute('INSERT INTO portal_membership_declarations(membership_id,competition_type,official_type) VALUES(?,?,?)',[$id,$declared['competition_type'],$declared['official_type']]);
             $this->execute("INSERT INTO portal_affiliations(membership_id,year,club_year_id,status,requested_at)
                 VALUES (?,?,?,'pending',UTC_TIMESTAMP(6))",[$id,$year,$clubYearId]);
             $this->audit($actorId,'GENERAL_SUBMITTED',$id);
@@ -104,7 +112,7 @@ final class MembershipService
             $grant=$this->one("SELECT g.id FROM portal_user_role_grants g
                 JOIN portal_role_permissions p ON p.role_id=g.role_id
                 WHERE g.user_id=? AND p.permission_code='temporary.approve' AND g.scope_type='club'
-                AND g.scope_club_id=? AND g.status='active' AND g.approved_by IS NOT NULL
+                AND g.scope_club_id=? AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL)
                 AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
                 AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1 FOR UPDATE",[$actorId,$event['organizer_club_id']]);
             if (!$grant) { throw new HttpFailure(403,'イベント主催クラブの承認権限が必要です'); }

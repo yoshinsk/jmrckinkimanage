@@ -6,14 +6,14 @@ namespace Jmrc\Events;
 
 final class OrganizerEligibilityPolicy
 {
-    /** 担当イベントの既存認可を前提に、締切以降かつ終了7日後より前を許可する。欠損時刻を補完しない。 */
+    /** C12: 担当イベントの締切から、終了日の7日後23:59まで（日本時間）。欠損時刻を補完しない。 */
     public static function window(bool $authorized, \DateTimeImmutable $now, ?\DateTimeImmutable $deadline, ?\DateTimeImmutable $eventEnd): string
     {
         if (!$authorized) { return 'forbidden'; }
         if ($deadline === null || $eventEnd === null || $eventEnd < $deadline) { return 'unconfirmed'; }
         if ($now < $deadline) { return 'not_open'; }
         // JSTで日を足し、夏時間のあるタイムゾーンから渡された日時にも同じ国内業務期間を適用する。
-        $until = $eventEnd->setTimezone(new \DateTimeZone('Asia/Tokyo'))->add(new \DateInterval('P7D'));
+        $until = $eventEnd->setTimezone(new \DateTimeZone('Asia/Tokyo'))->setTime(0, 0)->add(new \DateInterval('P8D'));
         return $now < $until ? 'open' : 'expired';
     }
 

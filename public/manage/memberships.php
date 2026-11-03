@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     };
     $service=new \Jmrc\Membership\MembershipService($db);
     $result=match ($_POST['member_type']??null) {
-        'general'=>$service->submitGeneral($user['id'],$positive('year'),$positive('club_year_id'),$positive('identifier_id'),$key),
+        'general'=>$service->submitGeneral($user['id'],$positive('year'),$positive('club_year_id'),$positive('identifier_id'),$key,$_POST),
         'temporary'=>$service->submitTemporary($user['id'],$positive('event_id'),$key),
         default=>throw new \Jmrc\Auth\HttpFailure(422,'会員区分を選択してください'),
     };
@@ -35,8 +35,8 @@ $licenses=$db->prepare("SELECT id,kind FROM portal_identifiers WHERE user_id=? A
 $licenses->execute([$user['id']]); $licenses=$licenses->fetchAll();
 $clubs=$db->query("SELECT cy.id,cy.year,c.name_full FROM portal_club_years cy JOIN portal_clubs c ON c.id=cy.club_id
     WHERE cy.status='approved' ORDER BY cy.year DESC,c.fixed_code")->fetchAll();
-$mine=$db->prepare('SELECT m.id,m.member_type,m.year,m.status,m.participation_date,a.status AS application_status
-    FROM portal_memberships m JOIN portal_applications a ON a.id=m.application_id WHERE m.user_id=? ORDER BY m.id DESC');
+$mine=$db->prepare('SELECT m.id,m.member_type,m.year,m.status,m.participation_date,d.competition_type,d.official_type,a.status AS application_status
+    FROM portal_memberships m JOIN portal_applications a ON a.id=m.application_id LEFT JOIN portal_membership_declarations d ON d.membership_id=m.id WHERE m.user_id=? ORDER BY m.id DESC');
 $mine->execute([$user['id']]); $mine=$mine->fetchAll();
 // 保存statusは過去のキャッシュ。日付経過・入金訂正・承認取消を閲覧時にも再評価する。
 $eligibility=new \Jmrc\Billing\Eligibility($db);
@@ -75,6 +75,9 @@ jmrc_office_header('個人会員の申請','会員情報');
 <div class="office-field"><label for="general-year">年度</label><select id="general-year" name="year" required><option value="">年度を選択</option><?php foreach($openYears as $year): ?><option value="<?=$esc($year)?>"><?=$esc($year)?>年度</option><?php endforeach; ?></select></div>
 <div class="office-field office-wide"><label for="club-year">所属クラブ</label><select id="club-year" name="club_year_id" required aria-describedby="club-help"><option value="">所属クラブを選択</option><?php foreach($clubs as $club): ?><option value="<?=$esc($club['id'])?>"><?=$esc($club['year'].' '.$club['name_full'])?></option><?php endforeach; ?></select><p id="club-help" class="office-help">上で選択した年度の所属クラブを選んでください。</p></div>
 <div class="office-field office-wide"><label for="license-id">登録済みライセンス</label><select id="license-id" name="identifier_id" required><option value="">ライセンスを選択</option><?php foreach($licenses as $license): ?><option value="<?=$esc($license['id'])?>"><?=$license['kind']==='jaf_competition'?'競技ライセンス':'審判員ライセンス'?></option><?php endforeach; ?></select></div>
+<p class="office-help office-wide">JAFライセンス番号は競技・審判員で共通です。両方の種別を券面どおりに入力し、保有していない側は「なし」と入力してください。複数種別は並べて記入できます。</p>
+<div class="office-field"><label for="competition-type">競技ライセンス種別</label><input id="competition-type" name="competition_type" maxlength="80" required></div>
+<div class="office-field"><label for="official-type">審判員ライセンス種別</label><input id="official-type" name="official_type" maxlength="80" required></div>
 <?php if(!$licenses): ?><p class="office-readonly office-wide">申請に使用できるライセンスが登録されていません。事務局へ確認してください。</p><?php endif; ?>
 <?php if(!$clubs): ?><p class="office-readonly office-wide">選択できる承認済みクラブがありません。事務局へ確認してください。</p><?php endif; ?>
 <div class="office-submit"><button type="submit" class="office-button" <?=$licenses && $clubs?'':'disabled'?>>Generalを申請</button></div>
@@ -91,7 +94,7 @@ jmrc_office_header('個人会員の申請','会員情報');
 <?php else: ?><p class="office-readonly"><?=$openYears?'現在、申請できるイベントはありません。':'Temporaryの申請受付は準備中です。'?></p><?php endif; ?>
 </section>
 <section id="applications" class="office-panel" aria-labelledby="applications-heading"><h2 id="applications-heading">申請状況</h2>
-<?php if(!$mine): ?><p>個人会員の申請はまだありません。</p><?php else: ?><ul class="office-records"><?php foreach($mine as $item): ?><li><h3><?=$esc($item['year'])?>年度 <?=$item['member_type']==='general'?'General':'Temporary'?></h3><dl class="office-definition"><dt>申請番号</dt><dd>#<?=$esc($item['id'])?></dd><dt>申請</dt><dd><?=$esc($applicationLabels[$item['application_status']]??$item['application_status'])?></dd><dt>資格</dt><dd><?=$item['eligibility']['active']?'有効':($item['status']==='suspended'?'資格停止中':($item['eligibility']['ready']?'有効期間外':'現在は無効'))?></dd><?php if($item['participation_date']): ?><dt>参加日</dt><dd><?=$esc($item['participation_date'])?></dd><?php endif; ?></dl></li><?php endforeach; ?></ul><?php endif; ?>
+<?php if(!$mine): ?><p>個人会員の申請はまだありません。</p><?php else: ?><ul class="office-records"><?php foreach($mine as $item): ?><li><h3><?=$esc($item['year'])?>年度 <?=$item['member_type']==='general'?'General':'Temporary'?></h3><dl class="office-definition"><dt>申請番号</dt><dd>#<?=$esc($item['id'])?></dd><dt>申請</dt><dd><?=$esc($applicationLabels[$item['application_status']]??$item['application_status'])?></dd><dt>資格</dt><dd><?=$item['eligibility']['active']?'有効':($item['status']==='suspended'?'資格停止中':($item['eligibility']['ready']?'有効期間外':'現在は無効'))?></dd><?php if($item['competition_type']!==null): ?><dt>申告した競技種別</dt><dd><?=$esc($item['competition_type'])?></dd><dt>申告した審判員種別</dt><dd><?=$esc($item['official_type'])?></dd><?php endif; ?><?php if($item['participation_date']): ?><dt>参加日</dt><dd><?=$esc($item['participation_date'])?></dd><?php endif; ?></dl></li><?php endforeach; ?></ul><?php endif; ?>
 </section>
 <details class="office-disclosure"><summary>正会員クラブ区分</summary><ul class="office-list"><?php foreach($categories as $category): ?><li><?=$esc($category['category_digit'].'：'.$category['name'])?></li><?php endforeach; ?></ul></details>
 <?php jmrc_office_footer(); ?>

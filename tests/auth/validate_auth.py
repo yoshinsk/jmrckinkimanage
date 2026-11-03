@@ -2,6 +2,7 @@
 # 機能: 既存jmrckinkiの必要なソースだけを隔離コピーし、HTTPS/FPM/MariaDBで認証を検証する。
 # 本番接続や既存リポジトリの変更は行わない。実設定/実データをコピーしない。
 import hashlib
+import argparse
 import json
 import shutil
 import subprocess
@@ -37,7 +38,11 @@ def db_sql(sql):
 
 
 def main():
-    (ROOT/'tmp/auth_validation.json').unlink(missing_ok=True)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--database-release-only',action='store_true')
+    args=parser.parse_args()
+    if not args.database_release_only:
+        (ROOT/'tmp/auth_validation.json').unlink(missing_ok=True)
     # 長い検証の途中でソースが変わった場合、未検証の末尾ハッシュを成功証跡として記録しない。
     review_paths=['public/manage/index.php','public/manage/review.php','public/manage/_review-catalog.php',
                   'public/manage/_review-workspace.php','public/manage/assets/review.css',
@@ -72,8 +77,12 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
+    shutil.copyfile(ROOT/'design/phase2/staff_permissions.sql',context/'tests/staff_permissions.sql')
+    shutil.copyfile(ROOT/'design/phase2/011_license_declarations.sql',context/'tests/011_license_declarations.sql')
+    shutil.copyfile(ROOT/'scripts/ConfirmedAnswersDatabase.php',context/'tests/ConfirmedAnswersDatabase.php')
+    shutil.copyfile(ROOT/'scripts/confirmed_answers_database.php',context/'tests/confirmed_answers_database.php')
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
     for source in (ROOT/'tests/billing').glob('*.php'):
@@ -142,6 +151,7 @@ def main():
         db_sql((ROOT/'design/phase2/008_yucho_import.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/009_bank_master_management.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/010_profile_corrections.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/011_license_declarations.sql').read_text(encoding='utf-8'))
         db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
@@ -150,7 +160,7 @@ def main():
                "GRANT INSERT ON jmrckinki_auth_lab.portal_audit_events TO 'auth_runtime'@'%';"
                "GRANT INSERT ON jmrckinki_auth_lab.audit_logs TO 'auth_runtime'@'%';")
         # 申請/承認サービスに必要なDMLだけを追加。DDL・他人の識別番号更新は許可しない。
-        for table in ['portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations','portal_club_years','portal_club_charges']:
+        for table in ['portal_membership_declarations','portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations','portal_club_years','portal_club_charges']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         for table in ['portal_member_numbers','portal_card_tokens']:
@@ -179,6 +189,17 @@ def main():
             docker('run','--detach','--name',name,'--label',LABEL,'--network',NETWORK,'--network-alias',alias,
                    '--memory','256m','--cpus','1',image)
             created.append(name)
+        db_sql('CREATE DATABASE jmrckinki_answers_lab CHARACTER SET utf8mb4; USE jmrckinki_answers_lab;'+(ROOT/'tests/phase2/legacy_schema.sql').read_text(encoding='utf-8')+(ROOT/'design/phase2/001_portal_schema.sql').read_text(encoding='utf-8'))
+        db_sql("GRANT ALL ON jmrckinki_answers_lab.* TO 'lab_fixture'@'%';")
+        database_release=json.loads(docker('exec',NAMES[1],'php','/srv/tests/database_answers.php').stdout)
+        if args.database_release_only:
+            paths=['scripts/ConfirmedAnswersDatabase.php','scripts/confirmed_answers_database.php',
+                   'design/phase2/011_license_declarations.sql','design/phase2/staff_permissions.sql',
+                   'tests/auth/database_answers.php']
+            result={**database_release,'sha256':{p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}}
+            (ROOT/'tmp/database_answers_validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+            print(json.dumps({'status':'PASS','database_release_cases':len(result['cases'])}),flush=True)
+            return
         print('Linting PHP and preparing synthetic identities',flush=True)
         lint=docker('exec',NAMES[1],'sh','-c',r"find /srv/auth /srv/web /srv/tests -name '*.php' -exec php -l {} \;")
         if b'Errors parsing' in lint.stdout or b'Fatal error' in lint.stderr:
@@ -366,6 +387,10 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
         report['bank_master_test_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'tests/bank_master').iterdir() if p.is_file()}
         report['profile_source_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for folder in ['tests/profile'] for p in (ROOT/folder).iterdir() if p.is_file()}
         report['profile_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/010_profile_corrections.sql').read_bytes()).hexdigest()
+        report['database_answers_release']=database_release
+        report['database_answers_script_sha256']=hashlib.sha256((ROOT/'scripts/ConfirmedAnswersDatabase.php').read_bytes()).hexdigest()
+        report['declaration_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/011_license_declarations.sql').read_bytes()).hexdigest()
+        report['staff_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/staff_permissions.sql').read_bytes()).hexdigest()
         report['profile_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/profile_permissions.sql').read_bytes()).hexdigest()
         report['registration_calendar_sha256']=hashlib.sha256((ROOT/'design/phase2/2027_registration_calendar.proposal.sql').read_bytes()).hexdigest()
         report['bank_master_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/009_bank_master_management.sql').read_bytes()).hexdigest()

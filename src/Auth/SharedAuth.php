@@ -140,7 +140,7 @@ final class SharedAuth
             JOIN portal_roles r ON r.id=g.role_id
             JOIN portal_role_permissions p ON p.role_id=g.role_id
             WHERE g.user_id=? AND p.permission_code=? AND g.status='active'
-              AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL
+              AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL
               AND g.valid_from<=UTC_TIMESTAMP(6)
               AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until)
               AND ((g.scope_type='global' AND g.scope_club_id IS NULL AND r.code<>'CLUB_REP' AND p.permission_code<>'temporary.approve')

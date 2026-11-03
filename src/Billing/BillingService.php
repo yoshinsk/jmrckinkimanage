@@ -245,8 +245,8 @@ final class BillingService
     private function permission(int $id,string $permission): void
     {
         if (!$this->one("SELECT g.id FROM portal_user_role_grants g JOIN portal_role_permissions p ON p.role_id=g.role_id JOIN portal_roles r ON r.id=g.role_id
-            WHERE g.user_id=? AND p.permission_code=? AND g.scope_type='global' AND r.code IN ('OFFICE','FINANCE') AND g.status='active'
-            AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
+            WHERE g.user_id=? AND p.permission_code=? AND g.scope_type='global' AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND g.status='active'
+            AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
             AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1 FOR UPDATE",[$id,$permission])) { throw new HttpFailure(403,'事務局または財務の会計権限が必要です'); }
     }
     private function key(string $key): void { if (!preg_match('/^[a-f0-9]{32,64}$/D',$key)) { throw new HttpFailure(422,'処理キーが不正です'); } }

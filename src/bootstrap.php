@@ -5,7 +5,13 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/Auth/HttpFailure.php';
 require_once __DIR__ . '/Auth/SharedAuth.php';
+require_once __DIR__ . '/Membership/LicenseDeclaration.php';
 require_once __DIR__ . '/Membership/MembershipService.php';
+require_once __DIR__ . '/Auth/StaffRolePolicy.php';
+require_once __DIR__ . '/Auth/StaffRoleService.php';
+require_once __DIR__ . '/Club/ClubFeePolicy.php';
+require_once __DIR__ . '/Series/SeriesRules.php';
+require_once __DIR__ . '/Events/OrganizerEligibilityPolicy.php';
 require_once __DIR__ . '/Billing/Eligibility.php';
 require_once __DIR__ . '/Billing/BillingService.php';
 require_once __DIR__ . '/Club/ClubEligibility.php';

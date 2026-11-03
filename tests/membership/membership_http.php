@@ -45,14 +45,14 @@ dbReject($db,'未確定の区分4を拒否',"INSERT INTO portal_club_categories(
 dbReject($db,'クラブ年度内コード変更拒否',"UPDATE portal_club_years SET category_digit='2',display_code='200001' WHERE id=101",1644);
 $db->exec("UPDATE portal_club_years SET phone='111' WHERE id=101");
 check('コード固定後も連絡先訂正可',$db->query('SELECT phone FROM portal_club_years WHERE id=101')->fetchColumn()==='111');
-$base=['member_type'=>'general','year'=>$year,'club_year_id'=>101];
+$base=['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$year,'club_year_id'=>101];
 foreach ([0=>'未選択',103=>'運転免許証のみ',104=>'他人の番号',105=>'空の番号',106=>'期限切れ',107=>'分類不明の番号'] as $id=>$label) {
     $before=memberCounts($db);
     check('General '.$label.'を拒否',submitMember($member,$base+['identifier_id'=>$id])['status']===422);
     check('General '.$label.'失敗は原子的',memberCounts($db)===$before);
 }
-check('未承認クラブを拒否',submitMember($member,['member_type'=>'general','year'=>$year,'club_year_id'=>999,'identifier_id'=>101])['status']===422);
-check('未設定年度を拒否',submitMember($member,['member_type'=>'general','year'=>2099,'club_year_id'=>101,'identifier_id'=>101])['status']===422);
+check('未承認クラブを拒否',submitMember($member,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$year,'club_year_id'=>999,'identifier_id'=>101])['status']===422);
+check('未設定年度を拒否',submitMember($member,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>2099,'club_year_id'=>101,'identifier_id'=>101])['status']===422);
 $key=bin2hex(random_bytes(24));
 $result=submitMember($member,$base+['identifier_id'=>101,'request_key'=>$key,'user_id'=>9]);
 check('General競技ライセンスで受付',$result['status']===201);
@@ -66,7 +66,7 @@ check('General同年度別キー申請を拒否',submitMember($member,$base+['id
 check('General同一キー内容変更拒否',submitMember($member,$base+['identifier_id'=>103,'request_key'=>$key])['status']===409);
 check('別人の申請キー再利用拒否',submitMember($official,$base+['identifier_id'=>102,'request_key'=>$key])['status']===409);
 check('General審判員ライセンスで受付',submitMember($official,$base+['identifier_id'=>102])['status']===201);
-check('General翌年も別申請可',submitMember($member,['member_type'=>'general','year'=>$year+1,'club_year_id'=>103,'identifier_id'=>101])['status']===201);
+check('General翌年も別申請可',submitMember($member,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$year+1,'club_year_id'=>103,'identifier_id'=>101])['status']===201);
 $before=memberCounts($db);
 check('会員申請CSRF欠落拒否',$member->request('/manage/memberships.php?format=json',$base+['identifier_id'=>101])['status']===400);
 check('CSRF失敗は原子的',memberCounts($db)===$before);

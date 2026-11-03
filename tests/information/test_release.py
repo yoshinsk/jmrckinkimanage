@@ -222,6 +222,74 @@ class ReleaseTest(unittest.TestCase):
             self.release.apply(self.stage)
         self.assert_original()
 
+    def confirmed_stage(self, profile='confirmed'):
+        """21ファイルの本番相当配置を準備し、新しいSeries/Eventsディレクトリは未作成にする。"""
+        self.deployed()
+        update = LabRelease(self.root, profile=profile)
+        for name in update.existing:
+            path = update.target(name)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if not path.exists():
+                path.write_text('<?php // original confirmed dependency\n')
+                path.chmod(0o640)
+        payload = update.preflight()
+        payload['profile'] = profile
+        for name in update.order:
+            path = self.stage/name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('<?php // confirmed update '+name+'\n')
+            payload['files'][name]['new_sha256'] = deploy.sha(path)
+        (self.stage/'payload.json').write_text(json.dumps(payload))
+        return update, payload
+
+    def test_insurance_notices_restore_only_two_existing_files(self):
+        update, payload = self.confirmed_stage('insurance-notices')
+        self.assertEqual(set(update.order), {'src/Insurance/InsuranceWorkbook.php', 'public/manage/insurance.php'})
+        result = update.apply(self.stage)
+        backup = Path(result['backup'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+            update.target('src/bootstrap.php')
+
+    def test_confirmed_profile_roundtrip(self):
+        update, payload = self.confirmed_stage()
+        result = update.apply(self.stage)
+        backup = Path(result['backup'])
+        manifest = json.loads((backup/'manifest.json').read_text())
+        self.assertEqual(len(manifest['files']), 21)
+        self.assertEqual(manifest['created_directories'], ['src/Events', 'src/Series'])
+        update.restore(backup, manifest)
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        self.assertFalse((update.source/'src/Events').exists())
+        self.assertFalse((update.source/'src/Series').exists())
+
+    def test_confirmed_cache_failure_restores_helpers_and_bootstrap(self):
+        update, payload = self.confirmed_stage()
+        update.fail_cache_once = True
+        with self.assertRaisesRegex(RuntimeError, 'Synthetic cache failure'):
+            update.apply(self.stage)
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+
+    def test_confirmed_accepts_only_confirmed_staff_permissions(self):
+        update, _ = self.confirmed_stage()
+        state = update.snapshot()
+        state['permission_roles'] = 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'
+        update.snapshot = lambda: copy.deepcopy(state)
+        update.preflight()
+        state['permission_roles'] += '\nCLUB_REP'
+        with self.assertRaisesRegex(RuntimeError, 'Unexpected staff permissions'):
+            update.preflight()
+
+    def test_confirmed_never_targets_entry_or_config(self):
+        update = LabRelease(self.root, profile='confirmed')
+        for name in ['public/entry/login.php', 'auth.config.php', '../users.sql']:
+            with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+                update.target(name)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -74,7 +74,7 @@ $audit=(int)$db->query("SELECT COUNT(*) FROM portal_audit_events WHERE action='C
 check('承認再送で監査・通知を重複しない',clubPost($office,'approve',['id'=>$cyId])['status']===200 && (int)$db->query("SELECT COUNT(*) FROM portal_audit_events WHERE action='CLUB_APPROVED'")->fetchColumn()===$audit);
 // 個人会費は個人の請求として別管理し、クラブの入金だけでは本人資格は付与しない。
 $entrant=new Browser();$entrant->login(9);
-$m=json_decode(submitMember($entrant,['member_type'=>'general','year'=>$nowYear,'club_year_id'=>$cyId,'identifier_id'=>102])['body'],true);$member=(int)$m['id'];
+$m=json_decode(submitMember($entrant,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$nowYear,'club_year_id'=>$cyId,'identifier_id'=>102])['body'],true);$member=(int)$m['id'];
 $mi=json_decode(billPost($entrant,'issue',$member)['body'],true);$memberInvoice=(int)$mi['id'];
 check('クラブ入金だけで個人会費は完了しない',!billState($entrant,$memberInvoice)['eligibility']['paid']);
 check('自クラブ代表が所属承認',billPost($rep,'approve',$member)['status']===200);

@@ -7,8 +7,8 @@ require_once '/srv/auth/src/Events/OrganizerEligibilityPolicy.php';
 use Jmrc\Series\SeriesRules;
 use Jmrc\Events\OrganizerEligibilityPolicy as OrganizerPolicy;
 
-foreach ([0=>0,1=>1,2=>2,3=>3,4=>3,7=>5,10=>7,11=>8,20=>14] as $held=>$expected) {
-    check('70パーセント切上げ '.$held.'戦', SeriesRules::effectiveRounds($held) === $expected);
+foreach ([0=>0,1=>1,2=>2,3=>3,4=>4,5=>5,6=>4,7=>5,8=>6,9=>6,10=>7,11=>8,15=>11,20=>14] as $held=>$expected) {
+    check('5戦以下全戦・超過時70パーセント四捨五入 '.$held.'戦', SeriesRules::effectiveRounds($held) === $expected);
 }
 foreach ([-1, PHP_INT_MAX] as $invalid) {
     try { SeriesRules::effectiveRounds($invalid); check('不正な開催数の拒否',false); }
@@ -25,7 +25,7 @@ check('shadow等の非正本の状態は正式判定にしない',SeriesRules::p
 $deadline = new DateTimeImmutable('2027-04-01T18:00:00+09:00');
 $end = new DateTimeImmutable('2027-04-10T17:00:00+09:00');
 foreach ([['2027-04-01T17:59:59+09:00','not_open'],['2027-04-01T18:00:00+09:00','open'],
-          ['2027-04-01T09:00:00Z','open'],['2027-04-17T16:59:59+09:00','open'],['2027-04-17T17:00:00+09:00','expired']] as [$now,$expected]) {
+          ['2027-04-01T09:00:00Z','open'],['2027-04-17T16:59:59+09:00','open'],['2027-04-17T17:00:00+09:00','open'],['2027-04-17T23:59:59.999999+09:00','open'],['2027-04-18T00:00:00+09:00','expired'],['2027-04-17T15:00:00Z','expired']] as [$now,$expected]) {
     check('主催照会の期間境界 '.$now,OrganizerPolicy::window(true,new DateTimeImmutable($now),$deadline,$end)===$expected);
     check('期間内でも担当外は拒否 '.$now,OrganizerPolicy::window(false,new DateTimeImmutable($now),$deadline,$end)==='forbidden');
 }

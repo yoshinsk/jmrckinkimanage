@@ -29,6 +29,11 @@ async function run(engine,name,device){
         await Promise.all([page.waitForURL(origin+'/manage/'),page.getByRole('button',{name:'サインイン',exact:true}).tap()]);
         check(prefix+' 既存アカウントでログイン',await page.locator('.account-email').innerText()===account.email);
         check(prefix+' 登録受付・請求入口は保留',await page.locator('a[href="/manage/memberships.php"],a[href="/manage/billing.php"]').count()===0);
+        // 新しい宣言テーブル・権限列を使う既存画面も、送信せずにDB接続と権限を確認する。
+        for(const path of ['/manage/memberships.php','/manage/billing.php','/manage/bank-settings.php','/manage/profile-correct.php']){
+          const expected=['/manage/memberships.php','/manage/billing.php'].includes(path)||account.role==='office'?200:403;
+          check(prefix+' 既存画面の閲覧権限 '+path,(await context.request.get(origin+path)).status()===expected);
+        }
         check(prefix+' マイページ入口は事務局だけ',(await page.locator(`a[href="${base}"]`).count()===1)===(account.role==='office'));
         if(account.role==='office'){
           await Promise.all([page.waitForURL('**/information-preview.php'),page.getByRole('link',{name:'旧HPの情報ページを確認',exact:false}).tap()]);
@@ -62,8 +67,8 @@ async function run(engine,name,device){
             check(prefix+' 分類内の文書のみ '+category,await page.locator('.info-source-link').count()===2);
           }
           await page.goto(origin+base);await page.locator('.info-answer-decisions > summary').tap();
-          check(prefix+' 回答18項目が閲覧可能',await page.locator('[data-answer]').count()===18 && await page.locator('[data-answer="Q05"]').isVisible());
-          check(prefix+' 最新資格・切上げ回答を反映',(await page.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await page.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
+          check(prefix+' 回答33項目が閲覧可能',await page.locator('[data-answer]').count()===33 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' 最新資格・四捨五入回答を反映',(await page.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await page.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
           await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
           check(prefix+' 回答展開320px・文字200%',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
           await page.evaluate(()=>document.documentElement.style.fontSize='');

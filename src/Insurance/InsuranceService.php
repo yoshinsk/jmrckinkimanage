@@ -42,9 +42,9 @@ final class InsuranceService
         $this->enabled();$this->actor($actor);
         return $this->run("SELECT cy.id,cy.year,cy.name_full FROM portal_club_years cy WHERE EXISTS(
             SELECT 1 FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id JOIN portal_role_permissions p ON p.role_id=r.id
-            WHERE g.user_id=? AND p.permission_code='insurance.export' AND g.status='active' AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL
+            WHERE g.user_id=? AND p.permission_code='insurance.export' AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL
             AND g.valid_from<=UTC_TIMESTAMP(6) AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until)
-            AND ((r.code='OFFICE' AND g.scope_type='global') OR (r.code='CLUB_REP' AND g.scope_type='club' AND g.scope_club_id=cy.club_id))) ORDER BY cy.year DESC,cy.id",[$actor])->fetchAll(PDO::FETCH_ASSOC);
+            AND ((r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND g.scope_type='global') OR (r.code='CLUB_REP' AND g.scope_type='club' AND g.scope_club_id=cy.club_id))) ORDER BY cy.year DESC,cy.id",[$actor])->fetchAll(PDO::FETCH_ASSOC);
     }
     /** 氏名等の一覧もダウンロードと同じ対象クラブの明示権限で保護する。 */
     public function listing(int $actor,int $clubYear): array
@@ -96,9 +96,9 @@ final class InsuranceService
         $this->actor($actor);$club=$this->one('SELECT cy.*,COALESCE(cy.name_full,c.name_full) AS name_full FROM portal_club_years cy JOIN portal_clubs c ON c.id=cy.club_id WHERE cy.id=?',[$clubYear]);
         if(!$club){throw new HttpFailure(404,'年度クラブがありません');}
         $grant=$this->one("SELECT g.id FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id JOIN portal_role_permissions p ON p.role_id=r.id
-            WHERE g.user_id=? AND p.permission_code='insurance.export' AND g.status='active' AND g.approved_by IS NOT NULL
+            WHERE g.user_id=? AND p.permission_code='insurance.export' AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL)
             AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6) AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until)
-            AND ((r.code='OFFICE' AND g.scope_type='global') OR (r.code='CLUB_REP' AND g.scope_type='club' AND g.scope_club_id=?)) LIMIT 1",[$actor,$club['club_id']]);
+            AND ((r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND g.scope_type='global') OR (r.code='CLUB_REP' AND g.scope_type='club' AND g.scope_club_id=?)) LIMIT 1",[$actor,$club['club_id']]);
         if(!$grant){throw new HttpFailure(403,'対象クラブ代表または事務局の帳票権限が必要です');}return $club;
     }
     /** 会員資格の有効化とは別。申請中の加入意思を保持し、停止/却下/年度終了は確認出力対象から外す。 */

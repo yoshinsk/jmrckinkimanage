@@ -47,7 +47,7 @@ async function run(engine,name,device,uid){
         await Promise.all([page.waitForNavigation(),page.getByRole('button',{name:'保存する',exact:true}).tap()]);
         check(name+' 本人がタッチ操作で登録',(await page.getByRole('status').innerText()).includes('保存しました'));
         const listing=await (await owner.request.get('https://web/manage/licenses.php?format=json')).json();const identifier=listing.licenses.at(-1);
-        const year=new Date().getUTCFullYear(),membership=await post(owner,'/manage/memberships.php?format=json',ownCsrf,{member_type:'general',year,club_year_id:900,identifier_id:identifier.id,request_key:crypto.randomBytes(24).toString('hex')});
+        const year=new Date().getUTCFullYear(),membership=await post(owner,'/manage/memberships.php?format=json',ownCsrf,{member_type:'general',competition_type:'確認用競技種別',official_type:'確認用審判種別',year,club_year_id:900,identifier_id:identifier.id,request_key:crypto.randomBytes(24).toString('hex')});
         const invoice=await post(owner,'/manage/billing.php?format=json',ownCsrf,{action:'issue',id:membership.id});
         await post(office,'/manage/billing.php?format=json',officeCsrf,{action:'approve',id:membership.id});
         await post(office,'/manage/billing.php?format=json',officeCsrf,{action:'confirm',id:invoice.id,amount:invoice.amount_yen,reference:'MOBILE-'+uid,operation:crypto.randomBytes(24).toString('hex')});

@@ -24,7 +24,7 @@ $db->exec("INSERT INTO portal_applications(id,kind,applicant_user_id,year,status
     VALUES(900,1,$nowYear,'1','100001',900,'approved','架空','架空','0000000','架空','000','club@example.invalid')");
 seedClubPaid($db,900);
 $member=new Browser();$member->login(3);$host=new Browser();$host->login(2);$finance=new Browser();$finance->login(7);$admin=new Browser();$admin->login(1);
-$s=submitMember($member,['member_type'=>'general','year'=>$nowYear,'club_year_id'=>900,'identifier_id'=>101]);
+$s=submitMember($member,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$nowYear,'club_year_id'=>900,'identifier_id'=>101]);
 check('請求用General申請',$s['status']===201);
 $mid=(int)json_decode($s['body'],true)['id'];
 check('会費マスター未設定は請求停止',billPost($member,'issue',$mid)['status']===422);

@@ -16,7 +16,7 @@ try {
     check('保留中は事務局にも入金操作を表示しない',!str_contains($html,'name="action"') && str_contains($html,'会費・入金の受付は準備中'));
     foreach(['issue','confirm','reverse','reallocate','approve'] as $action){check('会費保留中の直POST拒否 '.$action,billPost($layoutOffice,$action,1,['amount'=>2000,'payment'=>1,'reference'=>'LAYOUT-HOLD','reason'=>'架空保留検証'])['status']===409);}
     check('保留中もCSRF欠落は拒否',$layoutOffice->request('/manage/billing.php?format=json',['action'=>'confirm','id'=>1])['status']===400);
-    check('保留中の新規本人申請は既存サービスで拒否',submitMember($layoutMember,['member_type'=>'general','year'=>(int)gmdate('Y')+1,'club_year_id'=>101,'identifier_id'=>101])['status']===422);
+    check('保留中の新規本人申請は既存サービスで拒否',submitMember($layoutMember,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>(int)gmdate('Y')+1,'club_year_id'=>101,'identifier_id'=>101])['status']===422);
     check('受付保留の確認で既存の申請・入金・承認を更新しない',$layoutState()===$layoutBefore);
     // 資格の参照先が切替済みでも、本人受付の開始前にはフォームを表示しない。
     $db->exec("UPDATE portal_years SET source_mode='portal',member_self_open_at=UTC_TIMESTAMP()+INTERVAL 5 YEAR");

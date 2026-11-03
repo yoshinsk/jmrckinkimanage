@@ -1,14 +1,14 @@
 <?php
 // Path: src/Content/information-catalog.php
-// 機能: 2026-10-31の確定対応表と154件の旧URL候補。記事原文・個人名簿・正式移行先は含まない。
+// 機能: 2026-11-03の確定回答と154件の旧URL候補。記事原文・個人名簿・正式移行先は含まない。
 declare(strict_types=1);
 return json_decode(<<<'CATALOG'
 {
-  "snapshot": "2026-10-31",
+  "snapshot": "2026-11-03",
   "source_file": "20261031_旧HP移行元URL台帳.csv",
   "source_sha256": "d3322d14ce2e337e9453d9af9dc7944bed21c00766d583b8ccbe6907e9807189",
-  "answer_source": "Documents/answers/20261031_追加14項目回答.json",
-  "answer_sha256": "d7291edc54ad65ff904bc96a501f7c5756580408bb3ff51db14245d04c1b5376",
+  "answer_source": "Documents/answers/20261103_整合性チェック追加回答.json",
+  "answer_sha256": "69d3d9f7fc5dc1328c16df09ced0664cfbd68d5013f8c25ae11ae6d13efed3b2",
   "decisions": [
     {
       "id": "R05",
@@ -20,7 +20,7 @@ return json_decode(<<<'CATALOG'
       "id": "R06",
       "title": "事務局の複数登録・CSV",
       "confirmed": "事務局は複数アカウントを登録できる。CSVは出力列を選べる設計とし、クラブ代表は担当範囲に限る。",
-      "pending": "追加アカウントの指定・承認と、財務用CSVの列・権限は未確定。権限は自動付与しない。"
+      "pending": "運営委員の権限は事務局と同等。追加アカウントは相互承認で扱う。実運用CSVの列選択仕様は確認待ち。"
     },
     {
       "id": "R08",
@@ -30,9 +30,9 @@ return json_decode(<<<'CATALOG'
     },
     {
       "id": "R11",
-      "title": "運営担当者の登録承認",
-      "confirmed": "運営委員会の担当者登録は事務局長が承認する。主催クラブと代表アカウントは共通で扱う。",
-      "pending": "事務局長のアカウント対応、通知先・文面は別途確認。名簿上の役職だけでシステム権限を与えない。"
+      "title": "事務局・運営委員・承認者の登録承認",
+      "confirmed": "事務局と運営委員は同等の業務権限。事務局・運営委員の登録は承認者、承認者の登録は運営委員が承認する。自己承認は禁止。",
+      "pending": "運営委員長・副委員長・事務局長は承認者に統一。通常の役職申請受付は保留。"
     },
     {
       "id": "Q01",
@@ -50,7 +50,7 @@ return json_decode(<<<'CATALOG'
       "id": "Q03",
       "title": "保険連絡の入力項目",
       "confirmed": "入力は被保険者名・クラブ名の2項目。事故日・事故概要・連絡先・添付を追加要求しない。",
-      "pending": "実際の連絡先・送信先の接続は保留。給付確定や保険会社への正式請求は行わない。"
+      "pending": "事務局がクラブ員名簿から本人へ連絡し、同姓同名は電話で確認する。正式送信先との接続・保険会社への正式請求は保留。"
     },
     {
       "id": "Q04",
@@ -61,8 +61,8 @@ return json_decode(<<<'CATALOG'
     {
       "id": "Q05",
       "title": "主催者の資格照会",
-      "confirmed": "申込締切以降からイベント終了1週間後まで照会できる。照会時点の最新資格で「個人会員か」「正会員クラブに所属しているか」の2点を表示する。",
-      "pending": "確認できない場合は主催者へ注意を表示し、申込受理を自動停止しない。既存イベントの権限・終了日時との接続は保留。"
+      "confirmed": "担当イベントの締切から終了日の7日後23:59まで、照会時点の最新資格2項目を表示する。",
+      "pending": "既存イベントの締切・終了日時との対応と、実データ照会の接続は保留。"
     },
     {
       "id": "Q06",
@@ -74,7 +74,7 @@ return json_decode(<<<'CATALOG'
       "id": "Q07",
       "title": "シリーズ・クラスの範囲",
       "confirmed": "ジムカーナと将来のダートトライアルに対応する。同じ選手の複数クラス・競技参加を分けて扱う。ラリーのオンラインエントリー移行は現時点の対象外。",
-      "pending": "2027年度規則・提出済みクラス一覧は未受領。順位別点数、不成立・失格・中止等を推定しない。"
+      "pending": "2027年度規則・提出済みクラス一覧は未受領。C15で成立条件と有効戦数を確認済み。順位別配点・失格等の扱いは推定しない。"
     },
     {
       "id": "Q08",
@@ -85,8 +85,8 @@ return json_decode(<<<'CATALOG'
     {
       "id": "Q09",
       "title": "集計・表示・訂正",
-      "confirmed": "クラス別に順位、各イベントのポイント、有効ポイント、氏名、クラブ略称を表示する。有効戦数は開催数の70％を切り上げる（全7戦なら5戦）。",
-      "pending": "部会HPからの取込・訂正版の再読込は要望として採用。高得点回数・後開催優先の同点規則の細部、正式取込元・形式・確定担当は確認待ち。自動公開はしない。"
+      "confirmed": "クラス別に順位、各イベントのポイント、有効ポイント、氏名、クラブ略称を表示する。有効戦数は成立5戦以下は全戦、それ以上は成立戦数の70％を四捨五入する（全7戦なら5戦、6戦なら4戦）。",
+      "pending": "各部会長が確認し、ポータル取込時の追加承認は不要。同点比較の細部、正式取込元・形式・訂正版の対応付けは確認待ち。自動公開はしない。"
     },
     {
       "id": "Q10",
@@ -114,9 +114,99 @@ return json_decode(<<<'CATALOG'
     },
     {
       "id": "Q14",
-      "title": "旧HPの残置・移行作業",
-      "confirmed": "旧ページは約1年残す方針。更新担当は事務局員。ポータル公開後に事務局が移管作業を行い、間に合わない内容は「事務局から」で告知する。",
-      "pending": "残置期間の起算日、旧サーバー廃止との調整、移管先・転送設定・公開の最終判断者は未確定。"
+      "title": "旧HPの残置と移行完了",
+      "confirmed": "残置期間の起算日は2026年12月31日で、期間は1年間。",
+      "pending": "旧サーバー廃止後も旧ページを閲覧可能にする方法・残置先・移行完了確認者は未確定。"
+    },
+    {
+      "id": "C02",
+      "title": "JAF種別・会員番号と履歴",
+      "confirmed": "競技・審判員の番号は共通。申請で両方の種別を申告する。移籍で会員番号は変わるが、ポイントは共通の個人IDで引き継ぐ。",
+      "pending": "再発行・名義訂正などの正式な移行手順は保留。"
+    },
+    {
+      "id": "C06",
+      "title": "2027年度の料金",
+      "confirmed": "クラブ年会費と保険料は2026年度と同額。年度ごとの変更はマスター管理する。",
+      "pending": "保険の年齢判定日・期間・追加加入手順は未確定。2028年度以降へ自動繰越ししない。"
+    },
+    {
+      "id": "C07",
+      "title": "賛助会員の年度登録",
+      "confirmed": "賛助会員も年度登録対象。登録団体は10,000円、関連団体・企業は50,000円。",
+      "pending": "地区外の主催クラブの例外を会則第5条と照合中。賛助のクラブコード対応は保留。"
+    },
+    {
+      "id": "C08",
+      "title": "入会金",
+      "confirmed": "新規クラブ・登録団体は賛助を含め10,000円。更新・再加入・賛助の関連団体／企業は入会金なし（11月3日補足）。",
+      "pending": "旧会則には未更新後の新規扱いがあるため、2027年度の規程に今回の回答を明記する必要がある。"
+    },
+    {
+      "id": "C09",
+      "title": "銀行CSV原本",
+      "confirmed": "サンプルを依頼中との回答。",
+      "pending": "現物未受領。CSV形式の確定と本番取込は保留。"
+    },
+    {
+      "id": "C10",
+      "title": "役職と相互承認",
+      "confirmed": "財務委員を運営委員へ改称し、事務局と同等にする。承認者を上位の登録承認役職として設け、自己承認を禁止する。",
+      "pending": "初期設定と通常の役職申請を分ける。記事等の承認担当は個別の決定も保持する。"
+    },
+    {
+      "id": "C11",
+      "title": "運営委員の業務権限",
+      "confirmed": "運営委員は事務局と同等の業務権限を持つ。",
+      "pending": "対象クラブに限定されるTemporary主催承認を、全体権限だけで行うことはできない。"
+    },
+    {
+      "id": "C12",
+      "title": "主催者照会の終了時刻",
+      "confirmed": "イベント終了日の7日後23:59まで（日本時間）。翌日0:00から照会不可。",
+      "pending": "イベント日時との対応確認後に実データへ接続する。"
+    },
+    {
+      "id": "C13",
+      "title": "年またぎのポイント資格",
+      "confirmed": "12月開催のポイントイベントはない見込みとの回答。",
+      "pending": "12月中に翌年イベントへ申し込む場合と、2月7日前のクラブ更新猶予の扱いは未回答。例外は実装しない。"
+    },
+    {
+      "id": "C14",
+      "title": "部会の確認と表彰案内",
+      "confirmed": "ポイント確認担当は各部会長。ポータル取込時の追加承認は不要。シリーズ終了後、各クラス6位以内かつ年間平均参加台数の1/2以内を表彰し、メール案内する。",
+      "pending": "平均の対象競技会・同点者・宛先対応・送信文面は未確定。人数の試算と案内文の確認まで。実送信は保留。"
+    },
+    {
+      "id": "C15",
+      "title": "クラス・シリーズ成立と有効戦",
+      "confirmed": "出走3台以上でクラス成立、中止・不成立は戦数から除外。終了時3戦以上でシリーズ成立。5戦以下は全戦、それ以上は70％を四捨五入して高得点順に合計。同点比較は有効戦のみ。",
+      "pending": "正式な2027年度規則と配点・同点比較の詳細は原本待ち。2026年資料を自動的に2027年規則へ採用しない。"
+    },
+    {
+      "id": "C16",
+      "title": "保険請求連絡後の本人確認",
+      "confirmed": "入力は被保険者名とクラブ名の2項目。事務局がクラブ員名簿を確認して本人へ連絡し、同姓同名は電話で確認する。",
+      "pending": "旧制度・紙申請も含む受付への実接続は保留。氏名だけでアカウントを自動対応付けしない。"
+    },
+    {
+      "id": "C17",
+      "title": "個人情報削除の時期と複製",
+      "confirmed": "削除はポータル会員個人情報に限定し、共通アカウント・エントリー履歴・会計・操作ログは残す。",
+      "pending": "今回の記入は質問のため、削除範囲への追加合意とは扱わない。翌年4月30日の候補と、年度内の個別退会・訂正・削除、CSV・バックアップを区別して確認する。"
+    },
+    {
+      "id": "C18",
+      "title": "旧HP残置の起算日",
+      "confirmed": "2026年12月31日から1年間。",
+      "pending": "旧サーバーを止めても旧ページを見られるようにする保管先や移行方式は未回答。サーバー・DNS・転送設定は変更しない。"
+    },
+    {
+      "id": "C24",
+      "title": "通知先",
+      "confirmed": "回答入力G24を参照し、個人会員・クラブ代表・事務局への通知を確定。",
+      "pending": "文面承認者・送信時点・通信方法は未確定。今回の確認画面では文案まで。"
     }
   ],
   "topics": {
@@ -136,7 +226,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -157,7 +247,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -178,7 +268,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -203,7 +293,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -224,7 +314,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -241,11 +331,11 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "Q06～09により登録・確定は既存entry。部会トップへのリンクを基本とする。自動集計表示は規則・取込元の確認後",
       "page": "P23",
-      "pending": "Q07～Q09：2027規則、正式取込元・形式、同点処理の細部と訂正担当は確認待ち",
+      "pending": "2027規則、正式取込元・形式、同点処理・訂正版の対応付けは確認待ち。確認担当は各部会長で、取込時の追加承認は不要。",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -266,7 +356,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -287,7 +377,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -310,7 +400,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -334,7 +424,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -357,7 +447,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -381,7 +471,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -403,7 +493,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -425,7 +515,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -449,7 +539,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -471,7 +561,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "JAF",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "national"
       ]
@@ -493,7 +583,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -510,11 +600,11 @@ return json_decode(<<<'CATALOG'
       ],
       "policy": "スポーツ安全保険の申込セクション。公表用案内と本人・クラブの申込記録を分ける",
       "page": "P26",
-      "pending": "2027年の料率・保険期間、正式な受付・通知先の接続は保留。事務局から当人へ連絡し、保険手続きはシステム外で進める",
+      "pending": "2027年度は64歳以下2,000円・65歳以上1,200円。年齢判定日・保険期間・正式受付は保留。事務局が名簿から連絡し、同姓同名は電話で確認する。",
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "office"
       ]
@@ -536,7 +626,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "committee"
       ]
@@ -558,7 +648,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "Q13の回答でP27の分類を訂正済み。文書ごとに分類と発行団体を表示します。",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "committee",
         "national"
@@ -581,7 +671,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -602,7 +692,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "JAF",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "national"
       ]
@@ -623,7 +713,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 2,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -644,7 +734,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "excluded",
-      "revision": 1,
+      "revision": 3,
       "categories": [
         "kinki"
       ]
@@ -1631,6 +1721,7 @@ return json_decode(<<<'CATALOG'
         "verification": "未確認（トップHTMLのhrefから抽出）"
       }
     ]
-  }
+  },
+  "prior_answer_source": "Documents/answers/20261031_追加14項目回答.json"
 }
 CATALOG, true, 512, JSON_THROW_ON_ERROR);

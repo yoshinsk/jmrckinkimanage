@@ -1,5 +1,5 @@
 # Path: scripts/deploy_information_preview.py
-# 機能: 旧HP試作8ファイル、回答反映3ファイル、操作案内3ファイルのいずれかを限定配置・復元する。
+# 機能: 各profileの固定ファイルだけを限定配置・復元する。回答反映と保険案内も別々に原本を保存する。
 import argparse
 import hashlib
 import json
@@ -23,6 +23,16 @@ EXISTING = ['src/bootstrap.php', 'public/manage/review.php', 'public/manage/inde
 ANSWER_FILES = ['src/Content/information-catalog.php', 'src/Content/InformationPreview.php', 'src/Content/information-template.php']
 REVIEW_FILES = ['public/manage/_review-catalog.php', 'public/manage/_review-workspace.php', 'public/manage/review.php']
 PROFILES = {'initial': (ORDER, EXISTING), 'answers': (ANSWER_FILES, ANSWER_FILES), 'review': (REVIEW_FILES, REVIEW_FILES)}
+CONFIRMED_NEW = ['src/Auth/StaffRolePolicy.php', 'src/Auth/StaffRoleService.php', 'src/Club/ClubFeePolicy.php',
+                 'src/Membership/LicenseDeclaration.php', 'src/Series/SeriesRules.php', 'src/Events/OrganizerEligibilityPolicy.php']
+CONFIRMED_EXISTING = ['src/bootstrap.php', 'src/Auth/SharedAuth.php', 'src/Membership/MembershipService.php',
+                     'src/Bank/BankMasterService.php', 'src/Bank/BankService.php', 'src/Billing/BillingService.php',
+                     'src/Club/ClubService.php', 'src/Insurance/InsuranceService.php', 'src/License/LicenseService.php',
+                     'src/Profile/ProfileService.php', 'src/Content/information-catalog.php',
+                     'public/manage/memberships.php', *REVIEW_FILES]
+PROFILES['confirmed'] = (CONFIRMED_NEW + CONFIRMED_EXISTING, CONFIRMED_EXISTING)
+INSURANCE_NOTICE_FILES = ['src/Insurance/InsuranceWorkbook.php', 'public/manage/insurance.php']
+PROFILES['insurance-notices'] = (INSURANCE_NOTICE_FILES, INSURANCE_NOTICE_FILES)
 
 
 def require(condition, message):
@@ -109,7 +119,10 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
+        if self.profile in ['confirmed', 'insurance-notices']:
+            require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
+        else:
+            require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
         return {'before': state, 'files': {n: {'old_sha256': sha(self.target(n))} for n in self.order}}
 
     def cache(self):
@@ -188,6 +201,12 @@ class Release:
             if name == 'src/bootstrap.php':
                 self.cache()
         content = self.source/'src/Content'
+        for relative in reversed(manifest.get('created_directories', [])):
+            require(relative in ['src/Content', 'src/Events', 'src/Series'], 'Unexpected created directory')
+            directory = self.source/relative
+            require(not directory.is_symlink(), 'Created directory became symlink')
+            if directory.is_dir() and not any(directory.iterdir()):
+                directory.rmdir()
         if manifest.get('created_content_directory') and content.exists():
             # 後から別のファイルが追加されていた場合は空ディレクトリ以外を削除しない。
             require(not content.is_symlink(), 'Content directory became a symlink')
@@ -211,11 +230,15 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',
                     'created_content_directory': not (self.source/'src/Content').exists()}
+        missing = sorted({str(self.target(name).parent.relative_to(self.source)) for name in self.order
+                          if not name.startswith('public/') and not self.target(name).parent.exists()})
+        require(all(p in ['src/Content', 'src/Events', 'src/Series'] for p in missing), 'Unexpected missing parent')
+        manifest['created_directories'] = missing
         for name in self.existing:
             source = self.target(name)
             st = source.stat()
@@ -232,10 +255,11 @@ class Release:
             os.chmod(backup/'manifest.json', 0o600)
         save_manifest()
         try:
-            if manifest['created_content_directory']:
+            for relative in manifest['created_directories']:
                 parent = (self.source/'src').stat()
-                (self.source/'src/Content').mkdir(mode=parent.st_mode & 0o777)
-                os.chown(self.source/'src/Content', parent.st_uid, parent.st_gid)
+                directory = self.source/relative
+                directory.mkdir(mode=parent.st_mode & 0o777)
+                os.chown(directory, parent.st_uid, parent.st_gid)
             for name in self.order:
                 self.replace(stage/name, name)
                 if name == 'src/bootstrap.php':

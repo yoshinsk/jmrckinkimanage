@@ -7,7 +7,7 @@ require_once __DIR__ . '/_review-catalog.php';
 
 final class JmrcReviewWorkspace
 {
-    public const ROLES = ['office'=>'事務局','club'=>'クラブ代表','member'=>'個人会員','finance'=>'財務委員','public'=>'公開閲覧者'];
+    public const ROLES = ['office'=>'事務局','club'=>'クラブ代表','member'=>'個人会員','finance'=>'運営委員','approver'=>'承認者','public'=>'公開閲覧者'];
 
     /** 実在データを複写せず、独立した例から開始。2時間経過・別ユーザー・版変更でリセットする。 */
     public static function initial(int $owner, int $revision = 0): array
@@ -27,7 +27,8 @@ final class JmrcReviewWorkspace
     public function visible(string $screen): bool
     {
         $c = jmrc_review_catalog();
-        return $screen === 'overview' || (isset($c[$screen]) && in_array($this->state['role'], $c[$screen]['roles'], true));
+        $visibleRole=in_array($this->state['role'],['finance','approver'],true)?'office':$this->state['role'];
+        return $screen === 'overview' || (isset($c[$screen]) && in_array($visibleRole, $c[$screen]['roles'], true));
     }
 
     /** 決定済みの複合条件を表示例に反映。番号の採番元変更は、再発行方針が決まるまで無効を維持する。 */
@@ -53,7 +54,7 @@ final class JmrcReviewWorkspace
     /** 状態変更を許す立場を定義。画面のボタン非表示とサーバーのPOST検査で同じ判定を使う。 */
     public function allowed(string $screen, string $action): bool
     {
-        $role=$this->state['role'];
+        $role=in_array($this->state['role'],['finance','approver'],true)?'office':$this->state['role'];
         if (!$this->visible($screen)) { return false; }
         if ($action==='note' || $action==='role' || $action==='reset') { return true; }
         if (!isset(jmrc_review_catalog()[$screen]['actions'][$action])) { return false; }
@@ -67,10 +68,11 @@ final class JmrcReviewWorkspace
     }
 
     /** 許可済み入力だけを検査。未知の配列・UTF-8不正・過大な入力・危険なURLは保存しない。 */
-    private function fields(string $screen, array $input): array
+    private function fields(string $screen, array $input, string $action): array
     {
         $out=[];
-        foreach(jmrc_review_catalog()[$screen]['fields'] as $key=>[$label,$type,$default]) {
+        $definitions=jmrc_review_catalog()[$screen][$screen==='insurance' && $action==='claim_notice'?'claim_fields':'fields'];
+        foreach($definitions as $key=>[$label,$type,$default]) {
             $value=$input[$key]??$default;
             if(!is_string($value) || strlen($value)>4000 || preg_match('//u',$value)!==1 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/',$value)) { $this->fail($label.'を確認してください'); }
             $value=trim($value);
@@ -117,13 +119,18 @@ final class JmrcReviewWorkspace
             if(!is_string($note) || strlen($note)>4000 || preg_match('//u',$note)!==1 || !in_array($decision,['pending','ok','change'],true)) { $this->fail('確認メモを確認してください'); }
             $this->state['notes'][$screen]=['decision'=>$decision,'note'=>$note];return '確認メモを保存しました。共有する場合は確認票を書き出してください';
         }
-        $f=$this->fields($screen,$input);$s=&$this->state;
+        $f=$this->fields($screen,$input,$action);$s=&$this->state;
         switch($screen) {
             case 'licenses':
                 if(!preg_match('/^[A-Za-z0-9-]{1,64}$/D',$f['number'])) { $this->fail('ライセンス番号を確認してください'); }
                 if($s['license']!==null && ($s['license']['number']!==$f['number'] || $s['license']['kind']!==$f['kind']) && $s['member']['submitted']) { $s['member']['card_invalid']=true; }
                 $s['license']=$f;break;
             case 'clubs':
+                if($action==='quote') {
+                    try { $s['club_quote']=\Jmrc\Club\ClubFeePolicy::quote(2027,$f['rate_category'],$f['membership_class'],$f['registration_kind']); }
+                    catch(\InvalidArgumentException $error) { $this->fail($error->getMessage()); }
+                    break;
+                }
                 if($action==='save') {
                     if(!preg_match('/^[0-9]{5}$/D',$f['base'])) { $this->fail('不変コードは5桁で入力してください'); }
                     if($s['club']['submitted'] && $s['club']['code']!==$f['category'].$f['base']) { $this->fail('登録後の年度コードは変更できません'); }
@@ -136,6 +143,7 @@ final class JmrcReviewWorkspace
                 if(!$s['license'] || $s['license']['expiry']<$s['date']) { $this->fail('有効なJAFライセンスを先に登録してください'); }
                 if(!$s['club']['approved'] || !isset($s['invoices']['club']) || $this->paid('club')<$s['invoices']['club']) { $this->fail('有効な年度クラブ登録が必要です。クラブ登録から確認してください'); }
                 if($s['member']['submitted']) { return '同じ年度の申請を表示しました。申請・請求は増やしていません'; }
+                $s['declaration']=\Jmrc\Membership\LicenseDeclaration::validate($f,$s['license']['kind']);
                 $s['profile']=$f;$s['member']['submitted']=true;$this->issue('general');break;
             case 'affiliations':
                 if(!$s['member']['submitted']) { $this->fail('先にGeneralを申請してください'); }
@@ -172,11 +180,12 @@ final class JmrcReviewWorkspace
                 else { if(!$s['bank']) { $this->fail('先に架空CSVを取り込んでください'); }$this->payment('general',2000,'DEMO-BANK-1');$s['bank']['DEMO-BANK-1']['status']='照合済み'; }
                 break;
             case 'insurance':
+                if($action==='claim_notice') { $s['insurance_claim']=$f;break; }
                 if($f['type']!=='general') { $this->fail('スポーツ安全保険はGeneralのみです'); }
                 if((int)$f['count']>24) { $this->fail('確認用Excelは1〜24名です'); }
                 $s['insurance']=['intent'=>true,'count'=>(int)$f['count']];break;
             case 'privacy':
-                if($action==='erase') { $s['profile']=null;$s['license']=null;$s['member']['card_invalid']=true;return '架空プロフィールを削除しました。確認用の請求・入金・操作履歴は残しています'; }
+                if($action==='erase') { $s['profile']=null;$s['license']=null;$s['declaration']=null;$s['member']['card_invalid']=true;return '架空プロフィールを削除しました。確認用の請求・入金・操作履歴は残しています'; }
                 $s['profile']=array_merge($s['profile']??[],$f);break;
             case 'documents':
                 if($action==='remove') { if(!empty($s['entries'][$screen])) { array_pop($s['entries'][$screen]); }break; }
@@ -184,7 +193,37 @@ final class JmrcReviewWorkspace
                 if(count($s['entries'][$screen]??[])>=20) { $this->fail('確認用資料は20件までです'); }
                 $s['entries'][$screen][]=$f;break;
             case 'operations':
+                if($action==='approve_role') {
+                    $staffRole=['office'=>'OFFICE','finance'=>'COMMITTEE','approver'=>'APPROVER'][$s['role']]??'';
+                    if(!\Jmrc\Auth\StaffRolePolicy::canApprove(1,$f['role_subject']==='self'?1:2,[$staffRole],$f['requested_role'])) {
+                        throw new \Jmrc\Auth\HttpFailure(403,'この役職の承認権限がありません。本人の申請は承認できません');
+                    }
+                    $s['staff_role_example']=['role'=>$f['requested_role'],'subject'=>'別の架空担当者','approved_by'=>self::ROLES[$s['role']]];
+                    break;
+                }
                 $this->scenario($f['status'],$f['date']);break;
+            case 'handbook':
+                if($action==='calculate') {
+                    try {
+                        $s['series_example']=['class_established'=>\Jmrc\Series\SeriesRules::classEstablished((int)$f['starters'],$f['cancelled']==='yes'),
+                            'series_established'=>\Jmrc\Series\SeriesRules::seriesEstablished((int)$f['rounds'],$f['season_ended']==='yes'),
+                            'effective_rounds'=>\Jmrc\Series\SeriesRules::effectiveRounds((int)$f['rounds']),
+                            'award_limit'=>\Jmrc\Series\SeriesRules::awardLimit((int)$f['total_starters'],(int)$f['award_events'])];
+                    } catch(\InvalidArgumentException $error) { $this->fail($error->getMessage()); }
+                } else {
+                    if(count($s['entries'][$screen]??[])>=20) { $this->fail('確認用の保存件数は20件までです'); }
+                    $s['entries'][$screen][]=array_merge($f,['action'=>$action]);
+                }
+                break;
+            case 'notifications':
+                if($action==='award_draft') {
+                    $example=$s['series_example']??null;
+                    if(!$example || !$example['series_established'] || $example['award_limit']<1) { $this->fail('先に会則・シリーズ規則で、終了したシリーズと表彰人数の例を確認してください'); }
+                    $f=['target'=>'member','title'=>'年間シリーズ表彰のご案内（確認用・未送信）',
+                        'body'=>'表彰候補は最大'.$example['award_limit'].'名となる計算例です。正式な対象競技会・同点者・順位・宛先を確認してからご案内します。'];
+                }
+                if(count($s['entries'][$screen]??[])>=20) { $this->fail('確認用の保存件数は20件までです'); }
+                $s['entries'][$screen][]=array_merge($f,['action'=>$action]);break;
             default:
                 // 未確定業務は下書きと一覧表示まで。公開設定もこのセッション内の表示フィルターだけに使う。
                 if($action==='remove') { if(!empty($s['entries'][$screen])) { array_pop($s['entries'][$screen]); } }
@@ -233,7 +272,7 @@ final class JmrcReviewWorkspace
     public function entries(string $screen): array
     {
         $role=$this->state['role'];
-        return array_values(array_filter($this->state['entries'][$screen]??[],static fn($r)=>$role==='office' || ($r['visibility']??'members')==='public' || ($role!=='public' && ($r['visibility']??'members')==='members')));
+        return array_values(array_filter($this->state['entries'][$screen]??[],static fn($r)=>in_array($role,['office','finance','approver'],true) || ($r['visibility']??'members')==='public' || ($role!=='public' && ($r['visibility']??'members')==='members')));
     }
 
     private function fail(string $message): never { throw new \Jmrc\Auth\HttpFailure(422,$message); }

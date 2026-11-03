@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "cases": [
+    "対象DBを取り違えない",
+    "事前状態が変われば適用しない",
+    "指定アカウントなしでは適用しない",
+    "権限登録に失敗したらDDLも戻す",
+    "失敗後の原状復帰",
+    "追加表・列・指定者の2権限だけを追加",
+    "初期設定を本人の承認と記録しない",
+    "事務局と同じ業務権限を設定",
+    "後続の権限変更があれば復元を停止",
+    "DDLと権限データをまとめて復元",
+    "初期設定の外部操作ログは残す",
+    "CLIから同じ事前状態を取得",
+    "CLIがメールアドレスから指定者を解決",
+    "CLIによる復元"
+  ],
+  "sha256": {
+    "scripts/ConfirmedAnswersDatabase.php": "4a86c8fa8e56c24cb9337f9bb7700d48dcd315ec39574006ed7ae7c1d1d001fa",
+    "scripts/confirmed_answers_database.php": "693819bf545c731becf4f280a93655f300fa5fffdd177dca9f604fee8e2f9c32",
+    "design/phase2/011_license_declarations.sql": "2c754f5014344729f423ebc007bedb11f0fd640e57ff7fea875f7bbbda58b17a",
+    "design/phase2/staff_permissions.sql": "5a4540371bcd785272204bad417eca36c98deba1712a40840933225ee3f55e97",
+    "tests/auth/database_answers.php": "b3f33c7daf2778353c73186a7437ca93def96a9c136041f899609f8eca5e15ab"
+  }
+}

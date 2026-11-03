@@ -5,6 +5,7 @@ declare(strict_types=1);
 if(PHP_SAPI!=='cli') { exit(1); }
 require_once '/srv/auth/src/Auth/HttpFailure.php';
 require_once '/srv/web/manage/_review-workspace.php';
+foreach(['Auth/StaffRolePolicy','Club/ClubFeePolicy','Membership/LicenseDeclaration','Series/SeriesRules'] as $rule) {require_once '/srv/auth/src/'.$rule.'.php';}
 $reviewSnapshot=static function() use($db): array {
     return $db->query('CHECKSUM TABLE portal_profiles,portal_identifiers,portal_club_years,portal_memberships,portal_applications,portal_affiliations,portal_invoices,portal_invoice_lines,portal_payments,portal_allocations,portal_years,portal_bank_imports,portal_insurance_requests')->fetchAll(PDO::FETCH_ASSOC);
 };
@@ -123,4 +124,19 @@ $act('overview','role',['role'=>'public']);check('公開一覧へ非公開記事
 $reject('公開立場の投稿を拒否','notices','save',[],403);$act('overview','role',['role'=>'office']);
 $act('operations','save',['status'=>'active']);$invoices=$model->state['invoices'];$payments=$model->state['payments'];$act('privacy','erase');
 check('削除例ではプロフィールのみ消し会計を保持',$model->state['profile']===null && $model->state['license']===null && $model->state['invoices']===$invoices && $model->state['payments']===$payments && !$model->eligibility()['active']);
+$act('clubs','quote',['rate_category'=>'organization','membership_class'=>'supporting','registration_kind'=>'new']);
+check('確認画面で賛助登録団体の年会費と入会金を区別',$model->state['club_quote']['annual_yen']===10000 && $model->state['club_quote']['joining_yen']===10000);
+$act('overview','role',['role'=>'finance']);
+check('運営委員の立場は事務局24画面と同等',count(array_filter(array_keys(jmrc_review_catalog()),fn($screen)=>$model->visible($screen)))===24);
+$act('operations','approve_role',['requested_role'=>'APPROVER','role_subject'=>'other']);
+check('運営委員から別の承認者を承認する例',$model->state['staff_role_example']['role']==='APPROVER');
+$reject('確認画面でも運営委員の自己承認不可','operations','approve_role',['requested_role'=>'APPROVER','role_subject'=>'self'],403);
+$act('overview','role',['role'=>'approver']);$act('operations','approve_role',['requested_role'=>'COMMITTEE','role_subject'=>'other']);
+$reject('確認画面でも承認者の自己承認不可','operations','approve_role',['requested_role'=>'COMMITTEE','role_subject'=>'self'],403);
+$act('handbook','calculate',['rounds'=>'6','starters'=>'2','total_starters'=>'70','award_events'=>'7']);
+check('計算例も成立条件と四捨五入を使う',!$model->state['series_example']['class_established'] && $model->state['series_example']['effective_rounds']===4 && $model->state['series_example']['award_limit']===5);
+$act('notifications','award_draft');
+check('表彰案内は候補人数入りの未送信文案',str_contains($model->entries('notifications')[0]['body'],'最大5名') && str_contains($model->entries('notifications')[0]['title'],'未送信'));
+$act('insurance','claim_notice',['insured_name'=>'確認 同名','club_name'=>'架空クラブ']);
+check('保険請求連絡は2項目だけを保持',array_keys($model->state['insurance_claim'])===['insured_name','club_name']);
 check('すべての操作確認で本番相当の業務13表を更新しない',$reviewSnapshot()===$reviewBefore);

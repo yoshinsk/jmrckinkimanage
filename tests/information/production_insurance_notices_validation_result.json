@@ -1,0 +1,151 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-03T08:59:13.679Z",
+  "scope": "confirmed insurance notice wording; two existing files; no database changes",
+  "production_url": "https://gymkinki.com/manage/",
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/insurance-notices-20261103T085821Z",
+  "database_backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/confirmed-answers-db-20261103T084106Z",
+  "backup_verification": {
+    "status": "PASS",
+    "originals_match": true,
+    "private_modes": true,
+    "database_state_matches": true,
+    "initial_roles": 2,
+    "ordinary_self_approval_used": false
+  },
+  "file_rollback_tests": 21,
+  "database_release_tests": 14,
+  "isolated_functional_browser_checks": 2721,
+  "offline_browser_checks": 28,
+  "protected_files": 666,
+  "business_tables_before": 83,
+  "business_tables_after": 83,
+  "changed_existing_tables": [],
+  "existing_business_data_unchanged": true,
+  "protected_state_unchanged_after_database": true,
+  "before": {
+    "release_root": "/var/www/vhosts/gymkinki.com/private/jmrc-portal/releases/076a4b1000eaa1885ad02bfc5e82cf8fbc8163dc",
+    "counts": {
+      "users": 305,
+      "jmrc_entries": 1200,
+      "jmrc_entry_fees": 1508,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "flags": {
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false
+    },
+    "years": "2027\tshadow",
+    "permission_roles": "APPROVER\nCOMMITTEE\nFINANCE\nOFFICE"
+  },
+  "files": {
+    "src/Insurance/InsuranceWorkbook.php": {
+      "old_sha256": "2401485c195249579ccba85ff8cccb81cef30293a4b3c19c79c1c97856be5bf0",
+      "new_sha256": "ae6d56315f6e00cbcc7c5ba6a4c977f44f3e3bb524228a07640a51a433cef8a8",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/insurance.php": {
+      "old_sha256": "8ff65b26ce182991afa216af9c918b8ffdab62cd32aa6315c456e36fdce6c58b",
+      "new_sha256": "9e47387f1490a590b36bef1f9ae832cd13ecb33b51b4717b263f03504986b930",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "browser": {
+    "status": "PASS",
+    "checked_at_utc": "2026-11-03T08:59:13.679Z",
+    "browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ],
+    "cases": [
+      {
+        "case": "chromium office 未認証は401",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 既存ログイン",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 保険受付は準備中のまま",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office ログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 未認証は401",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 既存ログイン",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant 保険受付は準備中のまま",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant ログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 未認証は401",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 既存ログイン",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 保険受付は準備中のまま",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office ログアウト",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 未認証は401",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 既存ログイン",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant 保険受付は準備中のまま",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant ログアウト",
+        "result": "PASS"
+      }
+    ],
+    "business_posts": 0
+  }
+}

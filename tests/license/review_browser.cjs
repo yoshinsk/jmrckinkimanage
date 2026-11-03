@@ -66,6 +66,14 @@ async function run(engine,name,device){
   await p.screenshot({path:`/artifacts/${name}-review-insurance.png`,fullPage:true});
   await p.getByLabel('確認結果').selectOption('change');await p.getByLabel('メモ（個人情報を含めない）').fill('保険料と期間の確認が必要');await submit('確認メモを保存');
   const notes=await c.request.get('https://web/manage/review.php?download=notes');check(name+' メモ24画面を書出し',notes.status()===200 && (await notes.json())['画面別確認'].length===24 && (await notes.text()).includes('保険料と期間の確認が必要'));
+  await go('clubs');await p.getByLabel('料金計算の区分',{exact:true}).selectOption('organization');await p.getByLabel('料金計算の会員区分',{exact:true}).selectOption('supporting');await p.getByLabel('料金計算の登録方法',{exact:true}).selectOption('new');await submit('2027年度の料金を計算');
+  check(name+' 賛助新規の料金をスマートフォンで確認',(await p.getByRole('region',{name:'2027年度の料金計算'}).innerText()).includes('20,000'));
+  await role('finance');await go('operations');await p.getByLabel('登録する役職').selectOption('APPROVER');await submit('役職の承認可否を試す');check(name+' 運営委員から承認者への承認例',await p.getByRole('region',{name:'役職承認の確認結果'}).count()===1);
+  await p.getByLabel('登録対象',{exact:true}).selectOption('self');await submit('役職の承認可否を試す');check(name+' 自己承認は画面でも拒否',(await p.getByRole('alert').innerText()).includes('本人の申請'));
+  await role('approver');await go('operations');await p.getByLabel('登録する役職').selectOption('COMMITTEE');await submit('役職の承認可否を試す');check(name+' 承認者から運営委員への承認例',await p.getByRole('region',{name:'役職承認の確認結果'}).count()===1);
+  await go('handbook');await p.getByLabel('成立した当該クラスの戦数').fill('6');await submit('成立条件・有効戦数・表彰人数を試算');check(name+' 6戦なら4戦の計算例',(await p.getByRole('region',{name:'シリーズの計算例'}).innerText()).includes('4戦'));
+  await go('notifications');await submit('表彰案内の文案を作る');check(name+' 表彰メールは未送信の文案のみ',(await p.locator('main').innerText()).includes('年間シリーズ表彰のご案内（確認用・未送信）'));
+  await go('insurance');check(name+' 保険請求連絡の入力は2項目',await p.getByRole('form',{name:'保険請求の2項目'}).locator('input:not([type=hidden])').count()===2);await submit('請求連絡の2項目を確認する');check(name+' 同姓同名は電話確認の案内',(await p.locator('main').innerText()).includes('同姓同名の場合は電話で確認'));
   const main=await p.goto('https://web/manage/');check(name+' 本番相当の受付保留を維持',main.status()===200 && await p.locator('a[href="/manage/memberships.php"]').count()===0);
   await Promise.all([p.waitForURL('**/entry/login.php'),p.getByRole('button',{name:'サインアウト',exact:true}).tap()]);
   check(name+' ログアウト後は確認画面401',(await c.request.get('https://web/manage/review.php')).status()===401);await c.close();

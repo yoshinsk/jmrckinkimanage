@@ -65,7 +65,7 @@ check('保険出力の形式とキャッシュ禁止',str_contains($headers,'spr
 file_put_contents('/tmp/insurance-preview.xlsx',$file['body']);
 $tmp=tempnam('/tmp','insurance-test-');file_put_contents($tmp,$file['body']);$zip=new ZipArchive();$zip->open($tmp);$sheet=$zip->getFromName('xl/worksheets/sheet1.xml');
 check('保険Excelに氏名ふりがな生年月日',$sheet!==false && str_contains($sheet,'保険60') && str_contains($sheet,'カクウ') && str_contains($sheet,'1990.04.01'));
-check('保険Excelに確認用と条件保留',$sheet!==false && str_contains($sheet,'提出不可') && str_contains($sheet,'保険料・期間未確定') && !str_contains($sheet,'<f>'));
+check('保険Excelに確認用と条件保留',$sheet!==false && str_contains($sheet,'提出不可') && str_contains($sheet,'年齢判定日・期間未確定') && !str_contains($sheet,'<f>'));
 check('保険Excelは年齢区分を判定しない',str_contains($sheet,'r="B11" s=') && !str_contains($sheet,'<t xml:space="preserve">Ｃ</t>'));
 check('保険Excelの計算チェーンを削除',$zip->getFromName('xl/calcChain.xml')===false && !str_contains($zip->getFromName('xl/_rels/workbook.xml.rels'),'/calcChain'));
 $source=new ZipArchive();$source->open('/srv/auth/templates/insurance/sports.security.insurance_form_club.xlsx');

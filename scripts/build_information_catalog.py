@@ -5,7 +5,7 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 md = (root/'Documents/20261031_追加資料反映・要件更新.md').read_text(encoding='utf-8')
 source = root/'Documents/20261031_旧HP移行元URL台帳.csv'
-decisions_path = root/'design/phase2/20261031_answer_decisions.json'
+decisions_path = root/'design/phase2/20261103_answer_decisions.json'
 decisions = json.loads(decisions_path.read_text(encoding='utf-8'))
 rows = list(csv.DictReader(source.open(encoding='utf-8-sig', newline='')))
 # 分類はP21～29の案内先。未指定の大会案内等は仮分類であることを各画面に明記する。
@@ -49,7 +49,7 @@ sources = {id:[] for id in topics}
 # 回答を初期案へ上書きする。旧資料・回答原文は残し、表示上の方針だけを更新する。
 for id, updates in decisions['topics'].items():
     topics[id].update(updates)
-    topics[id]['revision'] = 2
+    topics[id]['revision'] = decisions['revision']
 for topic in topics.values():
     topic.setdefault('categories', [topic['category']])
 for id in ['HP-09', 'HP-15']:
@@ -61,9 +61,9 @@ for row in rows:
         item['publisher'] = 'JMRC近畿' if item['category']=='committee' else 'JMRC全国協議会'
     sources[row['HP_ID']].append(item)
 assert len(topics)==24 and sum(map(len,sources.values()))==154
-payload=dict(snapshot='2026-10-31', source_file=source.name, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
+payload=dict(snapshot=decisions['snapshot'], source_file=source.name, source_sha256=hashlib.sha256(source.read_bytes()).hexdigest(),
              answer_source=decisions['answer_source'], answer_sha256=hashlib.sha256((root/decisions['answer_source']).read_bytes()).hexdigest(),
-             decisions=decisions['decisions'], topics=topics, sources=sources)
-php="<?php\n// Path: src/Content/information-catalog.php\n// 機能: 2026-10-31の確定対応表と154件の旧URL候補。記事原文・個人名簿・正式移行先は含まない。\ndeclare(strict_types=1);\nreturn json_decode(<<<'CATALOG'\n"+json.dumps(payload, ensure_ascii=False, indent=2)+"\nCATALOG, true, 512, JSON_THROW_ON_ERROR);\n"
+             decisions=decisions['decisions'], topics=topics, sources=sources, prior_answer_source=decisions['prior_answer_source'])
+php="<?php\n// Path: src/Content/information-catalog.php\n// 機能: 2026-11-03の確定回答と154件の旧URL候補。記事原文・個人名簿・正式移行先は含まない。\ndeclare(strict_types=1);\nreturn json_decode(<<<'CATALOG'\n"+json.dumps(payload, ensure_ascii=False, indent=2)+"\nCATALOG, true, 512, JSON_THROW_ON_ERROR);\n"
 (root/'src/Content/information-catalog.php').write_text(php, encoding='utf-8')
 print('catalog: 24 topics / 154 source records')

@@ -37,7 +37,7 @@ $state=$review->state;$eligibility=$review->eligibility();$role=$state['role'];
 // 書出しは事務局の認可を毎回確認し、宛先や本番識別子を一切含めない。
 if(isset($_GET['download'])) {
     if($error!=='') { throw new \Jmrc\Auth\HttpFailure(422,'入力を確認してください'); }
-    if(in_array($_GET['download'],['notes','notes-csv'],true) && $role==='office') {
+    if(in_array($_GET['download'],['notes','notes-csv'],true) && in_array($role,['office','finance','approver'],true)) {
         $notes=[];foreach($catalog as $id=>$item) { $notes[]=['画面'=>$item['title'],'実装区分'=>$item['stage'],'保留事項'=>$item['pending'],'確認'=>$state['notes'][$id]??['decision'=>'pending','note'=>'']]; }
         if($_GET['download']==='notes-csv') {
             header('Content-Type: text/csv; charset=utf-8');header('Content-Disposition: attachment; filename="jmrc-review-notes.csv"');
@@ -54,7 +54,7 @@ if(isset($_GET['download'])) {
         header('Content-Type: application/json; charset=utf-8');header('Content-Disposition: attachment; filename="jmrc-review-notes.json"');
         echo json_encode(['用途'=>'事務局操作確認・受付開始の承認ではありません','作成UTC'=>gmdate('c'),'画面別確認'=>$notes],JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR);exit;
     }
-    if($_GET['download']==='insurance' && in_array($role,['office','club'],true)) {
+    if($_GET['download']==='insurance' && in_array($role,['office','finance','approver','club'],true)) {
         $count=$state['insurance']['count'];if(!$state['insurance']['intent'] || $count<1 || $count>24) { throw new \Jmrc\Auth\HttpFailure(422,'先に1〜24名の架空人数で加入意思を確認してください'); }
         $members=[];for($i=1;$i<=$count;$i++) { $members[]=['name'=>'架空 会員'.$i,'kana'=>'カクウ カイイン','birthday'=>'1990-04-01','gender'=>'','member_number'=>'']; }
         $bytes=(new \Jmrc\Insurance\InsuranceWorkbook())->build(jmrc_auth_config()['insurance_template']??'', ['name_full'=>'操作確認専用・提出不可','display_code'=>'100001','contact_name'=>'架空 担当'],$members);
@@ -71,11 +71,11 @@ header('Content-Type: text/html; charset=utf-8');
 jmrc_office_header($screen==='overview'?'機能の操作確認':$catalog[$screen]['title'],'事務局・操作確認');
 ?>
 <link rel="stylesheet" href="/manage/assets/review.css?v=20261030">
-<?php if($role==='office'): ?><p><a class="office-button secondary" href="/manage/information-preview.php">旧HPの情報ページを確認</a></p><?php endif; ?>
+<?php if(in_array($role,['office','finance','approver'],true)): ?><p><a class="office-button secondary" href="/manage/information-preview.php">旧HPの情報ページを確認</a></p><?php endif; ?>
 <aside class="review-banner" aria-label="操作確認の注意"><strong>操作確認専用・架空データ</strong><p>本番の受付・入金・資格・メール送信には反映しません。個人情報や実口座を入力しないでください。操作結果とメモはこのサインイン中だけ保持し、2時間経過後の再表示・サインアウト・初期化で利用できなくなります。</p></aside>
 <?php if($message!==''): ?><p class="office-success" role="status"><?=$e($message)?></p><?php endif; ?>
 <?php if($error!==''): ?><p class="review-error" role="alert"><?=$e($error)?></p><?php endif; ?>
-<div class="office-actions"><a class="office-button secondary" href="/manage/review.php">確認画面の一覧</a><?php if($role==='office'): ?><a class="office-button secondary" href="/manage/review.php?download=notes-csv">確認メモをExcel用CSVに保存</a><a class="office-button secondary" href="/manage/review.php?download=notes">確認メモをJSONに保存</a><?php endif; ?></div>
+<div class="office-actions"><a class="office-button secondary" href="/manage/review.php">確認画面の一覧</a><?php if(in_array($role,['office','finance','approver'],true)): ?><a class="office-button secondary" href="/manage/review.php?download=notes-csv">確認メモをExcel用CSVに保存</a><a class="office-button secondary" href="/manage/review.php?download=notes">確認メモをJSONに保存</a><?php endif; ?></div>
 <details class="office-disclosure"><summary>確認する立場：<?=$e(JmrcReviewWorkspace::ROLES[$role])?> ／ 架空の確認日：<?=$e($state['date'])?></summary>
 <div class="review-pad"><form class="office-form" method="post" action="<?=$e($actionUrl)?>" aria-label="確認する立場"><?php $hidden(); ?><input type="hidden" name="action" value="role"><div class="office-field"><label for="review-role">立場を切り替える</label><select id="review-role" name="role"><?php foreach(JmrcReviewWorkspace::ROLES as $key=>$label): ?><option value="<?=$e($key)?>" <?=$role===$key?'selected':''?>><?=$e($label)?></option><?php endforeach; ?></select></div><div class="office-submit"><button class="office-button">立場を変更</button></div></form>
 <p class="office-help">これは表示と操作範囲の確認です。実際のアカウント権限は変わりません。事務局の方は全画面を確認できます。</p></div></details>
@@ -88,13 +88,22 @@ jmrc_office_header($screen==='overview'?'機能の操作確認':$catalog[$screen
 <p><a href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611011" target="_blank" rel="noopener noreferrer">資料の食い違い・追加確認に回答する（別画面）</a></p>
 </div></details>
 <?php if($screen==='overview'): ?>
-<?php if($role==='office'): ?><section class="office-panel" aria-label="はじめての確認"><h2>まずは会員証の例を見る</h2><p>入力せずに、承認と入金が済んだ架空の例を作れます。確認中の申請・入金の例は入れ替わりますが、確認メモは残ります。</p><form class="office-form" method="post" action="/manage/review.php?screen=operations"><?php $hidden(); ?><input type="hidden" name="action" value="save"><input type="hidden" name="status" value="active"><input type="hidden" name="date" value="2027-04-10"><input type="hidden" name="return_to" value="card"><div class="office-submit"><button class="office-button">会員証の例を見る</button></div></form></section><?php endif; ?>
+<?php if(in_array($role,['office','finance','approver'],true)): ?><section class="office-panel" aria-label="はじめての確認"><h2>まずは会員証の例を見る</h2><p>入力せずに、承認と入金が済んだ架空の例を作れます。確認中の申請・入金の例は入れ替わりますが、確認メモは残ります。</p><form class="office-form" method="post" action="/manage/review.php?screen=operations"><?php $hidden(); ?><input type="hidden" name="action" value="save"><input type="hidden" name="status" value="active"><input type="hidden" name="date" value="2027-04-10"><input type="hidden" name="return_to" value="card"><div class="office-submit"><button class="office-button">会員証の例を見る</button></div></form></section><?php endif; ?>
 <section class="office-panel"><h2>状態を変えて比較する場合</h2><ol><li>「年度設定・権限・移行・保存方針」で、有効・未入金・停止・期間終了の状態を選びます。</li><li>「General会員証」で表示を比べ、「会費請求」で取消後の資格を確認します。</li><li>手順を最初から試すときは初期化し、クラブ登録 → 入金・承認 → ライセンス → 個人申請 → 所属承認 → 入金の順に操作します。</li></ol><p>「業務処理あり」は既存処理を隔離環境で検証済みです。この確認画面での動作は説明用です。「画面試作」「運用確認」は入力・表示の確認段階で、本番業務への接続が残っています。</p></section>
 <?php $group='';foreach($catalog as $id=>$item): if(!$review->visible($id)) { continue; }if($group!==$item['group']): if($group!==''): ?></ul></section><?php endif;$group=$item['group']; ?><section class="menu-section"><h2><?=$e($group)?></h2><ul class="menu-list"><?php endif; ?>
 <li><a class="menu-link" href="/manage/review.php?screen=<?=$e($id)?>"><span class="menu-title"><?=$e($item['title'])?></span><span class="review-tag"><?=$e($item['stage'])?></span><span class="menu-description"><?=$e($item['flow'])?></span></a></li>
 <?php endforeach;if($group!==''): ?></ul></section><?php endif; ?>
 <?php else: $item=$catalog[$screen]; ?>
 <p class="office-intro"><span class="review-tag"><?=$e($item['stage'])?></span> <?=$e($item['flow'])?></p><aside class="office-readonly"><strong>確認が残る事項</strong><p><?=$e($item['pending'])?></p></aside>
+<?php if($screen==='clubs' && isset($state['club_quote'])): $quote=$state['club_quote']; ?>
+<section class="office-panel" aria-label="2027年度の料金計算"><h2>2027年度の料金計算</h2><dl class="office-definition"><dt>年会費</dt><dd><?=$e(number_format($quote['annual_yen']))?>円</dd><dt>入会金</dt><dd><?=$e(number_format($quote['joining_yen']))?>円</dd><dt>合計</dt><dd><?=$e(number_format($quote['total_yen']))?>円</dd></dl><p>選んだ区分の計算結果です。クラブコードの確定や本番の請求には使いません。</p></section>
+<?php endif; ?>
+<?php if($screen==='operations' && isset($state['staff_role_example'])): ?>
+<section class="office-panel" aria-label="役職承認の確認結果"><h2>役職承認の確認結果</h2><p>別の架空担当者を「<?=$e(\Jmrc\Auth\StaffRolePolicy::LABELS[$state['staff_role_example']['role']])?>」として承認できました。承認した立場は<?=$e($state['staff_role_example']['approved_by'])?>です。</p><p>実在アカウントの権限は変更していません。</p></section>
+<?php endif; ?>
+<?php if($screen==='handbook' && isset($state['series_example'])): $series=$state['series_example']; ?>
+<section class="office-panel" aria-label="シリーズの計算例"><h2>シリーズの計算例</h2><dl class="office-definition"><dt>出走台数・中止によるクラス判定</dt><dd><?=$series['class_established']?'成立':'不成立'?></dd><dt>終了時のシリーズ成立</dt><dd><?=$series['series_established']?'成立':'未成立'?></dd><dt>入力した成立戦数に対する有効戦数</dt><dd><?=$e($series['effective_rounds'])?>戦</dd><dt>指定した分母での表彰人数の上限</dt><dd><?=$e($series['award_limit'])?>名</dd></dl><p>成立5戦以下は全戦、それ以上は70％を四捨五入し、高得点から合計します。同点比較に使うのは有効戦だけです。</p><p>表彰人数は計算例です。対象競技会の範囲・正式順位・同点者を確認してから選定します。「通知・承認依頼の文面」で案内文を試せます。</p></section>
+<?php endif; ?>
 
 <?php if(in_array($screen,['memberships','affiliations','preregistration','billing','card','licenses'],true)): ?>
 <section class="office-panel" aria-label="General資格"><h2>Generalの資格 <span class="review-tag" data-eligibility="<?=$eligibility['active']?'active':'inactive'?>"><?=$eligibility['active']?'有効（確認例）':'無効（確認例）'?></span></h2>
@@ -114,13 +123,18 @@ jmrc_office_header($screen==='overview'?'機能の操作確認':$catalog[$screen
 <?php if($screen==='preregistration'): ?><p class="office-readonly">照合結果：<?=$e($state['preregistration'])?></p><?php endif; ?>
 <?php if($screen==='temporary'): ?><section class="office-panel"><h2>確認用のイベント申請</h2><ul class="office-records"><?php foreach($state['temporary'] as $id=>$entry): $active=$entry['approved'] && $review->paid('temporary:'.$id)>=500 && $state['date']===$entry['date']; ?><li>確認走行会<?=$e($id)?> ／ <?=$e($entry['date'])?> ／ 主催承認 <?=$entry['approved']?'済':'未'?> ／ 入金 <?=number_format($review->paid('temporary:'.$id))?>円 ／ 当日資格 <?=$active?'有効':'無効'?></li><?php endforeach; ?></ul><p>主催承認を試すときは、確認する立場を「クラブ代表」に切り替えてください。</p></section><?php endif; ?>
 <?php if($screen==='bank'): ?><section class="office-panel"><h2>取込結果</h2><p>同じ架空CSVを再取込しても2行のままです。複数候補は確定しません。</p><ul class="office-records"><?php foreach($state['bank'] as $id=>$row): ?><li><?=$e($id)?> ／ <?=number_format($row['amount'])?>円 ／ <?=$e($row['status'])?></li><?php endforeach; ?></ul></section><?php endif; ?>
-<?php if($screen==='insurance'): ?><section class="office-panel"><h2>加入意思と初回人数</h2><p><?=$state['insurance']['intent']?'加入意思を記録した例':'加入意思は未記録'?> ／ 有効General <?=$state['insurance']['count']?>名（架空）</p><p><?=$state['insurance']['count']>=4?'初回4名の人数条件を満たす例です。正式加入ではありません。':'初回4名に達していません。追加加入の取扱いは未確定です。'?></p><?php if(in_array($role,['office','club'],true)): ?><a class="office-button secondary" href="/manage/review.php?screen=insurance&amp;download=insurance">架空データの確認Excel</a><?php endif; ?><p class="office-help">Excelも「確認用・提出不可」です。料率・期間・保険料は補いません。</p></section><?php endif; ?>
+<?php if($screen==='insurance'): ?><section class="office-panel"><h2>加入意思と初回人数</h2><p><?=$state['insurance']['intent']?'加入意思を記録した例':'加入意思は未記録'?> ／ 有効General <?=$state['insurance']['count']?>名（架空）</p><p><?=$state['insurance']['count']>=4?'初回4名の人数条件を満たす例です。正式加入ではありません。':'初回4名に達していません。追加加入の取扱いは未確定です。'?></p><?php if(in_array($role,['office','finance','approver','club'],true)): ?><a class="office-button secondary" href="/manage/review.php?screen=insurance&amp;download=insurance">架空データの確認Excel</a><?php endif; ?><p class="office-help">Excelも「確認用・提出不可」です。料率・期間・保険料は補いません。</p></section><?php endif; ?>
 <?php if($screen==='directory'): ?><section class="office-panel"><h2>公開クラブ一覧の例</h2><h3><?=$e($state['club']['name'])?></h3><p><?=$e($state['club']['short'])?> ／ <?=$e($state['club']['code'])?></p><p>架空の表示例です。正式な登録済みクラブの公開ではありません。</p></section><?php endif; ?>
 <?php if($screen==='fund'): ?><section class="office-panel"><h2>各制度は独立して確認</h2><dl class="office-definition"><dt>協議会見舞金</dt><dd>個人会員資格と規程に基づいて確認。給付条件は確認待ち。</dd><dt>ジムカーナ部会救済基金</dt><dd>既存entryとの管理分担を確認中。ポータル会費の入金を基金入金として扱いません。</dd><dt>スポーツ安全保険</dt><dd>General限定。加入意思・人数・確認Excelまで。正式加入は保留。</dd></dl></section><?php endif; ?>
 <?php if($screen==='operations'): ?><section class="office-panel"><h2>2027年度の設定・移行確認</h2><dl class="office-definition"><dt>クラブ受付</dt><dd>2026年12月1日〜2027年2月7日（本番では開始保留）</dd><dt>本人受付</dt><dd>2027年1月1日から（本番では開始保留）</dd><dt>年度資格</dt><dd>1月1日〜12月31日。既存entryの参照先切替は未実施。</dd><dt>会費マスター</dt><dd>General 2,000円／年、Temporary 500円／イベント。クラブ会費表の候補は受領済み。適用年度・区分・入会金を確認中。</dd><dt>権限の付与</dt><dd>既存ログインを継続し、承認されたポータル権限・担当クラブを個別付与。運営委員会担当者の登録は事務局長が承認。対象アカウントは確認待ち。</dd><dt>保存と削除</dt><dd>操作ログ2年。未更新者は翌年4月30日の削除候補。ドラフト3か月の起算点は確認待ち。バックアップは日次30世代・月次12世代・四半期復元試験の設計値で、自動運転と復元後の再削除は未接続。</dd></dl><p class="office-help">状態例を選ぶと、この確認内の申請・入金を入れ替えます。クラブ年会費1万円は説明用の仮額です。メモは残ります。</p></section><?php endif; ?>
 <?php if($screen==='privacy'): ?><section class="office-panel"><h2>確認用プロフィール</h2><p><?=$state['profile']===null?'削除例を表示中':$e(($state['profile']['name']??'').' ／ '.($state['profile']['birthday']??''))?></p><p>候補例：最終登録2026年、翌年度未更新 → 2027年4月30日。更新申請が処理中の会員は候補から除外します。</p></section><?php endif; ?>
 
-<?php $actions=array_filter($item['actions'],static fn($label,$action)=>$review->allowed($screen,$action),ARRAY_FILTER_USE_BOTH);if($actions): ?>
+<?php if($screen==='insurance' && $review->allowed($screen,'claim_notice')): ?>
+<section class="office-panel" aria-label="保険請求の連絡例"><h2>保険請求の連絡例</h2><p>旧制度・紙で申し込んだ方も対象です。クラブ代表が本人の代わりに連絡できます。事務局がクラブ員名簿を確認して本人へ連絡し、同姓同名の場合は電話で確認します。</p>
+<form class="office-form" method="post" action="<?=$e($actionUrl)?>" aria-label="保険請求の2項目"><?php $hidden(); ?><input type="hidden" name="action" value="claim_notice"><?php foreach($item['claim_fields'] as $name=>[$label,$type,$default]): ?><div class="office-field"><label for="claim-<?=$e($name)?>"><?=$e($label)?></label><input id="claim-<?=$e($name)?>" name="<?=$e($name)?>" maxlength="1000" value="<?=$e($state['insurance_claim'][$name]??$default)?>" required></div><?php endforeach; ?><div class="office-submit"><button class="office-button">請求連絡の2項目を確認する</button></div></form>
+<?php if(isset($state['insurance_claim'])): ?><p role="status">確認用に2項目を保存しました。事務局・保険会社への送信は行っていません。</p><?php endif; ?></section>
+<?php endif; ?>
+<?php $actions=array_filter($item['actions'],static fn($label,$action)=>$action!=='claim_notice' && $review->allowed($screen,$action),ARRAY_FILTER_USE_BOTH);if($actions): ?>
 <?php // iPhone相当のWebKitでは日付を消した後のネイティブ検証で送信が止まるため、Generalはサーバーで必須・日付・免許の組を検証する。 ?>
 <section class="office-panel"><h2>入力・操作を試す</h2><form class="office-form" aria-label="<?=$e($item['title'])?>の操作" method="post" action="<?=$e($actionUrl)?>" <?=$screen==='memberships'?'novalidate':''?>><?php $hidden(); ?>
 <?php foreach($item['fields'] as $name=>[$label,$type,$default]): $value=$default;

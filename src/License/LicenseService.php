@@ -27,8 +27,8 @@ final class LicenseService
         $s=$this->run("SELECT g.id FROM users u JOIN portal_account_controls c ON c.user_id=u.id
          JOIN portal_user_role_grants g ON g.user_id=u.id JOIN portal_roles r ON r.id=g.role_id
          JOIN portal_role_permissions p ON p.role_id=g.role_id AND p.permission_code='identifiers.migrate'
-         WHERE u.id=? AND u.email_verified=1 AND c.status='active' AND r.code='OFFICE' AND g.scope_type='global'
-         AND g.status='active' AND g.approved_by IS NOT NULL AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
+         WHERE u.id=? AND u.email_verified=1 AND c.status='active' AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND g.scope_type='global'
+         AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
          AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1",[$actor]);
         if(!$s->fetchColumn()){throw new HttpFailure(403,'事務局の明示された移行権限が必要です');}
     }
