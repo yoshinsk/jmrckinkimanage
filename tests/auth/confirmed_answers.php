@@ -78,6 +78,17 @@ try {
     $self=$service->request(90101,'OFFICE');
     $denied('実grantに承認者があっても自己承認不可',fn()=>$service->approve(90101,$self['id'],1));
     $waiting=$service->request(90106,'OFFICE');
+    $webApprover=new Browser();$webApprover->login(90101);
+    $webApplicant=new Browser();$webApplicant->login(90106);
+    check('役職HTTPは本人の希望を再送してもpendingを再利用', $webApplicant->request('/manage/staff-roles.php',
+        ['_csrf'=>$webApplicant->token('/manage/staff-roles.php'),'action'=>'request','role'=>'OFFICE'])['status']===303);
+    $webOverview=json_decode($webApprover->request('/manage/staff-roles.php?format=json')['body'],true,512,JSON_THROW_ON_ERROR);
+    check('承認者の一覧に承認可能な他者申請を表示',count(array_filter($webOverview['grants'],fn($g)=>(int)$g['id']===$waiting['id'] && $g['can_approve']))===1);
+    check('役職HTTPはCSRFなしを拒否',$webApprover->request('/manage/staff-roles.php',['action'=>'approve','grant'=>$waiting['id'],'version'=>1])['status']===400);
+    check('役職HTTPは古い更新版を拒否',$webApprover->request('/manage/staff-roles.php',['_csrf'=>$webApprover->token('/manage/staff-roles.php'),'action'=>'approve','grant'=>$waiting['id'],'version'=>2])['status']===409);
+    check('役職HTTPは申請者による自己承認を拒否',$webApplicant->request('/manage/staff-roles.php',['_csrf'=>$webApplicant->token('/manage/staff-roles.php'),'action'=>'approve','grant'=>$waiting['id'],'version'=>1])['status']===403);
+    check('役職HTTPは承認者による他者承認を保存',$webApprover->request('/manage/staff-roles.php',['_csrf'=>$webApprover->token('/manage/staff-roles.php'),'action'=>'approve','grant'=>$waiting['id'],'version'=>1])['status']===303);
+    check('役職HTTPの承認再送は更新版衝突',$webApprover->request('/manage/staff-roles.php',['_csrf'=>$webApprover->token('/manage/staff-roles.php'),'action'=>'approve','grant'=>$waiting['id'],'version'=>1])['status']===409);
     $db->exec("UPDATE portal_user_role_grants SET revoked_at=UTC_TIMESTAMP() WHERE user_id=90101 AND status='active'");
     $denied('承認者取消を次の操作に反映',fn()=>$service->approve(90101,$waiting['id'],1));
     foreach([90102,90104,90105] as $id) {
@@ -85,7 +96,7 @@ try {
         check('運営委員・承認者は事務局画面を閲覧 '.$id,$b->request('/manage/review.php')['status']===200);
         check('運営委員・承認者は口座と訂正の業務権限を持つ '.$id,$b->request('/manage/bank-settings.php')['status']===200 && $b->request('/manage/profile-correct.php')['status']===200);
     }
-    check('相互承認の操作ログを記録',(int)$db->query("SELECT COUNT(*) FROM portal_audit_events WHERE action='STAFF_ROLE_APPROVED' AND actor_user_id IN (90101,90102)")->fetchColumn()===3);
+    check('相互承認の操作ログを記録',(int)$db->query("SELECT COUNT(*) FROM portal_audit_events WHERE action='STAFF_ROLE_APPROVED' AND actor_user_id IN (90101,90102)")->fetchColumn()===4);
 } finally {
     // 後続のスマートフォン試験へ権限変更を持ち越さない。対象はこの試験が作ったIDだけ。
     $set=implode(',',$ids);

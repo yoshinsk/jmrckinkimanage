@@ -9,11 +9,48 @@ final class StaffRoleService
 {
     public function __construct(private readonly PDO $db, private readonly bool $enabled = false) {}
 
+    /** 自分の役職と、現在の相互承認権限で確認できる申請だけを返す。受付停止中も読取は可能。 */
+    public function overview(int $actor): array
+    {
+        $this->identity($actor);
+        $roles=$this->activeRoles($actor);
+        $allowed=[];
+        foreach (array_keys(StaffRolePolicy::LABELS) as $role) {
+            // 一覧の対象役職を求めるだけ。各行の自己承認は別途同じPolicyで拒否する。
+            if (StaffRolePolicy::canApprove(1, 2, $roles, $role)) { $allowed[]=$role; }
+        }
+        $where='g.user_id=?';$params=[$actor];
+        if ($allowed) { $where.=' OR (g.status=\'pending\' AND r.code IN ('.implode(',',array_fill(0,count($allowed),'?')).'))';$params=[...$params,...$allowed]; }
+        $rows=$this->query("SELECT g.id,g.user_id,r.code,g.status,g.row_version,u.email,g.valid_from,g.valid_until,g.revoked_at,
+            (u.email_verified=1 AND c.status='active') AS subject_active
+            FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id JOIN users u ON u.id=g.user_id
+            LEFT JOIN portal_account_controls c ON c.user_id=u.id
+            WHERE g.scope_type='global' AND g.scope_club_id IS NULL AND ($where)
+            ORDER BY g.id DESC LIMIT 201",$params)->fetchAll(PDO::FETCH_ASSOC);
+        $more=count($rows)>200;$rows=array_slice($rows,0,200);
+        foreach ($rows as &$row) {
+            $row['effective']=$row['status']==='active' && in_array($row['code'],$roles,true);
+            $row['can_approve']=(bool)$row['subject_active'] && $row['status']==='pending' && $row['revoked_at']===null && $row['valid_until']===null
+                && StaffRolePolicy::canApprove($actor,(int)$row['user_id'],$roles,$row['code']);
+        }
+        return ['enabled'=>$this->enabled,'roles'=>$roles,'grants'=>$rows,'truncated'=>$more];
+    }
+
+    /** 現在有効な全体職務だけを返す。本人の停止、未承認、期限切れ、クラブ限定職務を除外する。 */
+    public function activeRoles(int $actor): array
+    {
+        $this->identity($actor);
+        return $this->query("SELECT r.code FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id
+            WHERE g.user_id=? AND g.scope_type='global' AND g.scope_club_id IS NULL AND g.status='active'
+            AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL
+            AND g.valid_from<=UTC_TIMESTAMP(6) AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until)",[$actor])->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     /** 本人が希望する役職をpendingで作る。旧entry役割からの自動昇格は行わない。 */
     public function request(int $actor, string $role): array
     {
         return $this->tx(function () use ($actor,$role): array {
-            $this->identity($actor);
+            $this->identity($actor,true);
             if (!isset(StaffRolePolicy::LABELS[$role])) { throw new HttpFailure(422,'申請する役職を確認してください'); }
             $id=$this->query('SELECT id FROM portal_roles WHERE code=?',[$role])->fetchColumn();
             if (!$id) { throw new HttpFailure(503,'役職マスターの準備が必要です'); }
@@ -33,10 +70,10 @@ final class StaffRoleService
     public function approve(int $actor, int $grantId, int $version): array
     {
         return $this->tx(function () use ($actor,$grantId,$version): array {
-            $this->identity($actor);
+            $this->identity($actor,true);
             $g=$this->query("SELECT g.*,r.code FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id WHERE g.id=? FOR UPDATE",[$grantId])->fetch(PDO::FETCH_ASSOC);
             if (!$g) { throw new HttpFailure(404,'申請がありません'); }
-            $this->identity((int)$g['user_id']);
+            $this->identity((int)$g['user_id'],true);
             $roles=$this->query("SELECT r.code FROM portal_user_role_grants g JOIN portal_roles r ON r.id=g.role_id
                 WHERE g.user_id=? AND g.scope_type='global' AND g.scope_club_id IS NULL AND g.status='active'
                 AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
@@ -53,10 +90,10 @@ final class StaffRoleService
     }
 
     /** DBの本人状態を毎回検査。認証済みセッション内のキャッシュだけでは判断しない。 */
-    private function identity(int $id): void
+    private function identity(int $id, bool $lock=false): void
     {
         if (!$this->query("SELECT u.id FROM users u JOIN portal_account_controls c ON c.user_id=u.id
-            WHERE u.id=? AND u.email_verified=1 AND c.status='active' FOR UPDATE",[$id])->fetchColumn()) {
+            WHERE u.id=? AND u.email_verified=1 AND c.status='active'".($lock?' FOR UPDATE':''),[$id])->fetchColumn()) {
             throw new HttpFailure(403,'有効な既存アカウントが必要です');
         }
     }

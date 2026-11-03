@@ -2,6 +2,7 @@
 // Path: tests/auth/auth.config.php
 // 機能: network=internalの隔離コンテナ専用設定。実在アカウントの資格情報ではない。
 return [
+    'staff_role_requests_enabled'=>true, // 架空アカウントのHTTP申請・相互承認だけで使用。本番では未設定=停止。
     'profile_corrections_enabled'=>true,
     'bank_master_enabled'=>true,
     'yucho_import_enabled'=>true,

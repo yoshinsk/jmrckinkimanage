@@ -49,7 +49,10 @@ def main():
                   'tests/auth/review_http.php','tests/license/review_browser.cjs',
                   'public/manage/information-preview.php','public/manage/assets/information.css',
                   'src/Content/InformationPreview.php','src/Content/information-catalog.php','src/Content/information-template.php',
-                  'tests/auth/information_http.php','tests/license/information_browser.cjs']
+                  'tests/auth/information_http.php','tests/license/information_browser.cjs',
+                  'src/Operations/PreparationService.php','src/Auth/StaffRoleService.php',
+                  'public/manage/preparation.php','public/manage/staff-roles.php','tests/auth/preparation_http.php',
+                  'tests/license/preparation_browser.cjs']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -77,7 +80,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     shutil.copyfile(ROOT/'design/phase2/staff_permissions.sql',context/'tests/staff_permissions.sql')
     shutil.copyfile(ROOT/'design/phase2/011_license_declarations.sql',context/'tests/011_license_declarations.sql')
@@ -183,6 +186,7 @@ def main():
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_bank_master_changes TO 'auth_runtime'@'%';")
         db_sql("GRANT UPDATE(last_name,first_name,birthday,row_version) ON jmrckinki_auth_lab.portal_profiles TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_profile_changes TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_user_role_grants TO 'auth_runtime'@'%';")
         for table in ['users','entrants','jmrc_annual_memberships','email_verifications','portal_account_controls']:
             db_sql(f"GRANT INSERT,UPDATE,DELETE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for name,alias,image in [(NAMES[1],'app','jmrc-auth-php:20261027'),(NAMES[0],'web','jmrc-auth-nginx:20261027')]:
@@ -273,7 +277,7 @@ def main():
                 db_sql("UPDATE portal_years SET source_mode='shadow'")
                 config_code="""<?php
 rename('/srv/private/auth.config.php','/srv/private/dashboard-active.config.php');
-file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
+file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
 """
                 docker('exec','-i',NAMES[1],'php',data=config_code.encode())
             name='jmrc-dashboard-'+('hold' if hold else 'active')+'-20261030'
@@ -361,6 +365,22 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
         else:
             raise RuntimeError('Information browser timed out')
         report['information_browser_validation']=json.loads(docker('logs',name).stdout)
+        print('Testing preparation and held staff-role screens',flush=True)
+        name='jmrc-preparation-20261103'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+               'jmrc-license-browser:20261028','node','preparation_browser.cjs')
+        created.append(name)
+        for _ in range(240):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                docker('cp',name+':/artifacts/.',artifact_linux)
+                if state['State']['ExitCode']!=0:
+                    raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2500:])
+                break
+            time.sleep(0.5)
+        else:
+            raise RuntimeError('Preparation browser timed out')
+        report['preparation_browser_validation']=json.loads(docker('logs',name).stdout)
         docker('cp',NAMES[1]+':/tmp/review-insurance.xlsx',artifact_linux+'/review-insurance.xlsx')
         assert review_inputs=={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}, 'Review sources changed during validation'
         report['review_workspace_sha256']=review_inputs

@@ -300,6 +300,35 @@ class ReleaseTest(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, 'allowlist'):
                 update.target(name)
 
+    def test_preparation_roundtrip_and_no_settings_changes(self):
+        update, payload = self.confirmed_stage('preparation')
+        backup = Path(update.apply(self.stage)['backup'])
+        self.assertEqual(json.loads((backup/'manifest.json').read_text())['created_directories'], ['src/Operations'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        self.assertFalse((update.source/'src/Operations').exists())
+        for name in ['auth.config.php', 'public/entry/login.php', 'design/phase2/001_portal_schema.sql']:
+            with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+                update.target(name)
+
+    def test_preparation_refuses_open_staff_intake(self):
+        update, _ = self.confirmed_stage('preparation')
+        state = update.snapshot()
+        state['flags']['staff_role_requests_enabled'] = True
+        update.snapshot = lambda: copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError, 'Staff intake enabled'):
+            update.preflight()
+
+    def test_preparation_partial_apply_restores_new_dependencies(self):
+        update, payload = self.confirmed_stage('preparation')
+        update.fail_cache_once = True
+        with self.assertRaisesRegex(RuntimeError, 'Synthetic cache failure'):
+            update.apply(self.stage)
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        self.assertFalse((update.source/'src/Operations').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

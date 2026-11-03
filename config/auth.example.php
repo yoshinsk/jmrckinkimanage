@@ -6,6 +6,7 @@ declare(strict_types=1);
 return [
     'profile_corrections_enabled' => getenv('JMRC_PROFILE_CORRECTIONS') === '1', // 事務局だけに許可。
     'bank_master_enabled' => getenv('JMRC_BANK_MASTER') === '1', // 事務局の専用権限でのみ変更。
+    'staff_role_requests_enabled' => getenv('JMRC_STAFF_ROLE_REQUESTS') === '1', // 未指定は停止。運営者の開始判断とDB権限確認後だけ有効化。
     'yucho_import_enabled' => getenv('JMRC_YUCHO_IMPORT') === '1', // 実口座と用途別口座の対応確認後に有効化。
     'insurance_intents_enabled' => getenv('JMRC_INSURANCE_INTENTS') === '1', // 加入確定ではなく意思受付のみ。
     'insurance_template' => getenv('JMRC_INSURANCE_TEMPLATE') ?: null, // Web非公開の指定Excel原本。
