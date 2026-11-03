@@ -68,6 +68,14 @@ async function run(engine,name,device){
   const notes=await c.request.get('https://web/manage/review.php?download=notes');check(name+' メモ24画面を書出し',notes.status()===200 && (await notes.json())['画面別確認'].length===24 && (await notes.text()).includes('保険料と期間の確認が必要'));
   await go('clubs');await p.getByLabel('料金計算の区分',{exact:true}).selectOption('organization');await p.getByLabel('料金計算の会員区分',{exact:true}).selectOption('supporting');await p.getByLabel('料金計算の登録方法',{exact:true}).selectOption('new');await submit('2027年度の料金を計算');
   check(name+' 賛助新規の料金をスマートフォンで確認',(await p.getByRole('region',{name:'2027年度の料金計算'}).innerText()).includes('20,000'));
+  await p.getByLabel('JAF登録クラブですか',{exact:true}).selectOption('yes');
+  await p.getByLabel('JMRC近畿の事業として競技会を主催しますか',{exact:true}).selectOption('yes');
+  await submit('他地域クラブの区分を確認');
+  check(name+' 他地域のJMRC主催JAFクラブは正会員',await p.locator('[data-regional-membership="regular"]').count()===1);
+  await p.getByLabel('JMRC近畿の事業として競技会を主催しますか',{exact:true}).selectOption('no');await submit('他地域クラブの区分を確認');
+  check(name+' 例外でない他地域クラブは賛助',await p.locator('[data-regional-membership="supporting"]').count()===1);
+  await p.getByLabel('JMRC近畿の事業として競技会を主催しますか',{exact:true}).selectOption('unknown');await submit('他地域クラブの区分を確認');
+  check(name+' 確認不足なら前の判定を残さず保留',await p.locator('[data-regional-membership="pending"]').count()===1 && await p.locator('[data-regional-membership="regular"],[data-regional-membership="supporting"]').count()===0);
   await role('finance');await go('operations');await p.getByLabel('登録する役職').selectOption('APPROVER');await submit('役職の承認可否を試す');check(name+' 運営委員から承認者への承認例',await p.getByRole('region',{name:'役職承認の確認結果'}).count()===1);
   await p.getByLabel('登録対象',{exact:true}).selectOption('self');await submit('役職の承認可否を試す');check(name+' 自己承認は画面でも拒否',(await p.getByRole('alert').innerText()).includes('本人の申請'));
   await role('approver');await go('operations');await p.getByLabel('登録する役職').selectOption('COMMITTEE');await submit('役職の承認可否を試す');check(name+' 承認者から運営委員への承認例',await p.getByRole('region',{name:'役職承認の確認結果'}).count()===1);

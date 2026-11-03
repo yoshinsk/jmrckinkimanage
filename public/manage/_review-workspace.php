@@ -71,7 +71,12 @@ final class JmrcReviewWorkspace
     private function fields(string $screen, array $input, string $action): array
     {
         $out=[];
-        $definitions=jmrc_review_catalog()[$screen][$screen==='insurance' && $action==='claim_notice'?'claim_fields':'fields'];
+        $fieldSet=match(true) {
+            $screen==='insurance' && $action==='claim_notice'=>'claim_fields',
+            $screen==='clubs' && $action==='classify_region'=>'region_fields',
+            default=>'fields',
+        };
+        $definitions=jmrc_review_catalog()[$screen][$fieldSet];
         foreach($definitions as $key=>[$label,$type,$default]) {
             $value=$input[$key]??$default;
             if(!is_string($value) || strlen($value)>4000 || preg_match('//u',$value)!==1 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/',$value)) { $this->fail($label.'を確認してください'); }
@@ -126,6 +131,12 @@ final class JmrcReviewWorkspace
                 if($s['license']!==null && ($s['license']['number']!==$f['number'] || $s['license']['kind']!==$f['kind']) && $s['member']['submitted']) { $s['member']['card_invalid']=true; }
                 $s['license']=$f;break;
             case 'clubs':
+                if($action==='classify_region') {
+                    // 事業としての主催か不明な場合、通常のイベント開催や所在地で穴埋めしない。
+                    $asBool=static fn(string $value):?bool=>match($value) {'yes'=>true,'no'=>false,default=>null};
+                    $s['club_region_example']=$f+['membership'=>\Jmrc\Club\ClubFeePolicy::outsideKinkiMembership(2027,$asBool($f['jaf_registered_club']),$asBool($f['hosts_kinki_business']))];
+                    break;
+                }
                 if($action==='quote') {
                     try { $s['club_quote']=\Jmrc\Club\ClubFeePolicy::quote(2027,$f['rate_category'],$f['membership_class'],$f['registration_kind']); }
                     catch(\InvalidArgumentException $error) { $this->fail($error->getMessage()); }

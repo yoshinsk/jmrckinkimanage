@@ -126,6 +126,15 @@ $act('operations','save',['status'=>'active']);$invoices=$model->state['invoices
 check('削除例ではプロフィールのみ消し会計を保持',$model->state['profile']===null && $model->state['license']===null && $model->state['invoices']===$invoices && $model->state['payments']===$payments && !$model->eligibility()['active']);
 $act('clubs','quote',['rate_category'=>'organization','membership_class'=>'supporting','registration_kind'=>'new']);
 check('確認画面で賛助登録団体の年会費と入会金を区別',$model->state['club_quote']['annual_yen']===10000 && $model->state['club_quote']['joining_yen']===10000);
+$regionBusinessBefore=array_intersect_key($model->state,array_flip(['club','invoices','payments','member']));
+foreach([['yes','yes','regular'],['yes','no','supporting'],['yes','unknown',null]] as [$jaf,$organizer,$expected]) {
+    $act('clubs','classify_region',['jaf_registered_club'=>$jaf,'hosts_kinki_business'=>$organizer]);
+    check('他地域クラブの確認例 '.$jaf.' '.$organizer,$model->state['club_region_example']['membership']===$expected);
+}
+check('区分の確認例で登録・請求・資格を変更しない',$regionBusinessBefore===array_intersect_key($model->state,array_flip(['club','invoices','payments','member'])));
+$regionBeforeInvalid=$model->state;
+try { $act('clubs','classify_region',['jaf_registered_club'=>['yes']]);check('区分条件の配列を拒否',false); }
+catch(\Jmrc\Auth\HttpFailure $error) { check('区分条件の配列を拒否',$error->status===422 && $model->state===$regionBeforeInvalid); }
 $act('overview','role',['role'=>'finance']);
 check('運営委員の立場は事務局24画面と同等',count(array_filter(array_keys(jmrc_review_catalog()),fn($screen)=>$model->visible($screen)))===24);
 $act('operations','approve_role',['requested_role'=>'APPROVER','role_subject'=>'other']);

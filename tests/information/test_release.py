@@ -266,6 +266,16 @@ class ReleaseTest(unittest.TestCase):
         self.assertFalse((update.source/'src/Events').exists())
         self.assertFalse((update.source/'src/Series').exists())
 
+    def test_club_region_updates_only_five_existing_files(self):
+        update, payload = self.confirmed_stage('club-region')
+        self.assertEqual(set(update.order), {'src/Club/ClubFeePolicy.php','src/Content/information-catalog.php',*deploy.REVIEW_FILES})
+        backup = Path(update.apply(self.stage)['backup'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+            update.target('src/bootstrap.php')
+
     def test_confirmed_cache_failure_restores_helpers_and_bootstrap(self):
         update, payload = self.confirmed_stage()
         update.fail_cache_once = True

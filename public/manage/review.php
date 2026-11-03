@@ -134,7 +134,14 @@ jmrc_office_header($screen==='overview'?'機能の操作確認':$catalog[$screen
 <form class="office-form" method="post" action="<?=$e($actionUrl)?>" aria-label="保険請求の2項目"><?php $hidden(); ?><input type="hidden" name="action" value="claim_notice"><?php foreach($item['claim_fields'] as $name=>[$label,$type,$default]): ?><div class="office-field"><label for="claim-<?=$e($name)?>"><?=$e($label)?></label><input id="claim-<?=$e($name)?>" name="<?=$e($name)?>" maxlength="1000" value="<?=$e($state['insurance_claim'][$name]??$default)?>" required></div><?php endforeach; ?><div class="office-submit"><button class="office-button">請求連絡の2項目を確認する</button></div></form>
 <?php if(isset($state['insurance_claim'])): ?><p role="status">確認用に2項目を保存しました。事務局・保険会社への送信は行っていません。</p><?php endif; ?></section>
 <?php endif; ?>
-<?php $actions=array_filter($item['actions'],static fn($label,$action)=>$action!=='claim_notice' && $review->allowed($screen,$action),ARRAY_FILTER_USE_BOTH);if($actions): ?>
+<?php if($screen==='clubs' && $review->allowed($screen,'classify_region')): $regional=$state['club_region_example']??null; ?>
+<section class="office-panel" aria-label="他地域クラブの会員区分"><h2>他地域クラブの会員区分（2027年度の確認用）</h2><p>近畿地区外のクラブが対象です。JAF登録クラブで、JMRC近畿の事業として競技会を主催する場合は正会員です。一般の競技会の主催だけでは、この例外には該当しません。</p>
+<form class="office-form" method="post" action="<?=$e($actionUrl)?>" aria-label="他地域クラブの条件"><?php $hidden(); ?><input type="hidden" name="action" value="classify_region">
+<?php foreach($item['region_fields'] as $name=>[$label,$options,$default]): ?><div class="office-field"><label for="region-<?=$e($name)?>"><?=$e($label)?></label><select id="region-<?=$e($name)?>" name="<?=$e($name)?>"><?php foreach($options as $value=>$caption): ?><option value="<?=$e($value)?>" <?=($regional[$name]??$default)===$value?'selected':''?>><?=$e($caption)?></option><?php endforeach; ?></select></div><?php endforeach; ?><div class="office-submit"><button class="office-button">他地域クラブの区分を確認</button></div></form>
+<?php if($regional!==null): ?><p role="status" data-regional-membership="<?=$e($regional['membership']??'pending')?>"><?php if($regional['membership']==='regular'): ?>正会員に該当します。<?php elseif($regional['membership']==='supporting'): ?>例外の条件に該当しないため、賛助会員です。<?php else: ?>区分は保留です。JAF登録とJMRC近畿の事業としての主催について確認してください。<?php endif; ?></p><?php endif; ?>
+<p>入力はこの確認画面だけで使用します。料金を試す場合は、判定結果に合わせて「料金計算の会員区分」を選んでください。本番のクラブ区分・請求・資格は変更しません。近畿地区内のクラブや関連団体・企業は、この判定の対象外です。</p></section>
+<?php endif; ?>
+<?php $actions=array_filter($item['actions'],static fn($label,$action)=>!in_array($action,['claim_notice','classify_region'],true) && $review->allowed($screen,$action),ARRAY_FILTER_USE_BOTH);if($actions): ?>
 <?php // iPhone相当のWebKitでは日付を消した後のネイティブ検証で送信が止まるため、Generalはサーバーで必須・日付・免許の組を検証する。 ?>
 <section class="office-panel"><h2>入力・操作を試す</h2><form class="office-form" aria-label="<?=$e($item['title'])?>の操作" method="post" action="<?=$e($actionUrl)?>" <?=$screen==='memberships'?'novalidate':''?>><?php $hidden(); ?>
 <?php foreach($item['fields'] as $name=>[$label,$type,$default]): $value=$default;

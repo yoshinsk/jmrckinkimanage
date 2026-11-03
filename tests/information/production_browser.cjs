@@ -68,6 +68,7 @@ async function run(engine,name,device){
           }
           await page.goto(origin+base);await page.locator('.info-answer-decisions > summary').tap();
           check(prefix+' 回答33項目が閲覧可能',await page.locator('[data-answer]').count()===33 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' 他地域主催クラブの例外を反映',(await page.locator('[data-answer="C07"]').innerText()).includes('JMRC近畿の事業として競技会を主催する他地域のJAF登録クラブは2027年度も正会員'));
           check(prefix+' 最新資格・四捨五入回答を反映',(await page.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await page.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
           await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
           check(prefix+' 回答展開320px・文字200%',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
@@ -90,6 +91,11 @@ async function run(engine,name,device){
           check(prefix+' 使い方320px・文字200%',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
           await page.evaluate(()=>document.documentElement.style.fontSize='');await page.setViewportSize(devices[device].viewport);
           await page.screenshot({path:`/artifacts/${name}-review-live-guidance.png`,fullPage:false});
+          await page.goto(origin+'/manage/review.php?screen=clubs');
+          check(prefix+' 他地域クラブの条件は確認用の独立フォーム',await page.getByRole('form',{name:'他地域クラブの条件',exact:true}).count()===1 && await page.getByRole('button',{name:'他地域クラブの区分を確認',exact:true}).count()===1);
+          check(prefix+' 未入力の条件を推定しない',await page.getByLabel('JAF登録クラブですか',{exact:true}).inputValue()==='unknown' && await page.getByLabel('JMRC近畿の事業として競技会を主催しますか',{exact:true}).inputValue()==='unknown');
+          await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
+          check(prefix+' 他地域クラブの条件は320px文字200%で横にはみ出さない',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
           await page.goto(origin+'/manage/review.php?screen=memberships');
           check(prefix+' 免許2項目は任意',!(await page.getByLabel('免許証番号（架空）').evaluate(e=>e.required)) && !(await page.getByLabel('免許有効期限（架空）').evaluate(e=>e.required)));
           await page.goto(origin+'/manage/review.php?screen=relief');
@@ -99,7 +105,7 @@ async function run(engine,name,device){
           for(const path of ['bank-settings.php','profile-correct.php','profile-correct.php?last_year=9998'])
             check(prefix+' 既存事務局画面GET '+path,(await context.request.get(origin+'/manage/'+path)).status()===200);
         }else{
-          for(const path of [base,base+'?item=HP-19',base+'?section=migration','/manage/review.php'])
+          for(const path of [base,base+'?item=HP-19',base+'?section=migration','/manage/review.php','/manage/review.php?screen=clubs'])
             check(prefix+' 権限外の直URLは403 '+path,(await context.request.get(origin+path)).status()===403);
         }
         // 元のエントリーへ既存セッションで遷移でき、ポータルからのログアウトも連動するか確認する。

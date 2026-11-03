@@ -33,6 +33,8 @@ CONFIRMED_EXISTING = ['src/bootstrap.php', 'src/Auth/SharedAuth.php', 'src/Membe
 PROFILES['confirmed'] = (CONFIRMED_NEW + CONFIRMED_EXISTING, CONFIRMED_EXISTING)
 INSURANCE_NOTICE_FILES = ['src/Insurance/InsuranceWorkbook.php', 'public/manage/insurance.php']
 PROFILES['insurance-notices'] = (INSURANCE_NOTICE_FILES, INSURANCE_NOTICE_FILES)
+CLUB_REGION_FILES = ['src/Club/ClubFeePolicy.php', 'src/Content/information-catalog.php', *REVIEW_FILES]
+PROFILES['club-region'] = (CLUB_REGION_FILES, CLUB_REGION_FILES)
 
 
 def require(condition, message):
@@ -119,7 +121,7 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        if self.profile in ['confirmed', 'insurance-notices']:
+        if self.profile in ['confirmed', 'insurance-notices', 'club-region']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
@@ -230,7 +232,7 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',

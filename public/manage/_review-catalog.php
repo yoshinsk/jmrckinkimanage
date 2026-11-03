@@ -129,6 +129,8 @@ function jmrc_review_catalog(): array
     $catalog['memberships']['fields'] += ['competition_type'=>['競技ライセンス種別（架空）','text','確認用競技種別'], 'official_type'=>['審判員ライセンス種別（架空・非保有は「なし」）','text','確認用審判種別']];
     $catalog['clubs']['fields'] += ['rate_category'=>['料金計算の区分',['official'=>'公認','affiliated'=>'加盟','associate'=>'準加盟','organization'=>'登録団体','business'=>'関連団体・企業'],'official'], 'membership_class'=>['料金計算の会員区分',['regular'=>'正会員','supporting'=>'賛助会員'],'regular'], 'registration_kind'=>['料金計算の登録方法',['new'=>'新規','renewal'=>'年度更新','rejoin'=>'再加入'],'renewal']];
     $catalog['clubs']['actions']['quote']='2027年度の料金を計算';
+    $catalog['clubs']['region_fields'] = ['jaf_registered_club'=>['JAF登録クラブですか',['unknown'=>'確認できていない','yes'=>'はい','no'=>'いいえ'],'unknown'], 'hosts_kinki_business'=>['JMRC近畿の事業として競技会を主催しますか',['unknown'=>'確認できていない','yes'=>'はい','no'=>'いいえ'],'unknown']];
+    $catalog['clubs']['actions']['classify_region']='他地域クラブの区分を確認';
     $catalog['operations']['fields'] += ['requested_role'=>['登録する役職',['OFFICE'=>'事務局','COMMITTEE'=>'運営委員','APPROVER'=>'承認者'],'OFFICE'], 'role_subject'=>['登録対象',['other'=>'別の架空担当者','self'=>'操作している本人'],'other']];
     $catalog['operations']['actions']['approve_role']='役職の承認可否を試す';
     $catalog['handbook']['fields'] += ['rounds'=>['成立した当該クラスの戦数','number','7'], 'starters'=>['1競技会の出走台数（成立判定用）','number','3'], 'cancelled'=>['その競技会は中止か',['no'=>'開催','yes'=>'中止'],'no'], 'season_ended'=>['シリーズは終了したか',['yes'=>'終了','no'=>'開催中'],'yes'], 'total_starters'=>['表彰人数の計算例：年間延べ出走台数','number','70'], 'award_events'=>['表彰人数の計算例：対象競技会数（正式な範囲は確認待ち）','number','7']];

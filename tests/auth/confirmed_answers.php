@@ -15,6 +15,13 @@ $denied=static function(string $label,callable $f,int $status=403): void {
 foreach(['OFFICE','COMMITTEE','FINANCE','APPROVER'] as $role) { check('事務局同等の役職 '.$role,StaffRolePolicy::officeEquivalent($role)); }
 check('旧entry管理者は自動昇格しない',!StaffRolePolicy::officeEquivalent('JMRC_ADMIN'));
 check('兼任でも自己承認しない',!StaffRolePolicy::canApprove(1,1,['APPROVER','COMMITTEE'],'OFFICE'));
+// C07補足: 不明をfalseへ変換せず、例外が成立する場合と成立しない場合を分ける。
+foreach([[true,true,'regular'],[true,false,'supporting'],[false,true,'supporting'],[false,false,'supporting'],
+    [null,null,null],[true,null,null],[null,true,null],[false,null,'supporting'],[null,false,'supporting']] as [$jaf,$organizer,$expected]) {
+    check('他地域クラブの条件 '.json_encode([$jaf,$organizer]),ClubFeePolicy::outsideKinkiMembership(2027,$jaf,$organizer)===$expected);
+}
+try { ClubFeePolicy::outsideKinkiMembership(2028,true,true);check('翌年度へ例外を無断適用しない',false); }
+catch(InvalidArgumentException) { check('翌年度へ例外を無断適用しない',true); }
 foreach(['new'=>10000,'renewal'=>0,'rejoin'=>0] as $kind=>$joining) {
     foreach(['regular','supporting'] as $membership) {
         foreach(['official'=>50000,'affiliated'=>30000,'associate'=>20000,'organization'=>$membership==='supporting'?10000:20000] as $category=>$annual) {

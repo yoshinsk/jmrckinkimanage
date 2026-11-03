@@ -8,7 +8,7 @@ return json_decode(<<<'CATALOG'
   "source_file": "20261031_旧HP移行元URL台帳.csv",
   "source_sha256": "d3322d14ce2e337e9453d9af9dc7944bed21c00766d583b8ccbe6907e9807189",
   "answer_source": "Documents/answers/20261103_整合性チェック追加回答.json",
-  "answer_sha256": "69d3d9f7fc5dc1328c16df09ced0664cfbd68d5013f8c25ae11ae6d13efed3b2",
+  "answer_sha256": "537bb8da9bd9d3401fb760aace4644ae429150594718960ec72c35b7f2a6b30f",
   "decisions": [
     {
       "id": "R05",
@@ -133,8 +133,8 @@ return json_decode(<<<'CATALOG'
     {
       "id": "C07",
       "title": "賛助会員の年度登録",
-      "confirmed": "賛助会員も年度登録対象。登録団体は10,000円、関連団体・企業は50,000円。",
-      "pending": "地区外の主催クラブの例外を会則第5条と照合中。賛助のクラブコード対応は保留。"
+      "confirmed": "賛助会員も年度登録する。地区外は原則賛助。ただし、JMRC近畿の事業として競技会を主催する他地域のJAF登録クラブは2027年度も正会員。賛助登録団体10,000円、関連団体・企業50,000円。",
+      "pending": "賛助の数字コード対応と正式登録への接続は保留。例外に該当するか確認できない場合は区分を保留し、所在地だけで自動決定しない。"
     },
     {
       "id": "C08",
@@ -226,7 +226,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -247,7 +247,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -268,7 +268,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -293,7 +293,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -314,7 +314,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -335,7 +335,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -356,7 +356,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -377,7 +377,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -400,7 +400,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -424,7 +424,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -447,7 +447,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -471,7 +471,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -493,7 +493,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -515,7 +515,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -539,7 +539,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "編集担当は事務局員、公開承認は事務局長。公開する原稿は確認待ち。",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -561,7 +561,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "JAF",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "national"
       ]
@@ -583,7 +583,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -604,7 +604,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "office"
       ]
@@ -626,7 +626,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "committee"
       ]
@@ -648,7 +648,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "Q13の回答でP27の分類を訂正済み。文書ごとに分類と発行団体を表示します。",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "committee",
         "national"
@@ -656,7 +656,7 @@ return json_decode(<<<'CATALOG'
     },
     "HP-21": {
       "title": "クラブ年度登録・クラブ名簿",
-      "summary": "クラブ年度登録の案内を掲載する構成です。旧HPのクラブ名簿は原則として新ポータルへ移行せず、別途バックアップを相談します。実際の登録記録から名簿を自動公開しません。",
+      "summary": "クラブ年度登録の案内を掲載する構成です。旧HPのクラブ名簿は原則として新ポータルへ移行せず、別途バックアップを相談します。実際の登録記録から名簿を自動公開しません。 他地域でも、JMRC近畿の事業として競技会を主催するJAF登録クラブは2027年度も正会員とします。",
       "sections": [
         "information",
         "documents"
@@ -671,7 +671,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -692,7 +692,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "JAF",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "national"
       ]
@@ -713,7 +713,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "review",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
@@ -734,7 +734,7 @@ return json_decode(<<<'CATALOG'
       "publisher": "原本確認待ち",
       "classification_note": "",
       "state": "excluded",
-      "revision": 3,
+      "revision": 4,
       "categories": [
         "kinki"
       ]
