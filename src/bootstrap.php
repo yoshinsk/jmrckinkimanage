@@ -28,6 +28,8 @@ require_once __DIR__ . '/Bank/BankMasterService.php';
 require_once __DIR__ . '/Profile/ProfileService.php';
 require_once __DIR__ . '/Operations/PreparationService.php';
 require_once __DIR__ . '/Content/InformationPreview.php';
+require_once __DIR__ . '/Operations/AnswerRules.php';
+require_once __DIR__ . '/Content/EditorService.php';
 
 set_exception_handler(static function (Throwable $error): void {
     $status = $error instanceof \Jmrc\Auth\HttpFailure ? $error->status : 503;

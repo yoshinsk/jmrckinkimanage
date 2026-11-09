@@ -35,7 +35,7 @@ with ZipFile(template) as source:
             check(filename+' 行高を保持', [r.attrib for r in original.findall('s:sheetData/s:row', NS)] == [r.attrib for r in sheet.findall('s:sheetData/s:row', NS)])
             changed = {'xl/worksheets/sheet1.xml', 'xl/_rels/workbook.xml.rels', '[Content_Types].xml', 'xl/calcChain.xml'}
             check(filename+' 他パーツ不変', all(source.read(p) == output.read(p) for p in source.namelist() if p not in changed))
-            check(filename+' 確認用と未確定条件を表示', '提出不可' in text('A4') and '未確定' in text('A7'))
+            check(filename+' 確認用と未確定条件を表示', '提出不可' in text('A4') and '申請日の満年齢' in text('A7'))
             check(filename+' 旧料率・区分・金額・年齢は空欄', all(not text(c) for c in ['B11', 'Q11', 'J38', 'J39', 'M38', 'M39', 'O38', 'O39', 'S40']))
             check(filename+' 記入例を削除', all(not text(c) for c in ['C10', 'G10', 'N10', 'R10']))
             check(filename+' 旧式とcalcChainなし', not sheet.findall('.//s:f', NS) and 'xl/calcChain.xml' not in output.namelist())

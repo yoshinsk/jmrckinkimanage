@@ -194,7 +194,8 @@ final class JmrcReviewWorkspace
                 if($action==='claim_notice') { $s['insurance_claim']=$f;break; }
                 if($f['type']!=='general') { $this->fail('スポーツ安全保険はGeneralのみです'); }
                 if((int)$f['count']>24) { $this->fail('確認用Excelは1〜24名です'); }
-                $s['insurance']=['intent'=>true,'count'=>(int)$f['count']];break;
+                try{$premium=\Jmrc\Operations\AnswerRules::insurance($f['birthday'],$f['application_date']);}catch(\InvalidArgumentException $error){$this->fail($error->getMessage());}
+                $s['insurance']=['intent'=>true,'count'=>(int)$f['count'],'premium'=>$premium];break;
             case 'privacy':
                 if($action==='erase') { $s['profile']=null;$s['license']=null;$s['declaration']=null;$s['member']['card_invalid']=true;return '架空プロフィールを削除しました。確認用の請求・入金・操作履歴は残しています'; }
                 $s['profile']=array_merge($s['profile']??[],$f);break;

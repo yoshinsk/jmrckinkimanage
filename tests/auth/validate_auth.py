@@ -17,7 +17,7 @@ LABEL = 'jmrc.auth.lab=true'
 NAMES = ['jmrc-auth-web-20261027', 'jmrc-auth-app-20261027', 'jmrc-auth-db-20261027']
 BROWSER = 'jmrc-license-browser-20261028'
 DB_IMAGE = 'mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce'
-SOURCE_FILES = ['common/header.php','common/footer.php','common/functions.php','common/db.php','assets/app.css','assets/validation.js',
+SOURCE_FILES = ['common/entry_readiness.php','common/dirt_trial_fees.php','common/header.php','common/footer.php','common/functions.php','common/db.php','assets/app.css','assets/validation.js',
                 'register_handler.php','verify.php','reset_handler.php','admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
 
 
@@ -80,11 +80,14 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     shutil.copyfile(ROOT/'design/phase2/staff_permissions.sql',context/'tests/staff_permissions.sql')
     shutil.copyfile(ROOT/'design/phase2/011_license_declarations.sql',context/'tests/011_license_declarations.sql')
     shutil.copyfile(ROOT/'scripts/ConfirmedAnswersDatabase.php',context/'tests/ConfirmedAnswersDatabase.php')
+    shutil.copyfile(ROOT/'scripts/EditorDraftDatabase.php',context/'tests/EditorDraftDatabase.php')
+    shutil.copyfile(ROOT/'tests/auth/editor_database.php',context/'tests/editor_database.php')
+    shutil.copyfile(ROOT/'design/phase2/012_editor_drafts.sql',context/'tests/012_editor_drafts.sql')
     shutil.copyfile(ROOT/'scripts/confirmed_answers_database.php',context/'tests/confirmed_answers_database.php')
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
@@ -155,6 +158,7 @@ def main():
         db_sql((ROOT/'design/phase2/009_bank_master_management.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/010_profile_corrections.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/011_license_declarations.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/012_editor_drafts.sql').read_text(encoding='utf-8'))
         db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
@@ -165,6 +169,7 @@ def main():
         # 申請/承認サービスに必要なDMLだけを追加。DDL・他人の識別番号更新は許可しない。
         for table in ['portal_membership_declarations','portal_applications','portal_memberships','portal_affiliations','portal_invoices','portal_invoice_lines','portal_membership_charges','portal_payments','portal_allocations','portal_club_years','portal_club_charges']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_editor_drafts TO 'auth_runtime'@'%';GRANT INSERT ON jmrckinki_auth_lab.portal_editor_revisions TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         for table in ['portal_member_numbers','portal_card_tokens']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
@@ -196,6 +201,8 @@ def main():
         db_sql('CREATE DATABASE jmrckinki_answers_lab CHARACTER SET utf8mb4; USE jmrckinki_answers_lab;'+(ROOT/'tests/phase2/legacy_schema.sql').read_text(encoding='utf-8')+(ROOT/'design/phase2/001_portal_schema.sql').read_text(encoding='utf-8'))
         db_sql("GRANT ALL ON jmrckinki_answers_lab.* TO 'lab_fixture'@'%';")
         database_release=json.loads(docker('exec',NAMES[1],'php','/srv/tests/database_answers.php').stdout)
+        db_sql("CREATE DATABASE jmrckinki_editor_lab CHARACTER SET utf8mb4;CREATE TABLE jmrckinki_editor_lab.users(id BIGINT UNSIGNED PRIMARY KEY);CREATE USER 'editor_runtime'@'%' IDENTIFIED BY 'lab_editor_only';GRANT SELECT ON jmrckinki_editor_lab.* TO 'editor_runtime'@'%';")
+        editor_release=json.loads(docker('exec',NAMES[1],'php','/srv/tests/editor_database.php').stdout)
         if args.database_release_only:
             paths=['scripts/ConfirmedAnswersDatabase.php','scripts/confirmed_answers_database.php',
                    'design/phase2/011_license_declarations.sql','design/phase2/staff_permissions.sql',
@@ -222,6 +229,7 @@ def main():
         print('Testing login, logout and permission boundaries over HTTPS',flush=True)
         result=docker('exec','--user','www-data',NAMES[1],'php','/srv/tests/run_http.php',timeout=180)
         report=json.loads(result.stdout)
+        report['editor_database_validation']=editor_release
         # Pleskのclear_env相当で環境変数なしの既定パスも検証する。隔離コンテナ内だけのsymlink。
         fallback='/var/www/vhosts/gymkinki.com/private/jmrc-portal'
         docker('exec',NAMES[1],'mkdir','-p',fallback)
@@ -381,6 +389,22 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
         else:
             raise RuntimeError('Preparation browser timed out')
         report['preparation_browser_validation']=json.loads(docker('logs',name).stdout)
+        print('Testing encrypted private drafts and mobile uploads',flush=True)
+        name='jmrc-editor-20261109'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+               'jmrc-license-browser:20261028','node','editor_browser.cjs')
+        created.append(name)
+        for _ in range(240):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                docker('cp',name+':/artifacts/.',artifact_linux)
+                if state['State']['ExitCode']!=0:
+                    raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2500:])
+                break
+            time.sleep(0.5)
+        else:
+            raise RuntimeError('Editor browser timed out')
+        report['editor_browser_validation']=json.loads(docker('logs',name).stdout)
         docker('cp',NAMES[1]+':/tmp/review-insurance.xlsx',artifact_linux+'/review-insurance.xlsx')
         assert review_inputs=={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}, 'Review sources changed during validation'
         report['review_workspace_sha256']=review_inputs
@@ -409,6 +433,7 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
         report['profile_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/010_profile_corrections.sql').read_bytes()).hexdigest()
         report['database_answers_release']=database_release
         report['database_answers_script_sha256']=hashlib.sha256((ROOT/'scripts/ConfirmedAnswersDatabase.php').read_bytes()).hexdigest()
+        report['editor_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/012_editor_drafts.sql').read_bytes()).hexdigest()
         report['declaration_migration_sha256']=hashlib.sha256((ROOT/'design/phase2/011_license_declarations.sql').read_bytes()).hexdigest()
         report['staff_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/staff_permissions.sql').read_bytes()).hexdigest()
         report['profile_permissions_sha256']=hashlib.sha256((ROOT/'design/phase2/profile_permissions.sql').read_bytes()).hexdigest()

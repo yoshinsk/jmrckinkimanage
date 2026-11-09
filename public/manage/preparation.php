@@ -42,7 +42,7 @@ require_once __DIR__.'/_office-layout.php';jmrc_office_header('運用開始前�
 <?php foreach ($data['years'] as $year): ?><p><?=$e($year['year'])?>年度：<?=$e(['shadow'=>'切替前（受付保留）','legacy'=>'既存エントリーを参照','portal'=>'ポータルを参照'][$year['source_mode']])?></p><?php endforeach; ?>
 <?php if (!$data['years']): ?><p>年度設定はありません。</p><?php endif; ?>
 <h3>機能の受付設定</h3><dl class="office-definition"><?php foreach (['license_self_service_enabled'=>'ライセンス本人更新','insurance_intents_enabled'=>'保険加入の意思受付','yucho_import_enabled'=>'銀行CSV取込','staff_role_requests_enabled'=>'役職の申請受付'] as $key=>$label): ?><dt><?=$e($label)?></dt><dd><?=$data['flags'][$key]?'設定あり（利用条件は各画面で確認）':'保留中'?></dd><?php endforeach; ?></dl>
-<h3>登録済みの件数</h3><dl class="office-definition"><?php foreach (['clubs'=>'クラブ','club_years'=>'クラブ年度登録','event_links'=>'既存イベントとの対応','organizer_links'=>'主催者との対応','invoices'=>'請求','payments'=>'入金','bank_review'=>'手動確認待ちの銀行明細'] as $key=>$label): ?><dt><?=$e($label)?></dt><dd><?=$e($data['counts'][$key])?>件</dd><?php endforeach; ?></dl>
+<p><a href="editor.php">資料・日程・文面の下書きを準備する</a></p><h3>登録済みの件数</h3><dl class="office-definition"><?php foreach (['clubs'=>'クラブ','club_years'=>'クラブ年度登録','event_links'=>'既存イベントとの対応','organizer_links'=>'主催者との対応','invoices'=>'請求','payments'=>'入金','bank_review'=>'手動確認待ちの銀行明細'] as $key=>$label): ?><dt><?=$e($label)?></dt><dd><?=$e($data['counts'][$key])?>件</dd><?php endforeach; ?></dl>
 <h3>用途別口座・決済URL・CSV取込元</h3><p>口座番号やURLそのものは表示しません。設定内容は「入金先・決済URLの設定」で確認してください。</p>
 <?php if (!$data['accounts']): ?><p>入金先口座は未登録です。</p><?php endif; ?>
 <?php foreach ($data['accounts'] as $account): ?><article class="office-history"><h3>口座設定 #<?=$e($account['id'])?> / <?=$e($account['purpose_code'])?></h3><p>年度：<?=$e($account['year']??'共通')?> / 設定：<?=$account['enabled']?'有効':'無効'?></p><p>決済URL：<?=$account['has_payment_url']?'登録あり':'未登録'?> / CSV取込元：<?=$account['source_id']===null?'未対応':'#'.$e($account['source_id']).($account['source_enabled']?' 有効':' 無効')?></p><p>有効期間：<?=$e($account['valid_from']??'開始指定なし')?> ～ <?=$e($account['valid_until']??'終了指定なし')?>（UTC）</p></article><?php endforeach; ?>
@@ -50,12 +50,13 @@ require_once __DIR__.'/_office-layout.php';jmrc_office_header('運用開始前�
 <p>設定が揃っても自動では受付を開始しません。未確定事項の回答と、運営者による開始判断を待ちます。</p>
 <?php elseif ($data && $section==='club'): ?>
 <dl class="office-definition"><?php foreach ($data['lines'] as $line): ?><dt><?=$e($line['label'])?></dt><dd><?=number_format($line['amount_yen'])?>円</dd><?php endforeach; ?><dt>合計</dt><dd><?=number_format($data['quote']['total_yen'])?>円</dd></dl>
+<p>今回の条件のコード先頭：<?=$e($data['quote']['code_prefix'])?>。正会員の登録団体も6のため、コードだけで会員区分を決めません。</p>
 <p>過年度の登録：<?=count($data['prior_years'])?>件。当年度の登録：<?=$data['current']?'あり':'なし'?>。</p>
 <?php if ($data['current'] && $data['current']['invoice_id']!==null): ?><p>発行済み請求 #<?=$e($data['current']['invoice_id'])?>：<?=number_format((int)$data['current']['amount_yen'])?>円。確認用計算との金額：<?=$data['existing_invoice_amount_matches']?'一致':'不一致（要確認）'?>。請求は変更しません。</p><?php endif; ?>
-<p class="office-readonly">請求は発行できません。数字コードの対応と新規・再加入の履歴確認が必要です。ポータルの履歴が0件でも、新規とは判断しません。</p>
+<p class="office-readonly">請求は発行できません。先頭桁は賛助6、正会員は区分別です。実在クラブの正会員・賛助区分と新規・再加入の履歴確認が必要です。ポータルの履歴が0件でも、新規とは判断しません。</p>
 <?php elseif ($data && $section==='event'): ?>
 <dl class="office-definition"><dt>開催日</dt><dd><?=$e($data['event_date'])?></dd><dt>申込締切日</dt><dd><?=$e($data['entry_end_date'])?></dd><dt>照会開始</dt><dd><?=$e($data['lookup_from'])?></dd><dt>照会終了境界（この時刻は対象外）</dt><dd><?=$e($data['lookup_until_exclusive'])?></dd><dt>現在の期間判定</dt><dd><?=$e(['open'=>'照会期間内','not_open'=>'開始前','expired'=>'終了後','unconfirmed'=>'対応確認待ち'][$data['window']])?></dd></dl>
-<p><?=$e($data['reason'])?></p><p>主催者への資格表示は照会時点、ポイント対象資格は申込時点です。申込時の記録がない過去分を、現在の資格で埋め直しません。</p>
+<p>翌年イベントを前年中に受け付けない設定：<?=$data['entry_year_policy_ok']?'開催年と受付開始年が一致':'要確認（既存受付は変更しません）'?></p><p><?=$e($data['reason'])?></p><p>主催者への資格表示は照会時点、ポイント対象資格は申込時点です。申込時の記録がない過去分を、現在の資格で埋め直しません。</p>
 <?php elseif ($data && $section==='privacy'): ?>
 <p><?=$e($data['retained'])?></p><p>以下は保存先の棚卸しです。削除対象者の確定や、削除実行ではありません。</p>
 <?php foreach ($data['items'] as $item): ?><article class="office-history"><h3><?=$e($item['label'])?>：<?=$e($item['count'])?>件</h3><p><?=$e(['candidate'=>'ポータル個人情報の削除対象候補','review'=>'履歴・複製の扱いを確認する記録','keep'=>'保持する記録'][$item['scope']])?></p></article><?php endforeach; ?><p><?=$e($data['external_copies'])?></p>

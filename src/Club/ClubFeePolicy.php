@@ -34,6 +34,8 @@ final class ClubFeePolicy
             'organization' => $membership === 'supporting' ? 10000 : 20000,
         };
         $joining = $registration === 'new' && $category !== 'business' ? 10000 : 0;
-        return ['year'=>$year, 'annual_yen'=>$annual, 'joining_yen'=>$joining, 'total_yen'=>$annual+$joining];
+        // P03: 賛助はすべて6。正会員の登録団体も6なので、数字から会費・正賛を逆算しない。
+        $prefix=$membership==='supporting'?'6':match($category){'official'=>'1','affiliated'=>'2','associate'=>'3','organization'=>'6'};
+        return ['year'=>$year, 'annual_yen'=>$annual, 'joining_yen'=>$joining, 'total_yen'=>$annual+$joining,'code_prefix'=>$prefix];
     }
 }

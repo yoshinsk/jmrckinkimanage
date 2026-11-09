@@ -39,6 +39,13 @@ PREPARATION_EXISTING = ['src/Auth/StaffRoleService.php', 'src/bootstrap.php', 'p
 PREPARATION_FILES = ['src/Operations/PreparationService.php', 'src/Auth/StaffRoleService.php', 'src/bootstrap.php',
                      'public/manage/preparation.php', 'public/manage/staff-roles.php', 'public/manage/index.php']
 PROFILES['preparation'] = (PREPARATION_FILES, PREPARATION_EXISTING)
+EDITOR_NEW = ['src/Operations/AnswerRules.php','src/Content/EditorService.php','public/manage/editor.php']
+EDITOR_EXISTING = ['src/Club/ClubFeePolicy.php','src/Series/SeriesRules.php','src/Operations/PreparationService.php',
+                  'src/Content/information-catalog.php','src/Content/information-template.php','src/Insurance/InsuranceWorkbook.php','src/bootstrap.php',
+                  'public/manage/_review-catalog.php','public/manage/_review-workspace.php','public/manage/review.php',
+                  'public/manage/insurance.php','public/manage/preparation.php','public/manage/index.php']
+PROFILES['additional-answers'] = (EDITOR_NEW[:2] + EDITOR_EXISTING[:-1] + [EDITOR_NEW[-1],EDITOR_EXISTING[-1]], EDITOR_EXISTING)
+
 
 
 def require(condition, message):
@@ -125,9 +132,9 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        if self.profile == 'preparation':
+        if self.profile in ['preparation','additional-answers']:
             require(state['flags'].get('staff_role_requests_enabled', False) is False, 'Staff intake enabled')
-        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation']:
+        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
@@ -238,7 +245,7 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',

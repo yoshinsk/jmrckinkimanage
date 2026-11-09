@@ -69,7 +69,7 @@ final class PreparationService
             LEFT JOIN portal_club_charges ch ON ch.club_year_id=cy.id WHERE cy.club_id=? AND cy.year=?',[$club,$year])->fetch(PDO::FETCH_ASSOC);
         return ['club_id'=>$club,'quote'=>$quote,'lines'=>$lines,'prior_years'=>$prior,'current'=>$current?:null,
             'existing_invoice_amount_matches'=>$current && $current['invoice_id']!==null ? (int)$current['amount_yen']===$quote['total_yen']:null,
-            'history_review_required'=>true,'code_mapping_review_required'=>true,'can_issue'=>false];
+            'history_review_required'=>true,'code_mapping_review_required'=>false,'membership_mapping_review_required'=>true,'can_issue'=>false];
     }
 
     /**
@@ -79,7 +79,7 @@ final class PreparationService
     public function eventPlan(int $actor,int $legacyId,?\DateTimeImmutable $now=null): array
     {
         $this->access($actor);
-        $event=$this->query('SELECT id,event_date,entry_end_date,organizer_code FROM jmrc_events WHERE id=? AND is_deleted=0',[$legacyId])->fetch(PDO::FETCH_ASSOC);
+        $event=$this->query('SELECT id,event_date,entry_start_date,entry_end_date,organizer_code FROM jmrc_events WHERE id=? AND is_deleted=0',[$legacyId])->fetch(PDO::FETCH_ASSOC);
         if (!$event) { throw new HttpFailure(404,'既存イベントがありません'); }
         $mapped=$this->query('SELECT e.id,e.status,e.starts_at,e.ends_at,cy.club_id FROM portal_events e
             JOIN portal_club_years cy ON cy.id=e.organizer_club_year_id WHERE e.legacy_event_id=?',[$legacyId])->fetch(PDO::FETCH_ASSOC);
@@ -102,7 +102,8 @@ final class PreparationService
         }
         $mappedReady=$mapped && $mapped['status']==='published' && $sameDay && $linked===1;
         $window=\Jmrc\Events\OrganizerEligibilityPolicy::window(true,$now??new \DateTimeImmutable('now',$jst),$deadline,$end);
-        return ['legacy_event_id'=>$legacyId,'event_date'=>$event['event_date'],'entry_end_date'=>$event['entry_end_date'],
+        return ['entry_year_policy_ok'=>is_string($event['entry_start_date']) && substr($event['entry_start_date'],0,4)===substr($event['event_date'],0,4),
+            'legacy_event_id'=>$legacyId,'event_date'=>$event['event_date'],'entry_end_date'=>$event['entry_end_date'],
             'lookup_from'=>$deadline->format(DATE_ATOM),'lookup_until_exclusive'=>$dates['event_date']->modify('+8 days')->format(DATE_ATOM),
             'event_mapping_confirmed'=>(bool)$mappedReady,'window'=>$mappedReady?$window:'unconfirmed',
             'qualification_basis'=>'query_time','points_basis'=>'application_time','organizer_access_enabled'=>false,

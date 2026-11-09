@@ -67,8 +67,8 @@ async function run(engine,name,device){
             check(prefix+' 分類内の文書のみ '+category,await page.locator('.info-source-link').count()===2);
           }
           await page.goto(origin+base);await page.locator('.info-answer-decisions > summary').tap();
-          check(prefix+' 回答33項目が閲覧可能',await page.locator('[data-answer]').count()===33 && await page.locator('[data-answer="Q05"]').isVisible());
-          check(prefix+' 他地域主催クラブの例外を反映',(await page.locator('[data-answer="C07"]').innerText()).includes('JMRC近畿の事業として競技会を主催する他地域のJAF登録クラブは2027年度も正会員'));
+          check(prefix+' 回答49項目が閲覧可能',await page.locator('[data-answer]').count()===49 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' 他地域主催クラブの例外を反映',(await page.locator('[data-answer="C07"]').innerText()).includes('JMRC近畿の事業として主催する他地域JAFクラブは正会員'));
           check(prefix+' 最新資格・四捨五入回答を反映',(await page.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await page.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
           await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
           check(prefix+' 回答展開320px・文字200%',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));

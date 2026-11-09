@@ -24,7 +24,7 @@ foreach ($infoUsers as $id=>$browser) {
 check('事務局へ旧HP試作入口を表示',str_contains($infoOffice->request('/manage/')['body'],'href="'.$base.'"'));
 $catalog = InformationPreview::catalog();
 check('旧HP試作は24対応・154候補',count($catalog['topics'])===24 && array_sum(array_map('count',$catalog['sources']))===154);
-check('追加回答15件と既存18件を表示',count($catalog['decisions'])===33);
+check('今回16件と既存33件の回答を表示',count($catalog['decisions'])===49);
 foreach (['committee','national'] as $category) {
     $filtered = $infoOffice->request($base.'?section=information&category='.$category);
     check('会則は文書別の両分類に現れる '.$category,str_contains($filtered['body'],'data-topic="HP-20"'));
