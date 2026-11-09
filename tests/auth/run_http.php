@@ -211,6 +211,8 @@ try {
     check('監査に資格情報を含めない',!str_contains($serialized,'lab-password-only') && !str_contains($serialized,'example.invalid') && !str_contains($serialized,'PHPSESSID'));
     require '/srv/tests/membership_http.php';
     require '/srv/tests/billing_http.php';
+    require '/srv/tests/dirt_integration.php';
+    require '/srv/tests/followup_answers.php';
     require '/srv/tests/club_http.php';
     require '/srv/tests/card_http.php';
     require '/srv/tests/license_http.php';
@@ -233,6 +235,6 @@ try {
             '競技会GETは既存実コード。POSTは会費追加拒否のみ検証、通常申込完走/メール/帳票は別工程','ブラウザーJS/画面外観は未検証']];
     echo json_encode($report,JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT|JSON_THROW_ON_ERROR)."\n";
 } catch (Throwable $error) {
-    fwrite(STDERR,'FAIL: '.$error->getMessage()."\n");
+    fwrite(STDERR,'FAIL: '.$error->getMessage().' / last passed: '.($results[array_key_last($results)]['case']??'none')."\n");
     exit(1);
 }

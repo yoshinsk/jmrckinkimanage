@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "backup_verified": true,
+  "protected_state_unchanged": true,
+  "entry_files_unchanged": true,
+  "business_tables": 85,
+  "protected_files": 667,
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1201,
+    "jmrc_entry_fees": 1509,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "years": "2027\tshadow",
+  "flags": {
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false
+  },
+  "stage_removed": true,
+  "source_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/dirt-followup-20261109T074825Z",
+  "isolated_http_cases": 1270,
+  "isolated_browser_cases": 1828,
+  "production_browser_cases": 660,
+  "business_posts": 0,
+  "restore_tests": 28,
+  "adapter_tests": 3
+}

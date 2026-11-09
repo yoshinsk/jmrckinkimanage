@@ -17,7 +17,7 @@ LABEL = 'jmrc.auth.lab=true'
 NAMES = ['jmrc-auth-web-20261027', 'jmrc-auth-app-20261027', 'jmrc-auth-db-20261027']
 BROWSER = 'jmrc-license-browser-20261028'
 DB_IMAGE = 'mariadb:10.5.29@sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce'
-SOURCE_FILES = ['common/entry_readiness.php','common/dirt_trial_fees.php','common/header.php','common/footer.php','common/functions.php','common/db.php','assets/app.css','assets/validation.js',
+SOURCE_FILES = ['common/mailer.php','common/entry_readiness.php','common/dirt_trial_fees.php','common/header.php','common/footer.php','common/functions.php','common/db.php','assets/app.css','assets/validation.js',
                 'register_handler.php','verify.php','reset_handler.php','admin/events.php','club/events.php','entrant/events.php','entrant/entries.php','admin/entry_payment_check.php']
 
 
@@ -80,7 +80,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php','dirt_integration.php','followup_answers.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     shutil.copyfile(ROOT/'design/phase2/staff_permissions.sql',context/'tests/staff_permissions.sql')
     shutil.copyfile(ROOT/'design/phase2/011_license_declarations.sql',context/'tests/011_license_declarations.sql')
@@ -147,6 +147,8 @@ def main():
         else:
             raise RuntimeError('MariaDB startup timed out')
         db_sql((ROOT/'tests/phase2/legacy_schema.sql').read_text(encoding='utf-8'))
+        # 最新entryが参照する表示名だけを架空DBへ追加。本番DB・受付設定には接続しない。
+        db_sql('ALTER TABLE jmrc_events ADD COLUMN event_name VARCHAR(255) NULL DEFAULT NULL;')
         db_sql((ROOT/'design/phase2/001_portal_schema.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/002_confirmed_membership_rules.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/003_membership_billing.sql').read_text(encoding='utf-8'))

@@ -60,6 +60,7 @@ final class JmrcReviewWorkspace
         if (!isset(jmrc_review_catalog()[$screen]['actions'][$action])) { return false; }
         if ($screen==='temporary' && $action==='approve') { return $role==='club'; }
         if ($screen==='temporary' && $action==='save') { return in_array($role,['office','member'],true); }
+        if ($screen==='affiliations') { return $action==='change' ? in_array($role,['office','member'],true) : in_array($role,['office','club'],true); }
         if ($screen==='billing' && $action!=='issue') { return in_array($role,['office','finance'],true); }
         if ($screen==='clubs' && $action==='approve') { return $role==='office'; }
         if ($screen==='inquiries' && $action==='reply') { return $role==='office'; }
@@ -158,8 +159,23 @@ final class JmrcReviewWorkspace
                 $s['profile']=$f;$s['member']['submitted']=true;$this->issue('general');break;
             case 'affiliations':
                 if(!$s['member']['submitted']) { $this->fail('先にGeneralを申請してください'); }
+                if($action==='change') {
+                    if(!$s['member']['approved']) { $this->fail('先に現在の所属を承認してください'); }
+                    $s['member']['change_pending']=true;
+                    return '本人が変更先クラブへ申請した例です。承認前の所属と会員番号は維持します';
+                }
+                if(!empty($s['member']['change_pending'])) {
+                    if($s['role']==='club' && $f['representative_scope']!=='destination') { $this->fail('変更先クラブの代表が承認してください。変更元代表の承認は不要です'); }
+                    if($action==='approve') {
+                        $s['club']['code']='100002';$s['club']['short']='変更先CLUB';
+                        $s['member']['card_invalid']=false;
+                        $s['member']['change_pending']=false;
+                        return '変更先の承認後に新しいクラブコードの会員番号へ変更しました。旧QRは失効する例です。会費は追加しません';
+                    }
+                    $s['member']['change_pending']=false;
+                    return '変更申請を差し戻しました。元の所属は維持します';
+                }
                 $s['member']['approved']=$action==='approve';
-                if($action==='change') { $s['member']['card_invalid']=true; }
                 break;
             case 'preregistration':
                 $match=$f['match']==='unique' && $s['license']!==null && $s['license']['number']===$f['number'] && $s['member']['submitted'];

@@ -11,6 +11,42 @@ final class CardService
 {
     public function __construct(private readonly PDO $db,private readonly array $config) {}
 
+    /** 所属承認サービスの取引内専用。新QRは発行せず、既存番号の履歴と旧QR失効を原子的に保存する。 */
+    public function replaceNumberForClubChange(int $actor,int $member): void
+    {
+        if (!$this->db->inTransaction()) { throw new \LogicException('Affiliation transaction required'); }
+        $next=$this->run("SELECT id FROM portal_affiliations WHERE membership_id=? AND status='approved' AND valid_until IS NULL AND decided_by=?",[$member,$actor])->fetchColumn();
+        if (!$next) { throw new HttpFailure(409,'所属変更の承認を確認してください'); }
+        $n=$this->number($member);
+        if (!$n) { return; } // 未発行者は本人の初回発行時に変更先コードを利用する。
+        $basis=$this->basis($member);$box=$this->box();
+        // 所属以外の採番元が同時に変わっていたら、この承認でライセンス訂正まで追認しない。
+        $original=$basis;$original['club_year_id']=$n['club_year_id'];
+        $original['display_code']=$this->run('SELECT display_code FROM portal_club_years WHERE id=?',[$n['club_year_id']])->fetchColumn();
+        if (!$this->matches($n,$original,$this->fingerprint($original,$box))) { throw new HttpFailure(409,'所属以外の採番元に変更があります。事務局へ確認してください'); }
+        if ((int)$n['club_year_id']===(int)$basis['club_year_id']) { throw new HttpFailure(409,'会員番号の変更先を確認してください'); }
+        if ((int)$basis['key_version']!==1) { throw new HttpFailure(503,'ライセンス情報の鍵形式を確認してください'); }
+        $license=$box->open($basis['value_cipher'],'jmrc:identifier:v1:'.$basis['source_identifier_id']);
+        if (!preg_match('/^[A-Za-z0-9-]{1,64}$/D',$license)) { throw new HttpFailure(422,'ライセンス番号を事務局で確認してください'); }
+        $number=$license.'-G-'.$basis['display_code'];
+        $this->run('UPDATE portal_card_tokens SET revoked_at=UTC_TIMESTAMP(6),row_version=row_version+1 WHERE membership_id=? AND revoked_at IS NULL',[$member]);
+        $this->run('UPDATE portal_member_numbers SET valid_until=UTC_TIMESTAMP(6) WHERE id=?',[$n['id']]);
+        $digest=$box->digest($number,'member-number');
+        $past=$this->run('SELECT * FROM portal_member_numbers WHERE membership_id=? AND number_hmac=? FOR UPDATE',[$member,$digest])->fetch(PDO::FETCH_ASSOC);
+        if ($past) {
+            // 元のクラブへ戻ると番号も同じになる。番号の一意制約を維持して再利用し、所属の各期間は所属履歴で残す。
+            if ((int)$past['club_year_id']!==(int)$basis['club_year_id'] || (int)$past['source_identifier_id']!==(int)$basis['source_identifier_id'] || $past['source_kind']!==$basis['kind']) {
+                throw new HttpFailure(409,'過去の会員番号の登録元を確認してください');
+            }
+            $this->run('UPDATE portal_member_numbers SET valid_until=NULL,source_fingerprint=?,row_version=row_version+1 WHERE id=?',[$this->fingerprint($basis,$box),$past['id']]);
+        } else {
+            $this->run('INSERT INTO portal_member_numbers(membership_id,user_id,year,source_kind,source_identifier_id,club_year_id,number_cipher,number_hmac,key_version,valid_from,source_fingerprint) VALUES(?,?,?,?,?,?,?,?,1,UTC_TIMESTAMP(6),?)',[
+                $member,$basis['user_id'],$basis['year'],$basis['kind'],$basis['source_identifier_id'],$basis['club_year_id'],
+                $box->seal($number,'jmrc:member-number:v1:'.$member),$digest,$this->fingerprint($basis,$box)]);
+        }
+        $this->audit($actor,'GENERAL_NUMBER_CLUB_CHANGED',$member);
+    }
+
     /** 発行は本人の明示POSTからのみ。同じ採番元の再送は番号・QRを増やさない。 */
     public function issue(int $actor,int $member): array
     {

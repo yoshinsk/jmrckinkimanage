@@ -993,6 +993,314 @@
       "result": "PASS"
     },
     {
+      "case": "ダートラ資格の基準は有効なGeneral",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格の自己申告拒否 0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格を会員扱いしない 0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格の自己申告拒否 1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格を会員扱いしない 1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格の自己申告拒否 2",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格を会員扱いしない 2",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格の自己申告拒否 3",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格を会員扱いしない 3",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格の自己申告拒否 4",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格を会員扱いしない 4",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格の自己申告拒否 5",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ無効資格を会員扱いしない 5",
+      "result": "PASS"
+    },
+    {
+      "case": "shadowでポータル資格を断定しない",
+      "result": "PASS"
+    },
+    {
+      "case": "他地区の自己申告は近畿資格にしない",
+      "result": "PASS"
+    },
+    {
+      "case": "近畿未加入の偽装拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "未知の区分を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "開催年変更後もテスト大会を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "テスト大会のみ自己申告で確認可能",
+      "result": "PASS"
+    },
+    {
+      "case": "正式2027大会はshadow中受付保留",
+      "result": "PASS"
+    },
+    {
+      "case": "shadowでもテスト大会の受付設定は独立",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 championkinki0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 championkinki1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 championother0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 championother1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 championnone0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 championnone1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 middlekinki0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 middlekinki1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 middleother0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 middleother1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 middlenone0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 middlenone1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 openkinki0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 openkinki1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 openother0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 openother1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 opennone0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 opennone1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 closedkinki0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 closedkinki1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 closedother0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 closedother1",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 closednone0",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラWeb割引は500円 closednone1",
+      "result": "PASS"
+    },
+    {
+      "case": "最新ダートラ実画面を共通ログインで表示",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラからmanageへ同一ID",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラでも事務局権限を昇格しない",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ正式年度の会費加算POST拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "manageログアウトでダートラも未認証",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ確認で業務行を増やさない jmrc_entries",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ確認で業務行を増やさない jmrc_entry_fees",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ確認で業務行を増やさない portal_invoices",
+      "result": "PASS"
+    },
+    {
+      "case": "ダートラ確認で業務行を増やさない portal_memberships",
+      "result": "PASS"
+    },
+    {
+      "case": "P18同大会同クラスの同順位を入力訂正へ",
+      "result": "PASS"
+    },
+    {
+      "case": "P18別クラスの同じ順位は許可",
+      "result": "PASS"
+    },
+    {
+      "case": "P18異なる選手で比較不能なら結果確認へ",
+      "result": "PASS"
+    },
+    {
+      "case": "P18通常の比較は継続",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更前の請求作成",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更前の入金",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更前は承認・満額入金済みの有効資格",
+      "result": "PASS"
+    },
+    {
+      "case": "P19他人の所属変更申請拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "P19申請再送は同じ1件",
+      "result": "PASS"
+    },
+    {
+      "case": "P19承認前は旧QR・番号維持",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更元代表だけでは承認不可",
+      "result": "PASS"
+    },
+    {
+      "case": "P19本人は承認不可",
+      "result": "PASS"
+    },
+    {
+      "case": "P19旧管理者だけでは承認不可",
+      "result": "PASS"
+    },
+    {
+      "case": "P19古い版を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更先代表のみで承認",
+      "result": "PASS"
+    },
+    {
+      "case": "P19承認再送は重複しない",
+      "result": "PASS"
+    },
+    {
+      "case": "P19承認直後に旧QR失効",
+      "result": "PASS"
+    },
+    {
+      "case": "P19会員番号は変更先6桁コード",
+      "result": "PASS"
+    },
+    {
+      "case": "P19新QRは有効",
+      "result": "PASS"
+    },
+    {
+      "case": "P19請求・入金・年度会費は変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "P19監査通知障害は全体ロールバック",
+      "result": "PASS"
+    },
+    {
+      "case": "P19事務局代行も可能",
+      "result": "PASS"
+    },
+    {
+      "case": "P19元クラブへ戻る場合は同じ番号を再利用し履歴保持",
+      "result": "PASS"
+    },
+    {
       "case": "旧管理者だけではクラブ登録できない",
       "result": "PASS"
     },
@@ -3177,6 +3485,22 @@
       "result": "PASS"
     },
     {
+      "case": "P19確認画面も承認前は旧番号を維持",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更元代表の承認例を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "P19関係ない代表の承認例を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "P19変更先の承認例で番号更新・会費不変",
+      "result": "PASS"
+    },
+    {
       "case": "同じ入金の再操作でも二重計上しない",
       "result": "PASS"
     },
@@ -3373,7 +3697,7 @@
       "result": "PASS"
     },
     {
-      "case": "今回16件と既存33件の回答を表示",
+      "case": "今回18件と既存33件の回答を表示",
       "result": "PASS"
     },
     {
@@ -11027,7 +11351,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium 追加回答49項目を開ける",
+        "case": "chromium 追加回答51項目を開ける",
         "result": "PASS"
       },
       {
@@ -11531,7 +11855,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit 追加回答49項目を開ける",
+        "case": "webkit 追加回答51項目を開ける",
         "result": "PASS"
       },
       {
@@ -11563,7 +11887,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-09T04:31:08.229Z",
+    "checked_at_utc": "2026-11-09T07:47:38.900Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -12191,7 +12515,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-09T04:31:19.968Z",
+    "checked_at_utc": "2026-11-09T07:47:50.836Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -12531,19 +12855,19 @@
   },
   "review_workspace_sha256": {
     "public/manage/index.php": "5bc07dfd8702de876ab9f8813ae895f41dc669ac7d9cd6d6f03f554a626704ad",
-    "public/manage/review.php": "93ddd02f6f3e3263a6062de3599f4d09e9a59c95c145709278112914089f51a8",
-    "public/manage/_review-catalog.php": "fe6f8d91d6683c0d017d17aa453b8a6ec078f11b8ae511d0dbd9071fefa54a35",
-    "public/manage/_review-workspace.php": "3ec1bbfd99193adf03f73fcaf135ae9894e0e83607c31b82716826c7bac3404d",
+    "public/manage/review.php": "4e4f964f176cb88c49492b5d83f33ec8aa169c7f7b3641bc486d8496ce7314da",
+    "public/manage/_review-catalog.php": "c358e92c66fdcb3e14328bba769b3105b2cf9b107108d30a899af120d13beba8",
+    "public/manage/_review-workspace.php": "28f23c80eb7ff1c570e10ebd17ece0af755a358ef5985c49eb2f872e84b84e32",
     "public/manage/assets/review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440",
-    "tests/auth/review_http.php": "0559f39f356d73ae63003dc5ddaa068627dddf69f22e845f389f58052c4783bc",
+    "tests/auth/review_http.php": "84f95a370833bacdfb65c8a6a350e745d7d130be3078f2b5683f3f275d0d8ead",
     "tests/license/review_browser.cjs": "6efe4a674d1b3403938f665bbc05586cbfac2b2ebf88370303ad262633393aa9",
     "public/manage/information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public/manage/assets/information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
     "src/Content/InformationPreview.php": "5c10219cb3194a495ad205ecb0758452d5e23ee831af01a2cd70e1e3f71e229b",
-    "src/Content/information-catalog.php": "57710b44cb1585831050d940bb0a509b570dc4330442c50fed3ad0f931e88e56",
-    "src/Content/information-template.php": "81e1fdbda434d83642cc7de504d41cde8c2e83a6f3077fd2d4c023316e76076f",
-    "tests/auth/information_http.php": "5bb8bbdfd06f899862b1ba78224d8a47a9882b61346168afb05418bb0db47011",
-    "tests/license/information_browser.cjs": "4f98d68982374ae8edf332715fece69b33f4f3a96dbba333e8c2e74c0cd6d40c",
+    "src/Content/information-catalog.php": "03c0e3f1b44625a70770ff0c30e4707a3273f3e5530ae8454b67a521dd9e3a7a",
+    "src/Content/information-template.php": "597f7f8fac639b02827fae9d4b93e6a49ae4fc79c40d906f90a1b7d137d67249",
+    "tests/auth/information_http.php": "0d6f16248438c415d79240278e8712e26904a0b1e9fecdabf7a5052c13bb46fa",
+    "tests/license/information_browser.cjs": "e9d50de83248c40a4b0b7b5b2614bdf9323d3bddce4cf30397df5eea413cee48",
     "src/Operations/PreparationService.php": "bd0153f9cbd85664a3f765bc7211058a0e50c6e0fc2b541df1fc31f2657a6ddf",
     "src/Auth/StaffRoleService.php": "208a3ac133d66ebd75a2e3af3ead6aef97a2e9b4517fb96efa184689c6260108",
     "public/manage/preparation.php": "a18dec09e9052bf2b44b936faadbab56d3f29f796787dcdf22c965c4e3891e1d",
@@ -12551,8 +12875,9 @@
     "tests/auth/preparation_http.php": "e038a7851ea1e22046bda1904632776fd806ebca36d8dd5de05884adfabfb874",
     "tests/license/preparation_browser.cjs": "99ad5f15873f7bc0fe3ea2eb7e9e6cc027707b53c4197e22fa5d5893f75a2c93"
   },
-  "checked_at_utc": "2026-11-09T04:31:21.190800+00:00",
+  "checked_at_utc": "2026-11-09T07:47:51.785225+00:00",
   "legacy_source_sha256": {
+    "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
     "common/dirt_trial_fees.php": "8fb652774f8603ae6e9dc70b5e15df36ccd02f34e26d655b740974f5ea9f95ac",
     "common/header.php": "ed2bb9032d89fcd7951db74d511a35f76260fa471ac9bca7b6af0590c0f3e99b",
@@ -12586,14 +12911,14 @@
     "src\\Bank\\YuchoCsv.php": "7411b88944e75184ab1b49e07c41071afe0e2cafab6f7b19679e36e73c6ee21a",
     "src\\Billing\\BillingService.php": "258d339d2642b4eb9a56f4191c3ee9ed3a96d7bf0eaa6ca645c81f261e3df72d",
     "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
-    "src\\Card\\CardService.php": "f52f8f977f0841e4632fa2b54eb3e8dd5b46652177eb7dbe85d07a4d127ccbfb",
+    "src\\Card\\CardService.php": "5ee101411dd4b9e9ad3d1148540c7bcb7daf28cf7c7f87db8c35f958b691c05c",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubEligibility.php": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
     "src\\Club\\ClubFeePolicy.php": "c01a42ed0cb1bebd84bf27bb5d6abd73f9d40f8bc40575a0ff27fdf7d710c864",
     "src\\Club\\ClubService.php": "213a99d06a1bab44b586626495b3f5f2ba6f7aff83b78abadfe3265cc3663513",
     "src\\Content\\EditorService.php": "ad38ecfcb27e125dac3e29ef5bd290dc82f12a128e30724ad34e261d2fe3a525",
-    "src\\Content\\information-catalog.php": "57710b44cb1585831050d940bb0a509b570dc4330442c50fed3ad0f931e88e56",
-    "src\\Content\\information-template.php": "81e1fdbda434d83642cc7de504d41cde8c2e83a6f3077fd2d4c023316e76076f",
+    "src\\Content\\information-catalog.php": "03c0e3f1b44625a70770ff0c30e4707a3273f3e5530ae8454b67a521dd9e3a7a",
+    "src\\Content\\information-template.php": "597f7f8fac639b02827fae9d4b93e6a49ae4fc79c40d906f90a1b7d137d67249",
     "src\\Content\\InformationPreview.php": "5c10219cb3194a495ad205ecb0758452d5e23ee831af01a2cd70e1e3f71e229b",
     "src\\Events\\OrganizerEligibilityPolicy.php": "13fcd9be7f1f5743ffa095d8dd9ae2cd4690f8101f2cd12fc8ddbe47c2f16595",
     "src\\Insurance\\InsuranceService.php": "3d021e9fc4449b5211e4177104c17d6a37b219150809c31d47ac6b33e7ee710f",
@@ -12601,11 +12926,11 @@
     "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
     "src\\License\\LicenseService.php": "5536a9017ecbf34fcfc4abfec0a9c1e61ea42d301dfa93313e532671d94aecc7",
     "src\\Membership\\LicenseDeclaration.php": "05c8bc84f483b0484de307acbca0715029e92b63c62f42055867bfa9e575ffb3",
-    "src\\Membership\\MembershipService.php": "17ffb21547f3cb0b24b36187e46aadaf4b25223d0a6e7bf91693612688262f78",
-    "src\\Operations\\AnswerRules.php": "25feff72b9c0b5a95c43b1dd986da89f8b6813fff860b33a68e7c53af77d6489",
+    "src\\Membership\\MembershipService.php": "b0441dbe186c2136df2dd10a4af402ac338a140c29801cf84024eeb36b4cd2fc",
+    "src\\Operations\\AnswerRules.php": "c953be51706f5bfcb1801b2ec92c5434be18e6d48cdc3cbaa02c6f8e696c1bd7",
     "src\\Operations\\PreparationService.php": "bd0153f9cbd85664a3f765bc7211058a0e50c6e0fc2b541df1fc31f2657a6ddf",
     "src\\Profile\\ProfileService.php": "e99ca9899c592c1ea8016f5915db849e0989d06b1a46966473638173b33dd357",
-    "src\\Series\\SeriesRules.php": "98dba8968072473681ce1898368156ff663f8d7beeec79ef574b937a762c1c3c",
+    "src\\Series\\SeriesRules.php": "2d55faf72a76a3a6ef8f11a128daff36bb379e76600ddec5348bae7a8682be04",
     "integration\\jmrckinki\\login.php": "88ff22a70c4b56cc047132cf8178ee16d6343ccb7afa4e3fea8675fbb6f673ce",
     "integration\\jmrckinki\\logout.php": "1864c58f41fd18a454814c8aa76e7e45b3c4d76a37643c7ce7ce7eb8ea768236",
     "integration\\jmrckinki\\common\\auth.php": "7473f6be7b0f7e6b9740872f129c5a10646c8f6c27a6a2ded00fa9775585edd9",
@@ -12629,14 +12954,14 @@
     "public\\manage\\memberships.php": "1c653ed467c84be4610b122f87955e0544280ce22c9ef6ec311ac4b74aab7b96",
     "public\\manage\\preparation.php": "a18dec09e9052bf2b44b936faadbab56d3f29f796787dcdf22c965c4e3891e1d",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
-    "public\\manage\\review.php": "93ddd02f6f3e3263a6062de3599f4d09e9a59c95c145709278112914089f51a8",
+    "public\\manage\\review.php": "4e4f964f176cb88c49492b5d83f33ec8aa169c7f7b3641bc486d8496ce7314da",
     "public\\manage\\staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
     "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
     "public\\manage\\_office-layout.php": "da644ada7f74bac62d4a13db24334302bf45d8decfd6d705eefb7adebfda658e",
-    "public\\manage\\_review-catalog.php": "fe6f8d91d6683c0d017d17aa453b8a6ec078f11b8ae511d0dbd9071fefa54a35",
-    "public\\manage\\_review-workspace.php": "3ec1bbfd99193adf03f73fcaf135ae9894e0e83607c31b82716826c7bac3404d"
+    "public\\manage\\_review-catalog.php": "c358e92c66fdcb3e14328bba769b3105b2cf9b107108d30a899af120d13beba8",
+    "public\\manage\\_review-workspace.php": "28f23c80eb7ff1c570e10ebd17ece0af755a358ef5985c49eb2f872e84b84e32"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
@@ -12649,7 +12974,7 @@
     "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
     "tests\\license\\Dockerfile.browser": "7663215a604c62a2ea810a47563eaac2b5123b580a0c9249daa6682c1802b674",
     "tests\\license\\editor_browser.cjs": "017e49204950a31e03462df7b68c1444c3fe0f65398662f922379154c519b70d",
-    "tests\\license\\information_browser.cjs": "4f98d68982374ae8edf332715fece69b33f4f3a96dbba333e8c2e74c0cd6d40c",
+    "tests\\license\\information_browser.cjs": "e9d50de83248c40a4b0b7b5b2614bdf9323d3bddce4cf30397df5eea413cee48",
     "tests\\license\\information_offline_browser.cjs": "6c746429663c42e372e80cebe0b1572fa8f163c6517939192a984f41ca740ee7",
     "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
     "tests\\license\\member_browser.cjs": "36e457487d26f3588b8ea7c9b6b894bb79ee3af764c705b07143f593aa1603cf",
@@ -12740,7 +13065,7 @@
     "tests\\club\\concurrent_club.php": "79384d6488951501b77f9f1608d8c5d16db645f99baf28326cce49ea6c7646de"
   },
   "billing_permissions_sha256": "74fdc97d3999c3817226916c78bc607879eb97a43162f8f679f12c7f280f42dc",
-  "entry_billing_prepare_sha256": "33754ab51d2317357a24a943bb754c6a6c9abc26a2d80aa2ef1dcc51d322db59",
+  "entry_billing_prepare_sha256": "5a6dc89b65ec4583de51126051713fb98a24e1e1701675776c650b75fef125d9",
   "billing_test_source_sha256": {
     "tests\\billing\\billing_http.php": "91277a8d08b7fc76163ad1eb8528a192dd10e3070284a15ea6459c29fe4cde5a",
     "tests\\billing\\concurrent_billing.php": "09a57e732fecf80612a5d5b2a6410a0cc93e199cb33ce19cb53f6ed6c2521fd4"
@@ -12756,12 +13081,14 @@
     "tests\\auth\\confirmed_answers.php": "b1da7a62ec5548636854141794792fb0e10e91dd30f7f1c117781494065d9b50",
     "tests\\auth\\dashboard_http.php": "3289e51822c42d2ad2c7d5c4f03e91d9e718e166f038a7fefe863ecc7def966d",
     "tests\\auth\\database_answers.php": "b3f33c7daf2778353c73186a7437ca93def96a9c136041f899609f8eca5e15ab",
+    "tests\\auth\\dirt_integration.php": "640e00f303082e67473fe4db02be028c980df494dfbdeb7bea2b64cd8cf609db",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "56e6a672143f1a7ab8f9e80b60b67c0e1b594fa6637891d80b5d2d50336d25a4",
     "tests\\auth\\editor_database.php": "80306ca73d16c9dcac2c86adea2f80f77b7b2af0fb0a3116d3f37c6e8eea1649",
     "tests\\auth\\editor_http.php": "23e9e2a530ec24c2745f70ab6d7e510de5f5ae9eb0be54ff03b29da84b5c0780",
+    "tests\\auth\\followup_answers.php": "bcafc2d24f426ac3ebea59c1f132f240c529f9cc670ec86b50e9d5d19c89662a",
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
-    "tests\\auth\\information_http.php": "5bb8bbdfd06f899862b1ba78224d8a47a9882b61346168afb05418bb0db47011",
+    "tests\\auth\\information_http.php": "0d6f16248438c415d79240278e8712e26904a0b1e9fecdabf7a5052c13bb46fa",
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
     "tests\\auth\\member_layout_http.php": "2d1d3715a9c4b6d27dfe56b9b1b2fd891ca33d228a99c97f079ad86b31d6102a",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
@@ -12769,12 +13096,13 @@
     "tests\\auth\\preparation_http.php": "e038a7851ea1e22046bda1904632776fd806ebca36d8dd5de05884adfabfb874",
     "tests\\auth\\README.md": "b3a41303f15004fcc2c1f1bafb57af847e5366542c148321bc3eb084756d06d6",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
-    "tests\\auth\\review_http.php": "0559f39f356d73ae63003dc5ddaa068627dddf69f22e845f389f58052c4783bc",
-    "tests\\auth\\run_http.php": "b1cbf171300ab32ec6be8482e73fd4d1826fa9d4679c3d53b156979a8d481b1b",
+    "tests\\auth\\review_http.php": "84f95a370833bacdfb65c8a6a350e745d7d130be3078f2b5683f3f275d0d8ead",
+    "tests\\auth\\run_http.php": "65f4c9248cdfc98c4acec72ff56595532a3ef390f18910f11911c57ee0805aea",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
-    "tests\\auth\\validate_auth.py": "9da7dff5a7598db2dff7fa8d5b5a1f92beb1564c521e5731e263aede26556b66"
+    "tests\\auth\\test_prepare_billing.py": "038495032457b3ee6f2a879d217029ae93d359914aaba5f85fa568b4ee7e5ddf",
+    "tests\\auth\\validate_auth.py": "2faf14581f676734f0584184f2bf1a0383f813c245c8bcf30cd014f0c77b3688"
   },
-  "php_lint_files": 117,
+  "php_lint_files": 119,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

@@ -5,6 +5,13 @@ from pathlib import Path
 def prepare(entry: Path):
     target = entry / 'entrant/entries.php'
     source = target.read_text(encoding='utf-8')
+    # 最新entryは同じ連携を内蔵する。挿入済みならそのまま検証し、部分的な連携は停止する。
+    hooks = ['portal_annual_payment_status(', 'portal_billing_year(', '/manage/billing.php']
+    counts = [source.count(hook) for hook in hooks]
+    if any(counts):
+        if counts != [1, 2, 1]:
+            raise RuntimeError('Partial or duplicate portal billing integration; review required')
+        return
     marker = '$annualPayStatus=$stView->fetch(PDO::FETCH_ASSOC);'
     # 既存コードの空白差を吸収し、未知の実装には適用を中止する。
     import re

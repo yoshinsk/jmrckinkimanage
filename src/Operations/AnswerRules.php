@@ -48,7 +48,7 @@ final class AnswerRules
         try{
             $head=fgetcsv($f,0,',','"','');
             if($head!==['event_id','class_code','entrant_id','position','points','starters']){throw new \InvalidArgumentException('CSVの見出しは event_id,class_code,entrant_id,position,points,starters です');}
-            $rows=[];$seen=[];$event=null;$classes=[];
+            $rows=[];$seen=[];$positions=[];$event=null;$classes=[];
             while(($r=fgetcsv($f,0,',','"',''))!==false){
                 if($r===[null]){continue;}
                 if(count($r)!==6||count($rows)>=1000||!preg_match('/^[A-Za-z0-9_-]{1,40}$/D',$r[1])){throw new \InvalidArgumentException('結果の列数・クラス・件数を確認してください');}
@@ -56,7 +56,10 @@ final class AnswerRules
                 if((int)$r[3]>(int)$r[5]){throw new \InvalidArgumentException('順位が出走台数を超えています');}
                 $event??=(int)$r[0];$key=$r[1].':'.$r[2];
                 if($event!==(int)$r[0]||isset($seen[$key])||(isset($classes[$r[1]])&&$classes[$r[1]]!==(int)$r[5])){throw new \InvalidArgumentException('1イベントのCSVにし、クラス内の同一選手を重複させず、出走台数を統一してください');}
-                $seen[$key]=true;$classes[$r[1]]=(int)$r[5];
+                // P18: 同一大会・同一クラスの同順位は正式結果に存在しない前提。重複は入力訂正を求める。
+                $position=$r[1].':'.$r[3];
+                if(isset($positions[$position])){throw new \InvalidArgumentException('同じクラス内で順位が重複しています。正式結果を確認してください');}
+                $positions[$position]=true;$seen[$key]=true;$classes[$r[1]]=(int)$r[5];
                 $rows[]=['event_id'=>$event,'class_code'=>$r[1],'entrant_id'=>(int)$r[2],'position'=>(int)$r[3],'points'=>(int)$r[4],'starters'=>(int)$r[5]];
             }
             if(!$rows){throw new \InvalidArgumentException('結果がありません');}

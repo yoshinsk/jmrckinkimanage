@@ -75,7 +75,15 @@ final class SeriesRules
             foreach($scores as $score){if($c=($cy[$score]??0)<=>($cx[$score]??0)){return $c;}}
         }
         foreach($a as $i=>$r){if($c=strcmp($b[$i]['date'],$r['date'])){return $c;}}
-        return 0; // P18は回答待ち。利用者IDや氏名の順で同順位を解消しない。
+        return 0; // P18は3段階で解消する運用。計算上残る0を氏名・IDで勝手に解消しない。
+    }
+
+    /** P18: 異なる選手の比較が最後まで同じなら結果の不整合として止め、表彰枠を自動調整しない。 */
+    public static function compareDistinct(array $a,array $b,int $rounds): int
+    {
+        $result=self::compare($a,$b,$rounds);
+        if ($result===0) { throw new \InvalidArgumentException('3段階の比較で順位を確定できません。大会結果・得点・開催日を確認してください'); }
+        return $result;
     }
 
     /** P15: 明示された資格停止はポイント無効。入金訂正だけの扱いは未回答なので確認待ちにする。 */

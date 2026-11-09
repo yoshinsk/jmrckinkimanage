@@ -68,7 +68,7 @@ $detail = static function (string $id, array $topic) use ($catalog, $selected, $
   <aside class="info-banner" aria-label="確認用画面の注意"><strong>事務局の確認用・一般公開前</strong><p>掲載本文は構成を確認するための説明です。旧記事・名簿・添付の原文はまだ移していません。カレンダーは架空例です。公開・申請受付・送信は行いません。</p></aside>
   <?php if ($offline): ?><p class="office-help">このHTMLは閲覧専用です。見出しを開いて詳細を確認できます。検索・日程の絞り込みは事務局用の認証画面で確認できます。外部リンクを選んだ場合だけ元サイトへ移動します。</p><?php endif; ?>
   <?php if (!empty($catalog['decisions'])): ?>
-  <details class="office-disclosure info-answer-decisions"><summary>11月9日確認の回答を含む49項目</summary><div class="info-inset">
+  <details class="office-disclosure info-answer-decisions"><summary>11月9日確認の回答を含む51項目</summary><div class="info-inset">
     <p>回答とユーザーへの追加確認を反映しました。一般公開・受付開始・外部通知は保留です。以下は確定した方針と、実運用までに確認・実装が必要な事項です。</p>
     <?php foreach ($catalog['decisions'] as $decision): ?><section class="office-panel" data-answer="<?=$e($decision['id'])?>"><h3><?=$e($decision['id'].' '.$decision['title'])?></h3><p><?=$e($decision['confirmed'])?></p><p class="office-help"><?=$e($decision['pending'])?></p></section><?php endforeach; ?>
   </div></details>
@@ -128,6 +128,6 @@ $detail = static function (string $id, array $topic) use ($catalog, $selected, $
     </section>
     <?php endforeach; ?>
   <?php endif; ?>
-  <section class="office-disclosure"><h2 class="info-inset info-notes-heading">事務局で追加確認いただきたいこと</h2><ul><li>2027年度の正式規則・クラス一覧、最終同順位の表彰枠超過</li><li>公開する原稿・名簿の項目、カレンダーの公開範囲</li><li>所属変更の承認者、正式な移管先・部会トップURLと旧HPの運用</li></ul><p>追加回答は上の「11月9日確認の回答を含む49項目」へ反映しました。残る条件への補足は既存の回答表で共有してください。画面を確認しても、公開承認や受付開始にはなりません。</p><p><a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611011&amp;range=A76:I79" target="_blank" rel="noopener noreferrer">回答・追加確認表を開く</a></p></section>
+  <section class="office-disclosure"><h2 class="info-inset info-notes-heading">事務局で追加確認いただきたいこと</h2><ul><li>2027年度の正式規則・クラス一覧・配点</li><li>公開する原稿・名簿の項目、カレンダーの公開範囲</li><li>正式な移管先・部会トップURLと旧HPの運用</li></ul><p>追加回答は上の「11月9日確認の回答を含む51項目」へ反映しました。残る条件への補足は既存の回答表で共有してください。画面を確認しても、公開承認や受付開始にはなりません。</p><p><a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611011&amp;range=A76:I79" target="_blank" rel="noopener noreferrer">回答・追加確認表を開く</a></p></section>
 </main><footer class="portal-footer"><div class="portal-container"><small>2026年10月31日版 · JMRC近畿ポータル／情報ページ確認用 · 一般公開・受付開始は保留</small></div></footer>
 </body></html>

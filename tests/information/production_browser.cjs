@@ -67,7 +67,9 @@ async function run(engine,name,device){
             check(prefix+' 分類内の文書のみ '+category,await page.locator('.info-source-link').count()===2);
           }
           await page.goto(origin+base);await page.locator('.info-answer-decisions > summary').tap();
-          check(prefix+' 回答49項目が閲覧可能',await page.locator('[data-answer]').count()===49 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' 回答51項目が閲覧可能',await page.locator('[data-answer]').count()===51 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' P18回答を反映',(await page.locator('[data-answer="P18"]').innerText()).includes('3段階'));
+          check(prefix+' P19変更先代表の承認を反映',(await page.locator('[data-answer="P19"]').innerText()).includes('変更先クラブの代表のみ'));
           check(prefix+' 他地域主催クラブの例外を反映',(await page.locator('[data-answer="C07"]').innerText()).includes('JMRC近畿の事業として主催する他地域JAFクラブは正会員'));
           check(prefix+' 最新資格・四捨五入回答を反映',(await page.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await page.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
           await page.setViewportSize({width:320,height:844});await page.evaluate(()=>document.documentElement.style.fontSize='200%');
@@ -102,6 +104,12 @@ async function run(engine,name,device){
           check(prefix+' 見舞金申請は説明だけ',await page.locator('#field-date,#field-event').count()===0 && (await page.locator('main').innerText()).includes('今回は見送ります'));
           await page.goto(origin+'/manage/review.php?screen=temporary');
           check(prefix+' 当日取消なしを表示',(await page.locator('main').innerText()).includes('当日取消・返金はありません'));
+          await page.goto(origin+'/manage/review.php?screen=affiliations');
+          check(prefix+' 所属変更の代表を確認できる',await page.getByLabel('所属変更で確認する代表',{exact:true}).count()===1);
+          check(prefix+' 変更元承認不要と受付保留を明記',(await page.locator('main').innerText()).includes('変更元クラブの承認は不要')&&(await page.locator('main').innerText()).includes('本番の変更受付は保留'));
+          await page.setViewportSize({width:320,height:844});
+          check(prefix+' 所属変更の幅320px',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+          await page.screenshot({path:`/artifacts/${name}-affiliation-live.png`,fullPage:true});
           for(const path of ['bank-settings.php','profile-correct.php','profile-correct.php?last_year=9998'])
             check(prefix+' 既存事務局画面GET '+path,(await context.request.get(origin+'/manage/'+path)).status()===200);
         }else{

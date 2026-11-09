@@ -103,6 +103,15 @@ $act('affiliations','approve');$act('billing','confirm',['amount'=>'1000','refer
 check('不足入金で資格を有効にしない',!$model->eligibility()['active']);
 $act('billing','confirm',['amount'=>'1000','reference'=>'PART-2']);
 check('必要承認と満額で資格有効',$model->eligibility()['active']);
+$savedModel=$model;$model=new JmrcReviewWorkspace($model->state);
+$act('affiliations','change');
+check('P19確認画面も承認前は旧番号を維持',$model->eligibility()['active']&&$model->state['club']['code']==='100001');
+$model->state['role']='club';
+$reject('P19変更元代表の承認例を拒否','affiliations','approve',['representative_scope'=>'source']);
+$reject('P19関係ない代表の承認例を拒否','affiliations','approve',['representative_scope'=>'unrelated']);
+$act('affiliations','approve',['representative_scope'=>'destination']);
+check('P19変更先の承認例で番号更新・会費不変',$model->state['club']['code']==='100002'&&$model->paid('general')===2000&&$model->eligibility()['active']);
+$model=$savedModel;
 $act('billing','confirm',['amount'=>'1000','reference'=>'PART-2']);
 check('同じ入金の再操作でも二重計上しない',$model->paid('general')===2000);
 $reject('識別番号の別金額流用を拒否','billing','confirm',['amount'=>'500','reference'=>'PART-2']);

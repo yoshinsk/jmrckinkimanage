@@ -43,7 +43,7 @@ async function run(engine,name,device){
    check(name+' 文書別分類 '+category,await p.locator('[data-document-category="'+category+'"]').count()===2 && await p.locator('.info-source-link').count()===2);
   }
   await p.goto('https://web/manage/information-preview.php');await p.locator('.info-answer-decisions > summary').tap();
-  check(name+' 追加回答49項目を開ける',await p.locator('[data-answer]').count()===49 && await p.locator('[data-answer="Q05"]').isVisible());
+  check(name+' 追加回答51項目を開ける',await p.locator('[data-answer]').count()===51 && await p.locator('[data-answer="Q05"]').isVisible());
   check(name+' 資格の基準時点と70%四捨五入', (await p.locator('[data-answer="Q05"]').innerText()).includes('照会時点の最新資格') && (await p.locator('[data-answer="Q09"]').innerText()).includes('全7戦なら5戦'));
   await p.setViewportSize({width:320,height:844});await p.evaluate(()=>document.documentElement.style.fontSize='200%');
   check(name+' 回答を開いた状態の320px・200%',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.evaluate(()=>document.documentElement.style.fontSize='');

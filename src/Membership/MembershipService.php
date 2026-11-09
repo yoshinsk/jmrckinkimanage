@@ -13,7 +13,90 @@ use PDOException;
 
 final class MembershipService
 {
-    public function __construct(private readonly PDO $db) {}
+    public function __construct(private readonly PDO $db,private readonly array $config=[]) {}
+
+    /** P01/P19: 本人が変更先を申請する。承認前は現在の所属・番号・請求を変更しない。 */
+    public function requestClubChange(int $actorId,int $membershipId,int $destinationYearId): array
+    {
+        return $this->transaction(function () use ($actorId,$membershipId,$destinationYearId): array {
+            $this->actor($actorId);
+            $m=$this->one("SELECT m.* FROM portal_memberships m JOIN portal_applications a ON a.id=m.application_id
+                WHERE m.id=? AND m.user_id=? AND m.member_type='general' AND a.status='approved' FOR UPDATE",[$membershipId,$actorId]);
+            if (!$m) { throw new HttpFailure(404,'本人の承認済みGeneral資格がありません'); }
+            $this->openYear((int)$m['year']);
+            $this->changeDestination($destinationYearId,(int)$m['year']);
+            $current=$this->one("SELECT id,club_year_id FROM portal_affiliations WHERE membership_id=? AND status='approved' AND valid_until IS NULL FOR UPDATE",[$membershipId]);
+            if (!$current || (int)$current['club_year_id']===$destinationYearId) { throw new HttpFailure(409,'現在と異なる変更先クラブを選択してください'); }
+            $pending=$this->one("SELECT id,club_year_id,row_version FROM portal_affiliations WHERE membership_id=? AND status='pending' FOR UPDATE",[$membershipId]);
+            if ($pending) {
+                if ((int)$pending['club_year_id']!==$destinationYearId) { throw new HttpFailure(409,'別の所属変更が承認待ちです'); }
+                return ['id'=>(int)$pending['id'],'row_version'=>(int)$pending['row_version'],'replayed'=>true];
+            }
+            $this->execute("INSERT INTO portal_affiliations(membership_id,year,club_year_id,status,requested_at) VALUES(?,?,?,'pending',UTC_TIMESTAMP(6))",[$membershipId,$m['year'],$destinationYearId]);
+            $id=(int)$this->db->lastInsertId();
+            $this->changeAudit($actorId,'AFFILIATION_CHANGE_REQUESTED',$id);
+            return ['id'=>$id,'row_version'=>1,'replayed'=>false];
+        });
+    }
+
+    /** 変更先代表または事務局代行だけが承認する。変更元代表の承認・連絡は条件にしない。 */
+    public function approveClubChange(int $actorId,int $affiliationId,int $version): array
+    {
+        return $this->transaction(function () use ($actorId,$affiliationId,$version): array {
+            $this->actor($actorId);
+            $link=$this->one('SELECT membership_id FROM portal_affiliations WHERE id=?',[$affiliationId]);
+            if (!$link) { throw new HttpFailure(404,'所属変更の申請がありません'); }
+            // 同じ会員の申請・承認を会員行のロックで直列化する。
+            $m=$this->one("SELECT m.* FROM portal_memberships m JOIN portal_applications a ON a.id=m.application_id
+                WHERE m.id=? AND m.member_type='general' AND a.status='approved' FOR UPDATE",[$link['membership_id']]);
+            if (!$m) { throw new HttpFailure(409,'会員申請の承認状態を確認してください'); }
+            $this->openYear((int)$m['year']);
+            $next=$this->one('SELECT * FROM portal_affiliations WHERE id=? FOR UPDATE',[$affiliationId]);
+            $target=$this->changeDestination((int)$next['club_year_id'],(int)$m['year']);
+            $this->affiliationApprover($actorId,(int)$target['club_id']);
+            if ($next['status']==='approved' && $next['valid_until']===null) { return ['id'=>$affiliationId,'replayed'=>true]; }
+            if ($next['status']!=='pending' || (int)$next['row_version']!==$version) { throw new HttpFailure(409,'所属変更の申請を開き直してください'); }
+            $old=$this->one("SELECT * FROM portal_affiliations WHERE membership_id=? AND status='approved' AND valid_until IS NULL FOR UPDATE",[$m['id']]);
+            if (!$old || (int)$old['club_year_id']===(int)$next['club_year_id']) { throw new HttpFailure(409,'現在の所属を確認してください'); }
+            $time=(string)$this->one('SELECT UTC_TIMESTAMP(6) AS now',[])['now'];
+            if ($old['valid_from']>=$time) { throw new HttpFailure(409,'所属期間を確認してから再度承認してください'); }
+            $this->execute('UPDATE portal_affiliations SET valid_until=?,row_version=row_version+1 WHERE id=?',[$time,$old['id']]);
+            $this->execute("UPDATE portal_affiliations SET status='approved',valid_from=?,decided_at=?,decided_by=?,row_version=row_version+1 WHERE id=?",[$time,$time,$actorId,$affiliationId]);
+            // 所属変更と同じ取引で旧QRを失効し、発行済みの番号だけを新クラブコードへ更新する。
+            (new \Jmrc\Card\CardService($this->db,$this->config))->replaceNumberForClubChange($actorId,(int)$m['id']);
+            (new \Jmrc\Billing\Eligibility($this->db))->refresh((int)$m['id']);
+            $this->changeAudit($actorId,'AFFILIATION_CHANGE_APPROVED',$affiliationId);
+            return ['id'=>$affiliationId,'replayed'=>false,'card_reissue_required'=>true];
+        });
+    }
+
+    /** 変更先は同じ年度の承認済みクラブに限定し、表示コードや旧entry代表IDから推定しない。 */
+    private function changeDestination(int $id,int $year): array
+    {
+        return $this->one("SELECT cy.club_id FROM portal_club_years cy JOIN portal_club_categories c ON c.category_digit=cy.category_digit
+            WHERE cy.id=? AND cy.year=? AND cy.status='approved' AND c.enabled=1 FOR UPDATE",[$id,$year])
+            ?: throw new HttpFailure(422,'同じ年度の承認済み変更先クラブを選択してください');
+    }
+
+    /** 担当クラブ付きの承認権限、または明示された事務局同等権限を最新状態から判定する。 */
+    private function affiliationApprover(int $actorId,int $clubId): void
+    {
+        if (!$this->one("SELECT g.id FROM portal_user_role_grants g JOIN portal_role_permissions p ON p.role_id=g.role_id
+            JOIN portal_roles r ON r.id=g.role_id WHERE g.user_id=? AND p.permission_code='club.affiliations.approve'
+            AND ((g.scope_type='club' AND g.scope_club_id=?) OR (g.scope_type='global' AND g.scope_club_id IS NULL AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER')))
+            AND g.status='active' AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL
+            AND g.valid_from<=UTC_TIMESTAMP(6) AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1 FOR UPDATE",[$actorId,$clubId])) {
+            throw new HttpFailure(403,'変更先クラブの代表または事務局の承認権限が必要です');
+        }
+    }
+
+    /** 変更履歴は所属申請IDで記録する。会費請求や外部メール送信は行わない。 */
+    private function changeAudit(int $actorId,string $action,int $id): void
+    {
+        $this->execute("INSERT INTO portal_audit_events(actor_user_id,action,entity_type,entity_id,request_id,changes_redacted,occurred_at)
+            VALUES (?,?,'affiliation',?,?,'{}',UTC_TIMESTAMP(6))",[$actorId,$action,$id,bin2hex(random_bytes(16))]);
+        $this->execute("INSERT INTO portal_outbox(event_key,event_type,entity_id,payload_minimal) VALUES(?,?,?,'{}')",[$action.':'.$id,$action,$id]);
+    }
 
     /** 所属クラブ代表または明示された事務局の所属承認権限でGeneralを承認する。 */
     public function approveGeneral(int $actorId,int $membershipId): array

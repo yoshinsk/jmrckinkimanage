@@ -330,6 +330,15 @@ class ReleaseTest(unittest.TestCase):
         self.assertFalse((update.source/'src/Operations').exists())
 
 
+    def test_dirt_followup_roundtrip(self):
+        update, payload = self.confirmed_stage('dirt-followup')
+        self.assertEqual(len(update.order), 9)
+        self.assertTrue(all(not n.startswith('integration/') for n in update.order))
+        backup = Path(update.apply(self.stage)['backup'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name in update.order:
+            self.assertEqual(deploy.sha(update.target(name)), payload['files'][name]['old_sha256'])
+
     def test_additional_answers_roundtrip(self):
         update, payload = self.confirmed_stage('additional-answers')
         backup = Path(update.apply(self.stage)['backup'])
