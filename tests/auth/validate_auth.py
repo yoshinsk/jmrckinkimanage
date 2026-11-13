@@ -52,7 +52,10 @@ def main():
                   'tests/auth/information_http.php','tests/license/information_browser.cjs',
                   'src/Operations/PreparationService.php','src/Auth/StaffRoleService.php',
                   'public/manage/preparation.php','public/manage/staff-roles.php','tests/auth/preparation_http.php',
-                  'tests/license/preparation_browser.cjs']
+                  'tests/license/preparation_browser.cjs','src/Bank/StrictCsv.php','src/Bank/YuchoCsv.php',
+                  'src/Bank/PaymentCoreCsv.php','src/Operations/AccountingReview.php','src/Operations/MaterialsReview.php',
+                  'public/manage/accounting-review.php','public/manage/assets/accounting-review.css',
+                  'tests/auth/materials_http.php','tests/license/accounting_browser.cjs']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -80,7 +83,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php','dirt_integration.php','followup_answers.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php','dirt_integration.php','followup_answers.php','materials_http.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     shutil.copyfile(ROOT/'design/phase2/staff_permissions.sql',context/'tests/staff_permissions.sql')
     shutil.copyfile(ROOT/'design/phase2/011_license_declarations.sql',context/'tests/011_license_declarations.sql')
@@ -407,6 +410,22 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
         else:
             raise RuntimeError('Editor browser timed out')
         report['editor_browser_validation']=json.loads(docker('logs',name).stdout)
+        print('Testing budget, accounting and supplied CSV layouts',flush=True)
+        name='jmrc-accounting-20261113'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m',
+               'jmrc-license-browser:20261028','node','accounting_browser.cjs')
+        created.append(name)
+        for _ in range(240):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                docker('cp',name+':/artifacts/.',artifact_linux)
+                if state['State']['ExitCode']!=0:
+                    raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2500:])
+                break
+            time.sleep(0.5)
+        else:
+            raise RuntimeError('Accounting browser timed out')
+        report['accounting_browser_validation']=json.loads(docker('logs',name).stdout)
         docker('cp',NAMES[1]+':/tmp/review-insurance.xlsx',artifact_linux+'/review-insurance.xlsx')
         assert review_inputs=={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}, 'Review sources changed during validation'
         report['review_workspace_sha256']=review_inputs

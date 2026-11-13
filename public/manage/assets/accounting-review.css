@@ -1,0 +1,10 @@
+/* Path: public/manage/assets/accounting-review.css
+   機能: 事務局の会計確認表を狭い画面でもページ全体が横に広がらない形で表示する。 */
+.accounting-table { max-width: 100%; overflow: auto; margin-block: 1rem; border: 1px solid #dee2e6; }
+.accounting-table table { border-collapse: collapse; min-width: 44rem; width: 100%; font-variant-numeric: tabular-nums; }
+.accounting-table th, .accounting-table td { padding: .75rem; border-bottom: 1px solid #dee2e6; text-align: right; white-space: nowrap; }
+.accounting-table th:first-child { text-align: left; }
+.accounting-table thead { background: #edf2f7; }
+.accounting-error { border-left: 4px solid #b42318; padding: 1rem; background: #fff1f0; overflow-wrap: anywhere; }
+.accounting-notice { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; background: #f5f7fa; padding: 1rem; }
+@media print { .portal-header, nav, form, .office-bottom { display: none; } .accounting-table { overflow: visible; } .accounting-table table { min-width: 0; font-size: 9pt; } }

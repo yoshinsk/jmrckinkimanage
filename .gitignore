@@ -1,3 +1,5 @@
 tmp/
 node_modules/
 __pycache__/
+# 受領した金融CSVと記入済み帳票はローカルに保持し、Git・公開配置・架空fixtureへ含めない。
+Documents/20261113/

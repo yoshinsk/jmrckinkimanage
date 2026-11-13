@@ -4,6 +4,7 @@
 declare(strict_types=1);
 namespace Jmrc\Bank;
 use Jmrc\Auth\HttpFailure;
+require_once __DIR__.'/StrictCsv.php';
 final class YuchoCsv
 {
     public const VERSION='yucho-review-v1';
@@ -24,18 +25,16 @@ final class YuchoCsv
     /** ヘッダー前置きは20レコードまで。受入0/空欄は支出等として件数を報告し、正の入金の不正値は全体を拒否する。 */
     public function parse(string $bytes,string $encoding): array
     {
-        if(!function_exists('mb_convert_kana')){throw new HttpFailure(503,'CSV文字変換拡張を確認してください');}
-        if(strlen($bytes)<1 || strlen($bytes)>2097152 || !in_array($encoding,['UTF-8','CP932'],true)){throw new HttpFailure(422,'CSVは2MiB以内、UTF-8またはCP932で指定してください');}
-        if(!mb_check_encoding($bytes,$encoding)){throw new HttpFailure(422,'指定文字コードでCSVを読み取れません');}
-        $text=mb_convert_encoding($bytes,'UTF-8',$encoding);$text=preg_replace('/^\xEF\xBB\xBF/','',$text);$text=str_replace(["\r\n","\r"],"\n",$text);
-        if(preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/',$text)){throw new HttpFailure(422,'CSVに制御文字があります');}
-        $this->quotes($text);$fp=fopen('php://temp','r+');fwrite($fp,$text);rewind($fp);$header=null;$data=[];$ignored=0;$record=0;
+        $text=StrictCsv::text($bytes,$encoding);
+        $fp=fopen('php://temp','r+');fwrite($fp,$text);rewind($fp);$header=null;$data=[];$ignored=0;$record=0;
         try{
             while(($row=fgetcsv($fp,0,',','"',''))!==false){
                 $record++;if($record>2021 || count($row)>64){throw new HttpFailure(422,'CSVは2000明細・64列以内に分けてください');}
                 if(count($row)===1 && ($row[0]===null || trim($row[0])==='')){continue;}
                 if(!$header){
                     $keys=array_map(static fn($v)=>trim(mb_convert_kana((string)$v,'aKVrn','UTF-8')),$row);
+                    // 2026/11/13受領原本の単位付き見出しを同じ金額欄へ対応付ける。両方ある場合は重複として拒否。
+                    $keys=array_map(static fn($v)=>$v==='受入金額(円)'?'受入金額':$v,$keys);
                     if(in_array('受入金額',$keys,true) && in_array('詳細2',$keys,true)){
                         if(count(array_unique($keys))!==count($keys)){throw new HttpFailure(422,'CSVヘッダーが重複しています');}
                         $header=$keys;
@@ -56,17 +55,5 @@ final class YuchoCsv
         }finally{fclose($fp);}
         if(!$header || !$data){throw new HttpFailure(422,'正の受入明細がありません');}
         return ['rows'=>$data,'ignored'=>$ignored];
-    }
-    /** fgetcsv単独では閉じていない引用符も受容するため、先にRFC形式の引用境界を検証する。 */
-    private function quotes(string $text): void
-    {
-        $state='start';$length=strlen($text);
-        for($i=0;$i<$length;$i++){$c=$text[$i];
-            if($state==='quoted'){if($c==='"'){if($i+1<$length && $text[$i+1]==='"'){$i++;}else{$state='closed';}}continue;}
-            if($c===',' || $c==="\n"){$state='start';continue;}
-            if($state==='closed'){throw new HttpFailure(422,'CSV引用符の後に不正な文字があります');}
-            if($c==='"'){if($state!=='start'){throw new HttpFailure(422,'CSV引用符の位置が不正です');}$state='quoted';}else{$state='plain';}
-        }
-        if($state==='quoted'){throw new HttpFailure(422,'CSV引用符が閉じていません');}
     }
 }

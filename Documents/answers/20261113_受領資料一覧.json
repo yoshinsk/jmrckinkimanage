@@ -1,0 +1,26 @@
+{
+  "received_on": "2026-11-13",
+  "raw_materials_committed": false,
+  "files": [
+    {
+      "name": "20261113=JMRC近畿ポータル仕様案_会計機能追加.pdf",
+      "bytes": 3059572,
+      "sha256": "78ed78815210c901274f1c7e063da89fd6e9272049900c9212dae54a7b734a9b"
+    },
+    {
+      "name": "JMRC近畿加盟登録書ほかサンプル.PDF",
+      "bytes": 1142071,
+      "sha256": "863daa8069cd9135d86dead59386540180833494f596fdfc8a39da31b9271701"
+    },
+    {
+      "name": "ゆうちょ履歴.csv",
+      "bytes": 2113,
+      "sha256": "6cca6c42aaa11b52e7daafea81e272a8b09b067367fe040a72f22653b2380576"
+    },
+    {
+      "name": "集金一覧 (ペイメントコア).csv",
+      "bytes": 1261,
+      "sha256": "1fcf68b382e2ab1e3623e7c514d1f42f0c01c466f4679b1cfff1c1f8a8cdb531"
+    }
+  ]
+}

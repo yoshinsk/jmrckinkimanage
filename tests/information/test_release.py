@@ -330,6 +330,26 @@ class ReleaseTest(unittest.TestCase):
         self.assertFalse((update.source/'src/Operations').exists())
 
 
+    def test_financial_review_roundtrip_and_protected_scope(self):
+        update, payload = self.confirmed_stage('financial-review')
+        self.assertEqual(len(update.order), 11)
+        self.assertEqual(len(update.existing), 5)
+        backup = Path(update.apply(self.stage)['backup'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name in update.order:
+            self.assertEqual(deploy.sha(update.target(name)), payload['files'][name]['old_sha256'])
+        for name in ['public/entry/login.php','auth.config.php','src/Billing/BillingService.php','design/phase2/001_portal_schema.sql']:
+            with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+                update.target(name)
+
+    def test_financial_review_failure_restores_new_and_existing_files(self):
+        update, payload = self.confirmed_stage('financial-review')
+        update.fail_cache_once = True
+        with self.assertRaisesRegex(RuntimeError, 'Synthetic cache failure'):
+            update.apply(self.stage)
+        for name in update.order:
+            self.assertEqual(deploy.sha(update.target(name)), payload['files'][name]['old_sha256'])
+
     def test_dirt_followup_roundtrip(self):
         update, payload = self.confirmed_stage('dirt-followup')
         self.assertEqual(len(update.order), 9)

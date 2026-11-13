@@ -7,7 +7,7 @@ namespace Jmrc\Operations;
 final class AnswerRules
 {
     public const CALENDAR=['unavailable'=>'不：事務局の対応不可日','gymkhana'=>'ジ：ジムカーナ','dirt'=>'ダ：ダートトライアル','rally'=>'ラ：ラリー','event_other'=>'そ：その他のイベント','jaf'=>'J：JAFイベント','other'=>'他：その他'];
-    public const MAIL=['award'=>'表彰案内','affiliation_request'=>'所属申請','affiliation_approved'=>'所属承認','affiliation_rejected'=>'所属却下','affiliation_returned'=>'所属差戻し'];
+    public const MAIL=['award'=>'表彰案内','affiliation_request'=>'所属申請','affiliation_approved'=>'所属承認','affiliation_rejected'=>'所属却下','affiliation_returned'=>'所属差戻し','insurance_completed'=>'スポーツ安全保険の手続き完了（正式文面待ち）','club_renewal_2028'=>'2028年度以降のクラブ更新案内'];
 
     /** P02: 申請日現在の満年齢で判定。誕生日当日から新年齢とし、契約の始終期や加入成立日は作らない。 */
     public static function insurance(string $birthday,string $applicationDate): array

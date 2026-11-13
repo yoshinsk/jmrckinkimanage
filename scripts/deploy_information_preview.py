@@ -49,6 +49,13 @@ FOLLOWUP_FILES = ['src/Card/CardService.php','src/Membership/MembershipService.p
                   'src/Operations/AnswerRules.php','src/Content/information-catalog.php','src/Content/information-template.php',
                   *REVIEW_FILES]
 PROFILES['dirt-followup'] = (FOLLOWUP_FILES, FOLLOWUP_FILES)
+FINANCIAL_EXISTING = ['src/Bank/YuchoCsv.php','src/Operations/AnswerRules.php','src/bootstrap.php',
+                      'public/manage/review.php','public/manage/index.php']
+FINANCIAL_FILES = ['src/Bank/StrictCsv.php','src/Bank/PaymentCoreCsv.php','src/Operations/AccountingReview.php',
+                  'src/Operations/MaterialsReview.php','src/Bank/YuchoCsv.php','src/Operations/AnswerRules.php',
+                  'public/manage/assets/accounting-review.css','src/bootstrap.php','public/manage/accounting-review.php',
+                  'public/manage/review.php','public/manage/index.php']
+PROFILES['financial-review'] = (FINANCIAL_FILES, FINANCIAL_EXISTING)
 
 
 
@@ -136,9 +143,9 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        if self.profile in ['preparation','additional-answers','dirt-followup']:
+        if self.profile in ['preparation','additional-answers','dirt-followup','financial-review']:
             require(state['flags'].get('staff_role_requests_enabled', False) is False, 'Staff intake enabled')
-        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup']:
+        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
@@ -249,7 +256,7 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',
