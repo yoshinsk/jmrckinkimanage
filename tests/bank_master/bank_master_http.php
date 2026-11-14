@@ -26,7 +26,8 @@ check('取込元の新規登録は実口座の重複確認必須',masterPost($mO
 $r=masterPost($mOffice,$newSource);$ms=json_decode($r['body'],true);$sid=(int)($ms['id']??0);check('取込元を画面APIから新規作成',$r['status']===200 && $sid>0 && !isset($ms['dedup_key_check']));
 check('取込元コードの重複登録を拒否',masterPost($mOffice,$newSource)['status']===409);
 check('取込元のコードは変更不可',masterPost($mOffice,['action'=>'source','id'=>$sid,'row_version'=>1,'code'=>'other','display_name'=>'架空','enabled'=>1,'reason'=>'確認'])['status']===409);
-$account=['action'=>'account','purpose_code'=>'sports_insurance','year'=>'','display_name'=>'架空保険入金先','details'=>"架空銀行 架空支店\n普通 0000000 架空名義",'payment_url'=>'https://example.invalid/master-core?token=synthetic-only','enabled'=>'0','source_id'=>$sid,'mapping_verified'=>'1','reason'=>'架空口座の登録'];
+$account=['action'=>'account','purpose_code'=>'sports_insurance','year'=>'','display_name'=>'架空保険入金先','details'=>"架空銀行 架空支店\n普通 0000000 架空名義",'payment_url'=>'','enabled'=>'0','source_id'=>$sid,'mapping_verified'=>'1','reason'=>'架空口座の登録'];
+foreach(['club_fee','sports_insurance','jmrc_condolence','gymkhana_fund','mutual_aid'] as $purpose){check('個人会費以外へ決済URLを追加しない '.$purpose,masterPost($mOffice,array_replace($account,['purpose_code'=>$purpose,'payment_url'=>'https://example.invalid/payment']))['status']===422);}
 check('口座と実口座の対応確認必須',masterPost($mOffice,array_replace($account,['mapping_verified'=>'0']))['status']===422);
 $r=masterPost($mOffice,$account);$a=json_decode($r['body'],true);$aid=(int)($a['id']??0);
 check('用途別口座とURLと取込元を登録',$r['status']===200 && $a['details']===$account['details'] && (int)$a['source_id']===$sid && (int)$a['row_version']===1);
@@ -39,7 +40,7 @@ check('口座理由なし更新拒否',masterPost($mOffice,masterInput($a,['reas
 check('口座更新者のHTTP指定を拒否',masterPost($mOffice,masterInput($a)+['updated_by'=>1])['status']===422);
 check('口座不正日時を拒否',masterPost($mOffice,masterInput($a,['valid_from'=>'2026-02-30T00:00']))['status']===422);
 check('口座終了だけの日時指定拒否',masterPost($mOffice,masterInput($a,['valid_until'=>'2026-12-31T00:00']))['status']===422);
-$updated=masterPost($mOffice,masterInput($a,['display_name'=>'架空保険入金先 更新','payment_url'=>'https://example.invalid/master-new','valid_from'=>'2026-12-01T00:00:12.123456','valid_until'=>'2027-01-01T00:00','enabled'=>'1']));$a2=json_decode($updated['body'],true);
+$updated=masterPost($mOffice,masterInput($a,['display_name'=>'架空保険入金先 更新','payment_url'=>'','valid_from'=>'2026-12-01T00:00:12.123456','valid_until'=>'2027-01-01T00:00','enabled'=>'1']));$a2=json_decode($updated['body'],true);
 check('口座更新と日本時間UTC変換',$updated['status']===200 && $a2['valid_from']==='2026-11-30 15:00:12.123456' && (int)$a2['row_version']===2);
 check('口座空欄案内は暗号文を保持',$db->query('SELECT details_cipher FROM portal_bank_accounts WHERE id='.$aid)->fetchColumn()===$cipher);
 check('口座古い版を拒否',masterPost($mOffice,masterInput($a,['display_name'=>'競合']))['status']===409);
@@ -49,7 +50,7 @@ check('全年度設定と同年度設定の重複も拒否',masterPost($mOffice,
 $hist=$db->query("SELECT * FROM portal_bank_master_changes WHERE entity_type='account' AND entity_id=$aid ORDER BY id DESC LIMIT 1")->fetch(PDO::FETCH_ASSOC);$historyId=(int)$hist['id'];
 check('変更理由と前後値は暗号化履歴',str_starts_with($hist['snapshot_cipher'],'gcm1:') && !str_contains($hist['snapshot_cipher'],'master-new') && !str_contains($hist['reason_cipher'],'架空'));
 $history=json_decode($mOffice->request('/manage/bank-settings.php?format=json&history='.$historyId)['body'],true);
-check('口座変更前後と担当者理由を照会',$history['before']['payment_url']===$account['payment_url'] && $history['after']['payment_url']==='https://example.invalid/master-new' && $history['reason']==='架空マスター設定の確認' && $history['actor_user_id']===76 && !isset($history['after']['details_cipher_base64']));
+check('口座変更前後と担当者理由を照会',$history['before']['payment_url']===null && $history['after']['payment_url']===null && $history['after']['display_name']==='架空保険入金先 更新' && $history['reason']==='架空マスター設定の確認' && $history['actor_user_id']===76 && !isset($history['after']['details_cipher_base64']));
 check('履歴詳細も財務専用権限には非公開',$mFinance->request('/manage/bank-settings.php?format=json&history='.$historyId)['status']===403);
 check('口座用途年度は登録後変更不可',masterPost($mOffice,masterInput($a2,['purpose_code'=>'club_fee']))['status']===409);
 $a3=json_decode(masterPost($mOffice,masterInput($a2,['enabled'=>'0','payment_url'=>'']))['body'],true);check('口座無効化と決済URL解除',(int)$a3['enabled']===0 && $a3['payment_url']===null);

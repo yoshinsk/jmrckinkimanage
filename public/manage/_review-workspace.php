@@ -83,7 +83,7 @@ final class JmrcReviewWorkspace
             if(!is_string($value) || strlen($value)>4000 || preg_match('//u',$value)!==1 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/',$value)) { $this->fail($label.'を確認してください'); }
             $value=trim($value);
             // GeneralはJAFライセンスが必須。運転免許のない審判員もいるため、免許の2項目は任意にする。
-            $optional=$key==='fee' || ($screen==='memberships' && in_array($key,['driver','driver_expiry'],true));
+            $optional=$key==='fee' || ($screen==='clubs' && ($key==='region_other' || (($input['same_contact']??'0')==='1' && in_array($key,['contact','address','phone','email'],true)))) || ($screen==='memberships' && in_array($key,['driver','driver_expiry'],true));
             if($value==='' && !$optional) { $this->fail($label.'を入力してください'); }
             if(is_array($type) && !array_key_exists($value,$type)) { $this->fail($label.'を選択してください'); }
             if($type==='number' && $value!=='' && (!ctype_digit($value) || (int)$value>10000000)) { $this->fail($label.'は0〜10000000の整数で入力してください'); }
@@ -93,6 +93,10 @@ final class JmrcReviewWorkspace
         }
         if($screen==='memberships' && (($out['driver']==='') !== ($out['driver_expiry']===''))) {
             $this->fail('運転免許がない場合は番号と有効期限を両方空欄にしてください。ある場合は両方を入力してください');
+        }
+        if($screen==='clubs'&&$fieldSet==='fields'){
+            $contact=\Jmrc\Club\ClubContact::normalize(array_merge($out,['rep_name'=>$out['representative'],'contact_name'=>$out['contact'],'contact_address'=>$out['address'],'contact_phone'=>$out['phone'],'contact_email'=>$out['email']]));
+            foreach(['contact'=>'contact_name','address'=>'contact_address','phone'=>'contact_phone','email'=>'contact_email','region_other'=>'region_other'] as $to=>$from){$out[$to]=$contact[$from];}
         }
         return $out;
     }

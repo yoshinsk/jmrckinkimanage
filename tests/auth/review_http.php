@@ -5,7 +5,7 @@ declare(strict_types=1);
 if(PHP_SAPI!=='cli') { exit(1); }
 require_once '/srv/auth/src/Auth/HttpFailure.php';
 require_once '/srv/web/manage/_review-workspace.php';
-foreach(['Auth/StaffRolePolicy','Club/ClubFeePolicy','Membership/LicenseDeclaration','Series/SeriesRules'] as $rule) {require_once '/srv/auth/src/'.$rule.'.php';}
+foreach(['Auth/StaffRolePolicy','Club/ClubFeePolicy','Club/ClubContact','Membership/LicenseDeclaration','Series/SeriesRules'] as $rule) {require_once '/srv/auth/src/'.$rule.'.php';}
 $reviewSnapshot=static function() use($db): array {
     return $db->query('CHECKSUM TABLE portal_profiles,portal_identifiers,portal_club_years,portal_memberships,portal_applications,portal_affiliations,portal_invoices,portal_invoice_lines,portal_payments,portal_allocations,portal_years,portal_bank_imports,portal_insurance_requests')->fetchAll(PDO::FETCH_ASSOC);
 };

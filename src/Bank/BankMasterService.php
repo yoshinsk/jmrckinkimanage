@@ -44,6 +44,8 @@ final class BankMasterService
             $name=$this->text($in['display_name']??null,128);$enabled=$this->flag($in['enabled']??'0');$from=$this->time($in['valid_from']??'');$until=$this->time($in['valid_until']??'');
             if($until!==null && ($from===null || $from>=$until)){throw new HttpFailure(422,'終了日時には開始日時より後の日時を指定してください');}
             $url=$this->url($in['payment_url']??'');$source=$this->id($in['source_id']??0,true);$previous=(int)($old['source_id']??0);
+            // F11: 新しい決済URLは個人会費だけ。旧設定の保持は許し、訂正履歴や口座対応を壊さない。
+            if($url!==null&&$purpose!=='membership_fee'&&(!$old||$url!==$old['payment_url'])){throw new HttpFailure(422,'ペイメントコアURLは個人会費だけに登録できます');}
             // BankServiceもsource→口座の順に触れる。取込との並行実行で口座を先に占有しない。
             $locks=array_unique(array_filter([$source,$previous]));sort($locks,SORT_NUMERIC);foreach($locks as $sid){$this->source($sid,true);}
             if($old){$old=$this->account($id,true);}

@@ -39,6 +39,10 @@ async function run(engine,name,device){
     check(prefix+' キャッシュ・検索・埋込制限',headers['cache-control'].includes('no-store')&&headers['x-robots-tag'].includes('noindex')&&headers['content-security-policy'].includes("frame-ancestors 'none'"));
     for(const type of ['budget','income','audit','balance','yucho','payment_core']){const r=await c.request.get(origin+base+'?download='+type);check(prefix+' CSV取得 '+type,r.status()===200&&r.headers()['content-disposition'].includes('attachment'));}
     if(!live){
+     await p.goto(origin+base+'?section=club');await p.locator('#club-region').selectOption('other');await p.locator('#region-other').fill('架空支部');await p.locator('#same-contact').selectOption('1');await p.locator('#club-rep_address').fill('架空の代表者住所');await p.locator('#club-rep_phone').fill('000-0000');
+     await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'架空の入力例を反映する',exact:true}).tap()]);
+     check(prefix+' 兼任の連絡先を再入力せず保存',(await p.locator('#club-contact_address').inputValue())==='架空の代表者住所');
+     const sheet=await c.request.get(origin+base+'?download=income&file_type=xlsx');check(prefix+' Excel出力',sheet.status()===200&&(await sheet.body()).subarray(0,2).toString()==='PK');
      await p.goto(origin+base);await p.locator('#budget-club_fee').fill('75000');await Promise.all([p.waitForURL('**/accounting-review.php?section=budget&saved=1'),p.getByRole('button',{name:'確認用予算に反映する',exact:true}).tap()]);
      check(prefix+' 予算反映',(await (await c.request.get(origin+base+'?format=json')).json()).budget.club_fee===75000);
      const budget=await (await c.request.get(origin+base+'?download=budget')).body();await p.locator('#budget-file').setInputFiles({name:'budget.csv',mimeType:'text/csv',buffer:budget});

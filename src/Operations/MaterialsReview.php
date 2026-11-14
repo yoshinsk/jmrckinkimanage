@@ -4,12 +4,14 @@
 declare(strict_types=1);
 namespace Jmrc\Operations;
 use Jmrc\Auth\HttpFailure;
+require_once __DIR__.'/../Club/ClubContact.php';
+require_once __DIR__.'/AccountingPolicy.php';
 final class MaterialsReview
 {
     public const CLUB_FIELDS=[
-        'club_name'=>'クラブ・団体名','club_short'=>'正式略称','jaf_registration'=>'JAF登録証の確認メモ',
+        'club_name'=>'クラブ・団体名称','club_short'=>'正式略称','jaf_registration'=>'JAF登録証の確認メモ',
         'club_postcode'=>'クラブ所在地の郵便番号','club_address'=>'クラブ所在地','company'=>'会社・ショップ名','club_phone'=>'クラブ電話番号',
-        'rep_name'=>'代表者氏名','rep_kana'=>'代表者ふりがな','rep_postcode'=>'代表者の郵便番号','rep_address'=>'代表者住所','rep_mobile'=>'代表者携帯電話','rep_email'=>'代表者メール',
+        'rep_name'=>'代表者氏名','rep_kana'=>'代表者ふりがな','rep_postcode'=>'代表者の郵便番号','rep_address'=>'代表者住所','rep_phone'=>'代表者電話','rep_mobile'=>'代表者携帯電話','rep_email'=>'代表者メール',
         'contact_name'=>'連絡担当者氏名','contact_kana'=>'連絡担当者ふりがな','contact_postcode'=>'連絡先の郵便番号','contact_address'=>'連絡先住所','contact_phone'=>'連絡先電話','contact_mobile'=>'連絡先携帯電話','contact_email'=>'連絡先メール',
         'directory_phone'=>'ハンドブックへ掲載する電話の希望','delivery_name'=>'名簿送付先の担当者','delivery_postcode'=>'名簿送付先の郵便番号','delivery_address'=>'名簿送付先住所','delivery_phone'=>'名簿送付先電話','region'=>'所属支部','jaf_kind'=>'JAF登録クラブ・団体の型式','membership_kind'=>'JMRC会員区分'
     ];
@@ -18,6 +20,7 @@ final class MaterialsReview
     {
         $now=new \DateTimeImmutable('now',new \DateTimeZone('Asia/Tokyo'));$month=$now->modify('first day of last month')->format('Y-m');$year=(int)substr($month,0,4);
         $fees=[['id'=>'DEMO-CLUB-1','status'=>'confirmed','item'=>'club_fee','date'=>$month.'-10','amount'=>30000,'detail'=>'架空クラブの年会費','memo'=>'自動連携の確認例','registered_at'=>$month.'-11 09:00:00'],['id'=>'DEMO-MEMBER-1','status'=>'confirmed','item'=>'member_fee','date'=>$month.'-12','amount'=>2000,'detail'=>'架空会員の会費','memo'=>'自動連携の確認例','registered_at'=>$month.'-13 09:00:00']];
+        $fees=array_map(static fn($r)=>AccountingPolicy::receipt(['receipt_id'=>$r['id'],'item'=>$r['item'],'amount'=>$r['amount'],'paid_on'=>$r['date'],'confirmed_at'=>$r['registered_at']]),$fees);
         return ['schema'=>1,'owner'=>$owner,'created'=>time(),'instance'=>bin2hex(random_bytes(16)),'revision'=>1,'year'=>$year,'month'=>$month,'budgets'=>[$year=>AccountingReview::budget(['club_fee'=>60000,'member_fee'=>20000,'meeting'=>10000,'supplies'=>5000])],'ledger'=>AccountingReview::synchronize([],$fees),'fees'=>$fees,'balances'=>[],'closed'=>[],'club'=>[]];
     }
     /** 未確定の通知文はひな型と識別し、送信先・加入番号の実データは含めない。 */
@@ -45,7 +48,8 @@ final class MaterialsReview
     /** 入力例を同じセッションにだけ保持し、実在クラブの登録や名簿公開に接続しない。 */
     public static function club(array $input):array
     {
-        $out=[];foreach(self::CLUB_FIELDS as $key=>$label){$v=$input[$key]??'';if(!is_string($v)||mb_strlen($v)>255||!preg_match('//u',$v)||preg_match('/[\x00-\x1f]/',$v)){throw new HttpFailure(422,$label.'を確認してください');}$out[$key]=trim($v);}return $out;
+        $out=[];foreach(self::CLUB_FIELDS as $key=>$label){$v=$input[$key]??'';if(!is_string($v)||mb_strlen($v)>255||!preg_match('//u',$v)||preg_match('/[\x00-\x1f]/',$v)){throw new HttpFailure(422,$label.'を確認してください');}$out[$key]=trim($v);}
+        return array_replace($out,\Jmrc\Club\ClubContact::normalize($input));
     }
     /** すべての変更を版と操作インスタンスで保護する。失敗した入力は呼出元の状態へ部分反映しない。 */
     public static function apply(array $state,array $in,?string $upload=null):array

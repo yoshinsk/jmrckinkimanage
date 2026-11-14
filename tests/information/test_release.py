@@ -359,6 +359,17 @@ class ReleaseTest(unittest.TestCase):
         for name in update.order:
             self.assertEqual(deploy.sha(update.target(name)), payload['files'][name]['old_sha256'])
 
+    def test_nov14_roundtrip(self):
+        update, payload = self.confirmed_stage('answers-20261114')
+        (update.source/'src/Club').mkdir(exist_ok=True)
+        backup = Path(update.apply(self.stage)['backup'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        for name in ['public/entry/login.php', 'auth.config.php']:
+            with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+                update.target(name)
+
     def test_additional_answers_roundtrip(self):
         update, payload = self.confirmed_stage('additional-answers')
         backup = Path(update.apply(self.stage)['backup'])

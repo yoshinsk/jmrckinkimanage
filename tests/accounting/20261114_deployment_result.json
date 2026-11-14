@@ -1,0 +1,3442 @@
+{
+  "status": "PASS",
+  "applied_at_utc": "2026-11-14T13:24:21Z",
+  "profile": "answers-20261114",
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/answers-20261114-20261114T132421Z",
+  "files": {
+    "src/Club/ClubContact.php": {
+      "old_sha256": null,
+      "new_sha256": "5d20ddd3be455ab147b306188054069b6a903f97ca613c0e26d342218844b342"
+    },
+    "src/Operations/AccountingPolicy.php": {
+      "old_sha256": null,
+      "new_sha256": "bccdf143fb6960afaaec31970f5a1e60381f63008cdc12b1a2ea6544310153b7"
+    },
+    "src/Operations/AccountingWorkbook.php": {
+      "old_sha256": null,
+      "new_sha256": "a90eecb68a1ed2fc0def7da5a3209fb7bd4b0fdecbc3c8fef99f8ac354f0f5ac"
+    },
+    "src/Operations/MaterialsReview.php": {
+      "old_sha256": "c7e2083a1905b0450b0bca73666fd955ae7686ed4ed7665ff459282a6adc34c0",
+      "new_sha256": "0755b525a4d9e725cc4e07268c1ecf5ce00f63d44dd804af191e32254d0fdca9",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Bank/PaymentCoreCsv.php": {
+      "old_sha256": "01a2716c7881bbfb2b110835eb8945bbc947012045f3c337a66c42a7345ec880",
+      "new_sha256": "415c26c146d0f6fce04e2665ed00c8f7846058082e67b2dabcf6d7a09695465f",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Bank/BankMasterService.php": {
+      "old_sha256": "b89c9c60f85e84af8463ca953d0736a5680213a6fb907a7f42618db0d32e19a1",
+      "new_sha256": "d5aa64cdd72aab44a609814d77719c369a2066886478d5d8712c482425928b9e",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Billing/BillingService.php": {
+      "old_sha256": "258d339d2642b4eb9a56f4191c3ee9ed3a96d7bf0eaa6ca645c81f261e3df72d",
+      "new_sha256": "4a8088ae8c5b51f0f09dc7ec8acfaefe7331ebddb11f77405c400a87d0644953",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/bootstrap.php": {
+      "old_sha256": "f733caf17ba62d1e9f529a86885039ae9773ccba37d4ea1b95ea89db505a01da",
+      "new_sha256": "f1b03c734c74755bd5366276adeef0ad2aa8e99a361d9eac097357345cbad1ae",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/_review-catalog.php": {
+      "old_sha256": "c358e92c66fdcb3e14328bba769b3105b2cf9b107108d30a899af120d13beba8",
+      "new_sha256": "77767a886adf7e2a539ee14ff31e0cf6aef9726442e41ec645501222cbcc9535",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/_review-workspace.php": {
+      "old_sha256": "28f23c80eb7ff1c570e10ebd17ece0af755a358ef5985c49eb2f872e84b84e32",
+      "new_sha256": "665767ceb01461a2fc4e4e44cd8249ad7bb1ef778ea309e8eaa43e0d0ce0ddde",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/review.php": {
+      "old_sha256": "be738d098860983d81bc632652fe482ee9668f37d953ed5dc03f155989142e54",
+      "new_sha256": "a749318760f316c8e62fccda948253dca70f3a8023ccec726c03f925304efd2b",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/accounting-review.php": {
+      "old_sha256": "bce2bf004485178e526e3b39ea9a0b3c55875771d51326d8a58c339c9b6222cb",
+      "new_sha256": "9e704127d88b4a3efcd69f9cbeb6aaff61c53c5981ebe1886f43ba81c4e977a8",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/bank-settings.php": {
+      "old_sha256": "d6dfde863c2a1570f8caf6c7a4ca4cd9747a82dea864fa61a3b2c8e644e85b1d",
+      "new_sha256": "e41d9042816abb99c31ba2d3c8726a6c1800269f225354d3e49504540da0d6c2",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/clubs.php": {
+      "old_sha256": "2e4869d4a534730b1be372e50b7969f3a7e7b6e7ec1e9f86574abeaecb53971a",
+      "new_sha256": "e03ac3e4313492ba0f6f693272fdd8d9172b9c651c8d13736158c9dded3334b3",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "deploy_script_sha256": "5c80fad348314e2e4c1bc18a582711f0dd01b3371cc9f6867e610d74b4251b3d",
+  "isolated_http_cases": 1374,
+  "isolated_browser_cases": 1966,
+  "lint_files": 129,
+  "restore_tests": 31,
+  "csv_contract_cases": 12,
+  "excel_independent_reader": "openpyxl: Japanese, numeric -2, literal formula-like string preserved",
+  "live_browser_cases": 788,
+  "live_browser_results": {
+    "existing": {
+      "status": "PASS",
+      "checked_at_utc": "2026-11-14T13:25:43.836Z",
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ],
+      "cases": [
+        {
+          "case": "chromium office 未認証は401",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存アカウントでログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 登録受付・請求入口は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存画面の閲覧権限 /manage/memberships.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存画面の閲覧権限 /manage/billing.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存画面の閲覧権限 /manage/bank-settings.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存画面の閲覧権限 /manage/profile-correct.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office マイページ入口は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認用の表示 /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 保存・送信フォームなし /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320px /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 引継ぎ対象24件",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office キャッシュ・検索掲載・埋込を制限",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 分類による絞り込み",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 回答済みの文書分類 committee",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 分類内の文書のみ committee",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 回答済みの文書分類 national",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 分類内の文書のみ national",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 回答51項目が閲覧可能",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office P18回答を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office P19変更先代表の承認を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 他地域主催クラブの例外を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 最新資格・四捨五入回答を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 回答展開320px・文字200%",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 検索該当なし",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 内部ファイル非公開 /src/Content/information-catalog.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 内部ファイル非公開 /manage/information-catalog.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 内部ファイル非公開 /private/jmrc-portal/auth.config.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存操作確認からの導線",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存24画面を維持",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=clubs",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=licenses",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=memberships",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=preregistration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=affiliations",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=temporary",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=billing",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=bank",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=accounts",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=card",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=insurance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=events",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=directory",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=notices",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=handbook",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=links",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=relief",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=fund",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=meetings",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=inquiries",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=notifications",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存確認画面GET /manage/review.php?screen=operations",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 初心者用の使い方と固定例の入口",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認メモの共有方法を明記",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 追加確認へのリンク",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 使い方320px・文字200%",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 他地域クラブの条件は確認用の独立フォーム",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 未入力の条件を推定しない",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 他地域クラブの条件は320px文字200%で横にはみ出さない",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 免許2項目は任意",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 見舞金申請は説明だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 当日取消なしを表示",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 所属変更の代表を確認できる",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 変更元承認不要と受付保留を明記",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 所属変更の幅320px",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存事務局画面GET bank-settings.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存事務局画面GET profile-correct.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存事務局画面GET profile-correct.php?last_year=9998",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存entryと共通認証",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office ログアウトで試作も401",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office entryもログアウト済み",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTを試行していない",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 未認証は401",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存アカウントでログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 登録受付・請求入口は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存画面の閲覧権限 /manage/memberships.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存画面の閲覧権限 /manage/billing.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存画面の閲覧権限 /manage/bank-settings.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存画面の閲覧権限 /manage/profile-correct.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant マイページ入口は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限外の直URLは403 /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限外の直URLは403 /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限外の直URLは403 /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限外の直URLは403 /manage/review.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限外の直URLは403 /manage/review.php?screen=clubs",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存entryと共通認証",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant ログアウトで試作も401",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant entryもログアウト済み",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 業務POSTを試行していない",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 未認証は401",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存アカウントでログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 登録受付・請求入口は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存画面の閲覧権限 /manage/memberships.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存画面の閲覧権限 /manage/billing.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存画面の閲覧権限 /manage/bank-settings.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存画面の閲覧権限 /manage/profile-correct.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office マイページ入口は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?section=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?section=calendar",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?section=links",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-01",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-02",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-03",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-04",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-05",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-06",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-07",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-08",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-09",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-10",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-11",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-12",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-13",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-14",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-15",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-16",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-17",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-18",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-20",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-21",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-22",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-23",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認用の表示 /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 保存・送信フォームなし /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320px /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/information-preview.php?item=HP-24",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 引継ぎ対象24件",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office キャッシュ・検索掲載・埋込を制限",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 分類による絞り込み",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 回答済みの文書分類 committee",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 分類内の文書のみ committee",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 回答済みの文書分類 national",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 分類内の文書のみ national",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 回答51項目が閲覧可能",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office P18回答を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office P19変更先代表の承認を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 他地域主催クラブの例外を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 最新資格・四捨五入回答を反映",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 回答展開320px・文字200%",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 検索該当なし",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 内部ファイル非公開 /src/Content/information-catalog.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 内部ファイル非公開 /manage/information-catalog.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 内部ファイル非公開 /private/jmrc-portal/auth.config.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存操作確認からの導線",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存24画面を維持",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=clubs",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=licenses",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=memberships",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=preregistration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=affiliations",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=temporary",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=billing",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=bank",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=accounts",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=card",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=insurance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=events",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=directory",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=notices",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=documents",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=handbook",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=links",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=relief",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=fund",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=meetings",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=inquiries",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=notifications",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存確認画面GET /manage/review.php?screen=operations",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 初心者用の使い方と固定例の入口",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認メモの共有方法を明記",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 追加確認へのリンク",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 使い方320px・文字200%",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 他地域クラブの条件は確認用の独立フォーム",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 未入力の条件を推定しない",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 他地域クラブの条件は320px文字200%で横にはみ出さない",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 免許2項目は任意",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 見舞金申請は説明だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 当日取消なしを表示",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 所属変更の代表を確認できる",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 変更元承認不要と受付保留を明記",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 所属変更の幅320px",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存事務局画面GET bank-settings.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存事務局画面GET profile-correct.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存事務局画面GET profile-correct.php?last_year=9998",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存entryと共通認証",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office ログアウトで試作も401",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office entryもログアウト済み",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTを試行していない",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 未認証は401",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存アカウントでログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 登録受付・請求入口は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存画面の閲覧権限 /manage/memberships.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存画面の閲覧権限 /manage/billing.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存画面の閲覧権限 /manage/bank-settings.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存画面の閲覧権限 /manage/profile-correct.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant マイページ入口は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限外の直URLは403 /manage/information-preview.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限外の直URLは403 /manage/information-preview.php?item=HP-19",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限外の直URLは403 /manage/information-preview.php?section=migration",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限外の直URLは403 /manage/review.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限外の直URLは403 /manage/review.php?screen=clubs",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存entryと共通認証",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant ログアウトで試作も401",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant entryもログアウト済み",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 業務POSTを試行していない",
+          "result": "PASS"
+        }
+      ],
+      "business_posts": 0
+    },
+    "accounting": {
+      "status": "PASS",
+      "checked_at_utc": "2026-11-14T13:25:56.529Z",
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ],
+      "cases": [
+        {
+          "case": "chromium office 未認証拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 共通ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 導線は事務局権限だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 表示 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認専用の説明 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 表示 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認専用の説明 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 表示 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認専用の説明 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 表示 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認専用の説明 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% csv",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 表示 club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認専用の説明 club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 表示 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 確認専用の説明 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% notice",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 実業務書込・送信なし",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office キャッシュ・検索・埋込制限",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office CSV取得 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office CSV取得 income",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office CSV取得 audit",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office CSV取得 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office CSV取得 yucho",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office CSV取得 payment_core",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 許可外POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 共通ログアウト",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 未認証拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 共通ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 導線は事務局権限だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限拒否 ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限拒否 ?format=json",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限拒否 ?download=budget",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限拒否 ?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 許可外POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 共通ログアウト",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 未認証拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 共通ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 導線は事務局権限だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 表示 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認専用の説明 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 表示 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認専用の説明 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 表示 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認専用の説明 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 表示 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認専用の説明 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% csv",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 表示 club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認専用の説明 club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 表示 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 確認専用の説明 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% notice",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 実業務書込・送信なし",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office キャッシュ・検索・埋込制限",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office CSV取得 budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office CSV取得 income",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office CSV取得 audit",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office CSV取得 balance",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office CSV取得 yucho",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office CSV取得 payment_core",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 許可外POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 共通ログアウト",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 未認証拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 共通ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 導線は事務局権限だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限拒否 ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限拒否 ?format=json",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限拒否 ?download=budget",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限拒否 ?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 許可外POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 共通ログアウト",
+          "result": "PASS"
+        }
+      ],
+      "live": true,
+      "business_posts": 0
+    },
+    "preparation": {
+      "status": "PASS",
+      "checked_at_utc": "2026-11-14T13:26:07.736Z",
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ],
+      "cases": [
+        {
+          "case": "chromium office 未認証 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 未認証 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 既存ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 新導線は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 会員受付と請求は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTフォームなし /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 閲覧 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTフォームなし /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅320 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅390 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅844 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 幅1280 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 文字200% /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 役職受付を停止表示",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 開始判断と書込を無効化",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office キャッシュ・検索・埋込の制限",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 業務POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 共通ログアウト",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 未認証 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 未認証 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 既存ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 新導線は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 会員受付と請求は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限なし /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限なし /manage/preparation.php?section=privacy&id=7",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 権限なし /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 業務POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 共通ログアウト",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 未認証 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 未認証 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 既存ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 新導線は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 会員受付と請求は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTフォームなし /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/preparation.php?section=club",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/preparation.php?section=event",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/preparation.php?section=privacy",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/preparation.php?section=membership",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 閲覧 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTフォームなし /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅320 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅390 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅844 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 幅1280 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 文字200% /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 役職受付を停止表示",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 開始判断と書込を無効化",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office キャッシュ・検索・埋込の制限",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 業務POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 共通ログアウト",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 未認証 /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 未認証 /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 既存ログイン",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 新導線は事務局だけ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 会員受付と請求は保留",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限なし /manage/preparation.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限なし /manage/preparation.php?section=privacy&id=7",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 権限なし /manage/staff-roles.php",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 業務POSTゼロ",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 共通ログアウト",
+          "result": "PASS"
+        }
+      ],
+      "business_posts": 0,
+      "live": true
+    },
+    "editor": {
+      "status": "PASS",
+      "checked_at_utc": "2026-11-14T13:26:18.514Z",
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ],
+      "cases": [
+        {
+          "case": "chromium office 未認証を拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 下書き導線の権限",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office calendar 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office calendar 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office calendar 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office calendar 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office calendar 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office calendar 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office mail_template 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office mail_template 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office mail_template 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office mail_template 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office mail_template 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office mail_template 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office result_csv 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office result_csv 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office result_csv 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office result_csv 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office result_csv 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office result_csv 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office document_pdf 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office document_pdf 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office document_pdf 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office document_pdf 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office document_pdf 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office document_pdf 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium office ログアウト後は拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 未認証を拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 下書き導線の権限",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant 直接URLの拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "chromium entrant ログアウト後は拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 未認証を拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 下書き導線の権限",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office calendar 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office calendar 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office calendar 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office calendar 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office calendar 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office calendar 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office mail_template 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office mail_template 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office mail_template 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office mail_template 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office mail_template 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office mail_template 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office result_csv 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office result_csv 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office result_csv 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office result_csv 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office result_csv 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office result_csv 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office document_pdf 表示",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office 公開と送信の操作なし",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office document_pdf 横はみ出し 320",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office document_pdf 横はみ出し 390",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office document_pdf 横はみ出し 844",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office document_pdf 横はみ出し 1280",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office document_pdf 文字拡大",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit office ログアウト後は拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 未認証を拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 下書き導線の権限",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant 直接URLの拒否",
+          "result": "PASS"
+        },
+        {
+          "case": "webkit entrant ログアウト後は拒否",
+          "result": "PASS"
+        }
+      ],
+      "business_posts": 0,
+      "live": true
+    }
+  },
+  "business_posts": 0,
+  "protected_state": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 85,
+    "protected_files": 671,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false
+    },
+    "stage_removed": true
+  },
+  "integration": {
+    "schema_count": 89,
+    "schema_sha256": "b5eab564b2dd14f884dcac433c11cf1d9856c87fbe42bcc2cccdd3589408d139",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sheet_verification": {
+    "all_eight_tabs_preserved": true,
+    "original_questions_and_answers_preserved": true,
+    "completion_changed_only_I": true,
+    "completion_rows": [
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      99,
+      100,
+      102
+    ],
+    "business_posts": 0
+  },
+  "source_received_method": "Drive browser table; connector 404; original bytes not downloaded",
+  "deferred": [
+    "P20",
+    "F08",
+    "F09",
+    "F10",
+    "F13",
+    "F14",
+    "F15",
+    "F16",
+    "F17",
+    "formal_intake",
+    "accounting_posting",
+    "automatic_close",
+    "public_release",
+    "real_mail",
+    "deletion"
+  ]
+}

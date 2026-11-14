@@ -32,9 +32,9 @@ final class BillingService
             if (count($rules)!==1 || (int)$rules[0]['amount_yen']<=0) { throw new HttpFailure(422,'年度・クラブ区分の年会費マスターを設定してください'); }
             if (count($accounts)!==1) { throw new HttpFailure(422,'クラブ年会費の入金先口座を設定してください'); }
             $rule=$rules[0];$bank=$accounts[0];
-            if ($bank['payment_url']!==null && !preg_match('~^https://[^\s]+$~D',$bank['payment_url'])) { throw new HttpFailure(422,'決済URLはHTTPSで登録してください'); }
+            // F11によりクラブ会費は対象外。旧口座設定にURLが残っていても請求へ引き継がない。
             $this->run("INSERT INTO portal_invoices(application_id,invoice_no,payer_club_year_id,status,account_id,account_snapshot_cipher,payment_url_snapshot,idempotency_key,issued_at)
-                VALUES(?,?,?,'issued',?,?,?,?,UTC_TIMESTAMP(6))",[$cy['application_id'],'CLUB-'.$cy['year'].'-'.$clubYear,$clubYear,$bank['id'],$bank['details_cipher'],$bank['payment_url'],'club:'.$clubYear]);
+                VALUES(?,?,?,'issued',?,?,?,?,UTC_TIMESTAMP(6))",[$cy['application_id'],'CLUB-'.$cy['year'].'-'.$clubYear,$clubYear,$bank['id'],$bank['details_cipher'],null,'club:'.$clubYear]);
             $invoice=(int)$this->db->lastInsertId();
             $this->run("INSERT INTO portal_invoice_lines(invoice_id,fee_rule_id,purpose_code,club_year_id,description,quantity,unit_amount_yen,amount_yen)
                 VALUES(?,?,'club_fee',?,?,1,?,?)",[$invoice,$rule['id'],$clubYear,'正会員クラブ年会費 '.$cy['year'],$rule['amount_yen'],$rule['amount_yen']]);$line=(int)$this->db->lastInsertId();
@@ -212,6 +212,8 @@ final class BillingService
                 WHERE al.invoice_line_id=ch.invoice_line_id AND p.status='confirmed'),0) AS paid_yen
             FROM portal_invoices i JOIN portal_invoice_charge_targets ch ON ch.invoice_id=i.id WHERE i.id=?",[$id]);
         if (!$row) { throw new HttpFailure(404,'会費請求がありません'); }
+        // F11: 過去の請求スナップショットは保持し、GET・再送の双方で対象外の決済導線を返さない。
+        if($row['membership_id']===null){$row['payment_url_snapshot']=null;}
         $row['balance_yen']=max(0,(int)$row['amount_yen']-(int)$row['paid_yen']);
         unset($row['account_snapshot_cipher']);
         return $row;

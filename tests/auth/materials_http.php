@@ -5,6 +5,7 @@ declare(strict_types=1);
 require_once '/srv/auth/src/Bank/PaymentCoreCsv.php';
 require_once '/srv/auth/src/Operations/AccountingReview.php';
 require_once '/srv/auth/src/Operations/MaterialsReview.php';
+require_once '/srv/auth/src/Operations/AccountingWorkbook.php';
 use Jmrc\Operations\AccountingReview as AC;
 use Jmrc\Operations\MaterialsReview as MR;
 use Jmrc\Bank\PaymentCoreCsv as PC;
@@ -39,7 +40,7 @@ check('未入力を一致と扱わない',!AC::balance([],[])['balanced']);$b['s
 check('貸借不一致を自動補完しない',AC::balance($b,[])['difference']===10&&!AC::balance($b,[])['balanced']);
 check('日本時間の月境界で前月のみ締め可能',AC::mayClose('2027-02',new DateTimeImmutable('2027-02-28T15:00:00Z'))&&!AC::mayClose('2027-03',new DateTimeImmutable('2027-02-28T15:00:00Z')));
 $pc=new PC();$bytes=MR::sampleCsv('payment_core');$p=$pc->parse($bytes,'UTF-8');
-check('ペイメントコアの総額・手数料・差引額と年保留',$p['rows'][0]['gross_yen']===2000&&$p['rows'][0]['fee_yen']===100&&$p['rows'][0]['net_yen']===1900&&$p['rows'][0]['date']===null&&!$p['auto_confirm_allowed']);
+check('ペイメントコアは手数料を自動控除せず会費本体と年を保留',$p['rows'][0]['gross_yen']===2000&&$p['rows'][0]['fee_yen']===100&&$p['rows'][0]['net_yen']===null&&$p['rows'][0]['principal_yen']===null&&$p['rows'][0]['date']===null&&!$p['auto_confirm_allowed']&&!$p['fee_expense_allowed']);
 check('指定名義の末尾数字を残し電話メールは返さない',$p['rows'][0]['specified_name']==='カクウ タロウ123'&&!str_contains(json_encode($p),'example.invalid')&&!isset($p['rows'][0]['email']));
 check('指定年を明示した場合だけ日付を確定',$pc->parse($bytes,'UTF-8',2027)['rows'][0]['date']==='2027-10-10');
 $dup=AC::csv([PC::HEADERS,['架空','','','カード',2000,100,'02/29','カクウ'],['架空','','','カード',2000,100,'02/29','カクウ']]);
@@ -52,6 +53,25 @@ check('受領ゆうちょ構造を解析し支出を除外',count($y['rows'])===
 check('ゆうちょCP932とUTF8の解析が同じ',$yc->parse(mb_convert_encoding(MR::sampleCsv('yucho'),'CP932','UTF-8'),'CP932')===$y);
 $reject('単位付きと単位なし金額欄の重複拒否',fn()=>$yc->parse("受入金額,受入金額（円）,詳細２\n1,1,カクウ\n",'UTF-8'));
 // 全業務表を比較し、確認画面が会費・入金・資格・受付設定を変更しないことを検出する。
+// N09/F01～F12の境界。実在の住所・名義・祝日データを利用しない。
+$contact=MR::club(['region'=>'25','rep_name'=>'架空代表','rep_address'=>'代表者住所','rep_phone'=>'000-0000','same_contact'=>'1','contact_name'=>'旧担当','contact_address'=>'別住所']);
+check('代表者兼連絡先は氏名・住所・電話を転記',$contact['contact_name']==='架空代表'&&$contact['contact_address']==='代表者住所'&&$contact['contact_phone']==='000-0000');
+$separate=MR::club(['region'=>'other','region_other'=>'架空支部','same_contact'=>'0','rep_address'=>'甲','contact_address'=>'乙']);
+check('その他支部と別連絡先を保持',$separate['region_other']==='架空支部'&&$separate['contact_address']==='乙'&&$separate['rep_address']==='甲');
+foreach([['region'=>'31'],['region'=>'other'],['same_contact'=>'yes'],['region'=>[]]] as $bad){$reject('支部・兼任の不正入力拒否',fn()=>MR::club($bad));}
+$custom=str_replace(PC::HEADERS[7],'指定名義（カタカナ氏名）',$bytes);
+check('明示された変更後の名義列を解析',$pc->parse($custom,'UTF-8',null,'指定名義（カタカナ氏名）')['rows'][0]['specified_name']==='カクウ タロウ123');
+$reject('列の変更を推測しない',fn()=>$pc->parse($custom,'UTF-8'));
+$reject('既存列と重複する名義見出し拒否',fn()=>$pc->parse($bytes,'UTF-8',null,'決済者名'));
+$receipt=\Jmrc\Operations\AccountingPolicy::receipt(['receipt_id'=>'receipt-1','item'=>'member_fee','amount'=>1000,'paid_on'=>'2026-12-31','confirmed_at'=>'2027-01-05 10:00:00']);
+$second=\Jmrc\Operations\AccountingPolicy::receipt(['receipt_id'=>'receipt-2','item'=>'member_fee','amount'=>1000,'paid_on'=>'2027-01-06','confirmed_at'=>'2027-01-06 10:00:00']);
+$partial=AC::synchronize([],[$receipt,$second,$receipt]);
+check('翌年会費の分割を実入金年ごとに計上一度だけ',AC::report($partial,[],2026,'2026-01-01','2026-12-31')['income']===1000&&AC::report($partial,[],2027,'2027-01-01','2027-12-31')['income']===1000&&str_starts_with($partial[0]['registered_at'],'2027-01-05'));
+$deadline=\Jmrc\Operations\AccountingPolicy::closingDeadline('2027-04',['2027-05-03','2027-05-04','2027-05-05'],2027);
+check('休日を渡した締め日計算例',$deadline->format('Y-m-d H:i T')==='2027-05-07 23:59 JST');
+$reject('翌年の休日が未確認なら締め日を計算しない',fn()=>\Jmrc\Operations\AccountingPolicy::closingDeadline('2027-12',[],2027));
+$book=\Jmrc\Operations\AccountingWorkbook::build([['確認用','=1+1','<架空>'],[0,-2,1000]]);$file=tempnam('/tmp','xlsx-test-');file_put_contents($file,$book);$zip=new ZipArchive();$zip->open($file);$xml=$zip->getFromName('xl/worksheets/sheet1.xml');$zip->close();unlink($file);
+check('Excel出力はZIPで式を含まず数値を保持',str_starts_with($book,'PK')&&str_contains($xml,'=1+1')&&!str_contains($xml,'<f>')&&str_contains($xml,'<v>-2</v>')&&str_contains($xml,'&lt;架空&gt;'));
 $tables=$db->query("SELECT table_name FROM information_schema.tables WHERE table_schema=DATABASE() AND table_type='BASE TABLE' AND table_name NOT IN ('audit_logs','portal_audit_events') ORDER BY table_name")->fetchAll(PDO::FETCH_COLUMN);
 $fingerprint=static fn()=>$db->query('CHECKSUM TABLE '.implode(',',array_map(fn($t)=>'`'.$t.'`',$tables)))->fetchAll(PDO::FETCH_ASSOC);$before=$fingerprint();
 $office=new Browser();$office->login(7);$entrant=new Browser();$entrant->login(1);$anon=new Browser();$base='/manage/accounting-review.php';
@@ -76,6 +96,9 @@ check('残高入力',$post(['action'=>'balance','month'=>$initial['month'],'curr
 check('前月の貸借一致で確認用締め',$post(['action'=>'close','month'=>$initial['month']])['status']===303);
 check('締め月の追加・再連携・残高修正を停止',$post(['action'=>'manual','date'=>$initial['month'].'-15','item'=>'supplies','amount'=>'1'])['status']===409&&$post(['action'=>'sync'])['status']===409&&$post(['action'=>'balance','month'=>$initial['month'],'current'=>$b,'previous'=>[]])['status']===409);
 check('クラブ入力はHTMLエスケープ',$post(['action'=>'club','club'=>['club_name'=>'<script>bad</script>']])['status']===303&&str_contains($office->request($base.'?section=club')['body'],'&lt;script&gt;bad&lt;/script&gt;'));
+check('HTTPで代表者兼連絡先を保存',$post(['action'=>'club','club'=>['region'=>'26','same_contact'=>'1','rep_address'=>'架空住所','rep_phone'=>'000']])['status']===303&&$get()['club']['contact_address']==='架空住所');
+foreach(['income','balance','audit'] as $kind){$out=$office->request($base.'?download='.$kind.'&file_type=xlsx');check('認可済みExcel出力 '.$kind,$out['status']===200&&str_starts_with($out['body'],'PK')&&str_contains(implode('\n',$office->lastHeaders),'.xlsx'));}
+check('一般会員のExcel取得不可',$entrant->request($base.'?download=income&file_type=xlsx')['status']===403);
 $p=$office->request($base.'?section=csv&format=json',['_csrf'=>$csrf,'action'=>'csv_preview','csv_kind'=>'payment_core','encoding'=>'UTF-8','csv_text'=>$bytes]);
 check('HTTPで決済CSV解析だけ行う',$p['status']===200&&json_decode($p['body'],true)['preview']['auto_confirm_allowed']===false&&$get()['preview']===null);
 foreach(['income','audit','balance','budget','yucho','payment_core'] as $kind){$out=$office->request($base.'?download='.$kind);check('認可済みCSV出力 '.$kind,$out['status']===200&&str_contains(implode('\n',$office->lastHeaders),'attachment; filename='));}

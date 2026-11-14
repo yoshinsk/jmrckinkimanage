@@ -55,7 +55,10 @@ def main():
                   'tests/license/preparation_browser.cjs','src/Bank/StrictCsv.php','src/Bank/YuchoCsv.php',
                   'src/Bank/PaymentCoreCsv.php','src/Operations/AccountingReview.php','src/Operations/MaterialsReview.php',
                   'public/manage/accounting-review.php','public/manage/assets/accounting-review.css',
-                  'tests/auth/materials_http.php','tests/license/accounting_browser.cjs']
+                  'tests/auth/materials_http.php','tests/license/accounting_browser.cjs',
+                  'src/Club/ClubContact.php','src/Operations/AccountingPolicy.php','src/Operations/AccountingWorkbook.php',
+                  'src/Bank/BankMasterService.php','src/Billing/BillingService.php','src/bootstrap.php',
+                  'public/manage/bank-settings.php','public/manage/clubs.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)

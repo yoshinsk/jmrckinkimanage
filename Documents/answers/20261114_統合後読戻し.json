@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "all_existing_questions_and_answers_preserved": true,
+  "only_changed_existing_columns": [
+    "G：回答の受領状態",
+    "I：受領整理を追記"
+  ],
+  "appended_range": "整合性チェック_20261101!A102:I106",
+  "tabs": [
+    {
+      "tab": "回答入力",
+      "rows": 50,
+      "values_verified": true
+    },
+    {
+      "tab": "確定済み",
+      "rows": 18,
+      "values_verified": true
+    },
+    {
+      "tab": "MVP案",
+      "rows": 16,
+      "values_verified": true
+    },
+    {
+      "tab": "提供依頼資料",
+      "rows": 12,
+      "values_verified": true
+    },
+    {
+      "tab": "使い方",
+      "rows": 6,
+      "values_verified": true
+    },
+    {
+      "tab": "再確認13項目_20261027",
+      "rows": 31,
+      "values_verified": true
+    },
+    {
+      "tab": "整合性チェック_20261101",
+      "rows": 106,
+      "values_verified": true
+    },
+    {
+      "tab": "画面の使い方_20261101",
+      "rows": 20,
+      "values_verified": true
+    }
+  ],
+  "visual_check": "102～106行への移動、F15～F17の質問と空の黄色回答欄をブラウザーで確認"
+}

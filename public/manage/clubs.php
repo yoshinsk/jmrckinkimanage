@@ -35,7 +35,7 @@ if ($json) { header('Content-Type: application/json; charset=utf-8');echo json_e
 $e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');$csrf=jmrc_auth()->csrfToken();
 $editing=isset($_GET['id']) && $result && isset($result['club_id']);$values=$editing?$result:($previous??[]);
 if (!$values && $club!==null) { foreach($clubs as $c) { if((int)$c['id']===$club) { $values=$c;break; } } }
-$labels=['name_full'=>'正式名','name_short'=>'略称','rep_name'=>'代表者名','contact_name'=>'連絡先担当者名','postcode'=>'郵便番号','address'=>'住所','phone'=>'電話番号','email'=>'メールアドレス'];
+$labels=['name_full'=>'クラブ・団体名称','name_short'=>'正式略称','rep_name'=>'代表者名','contact_name'=>'連絡先担当者名','postcode'=>'郵便番号','address'=>'住所','phone'=>'電話番号','email'=>'メールアドレス'];
 header('Content-Type: text/html; charset=utf-8');
 ?>
 <!doctype html><html lang="ja"><meta charset="utf-8"><title>正会員クラブの年度登録</title><h1>正会員クラブの年度登録</h1>

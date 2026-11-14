@@ -30,6 +30,8 @@ require_once __DIR__ . '/Profile/ProfileService.php';
 require_once __DIR__ . '/Operations/PreparationService.php';
 require_once __DIR__ . '/Operations/AccountingReview.php';
 require_once __DIR__ . '/Operations/MaterialsReview.php';
+require_once __DIR__ . '/Operations/AccountingPolicy.php';
+require_once __DIR__ . '/Operations/AccountingWorkbook.php';
 require_once __DIR__ . '/Content/InformationPreview.php';
 require_once __DIR__ . '/Operations/AnswerRules.php';
 require_once __DIR__ . '/Content/EditorService.php';

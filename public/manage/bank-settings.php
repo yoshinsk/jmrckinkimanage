@@ -52,7 +52,7 @@ jmrc_office_header('入金先・決済URLの設定');
   <p id="purpose-help" class="office-help office-wide">登録済みの用途・年度を変更する場合は、新しい設定を作成してください。</p>
   <div class="office-field office-wide"><label for="display-name">口座の表示名</label><input id="display-name" name="display_name" maxlength="128" value="<?=$e($account['display_name']??'')?>" required></div>
   <div class="office-field office-wide"><label for="details">口座案内</label><textarea id="details" name="details" rows="5" maxlength="4000" aria-describedby="details-help" <?=empty($account)?'required':''?>><?=$e($account['details']??'')?></textarea><p id="details-help" class="office-help">金融機関・支店・種別・番号・名義などの案内を入力します。更新時の空欄は既存値を保持します。使用済み設定では案内を変更できません。</p></div>
-  <div class="office-field office-wide"><label for="payment-url">ペイメントコアURL</label><input id="payment-url" name="payment_url" type="url" maxlength="2048" value="<?=$e($account['payment_url']??'')?>" placeholder="https://" aria-describedby="url-help"><p id="url-help" class="office-help">空欄でURLを解除できます。URLへのアクセスや支払済み登録は自動実行しません。</p></div>
+  <div class="office-field office-wide"><label for="payment-url">ペイメントコアURL</label><input id="payment-url" name="payment_url" type="url" maxlength="2048" value="<?=$e($account['payment_url']??'')?>" placeholder="https://" aria-describedby="url-help"><p id="url-help" class="office-help">個人会費のみ利用できます。クラブ会費・スポーツ安全保険等には新規登録できません。既存URLは履歴を残し、必要なら空欄で解除してください。URLへのアクセスや支払済み登録は自動実行しません。</p></div>
 </div></fieldset>
 <fieldset><legend>利用期間・状態</legend><div class="office-fields">
   <div class="office-field"><label for="valid-from">開始日時（日本時間）</label><input id="valid-from" name="valid_from" type="datetime-local" step="0.000001" value="<?=$e($local($account['valid_from']??null))?>"></div>

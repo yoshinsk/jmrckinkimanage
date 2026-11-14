@@ -60,6 +60,9 @@ $db->exec("INSERT INTO portal_bank_accounts(purpose_code,display_name,details_ci
     VALUES('club_fee','架空クラブ入金口座','club-invoice-fixture','https://example.invalid/club-pay',1,1)");
 $r=clubPost($rep,'issue',['id'=>$cyId]);$i=json_decode($r['body'],true,512,JSON_THROW_ON_ERROR);$invoice=(int)$i['id'];
 check('年度区分マスターからクラブ年会費を発行',$r['status']===200 && (int)$i['amount_yen']===12000 && (int)$i['payer_club_year_id']===$cyId);
+check('クラブ請求へ旧ペイメントコアURLを引き継がない',$i['payment_url_snapshot']===null&&$db->query('SELECT payment_url_snapshot FROM portal_invoices WHERE id='.$invoice)->fetchColumn()===null);
+$db->exec("UPDATE portal_invoices SET payment_url_snapshot='https://example.invalid/legacy-club-pay' WHERE id=$invoice");
+check('旧クラブ決済URLは原本を消さず読取・再送とも非表示',billState($rep,$invoice)['payment_url_snapshot']===null&&json_decode(clubPost($rep,'issue',['id'=>$cyId])['body'],true)['payment_url_snapshot']===null&&$db->query('SELECT payment_url_snapshot FROM portal_invoices WHERE id='.$invoice)->fetchColumn()==='https://example.invalid/legacy-club-pay');
 check('クラブ請求再送は同じ一件',(int)json_decode(clubPost($rep,'issue',['id'=>$cyId])['body'],true)['id']===$invoice);
 $db->exec("UPDATE portal_fee_rules SET amount_yen=13000 WHERE purpose_code='club_fee' AND year=$nowYear");
 check('発行後の年会費変更は既存請求に影響しない',(int)billState($rep,$invoice)['amount_yen']===12000);
