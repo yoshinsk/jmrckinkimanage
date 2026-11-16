@@ -7,4 +7,5 @@
 .accounting-table thead { background: #edf2f7; }
 .accounting-error { border-left: 4px solid #b42318; padding: 1rem; background: #fff1f0; overflow-wrap: anywhere; }
 .accounting-notice { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; background: #f5f7fa; padding: 1rem; }
+.accounting-negative { color: #b42318; font-weight: 700; }
 @media print { .portal-header, nav, form, .office-bottom { display: none; } .accounting-table { overflow: visible; } .accounting-table table { min-width: 0; font-size: 9pt; } }

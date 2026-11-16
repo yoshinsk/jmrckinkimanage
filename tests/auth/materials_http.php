@@ -19,8 +19,9 @@ check('期間・年累計を区別し予算超過を負数表示',$r['income']==
 $bud=AC::budget(['club_fee'=>'0']);$r=AC::report($ledger,$bud,$year,$year.'-01-01',$year.'-12-31');
 check('未設定と0円を区別しゼロ除算しない',$r['items']['club_fee']['rate']===null&&$r['items']['club_fee']['budget']===0&&$r['items']['member_fee']['budget']===null);
 check('会費連携の再実行で二重計上しない',AC::synchronize(AC::synchronize($ledger,$state['fees']),$state['fees'])===AC::synchronize($ledger,$state['fees'])&&count(AC::synchronize($ledger,$state['fees']))===3);
-$fees=$state['fees'];$fees[0]['amount']=25000;$fees[1]['status']='cancelled';$new=AC::synchronize($ledger,$fees);
-check('訂正・取消を最新値へ置換し手入力を保持',count($new)===2&&$new[0]===$manual&&$new[1]['amount']===25000);
+$fees=$state['fees'];$fees[0]['amount']=1500;$new=AC::synchronize($ledger,$fees);
+check('個人会費の訂正でも手入力のクラブ費と支出を保持',count($new)===3&&$new[0]['item']==='club_fee'&&$new[1]===$manual&&$new[2]['amount']===1500);
+$cancel=$fees;$cancel[0]['status']='cancelled';check('未確定・取消は自動計上せず手入力を保持',count(AC::synchronize($ledger,$cancel))===2);
 check('同じ連携元の重複スナップショットを一度だけ計上',count(AC::synchronize([],[$fees[0],$fees[0]]))===1);
 $conflict=$fees[0];$conflict['amount']++;
 $reject('同じ連携元の不一致は中断',fn()=>AC::synchronize([],[$fees[0],$conflict]),409);
@@ -40,13 +41,13 @@ check('未入力を一致と扱わない',!AC::balance([],[])['balanced']);$b['s
 check('貸借不一致を自動補完しない',AC::balance($b,[])['difference']===10&&!AC::balance($b,[])['balanced']);
 check('日本時間の月境界で前月のみ締め可能',AC::mayClose('2027-02',new DateTimeImmutable('2027-02-28T15:00:00Z'))&&!AC::mayClose('2027-03',new DateTimeImmutable('2027-02-28T15:00:00Z')));
 $pc=new PC();$bytes=MR::sampleCsv('payment_core');$p=$pc->parse($bytes,'UTF-8');
-check('ペイメントコアは手数料を自動控除せず会費本体と年を保留',$p['rows'][0]['gross_yen']===2000&&$p['rows'][0]['fee_yen']===100&&$p['rows'][0]['net_yen']===null&&$p['rows'][0]['principal_yen']===null&&$p['rows'][0]['date']===null&&!$p['auto_confirm_allowed']&&!$p['fee_expense_allowed']);
+check('ペイメントコアの会費本体は支払金額で手数料を控除しない',$p['rows'][0]['gross_yen']===2000&&$p['rows'][0]['fee_yen']===100&&$p['rows'][0]['net_yen']===null&&$p['rows'][0]['principal_yen']===2000&&$p['rows'][0]['date']===null&&!$p['auto_confirm_allowed']&&!$p['fee_expense_allowed']);
 check('指定名義の末尾数字を残し電話メールは返さない',$p['rows'][0]['specified_name']==='カクウ タロウ123'&&!str_contains(json_encode($p),'example.invalid')&&!isset($p['rows'][0]['email']));
 check('指定年を明示した場合だけ日付を確定',$pc->parse($bytes,'UTF-8',2027)['rows'][0]['date']==='2027-10-10');
 $dup=AC::csv([PC::HEADERS,['架空','','','カード',2000,100,'02/29','カクウ'],['架空','','','カード',2000,100,'02/29','カクウ']]);
 $p=$pc->parse($dup,'UTF-8',2028);check('同内容の決済も消さず重複候補で手動確認',count($p['rows'])===2&&$p['rows'][1]['duplicate_candidate']);
 $reject('非うるう年の日付を拒否',fn()=>$pc->parse($dup,'UTF-8',2027));
-foreach([str_replace(',100,',',2001,',$bytes),str_replace(',2000,',',-1,',$bytes),str_replace('支払金額','金額',$bytes),str_replace('10/10','2027/10/10',$bytes),$bytes.'"broken'] as $invalid){$reject('手数料超過・負額・別形式・引用符破損は拒否',fn()=>$pc->parse($invalid,'UTF-8'));
+foreach([str_replace(',2000,',',-1,',$bytes),str_replace('支払金額','金額',$bytes),str_replace('10/10','2027/10/10',$bytes),$bytes.'"broken'] as $invalid){$reject('負額・別形式・引用符破損は拒否',fn()=>$pc->parse($invalid,'UTF-8'));
 }
 $yc=new \Jmrc\Bank\YuchoCsv();$y=$yc->parse(MR::sampleCsv('yucho'),'UTF-8');
 check('受領ゆうちょ構造を解析し支出を除外',count($y['rows'])===1&&$y['ignored']===1&&$y['rows'][0]['amount']===2000&&$y['rows'][0]['date']==='2026-10-10');
@@ -54,17 +55,17 @@ check('ゆうちょCP932とUTF8の解析が同じ',$yc->parse(mb_convert_encodin
 $reject('単位付きと単位なし金額欄の重複拒否',fn()=>$yc->parse("受入金額,受入金額（円）,詳細２\n1,1,カクウ\n",'UTF-8'));
 // 全業務表を比較し、確認画面が会費・入金・資格・受付設定を変更しないことを検出する。
 // N09/F01～F12の境界。実在の住所・名義・祝日データを利用しない。
-$contact=MR::club(['region'=>'25','rep_name'=>'架空代表','rep_address'=>'代表者住所','rep_phone'=>'000-0000','same_contact'=>'1','contact_name'=>'旧担当','contact_address'=>'別住所']);
+$contact=MR::club(array_replace(MR::sampleClub(),['region'=>'25','rep_name'=>'架空代表','rep_address'=>'代表者住所','rep_phone'=>'000-0000','same_contact'=>'1','contact_name'=>'旧担当','contact_address'=>'別住所']));
 check('代表者兼連絡先は氏名・住所・電話を転記',$contact['contact_name']==='架空代表'&&$contact['contact_address']==='代表者住所'&&$contact['contact_phone']==='000-0000');
-$separate=MR::club(['region'=>'other','region_other'=>'架空支部','same_contact'=>'0','rep_address'=>'甲','contact_address'=>'乙']);
+$separate=MR::club(array_replace(MR::sampleClub(),['region'=>'other','region_other'=>'架空支部','same_contact'=>'0','rep_address'=>'甲','contact_address'=>'乙']));
 check('その他支部と別連絡先を保持',$separate['region_other']==='架空支部'&&$separate['contact_address']==='乙'&&$separate['rep_address']==='甲');
-foreach([['region'=>'31'],['region'=>'other'],['same_contact'=>'yes'],['region'=>[]]] as $bad){$reject('支部・兼任の不正入力拒否',fn()=>MR::club($bad));}
+foreach([['region'=>'31'],['region'=>'other'],['same_contact'=>'yes'],['region'=>[]]] as $bad){$reject('支部・兼任の不正入力拒否',fn()=>MR::club(array_replace(MR::sampleClub(),$bad)));}
 $custom=str_replace(PC::HEADERS[7],'指定名義（カタカナ氏名）',$bytes);
 check('明示された変更後の名義列を解析',$pc->parse($custom,'UTF-8',null,'指定名義（カタカナ氏名）')['rows'][0]['specified_name']==='カクウ タロウ123');
 $reject('列の変更を推測しない',fn()=>$pc->parse($custom,'UTF-8'));
 $reject('既存列と重複する名義見出し拒否',fn()=>$pc->parse($bytes,'UTF-8',null,'決済者名'));
-$receipt=\Jmrc\Operations\AccountingPolicy::receipt(['receipt_id'=>'receipt-1','item'=>'member_fee','amount'=>1000,'paid_on'=>'2026-12-31','confirmed_at'=>'2027-01-05 10:00:00']);
-$second=\Jmrc\Operations\AccountingPolicy::receipt(['receipt_id'=>'receipt-2','item'=>'member_fee','amount'=>1000,'paid_on'=>'2027-01-06','confirmed_at'=>'2027-01-06 10:00:00']);
+$receipt=\Jmrc\Operations\AccountingPolicy::receipt(['persons'=>1,'receipt_id'=>'receipt-1','item'=>'member_fee','amount'=>1000,'paid_on'=>'2026-12-31','confirmed_at'=>'2027-01-05 10:00:00']);
+$second=\Jmrc\Operations\AccountingPolicy::receipt(['persons'=>1,'receipt_id'=>'receipt-2','item'=>'member_fee','amount'=>1000,'paid_on'=>'2027-01-06','confirmed_at'=>'2027-01-06 10:00:00']);
 $partial=AC::synchronize([],[$receipt,$second,$receipt]);
 check('翌年会費の分割を実入金年ごとに計上一度だけ',AC::report($partial,[],2026,'2026-01-01','2026-12-31')['income']===1000&&AC::report($partial,[],2027,'2027-01-01','2027-12-31')['income']===1000&&str_starts_with($partial[0]['registered_at'],'2027-01-05'));
 $deadline=\Jmrc\Operations\AccountingPolicy::closingDeadline('2027-04',['2027-05-03','2027-05-04','2027-05-05'],2027);
@@ -72,13 +73,14 @@ check('休日を渡した締め日計算例',$deadline->format('Y-m-d H:i T')===
 $reject('翌年の休日が未確認なら締め日を計算しない',fn()=>\Jmrc\Operations\AccountingPolicy::closingDeadline('2027-12',[],2027));
 $book=\Jmrc\Operations\AccountingWorkbook::build([['確認用','=1+1','<架空>'],[0,-2,1000]]);$file=tempnam('/tmp','xlsx-test-');file_put_contents($file,$book);$zip=new ZipArchive();$zip->open($file);$xml=$zip->getFromName('xl/worksheets/sheet1.xml');$zip->close();unlink($file);
 check('Excel出力はZIPで式を含まず数値を保持',str_starts_with($book,'PK')&&str_contains($xml,'=1+1')&&!str_contains($xml,'<f>')&&str_contains($xml,'<v>-2</v>')&&str_contains($xml,'&lt;架空&gt;'));
+require __DIR__.'/accounting_answers.php';
 $tables=$db->query("SELECT table_name FROM information_schema.tables WHERE table_schema=DATABASE() AND table_type='BASE TABLE' AND table_name NOT IN ('audit_logs','portal_audit_events') ORDER BY table_name")->fetchAll(PDO::FETCH_COLUMN);
 $fingerprint=static fn()=>$db->query('CHECKSUM TABLE '.implode(',',array_map(fn($t)=>'`'.$t.'`',$tables)))->fetchAll(PDO::FETCH_ASSOC);$before=$fingerprint();
 $office=new Browser();$office->login(7);$entrant=new Browser();$entrant->login(1);$anon=new Browser();$base='/manage/accounting-review.php';
 foreach(['','?format=json','?download=budget','?download=payment_core'] as $q){check('未認証は会計画面不可 '.$q,$anon->request($base.$q)['status']===401);check('一般会員は会計画面不可 '.$q,$entrant->request($base.$q)['status']===403);}
 check('一般会員の書込不可',$entrant->request($base,['action'=>'reset'])['status']===403);
 check('CSRFなしは会計操作不可',$office->request($base,['action'=>'reset'])['status']===400);
-foreach(['budget','income','balance','csv','club','notice'] as $section){check('事務局は6画面を表示 '.$section,$office->request($base.'?section='.$section)['status']===200);}
+foreach(['budget','income','balance','csv','club','notice','roles'] as $section){check('事務局は7画面を表示 '.$section,$office->request($base.'?section='.$section)['status']===200);}
 $get=static fn()=>json_decode($office->request($base.'?format=json')['body'],true,512,JSON_THROW_ON_ERROR);
 $initial=$get();$csrf=$office->token($base);
 $post=static function(array $form)use($office,$base,$get,$csrf):array{$s=$get();return $office->request($base,array_merge(['_csrf'=>$csrf,'instance'=>$s['instance'],'revision'=>(string)$s['revision']],$form));};
@@ -93,15 +95,32 @@ check('別サインインへ確認データを共有しない',(function()use($b
 check('貸借不一致の月を確定しない',$post(['action'=>'close','month'=>$initial['month']])['status']===422);
 $b['surplus']=100;
 check('残高入力',$post(['action'=>'balance','month'=>$initial['month'],'current'=>$b,'previous'=>['cash'=>'']])['status']===303);
+check('承認前の月締めは保留',$post(['action'=>'close','month'=>$initial['month']])['status']===409);
+check('事務局による承認例は拒否',$post(['action'=>'month_approve','month'=>$initial['month'],'review_role'=>'office'])['status']===403);
+check('事務局長の確認例',$post(['action'=>'month_approve','month'=>$initial['month'],'review_role'=>'chief'])['status']===303);
 check('前月の貸借一致で確認用締め',$post(['action'=>'close','month'=>$initial['month']])['status']===303);
 check('締め月の追加・再連携・残高修正を停止',$post(['action'=>'manual','date'=>$initial['month'].'-15','item'=>'supplies','amount'=>'1'])['status']===409&&$post(['action'=>'sync'])['status']===409&&$post(['action'=>'balance','month'=>$initial['month'],'current'=>$b,'previous'=>[]])['status']===409);
-check('クラブ入力はHTMLエスケープ',$post(['action'=>'club','club'=>['club_name'=>'<script>bad</script>']])['status']===303&&str_contains($office->request($base.'?section=club')['body'],'&lt;script&gt;bad&lt;/script&gt;'));
-check('HTTPで代表者兼連絡先を保存',$post(['action'=>'club','club'=>['region'=>'26','same_contact'=>'1','rep_address'=>'架空住所','rep_phone'=>'000']])['status']===303&&$get()['club']['contact_address']==='架空住所');
+check('クラブ入力はHTMLエスケープ',$post(['action'=>'club','club'=>array_replace(MR::sampleClub(),['club_name'=>'<script>bad</script>'])])['status']===303&&str_contains($office->request($base.'?section=club')['body'],'&lt;script&gt;bad&lt;/script&gt;'));
+check('HTTPで代表者兼連絡先を保存',$post(['action'=>'club','club'=>array_replace(MR::sampleClub(),['region'=>'26','same_contact'=>'1','rep_address'=>'架空住所','rep_phone'=>'000'])])['status']===303&&$get()['club']['contact_address']==='架空住所');
 foreach(['income','balance','audit'] as $kind){$out=$office->request($base.'?download='.$kind.'&file_type=xlsx');check('認可済みExcel出力 '.$kind,$out['status']===200&&str_starts_with($out['body'],'PK')&&str_contains(implode('\n',$office->lastHeaders),'.xlsx'));}
 check('一般会員のExcel取得不可',$entrant->request($base.'?download=income&file_type=xlsx')['status']===403);
 $p=$office->request($base.'?section=csv&format=json',['_csrf'=>$csrf,'action'=>'csv_preview','csv_kind'=>'payment_core','encoding'=>'UTF-8','csv_text'=>$bytes]);
 check('HTTPで決済CSV解析だけ行う',$p['status']===200&&json_decode($p['body'],true)['preview']['auto_confirm_allowed']===false&&$get()['preview']===null);
 foreach(['income','audit','balance','budget','yucho','payment_core'] as $kind){$out=$office->request($base.'?download='.$kind);check('認可済みCSV出力 '.$kind,$out['status']===200&&str_contains(implode('\n',$office->lastHeaders),'attachment; filename='));}
+check('クラブの必須項目不足を拒否',$post(['action'=>'club','club'=>['company'=>'任意']])['status']===422);
+check('会計画面から個人費を重ねて手入力できない',$post(['action'=>'manual','date'=>$initial['month'].'-15','item'=>'member_fee','amount'=>'2000'])['status']===422);
+check('事務局の締め解除例を拒否',$post(['action'=>'reopen','month'=>$initial['month'],'review_role'=>'office'])['status']===403);
+check('事務局長の締め解除例',$post(['action'=>'reopen','month'=>$initial['month'],'review_role'=>'chief'])['status']===303);
+check('返金表示例だけを保存',$post(['action'=>'refund','refund_source'=>'fee:DEMO-MEMBER-1','refund_date'=>$initial['month'].'-15','refund_amount'=>'2000'])['status']===303&&$get()['refunds'][0]['amount']===-2000&&$get()['report']['income']===32000);
+check('返金集計未確定の月は承認保留',$post(['action'=>'month_approve','month'=>$initial['month'],'review_role'=>'chief'])['status']===409);
+check('返金Excel出力',$office->request($base.'?download=refunds&file_type=xlsx')['status']===200);
+check('部会別の予算入力',$post(['action'=>'department','year'=>2028,'department_name'=>'架空部会甲','department_amount'=>'1000'])['status']===303&&$post(['action'=>'department','year'=>2028,'department_name'=>'架空部会乙','department_amount'=>'2000'])['status']===303&&$get()['budget']['contribution']===3000);
+$depCsv=$office->request($base.'?download=budget')['body'];check('部会名と個別予算をCSV往復',$post(['action'=>'budget_import','csv_text'=>$depCsv])['status']===303&&$get()['departments']===['架空部会甲'=>1000,'架空部会乙'=>2000]);
+check('事務局が予算の承認を依頼',$post(['action'=>'budget_submit','year'=>2028,'review_role'=>'office'])['status']===303);
+check('事務局の予算承認例を拒否',$post(['action'=>'budget_approve','year'=>2028,'review_role'=>'office'])['status']===403);
+check('事務局長が予算を承認',$post(['action'=>'budget_approve','year'=>2028,'review_role'=>'chief'])['status']===303&&$get()['budget_status']==='approved');
+check('承認後の補正とCSV差替えを拒否',$post(['action'=>'department','year'=>2028,'department_name'=>'架空部会甲','department_amount'=>'5000'])['status']===409&&$post(['action'=>'budget_import','csv_text'=>$depCsv])['status']===409);
+check('年度途中の任期例を保存するが権限は付与しない',$post(['action'=>'term','term_year'=>2027,'term_name'=>'架空担当','term_role'=>'chief','term_start'=>'2027-04-01','term_end'=>'2027-09-30'])['status']===303&&$get()['terms'][0]['grants_permission']===false);
 check('初期化で古い操作インスタンスを失効',$post(['action'=>'reset'])['status']===303&&$get()['instance']!==$initial['instance']);
 check('確認機能で既存業務・受付・会費・下書きDB不変',$before===$fingerprint());
 // 通知種別追加は既存の暗号化下書き機能にだけ接続し、送信は無効のまま。

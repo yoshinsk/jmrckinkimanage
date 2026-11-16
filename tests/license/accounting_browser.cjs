@@ -26,7 +26,7 @@ async function run(engine,name,device){
    check(prefix+' 共通ログイン',await p.locator('.account-email').innerText()===a.email);
    check(prefix+' 導線は事務局権限だけ',(await p.locator(`a[href="${base}"]`).count()===1)===(a.role==='office'));
    if(a.role==='office'){
-    for(const section of ['budget','income','balance','csv','club','notice']){
+    for(const section of ['budget','income','balance','csv','club','notice','roles']){
      check(prefix+' 表示 '+section,(await p.goto(origin+base+'?section='+section)).status()===200);
      check(prefix+' 確認専用の説明 '+section,(await p.locator('main').innerText()).includes('事務局専用の検証画面'));
      for(const width of [320,390,844,1280]){await p.setViewportSize({width,height:844});check(prefix+' 幅'+width+' '+section,await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));}
@@ -48,7 +48,9 @@ async function run(engine,name,device){
      const budget=await (await c.request.get(origin+base+'?download=budget')).body();await p.locator('#budget-file').setInputFiles({name:'budget.csv',mimeType:'text/csv',buffer:budget});
      await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'予算CSVを読み込む',exact:true}).tap()]);check(prefix+' ファイル予算再読込',await p.locator('[role=status]').count()===1);
      await p.goto(origin+base+'?section=csv');const sample=await (await c.request.get(origin+base+'?download=payment_core')).body();await p.locator('#csv-kind').selectOption('payment_core');await p.locator('#csv-file').setInputFiles({name:'fictional.csv',mimeType:'text/csv',buffer:sample});
-     await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'CSVの内容を確認する',exact:true}).tap()]);check(prefix+' ファイル解析と年保留',(await p.locator('main').innerText()).includes('年または日付を確認してください'));
+     await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'CSVの内容を確認する',exact:true}).tap()]);check(prefix+' 会費本体と年の規則を表示',(await p.locator('main').innerText()).includes('会費本体 2,000円'));
+     await p.goto(origin+base+'?section=roles');await p.locator('#term-name').fill('架空の事務局長');await p.locator('#term-role').selectOption('chief');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'任期の確認例を追加する',exact:true}).tap()]);check(prefix+' 任期例は権限を付与しない',(await p.locator('main').innerText()).includes('実際の権限は付与していません。'));
+     await p.goto(origin+base+'?section=budget');await p.locator('#department-name').fill('架空部会');await p.locator('#department-amount').fill('1234');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'部会別予算に反映する',exact:true}).tap()]);check(prefix+' 部会別予算を合計',await p.locator('#budget-contribution').inputValue()==='1234');
     }
    }else{for(const q of ['','?format=json','?download=budget','?section=club'])check(prefix+' 権限拒否 '+q,(await c.request.get(origin+base+q)).status()===403);}
    check(prefix+' 許可外POSTゼロ',blocked===0);

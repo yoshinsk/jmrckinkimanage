@@ -83,7 +83,7 @@ final class JmrcReviewWorkspace
             if(!is_string($value) || strlen($value)>4000 || preg_match('//u',$value)!==1 || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F]/',$value)) { $this->fail($label.'を確認してください'); }
             $value=trim($value);
             // GeneralはJAFライセンスが必須。運転免許のない審判員もいるため、免許の2項目は任意にする。
-            $optional=$key==='fee' || ($screen==='clubs' && ($key==='region_other' || (($input['same_contact']??'0')==='1' && in_array($key,['contact','address','phone','email'],true)))) || ($screen==='memberships' && in_array($key,['driver','driver_expiry'],true));
+            $optional=$key==='fee' || ($screen==='clubs' && (in_array($key,['region_other','company'],true) || (($input['same_contact']??'0')==='1' && in_array($key,['contact','address','phone','email'],true)))) || ($screen==='memberships' && in_array($key,['driver','driver_expiry'],true));
             if($value==='' && !$optional) { $this->fail($label.'を入力してください'); }
             if(is_array($type) && !array_key_exists($value,$type)) { $this->fail($label.'を選択してください'); }
             if($type==='number' && $value!=='' && (!ctype_digit($value) || (int)$value>10000000)) { $this->fail($label.'は0〜10000000の整数で入力してください'); }

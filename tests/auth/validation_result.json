@@ -5129,7 +5129,11 @@
       "result": "PASS"
     },
     {
-      "case": "訂正・取消を最新値へ置換し手入力を保持",
+      "case": "個人会費の訂正でも手入力のクラブ費と支出を保持",
+      "result": "PASS"
+    },
+    {
+      "case": "未確定・取消は自動計上せず手入力を保持",
       "result": "PASS"
     },
     {
@@ -5217,7 +5221,7 @@
       "result": "PASS"
     },
     {
-      "case": "ペイメントコアは手数料を自動控除せず会費本体と年を保留",
+      "case": "ペイメントコアの会費本体は支払金額で手数料を控除しない",
       "result": "PASS"
     },
     {
@@ -5237,23 +5241,19 @@
       "result": "PASS"
     },
     {
-      "case": "手数料超過・負額・別形式・引用符破損は拒否",
+      "case": "負額・別形式・引用符破損は拒否",
       "result": "PASS"
     },
     {
-      "case": "手数料超過・負額・別形式・引用符破損は拒否",
+      "case": "負額・別形式・引用符破損は拒否",
       "result": "PASS"
     },
     {
-      "case": "手数料超過・負額・別形式・引用符破損は拒否",
+      "case": "負額・別形式・引用符破損は拒否",
       "result": "PASS"
     },
     {
-      "case": "手数料超過・負額・別形式・引用符破損は拒否",
-      "result": "PASS"
-    },
-    {
-      "case": "手数料超過・負額・別形式・引用符破損は拒否",
+      "case": "負額・別形式・引用符破損は拒否",
       "result": "PASS"
     },
     {
@@ -5321,6 +5321,78 @@
       "result": "PASS"
     },
     {
+      "case": "1月確認は12月分だけ前年に戻す",
+      "result": "PASS"
+    },
+    {
+      "case": "会費本体と人数未確認を区別",
+      "result": "PASS"
+    },
+    {
+      "case": "手数料と会費の大小関係を推定しない",
+      "result": "PASS"
+    },
+    {
+      "case": "未来の月日を前年と推測しない",
+      "result": "PASS"
+    },
+    {
+      "case": "人数が不明なら自動連携しない",
+      "result": "PASS"
+    },
+    {
+      "case": "複数名分は手動確認へ",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ費を自動連携しない",
+      "result": "PASS"
+    },
+    {
+      "case": "個人会費の手入力重複を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "任意会社欄は空欄可で掲載項目と添付メモは保存しない",
+      "result": "PASS"
+    },
+    {
+      "case": "必要な住所が空なら拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "途中任期と翌日期限切れ",
+      "result": "PASS"
+    },
+    {
+      "case": "任期の年度越えを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "部会予算の合計上限",
+      "result": "PASS"
+    },
+    {
+      "case": "部会CSVと合計不一致を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "元明細を残し返金全額を負数で保持",
+      "result": "PASS"
+    },
+    {
+      "case": "返金の二重入力と超過を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "一時データ更新でも予算と手入力を保持",
+      "result": "PASS"
+    },
+    {
+      "case": "銀行休業日候補は年末年始を除くが独自繰下げはしない",
+      "result": "PASS"
+    },
+    {
       "case": "未認証は会計画面不可 ",
       "result": "PASS"
     },
@@ -5361,27 +5433,31 @@
       "result": "PASS"
     },
     {
-      "case": "事務局は6画面を表示 budget",
+      "case": "事務局は7画面を表示 budget",
       "result": "PASS"
     },
     {
-      "case": "事務局は6画面を表示 income",
+      "case": "事務局は7画面を表示 income",
       "result": "PASS"
     },
     {
-      "case": "事務局は6画面を表示 balance",
+      "case": "事務局は7画面を表示 balance",
       "result": "PASS"
     },
     {
-      "case": "事務局は6画面を表示 csv",
+      "case": "事務局は7画面を表示 csv",
       "result": "PASS"
     },
     {
-      "case": "事務局は6画面を表示 club",
+      "case": "事務局は7画面を表示 club",
       "result": "PASS"
     },
     {
-      "case": "事務局は6画面を表示 notice",
+      "case": "事務局は7画面を表示 notice",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局は7画面を表示 roles",
       "result": "PASS"
     },
     {
@@ -5422,6 +5498,18 @@
     },
     {
       "case": "残高入力",
+      "result": "PASS"
+    },
+    {
+      "case": "承認前の月締めは保留",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局による承認例は拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局長の確認例",
       "result": "PASS"
     },
     {
@@ -5482,6 +5570,62 @@
     },
     {
       "case": "認可済みCSV出力 payment_core",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブの必須項目不足を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "会計画面から個人費を重ねて手入力できない",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局の締め解除例を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局長の締め解除例",
+      "result": "PASS"
+    },
+    {
+      "case": "返金表示例だけを保存",
+      "result": "PASS"
+    },
+    {
+      "case": "返金集計未確定の月は承認保留",
+      "result": "PASS"
+    },
+    {
+      "case": "返金Excel出力",
+      "result": "PASS"
+    },
+    {
+      "case": "部会別の予算入力",
+      "result": "PASS"
+    },
+    {
+      "case": "部会名と個別予算をCSV往復",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局が予算の承認を依頼",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局の予算承認例を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局長が予算を承認",
+      "result": "PASS"
+    },
+    {
+      "case": "承認後の補正とCSV差替えを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "年度途中の任期例を保存するが権限は付与しない",
       "result": "PASS"
     },
     {
@@ -12303,7 +12447,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-14T13:20:42.166Z",
+    "checked_at_utc": "2026-11-16T00:22:59.441Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -12931,7 +13075,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-14T13:20:54.454Z",
+    "checked_at_utc": "2026-11-16T00:23:12.642Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -13271,7 +13415,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-14T13:21:05.246Z",
+    "checked_at_utc": "2026-11-16T00:23:24.899Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -13466,6 +13610,34 @@
         "result": "PASS"
       },
       {
+        "case": "chromium office 表示 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 確認専用の説明 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅320 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅390 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅844 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅1280 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 文字200% roles",
+        "result": "PASS"
+      },
+      {
         "case": "chromium office 実業務書込・送信なし",
         "result": "PASS"
       },
@@ -13514,7 +13686,15 @@
         "result": "PASS"
       },
       {
-        "case": "chromium office ファイル解析と年保留",
+        "case": "chromium office 会費本体と年の規則を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 任期例は権限を付与しない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 部会別予算を合計",
         "result": "PASS"
       },
       {
@@ -13742,6 +13922,34 @@
         "result": "PASS"
       },
       {
+        "case": "webkit office 表示 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 確認専用の説明 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅320 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅390 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅844 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅1280 roles",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 文字200% roles",
+        "result": "PASS"
+      },
+      {
         "case": "webkit office 実業務書込・送信なし",
         "result": "PASS"
       },
@@ -13790,7 +13998,15 @@
         "result": "PASS"
       },
       {
-        "case": "webkit office ファイル解析と年保留",
+        "case": "webkit office 会費本体と年の規則を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 任期例は権限を付与しない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 部会別予算を合計",
         "result": "PASS"
       },
       {
@@ -13843,9 +14059,9 @@
   },
   "review_workspace_sha256": {
     "public/manage/index.php": "1fffd7b734a01df9246da474dd1242fb953ba49b2a3473bcbc9fb2f06f9b371b",
-    "public/manage/review.php": "a749318760f316c8e62fccda948253dca70f3a8023ccec726c03f925304efd2b",
-    "public/manage/_review-catalog.php": "77767a886adf7e2a539ee14ff31e0cf6aef9726442e41ec645501222cbcc9535",
-    "public/manage/_review-workspace.php": "665767ceb01461a2fc4e4e44cd8249ad7bb1ef778ea309e8eaa43e0d0ce0ddde",
+    "public/manage/review.php": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
+    "public/manage/_review-catalog.php": "9f3a1c434678d37c846b34b791f7a550b8c1cc67ee89e57adcb4f21a4fee1769",
+    "public/manage/_review-workspace.php": "cb9513fbc622500360f98fb386a2311f15d2eb1128e65d705274232e3da03831",
     "public/manage/assets/review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440",
     "tests/auth/review_http.php": "8d60ae4a081174cdd83a412b450a0c8f1819ce8316dc0bbeb6f9e3ca781f068f",
     "tests/license/review_browser.cjs": "6efe4a674d1b3403938f665bbc05586cbfac2b2ebf88370303ad262633393aa9",
@@ -13864,23 +14080,25 @@
     "tests/license/preparation_browser.cjs": "99ad5f15873f7bc0fe3ea2eb7e9e6cc027707b53c4197e22fa5d5893f75a2c93",
     "src/Bank/StrictCsv.php": "79d07b928cb19c913b9d7f2058642021fdd552390514a640744f3fa0a3c4f090",
     "src/Bank/YuchoCsv.php": "eb0e27599474560ebab58b5dbd0c04974e4da8d049767526d84397050dd971c3",
-    "src/Bank/PaymentCoreCsv.php": "415c26c146d0f6fce04e2665ed00c8f7846058082e67b2dabcf6d7a09695465f",
-    "src/Operations/AccountingReview.php": "56e3c8c05a55066357bdfb6e60f3b589255e8efdbf637371d975a6a96bded1d5",
-    "src/Operations/MaterialsReview.php": "0755b525a4d9e725cc4e07268c1ecf5ce00f63d44dd804af191e32254d0fdca9",
-    "public/manage/accounting-review.php": "9e704127d88b4a3efcd69f9cbeb6aaff61c53c5981ebe1886f43ba81c4e977a8",
-    "public/manage/assets/accounting-review.css": "e3a0eba474d2badb799f3b84b1bfcac687d4333e8cc56867d510551d72dfb58f",
-    "tests/auth/materials_http.php": "c3f24210c855a0bf2a7da75040beb67d34706a45368597c5754430d9ad8f3088",
-    "tests/license/accounting_browser.cjs": "dde92e97364ad3f1c013b64de6a2ef3b35285aede030a7cc6093f66bcbd2c47f",
+    "src/Bank/PaymentCoreCsv.php": "1dd491b0563db12046841aadd949f5c07895c16211d98888fd8439d17b0f25bd",
+    "src/Operations/AccountingReview.php": "75932f63ab8ccb09dfa8f560e872f8b1cf3a050d58144bc9251264653d58f53d",
+    "src/Operations/MaterialsReview.php": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
+    "public/manage/accounting-review.php": "4dd34630c37330bdfa9537a6d436ca3d6ff65ed7a591ffa5da2112b228d339de",
+    "public/manage/assets/accounting-review.css": "4a1a3bf1c117f668e9a847d68081a0694e827dd95b7c975b919f142b3ab61868",
+    "tests/auth/materials_http.php": "9173589cc742cfbb0d82e9598dc93c0e5bf04b350061a174b00b40511ea4887c",
+    "tests/license/accounting_browser.cjs": "493629c608d626128d52c19a290c747b325982254114af772e90d1b72615a4b0",
     "src/Club/ClubContact.php": "5d20ddd3be455ab147b306188054069b6a903f97ca613c0e26d342218844b342",
-    "src/Operations/AccountingPolicy.php": "bccdf143fb6960afaaec31970f5a1e60381f63008cdc12b1a2ea6544310153b7",
-    "src/Operations/AccountingWorkbook.php": "a90eecb68a1ed2fc0def7da5a3209fb7bd4b0fdecbc3c8fef99f8ac354f0f5ac",
+    "src/Operations/AccountingPolicy.php": "862724b68f811454d24a1a87d2120dd8b05d06dabd5a96fc7acb41b665e69c61",
+    "src/Operations/AccountingWorkbook.php": "089024be1276b1da68b0e4e379f6f2e0469e87a44bb9a31890e2c54050cc987f",
     "src/Bank/BankMasterService.php": "d5aa64cdd72aab44a609814d77719c369a2066886478d5d8712c482425928b9e",
     "src/Billing/BillingService.php": "4a8088ae8c5b51f0f09dc7ec8acfaefe7331ebddb11f77405c400a87d0644953",
     "src/bootstrap.php": "f1b03c734c74755bd5366276adeef0ad2aa8e99a361d9eac097357345cbad1ae",
     "public/manage/bank-settings.php": "e41d9042816abb99c31ba2d3c8726a6c1800269f225354d3e49504540da0d6c2",
-    "public/manage/clubs.php": "e03ac3e4313492ba0f6f693272fdd8d9172b9c651c8d13736158c9dded3334b3"
+    "public/manage/clubs.php": "e03ac3e4313492ba0f6f693272fdd8d9172b9c651c8d13736158c9dded3334b3",
+    "src/Operations/AccountingWorkflow.php": "651091fbe8c85355f24bd9c4acdc32e929048a438f60db70650a16e6374738d8",
+    "public/manage/_accounting-workflow.php": "e38df78d4cfe093c49a4d714bae012a9c798501755491155bf26db7eaeeb5a88"
   },
-  "checked_at_utc": "2026-11-14T13:21:06.580614+00:00",
+  "checked_at_utc": "2026-11-16T00:23:26.083173+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -13913,7 +14131,7 @@
     "src\\Auth\\StaffRoleService.php": "208a3ac133d66ebd75a2e3af3ead6aef97a2e9b4517fb96efa184689c6260108",
     "src\\Bank\\BankMasterService.php": "d5aa64cdd72aab44a609814d77719c369a2066886478d5d8712c482425928b9e",
     "src\\Bank\\BankService.php": "919fcefff21b8ccbc882c61b1f785c5178fb0cf118521093117be3798f0dc170",
-    "src\\Bank\\PaymentCoreCsv.php": "415c26c146d0f6fce04e2665ed00c8f7846058082e67b2dabcf6d7a09695465f",
+    "src\\Bank\\PaymentCoreCsv.php": "1dd491b0563db12046841aadd949f5c07895c16211d98888fd8439d17b0f25bd",
     "src\\Bank\\StrictCsv.php": "79d07b928cb19c913b9d7f2058642021fdd552390514a640744f3fa0a3c4f090",
     "src\\Bank\\YuchoCsv.php": "eb0e27599474560ebab58b5dbd0c04974e4da8d049767526d84397050dd971c3",
     "src\\Billing\\BillingService.php": "4a8088ae8c5b51f0f09dc7ec8acfaefe7331ebddb11f77405c400a87d0644953",
@@ -13935,11 +14153,12 @@
     "src\\License\\LicenseService.php": "5536a9017ecbf34fcfc4abfec0a9c1e61ea42d301dfa93313e532671d94aecc7",
     "src\\Membership\\LicenseDeclaration.php": "05c8bc84f483b0484de307acbca0715029e92b63c62f42055867bfa9e575ffb3",
     "src\\Membership\\MembershipService.php": "b0441dbe186c2136df2dd10a4af402ac338a140c29801cf84024eeb36b4cd2fc",
-    "src\\Operations\\AccountingPolicy.php": "bccdf143fb6960afaaec31970f5a1e60381f63008cdc12b1a2ea6544310153b7",
-    "src\\Operations\\AccountingReview.php": "56e3c8c05a55066357bdfb6e60f3b589255e8efdbf637371d975a6a96bded1d5",
-    "src\\Operations\\AccountingWorkbook.php": "a90eecb68a1ed2fc0def7da5a3209fb7bd4b0fdecbc3c8fef99f8ac354f0f5ac",
+    "src\\Operations\\AccountingPolicy.php": "862724b68f811454d24a1a87d2120dd8b05d06dabd5a96fc7acb41b665e69c61",
+    "src\\Operations\\AccountingReview.php": "75932f63ab8ccb09dfa8f560e872f8b1cf3a050d58144bc9251264653d58f53d",
+    "src\\Operations\\AccountingWorkbook.php": "089024be1276b1da68b0e4e379f6f2e0469e87a44bb9a31890e2c54050cc987f",
+    "src\\Operations\\AccountingWorkflow.php": "651091fbe8c85355f24bd9c4acdc32e929048a438f60db70650a16e6374738d8",
     "src\\Operations\\AnswerRules.php": "7dcb69a38f772612f040d48377d4d796e21e6d820d78fd165f7e46dc99573fd6",
-    "src\\Operations\\MaterialsReview.php": "0755b525a4d9e725cc4e07268c1ecf5ce00f63d44dd804af191e32254d0fdca9",
+    "src\\Operations\\MaterialsReview.php": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
     "src\\Operations\\PreparationService.php": "bd0153f9cbd85664a3f765bc7211058a0e50c6e0fc2b541df1fc31f2657a6ddf",
     "src\\Profile\\ProfileService.php": "e99ca9899c592c1ea8016f5915db849e0989d06b1a46966473638173b33dd357",
     "src\\Series\\SeriesRules.php": "2d55faf72a76a3a6ef8f11a128daff36bb379e76600ddec5348bae7a8682be04",
@@ -13949,7 +14168,7 @@
     "integration\\jmrckinki\\common\\csrf.php": "8625c0f12b225bcd61b846dd9a422bea82ab0f63eece0a4112ac766645bcbad9",
     "integration\\jmrckinki\\common\\portal_billing.php": "23d675eea230094019bbb69fd047674e66c97a87735a85d059912c2bbfdc6d84",
     "integration\\jmrckinki\\common\\portal_registration.php": "266e809502606f4b9bc1f63d8a6566670f7457227ad544390f1753098b6c4b70",
-    "public\\manage\\accounting-review.php": "9e704127d88b4a3efcd69f9cbeb6aaff61c53c5981ebe1886f43ba81c4e977a8",
+    "public\\manage\\accounting-review.php": "4dd34630c37330bdfa9537a6d436ca3d6ff65ed7a591ffa5da2112b228d339de",
     "public\\manage\\bank-settings.php": "e41d9042816abb99c31ba2d3c8726a6c1800269f225354d3e49504540da0d6c2",
     "public\\manage\\bank.php": "f5717501a8fb004b304ef20624b039197c3a5542638c5df07dd03bd28a3a78fb",
     "public\\manage\\billing.php": "7b484d8e482ce465021f57269387314b0c49d20b1f2b46a22feb9ec2b0ea035f",
@@ -13967,14 +14186,15 @@
     "public\\manage\\memberships.php": "1c653ed467c84be4610b122f87955e0544280ce22c9ef6ec311ac4b74aab7b96",
     "public\\manage\\preparation.php": "a18dec09e9052bf2b44b936faadbab56d3f29f796787dcdf22c965c4e3891e1d",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
-    "public\\manage\\review.php": "a749318760f316c8e62fccda948253dca70f3a8023ccec726c03f925304efd2b",
+    "public\\manage\\review.php": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
     "public\\manage\\staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
     "public\\manage\\temporary-approve.php": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
+    "public\\manage\\_accounting-workflow.php": "e38df78d4cfe093c49a4d714bae012a9c798501755491155bf26db7eaeeb5a88",
     "public\\manage\\_bootstrap.php": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
     "public\\manage\\_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
     "public\\manage\\_office-layout.php": "da644ada7f74bac62d4a13db24334302bf45d8decfd6d705eefb7adebfda658e",
-    "public\\manage\\_review-catalog.php": "77767a886adf7e2a539ee14ff31e0cf6aef9726442e41ec645501222cbcc9535",
-    "public\\manage\\_review-workspace.php": "665767ceb01461a2fc4e4e44cd8249ad7bb1ef778ea309e8eaa43e0d0ce0ddde"
+    "public\\manage\\_review-catalog.php": "9f3a1c434678d37c846b34b791f7a550b8c1cc67ee89e57adcb4f21a4fee1769",
+    "public\\manage\\_review-workspace.php": "cb9513fbc622500360f98fb386a2311f15d2eb1128e65d705274232e3da03831"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
   "billing_migration_sha256": "0c847fc2e96feb19bd83b6a2b19c65b74a885e2859335cc945e02c3d2ceea19c",
@@ -13983,7 +14203,7 @@
   "license_migration_sha256": "e14d2c3c87f3c3e55ff8754438c7570e822c632716d35b8f758da33d4f120b78",
   "license_permissions_sha256": "35fd3eb64ac364d86647d6801a7019b5aafd5def513c024e2e0d8571270e11b8",
   "license_test_source_sha256": {
-    "tests\\license\\accounting_browser.cjs": "dde92e97364ad3f1c013b64de6a2ef3b35285aede030a7cc6093f66bcbd2c47f",
+    "tests\\license\\accounting_browser.cjs": "493629c608d626128d52c19a290c747b325982254114af772e90d1b72615a4b0",
     "tests\\license\\concurrent_license.php": "f3b0376b6ef76a586e0537ac72b0f99ae4e1441b35aed71a1266b435db59ad68",
     "tests\\license\\dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
     "tests\\license\\Dockerfile.browser": "813d67579f95c82be8dc29371dfab4c1cdb728ae51c923d262336da7ae3a39cf",
@@ -14059,7 +14279,7 @@
     "tests\\card\\verify_qr.cjs": "5d6b1e357b7d497d80c387913d2849c208fe800a0574b17010ddcea9d0d7bdbb"
   },
   "card_asset_sha256": {
-    "public\\manage\\assets\\accounting-review.css": "e3a0eba474d2badb799f3b84b1bfcac687d4333e8cc56867d510551d72dfb58f",
+    "public\\manage\\assets\\accounting-review.css": "4a1a3bf1c117f668e9a847d68081a0694e827dd95b7c975b919f142b3ab61868",
     "public\\manage\\assets\\bank-settings.css": "e8a893cdcdb97e90ce4267800e14fe9b61091e265da0b9783c64008bf9e184dd",
     "public\\manage\\assets\\card-check.js": "8472b0bbc89b7a0400fbfa1480c5cd20a74300d5f2ca65ca4bea16043075120b",
     "public\\manage\\assets\\cards.css": "19db88ee22f7b87a8737f87554b067e9bd69b4ba84bbad016f57a055005d732f",
@@ -14092,6 +14312,7 @@
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
+    "tests\\auth\\accounting_answers.php": "e0dcca4c55ab1f8b9e3f4aa7613902b02e22f2eca9a1bcb46fed45e82e9e3d05",
     "tests\\auth\\answer_rules.php": "11226b310e40130455475615658592dcb5c2d0d7a8cc07718e4c92e6ae213a9f",
     "tests\\auth\\auth.config.php": "e460fc95aaff9e146ba166d98dbe8f295ed096ffef683564e6d11a09eee282f0",
     "tests\\auth\\confirmed_answers.php": "b1da7a62ec5548636854141794792fb0e10e91dd30f7f1c117781494065d9b50",
@@ -14106,7 +14327,7 @@
     "tests\\auth\\identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests\\auth\\information_http.php": "0d6f16248438c415d79240278e8712e26904a0b1e9fecdabf7a5052c13bb46fa",
     "tests\\auth\\legacy.config.php": "262f6fee1c6ad42608f62123d93be9335b14915c420f41d847684416a0b920c3",
-    "tests\\auth\\materials_http.php": "c3f24210c855a0bf2a7da75040beb67d34706a45368597c5754430d9ad8f3088",
+    "tests\\auth\\materials_http.php": "9173589cc742cfbb0d82e9598dc93c0e5bf04b350061a174b00b40511ea4887c",
     "tests\\auth\\member_layout_http.php": "2d1d3715a9c4b6d27dfe56b9b1b2fd891ca33d228a99c97f079ad86b31d6102a",
     "tests\\auth\\nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests\\auth\\permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
@@ -14117,9 +14338,9 @@
     "tests\\auth\\run_http.php": "9018a3ccff106961c3b5e23ef52cfc1bdcb03a3429d6a0314bb02ccb630bef56",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
     "tests\\auth\\test_prepare_billing.py": "038495032457b3ee6f2a879d217029ae93d359914aaba5f85fa568b4ee7e5ddf",
-    "tests\\auth\\validate_auth.py": "44ef81e26e51e42ee46c86af33505310cc7aab61452cc378660c6d87b8d89f56"
+    "tests\\auth\\validate_auth.py": "1ba24883e7249d45f100f038fcbfa6d9f93fa76fe6ef120170268017abb52b93"
   },
-  "php_lint_files": 129,
+  "php_lint_files": 132,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

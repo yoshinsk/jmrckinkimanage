@@ -58,7 +58,8 @@ def main():
                   'tests/auth/materials_http.php','tests/license/accounting_browser.cjs',
                   'src/Club/ClubContact.php','src/Operations/AccountingPolicy.php','src/Operations/AccountingWorkbook.php',
                   'src/Bank/BankMasterService.php','src/Billing/BillingService.php','src/bootstrap.php',
-                  'public/manage/bank-settings.php','public/manage/clubs.php']
+                  'public/manage/bank-settings.php','public/manage/clubs.php',
+                  'src/Operations/AccountingWorkflow.php','public/manage/_accounting-workflow.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -86,7 +87,7 @@ def main():
         target=context/'src'/source.relative_to(ROOT/'src')
         target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copyfile(source,target)
-    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php','dirt_integration.php','followup_answers.php','materials_http.php']:
+    for name in ['run_http.php','seed.php','registration_http.php','dashboard_http.php','member_layout_http.php','review_http.php','information_http.php','answer_rules.php','confirmed_answers.php','database_answers.php','preparation_http.php','editor_http.php','dirt_integration.php','followup_answers.php','materials_http.php','accounting_answers.php']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/'tests'/name)
     shutil.copyfile(ROOT/'design/phase2/staff_permissions.sql',context/'tests/staff_permissions.sql')
     shutil.copyfile(ROOT/'design/phase2/011_license_declarations.sql',context/'tests/011_license_declarations.sql')

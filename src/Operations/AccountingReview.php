@@ -33,10 +33,11 @@ final class AccountingReview
         $out=[];foreach(self::ITEMS as $key=>$_){$value=$input[$key]??'';$out[$key]=$value===''||$value===null?null:self::money($value);}return $out;
     }
     /** 手入力は収支明細のみ。登録日はサーバーから渡し、適用日とは区別する。 */
-    public static function entry(array $in,string $registeredAt,string $key):array
+    public static function entry(array $in,string $registeredAt,string $key,bool $automatic=false):array
     {
         $item=$in['item']??null;$date=$in['date']??null;$detail=$in['detail']??'';$memo=$in['memo']??'';
         if(!is_string($item)||!isset(self::ITEMS[$item])||!is_string($date)||!is_string($detail)||!is_string($memo)||mb_strlen($detail)>200||mb_strlen($memo)>1000||preg_match('/[\x00-\x08\x0b\x0c\x0e-\x1f]/',$detail.$memo)){throw new HttpFailure(422,'科目・費目明細・備考を確認してください');}
+        if($item==='member_fee'&&!$automatic){throw new HttpFailure(422,'個人会員費は確認済み入金の連携を使います。まとめ払いは事務局の照合が必要です');}
         return ['key'=>$key,'source'=>'manual','registered_at'=>$registeredAt,'date'=>self::date($date),'item'=>$item,'amount'=>self::money($in['amount']??null),'detail'=>trim($detail),'memo'=>trim($memo)];
     }
     /** 会費連携の試算。最新スナップショットで置換し、再実行・訂正・取消で金額を重ねない。実DBの計上時点は未接続。 */
@@ -46,10 +47,10 @@ final class AccountingReview
         $out=array_values(array_filter($ledger,static fn($r)=>$r['source']==='manual'));$seen=[];
         foreach($fees as $fee){
             $id=$fee['id']??null;$kind=$fee['item']??null;
-            if(!is_string($id)||!preg_match('/^[A-Za-z0-9_-]{1,64}$/D',$id)||!in_array($kind,['club_join','club_fee','member_fee'],true)||!in_array($fee['status']??null,['confirmed','cancelled','pending'],true)){throw new HttpFailure(422,'会費の連携元・状態を確認してください');}
+            if(!is_string($id)||!preg_match('/^[A-Za-z0-9_-]{1,64}$/D',$id)||$kind!=='member_fee'||!in_array($fee['status']??null,['confirmed','cancelled','pending'],true)){throw new HttpFailure(422,'自動連携は個人会員費だけです。連携元・状態を確認してください');}
             if(isset($seen[$id])){if($seen[$id]!==$fee){throw new HttpFailure(409,'同じ連携元に異なる内容があります');}continue;}$seen[$id]=$fee;
             if($fee['status']!=='confirmed'){continue;}
-            $row=self::entry($fee,(string)($fee['registered_at']??''),'fee:'.$id);$row['source']='portal_fee_example';$out[]=$row;
+            $row=self::entry($fee,(string)($fee['registered_at']??''),'fee:'.$id,true);$row['source']='portal_fee_example';$out[]=$row;
         }
         if(count($out)>2000){throw new HttpFailure(422,'確認用明細は2000件以内です');}return $out;
     }
@@ -101,15 +102,22 @@ final class AccountingReview
     /** 保存した年度予算CSVを再読込みする。集計結果や入力途中の金額を予算として取り込まない。 */
     public static function importBudget(string $bytes):array
     {
-        $text=\Jmrc\Bank\StrictCsv::text($bytes,'UTF-8');$f=fopen('php://temp','w+');fwrite($f,$text);rewind($f);$year=null;$amounts=[];
+        $text=\Jmrc\Bank\StrictCsv::text($bytes,'UTF-8');$f=fopen('php://temp','w+');fwrite($f,$text);rewind($f);$year=null;$amounts=[];$departments=[];$count=0;
         try{
             if(fgetcsv($f,0,',','"','')!==['年度','科目コード','予算額（円）']){throw new HttpFailure(422,'予算保存用CSVの3列を指定してください');}
             while(($r=fgetcsv($f,0,',','"',''))!==false){
                 if(count($r)===1&&$r[0]===null){continue;}
-                if(count($r)!==3||!isset(self::ITEMS[$r[1]])||array_key_exists($r[1],$amounts)){throw new HttpFailure(422,'予算CSVの列・科目・重複を確認してください');}
-                $y=self::year($r[0]);if($year!==null&&$year!==$y){throw new HttpFailure(422,'予算CSVは1年度ずつ読み込んでください');}$year=$y;$amounts[$r[1]]=$r[2]===''?null:self::money($r[2]);
+                if(count($r)!==3||++$count>100){throw new HttpFailure(422,'予算CSVの列・件数を確認してください');}
+                $y=self::year($r[0]);if($year!==null&&$year!==$y){throw new HttpFailure(422,'予算CSVは1年度ずつ読み込んでください');}$year=$y;
+                if(str_starts_with($r[1],'department:')){
+                    $d=AccountingWorkflow::department(substr($r[1],11),$r[2]);if(array_key_exists($d['name'],$departments)){throw new HttpFailure(422,'部会の予算が重複しています');}$departments[$d['name']]=$d['amount'];
+                }else{
+                    if(!isset(self::ITEMS[$r[1]])||array_key_exists($r[1],$amounts)){throw new HttpFailure(422,'予算CSVの科目・重複を確認してください');}$amounts[$r[1]]=$r[2]===''?null:self::money($r[2]);
+                }
             }
         }finally{fclose($f);}
-        if($year===null){throw new HttpFailure(422,'予算がありません');}return ['year'=>$year,'amounts'=>self::budget($amounts)];
+        if($year===null){throw new HttpFailure(422,'予算がありません');}
+        if($departments){$total=AccountingWorkflow::departmentTotal($departments);if(isset($amounts['contribution'])&&$amounts['contribution']!==$total){throw new HttpFailure(422,'部会別予算と分担金合計が一致しません');}$amounts['contribution']=$total;}
+        return ['year'=>$year,'amounts'=>self::budget($amounts),'departments'=>$departments];
     }
 }

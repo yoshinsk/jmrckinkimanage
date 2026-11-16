@@ -17,7 +17,7 @@ final class AccountingWorkbook
             $xml.='<row r="'.($i+1).'">';
             foreach(array_values($row) as $col=>$v){
                 $ref=chr(65+$col).($i+1);
-                if(is_int($v)||is_float($v)){$xml.='<c r="'.$ref.'"><v>'.$v.'</v></c>';}
+                if(is_int($v)||is_float($v)){$xml.='<c r="'.$ref.'"'.($v<0?' s="1"':'').'><v>'.$v.'</v></c>';}
                 else{
                     $s=(string)($v??'');if(preg_match('//u',$s)!==1||preg_match('/[\x00-\x08\x0b\x0c\x0e-\x1f]/',$s)){throw new HttpFailure(422,'出力する文字を確認してください');}
                     $xml.='<c r="'.$ref.'" t="inlineStr"><is><t xml:space="preserve">'.htmlspecialchars($s,ENT_XML1|ENT_QUOTES,'UTF-8').'</t></is></c>';
@@ -31,6 +31,10 @@ final class AccountingWorkbook
             'xl/_rels/workbook.xml.rels'=>'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>',
             'xl/worksheets/sheet1.xml'=>$xml,
         ];
+        // F14: 数値の符号を維持し、負数だけ赤字で示す。集計方法は別途確認中。
+        $parts['[Content_Types].xml']=str_replace('</Types>','<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>',$parts['[Content_Types].xml']);
+        $parts['xl/_rels/workbook.xml.rels']=str_replace('</Relationships>','<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>',$parts['xl/_rels/workbook.xml.rels']);
+        $parts['xl/styles.xml']='<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font/><font><color rgb="FFFF0000"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="2"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>';
         $file=tempnam(sys_get_temp_dir(),'jmrc-accounting-');if($file===false){throw new HttpFailure(503,'Excel出力を準備できません');}
         $zip=new \ZipArchive();$open=false;
         try{

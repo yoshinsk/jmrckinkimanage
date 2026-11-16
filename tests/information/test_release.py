@@ -370,6 +370,25 @@ class ReleaseTest(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, 'allowlist'):
                 update.target(name)
 
+    def test_nov16_roundtrip(self):
+        update, payload = self.confirmed_stage('answers-20261116')
+        self.assertEqual(len(update.order), 12)
+        backup = Path(update.apply(self.stage)['backup'])
+        update.restore(backup, json.loads((backup/'manifest.json').read_text()))
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+        for name in ['public/entry/login.php', 'auth.config.php', 'design/phase2/001_portal_schema.sql']:
+            with self.assertRaisesRegex(RuntimeError, 'allowlist'):
+                update.target(name)
+
+    def test_nov16_failed_apply_restores(self):
+        update, payload = self.confirmed_stage('answers-20261116')
+        update.fail_cache_once = True
+        with self.assertRaisesRegex(RuntimeError, 'Synthetic cache failure'):
+            update.apply(self.stage)
+        for name, spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
+
     def test_additional_answers_roundtrip(self):
         update, payload = self.confirmed_stage('additional-answers')
         backup = Path(update.apply(self.stage)['backup'])
