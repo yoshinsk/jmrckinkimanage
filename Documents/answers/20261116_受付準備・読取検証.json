@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-16T02:06:03.210767+00:00",
+  "scope": "Read-only production and source audit; no new business workflow execution",
+  "application_code_baseline": "67285bd391dd5166a369638b09f3d17d39d7ba64",
+  "existing_deployment_files_verified": 12,
+  "validation_hash_entries_verified": 131,
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "legacy_working_tree_preserved": true,
+  "protected_files": 675,
+  "protected_business_tables": 85,
+  "protected_state_unchanged": true,
+  "business_posts": 0,
+  "production_mutations": 0,
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1203,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false
+  },
+  "read_only_findings": {
+    "years": "2027\t2026-12-31 15:00:00.000000\t2027-12-31 15:00:00.000000\t2026-11-30 15:00:00.000000\t2027-02-07 15:00:00.000000\t2026-12-31 15:00:00.000000\t2026-11-30 15:00:00.000000\tshadow\tR12-20261029\t2026-10-29 18:42:22.539864\t2026-10-29 18:42:22.539864\t1",
+    "club_master": "",
+    "club_years": "",
+    "role_counts": "APPROVER\tglobal\tactive\t1\nCOMMITTEE\tglobal\tactive\t1\nOFFICE\tglobal\tactive\t1",
+    "fee_rules": "",
+    "bank_counts": "",
+    "payment_url_counts": "",
+    "identifiers": "",
+    "schema_sha256": "b5eab564b2dd14f884dcac433c11cf1d9856c87fbe42bcc2cccdd3589408d139",
+    "event_types": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1"
+  },
+  "answers_received_not_implemented": [
+    "F19",
+    "F20",
+    "F21",
+    "N10",
+    "N11"
+  ],
+  "sheet_verification": {
+    "status": "PASS",
+    "old_tabs_preserved": 8,
+    "all_tabs": 9,
+    "existing_answers_preserved": true,
+    "questions_appended": "A111:I118",
+    "launch_sheet": "受付開始準備_20261116!A1:G25",
+    "cell_metadata_verified": true,
+    "visual_verified": true,
+    "unexpected_differences": []
+  }
+}
