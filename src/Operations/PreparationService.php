@@ -30,7 +30,7 @@ final class PreparationService
     {
         $this->access($actor);
         $flags=[];
-        foreach (['license_self_service_enabled','insurance_intents_enabled','yucho_import_enabled','staff_role_requests_enabled'] as $key) {
+        foreach (['club_intake_enabled','license_self_service_enabled','insurance_intents_enabled','yucho_import_enabled','staff_role_requests_enabled'] as $key) {
             $flags[$key]=($this->config[$key]??false)===true;
         }
         $years=$this->query('SELECT year,source_mode,club_open_at,club_close_at,member_self_open_at FROM portal_years ORDER BY year DESC',[])->fetchAll(PDO::FETCH_ASSOC);
@@ -50,6 +50,38 @@ final class PreparationService
                 'payments'=>$this->scalar('SELECT COUNT(*) FROM portal_payments',[]),
                 'bank_review'=>$this->scalar("SELECT COUNT(*) FROM portal_yucho_rows WHERE status='review'",[]),
             ],'opening_authorized'=>false,'writes_enabled'=>false];
+    }
+
+    /**
+     * C7: 新規クラブ提出の受付期間と停止設定を分けて読む。日時はUTC保存から日本時間へ変換する。
+     * 任意時計は隔離試験専用の引数で、Web入力から受け取らない。件数だけで開始承認を代用しない。
+     */
+    public function clubOpening(int $actor,int $year,?\DateTimeImmutable $now=null):array
+    {
+        $this->access($actor);
+        $row=$this->query('SELECT year,source_mode,club_open_at,club_close_at,valid_until FROM portal_years WHERE year=?',[$year])->fetch(PDO::FETCH_ASSOC);
+        if(!$row){throw new HttpFailure(404,'確認する年度の設定がありません');}
+        $utc=new \DateTimeZone('UTC');$jst=new \DateTimeZone('Asia/Tokyo');$now=($now??new \DateTimeImmutable('now',$utc))->setTimezone($utc);
+        // DB定義のDATETIME(6)と一致する値だけを表示する。未設定を「受付中」と扱わない。
+        $dates=[];
+        foreach(['club_open_at','club_close_at','valid_until'] as $key){
+            $value=$row[$key];$date=is_string($value)?\DateTimeImmutable::createFromFormat('!Y-m-d H:i:s.u',$value,$utc):false;
+            $dates[$key]=$date&&$date->format('Y-m-d H:i:s.u')===$value?$date:null;
+        }
+        $configured=$dates['club_open_at']&&$dates['club_close_at']&&$dates['valid_until']
+            &&$dates['club_open_at']<$dates['club_close_at']&&$dates['club_close_at']<=$dates['valid_until'];
+        $period=!$configured?'unconfigured':($now<$dates['club_open_at']?'not_open':($now<$dates['club_close_at']?'open':'closed'));
+        $format=static fn(?\DateTimeImmutable $date)=>$date?->setTimezone($jst)->format('Y-m-d\TH:i:s.uP');
+        $time=$now->format('Y-m-d H:i:s.u');
+        return ['year'=>$year,'source_mode'=>$row['source_mode'],'checked_at'=>$format($now),'period_state'=>$period,
+            'intake_enabled'=>\Jmrc\Club\ClubIntakePolicy::enabled($this->config),
+            'new_submission_open'=>(bool)$configured&&\Jmrc\Club\ClubIntakePolicy::open($row,$now,$this->config),
+            'opens_at_jst'=>$format($dates['club_open_at']),'closes_at_exclusive_jst'=>$format($dates['club_close_at']),
+            'last_submission_jst'=>$configured?$format($dates['club_close_at']->modify('-1 microsecond')):null,
+            'enabled_fee_profiles'=>$this->scalar('SELECT COUNT(*) FROM portal_club_fee_profiles WHERE year=? AND enabled=1',[$year]),
+            'eligible_bank_settings'=>$this->scalar("SELECT COUNT(*) FROM portal_bank_accounts WHERE purpose_code='club_fee' AND (year=? OR year IS NULL) AND enabled=1 AND (valid_from IS NULL OR valid_from<=?) AND (valid_until IS NULL OR ?<valid_until)",[$year,$time,$time]),
+            'intakes'=>$this->scalar('SELECT COUNT(*) FROM portal_club_intakes WHERE year=?',[$year]),
+            'correction_deadline_confirmed'=>false,'opening_authorized'=>false,'writes_enabled'=>false];
     }
 
     /**

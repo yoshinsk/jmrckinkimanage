@@ -6043,6 +6043,338 @@
     {
       "case": "再利用・会計操作で旧エントリーとプロフィールを更新しない",
       "result": "PASS"
+    },
+    {
+      "case": "C7 shadow 境界 2026-11-30T23:59:59.999999+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 shadow 2026-11-30T14:59:59.999999+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 shadow 境界 2026-12-01T00:00:00.000000+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 shadow 2026-11-30T15:00:00.000000+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 shadow 境界 2026-12-01T00:00:00.000001+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 shadow 2026-11-30T15:00:00.000001+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 shadow 境界 2027-02-07T23:59:59.999999+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 shadow 2027-02-07T14:59:59.999999+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 shadow 境界 2027-02-08T00:00:00.000000+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 shadow 2027-02-07T15:00:00.000000+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 shadow 境界 2027-02-08T00:00:00.000001+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 shadow 2027-02-07T15:00:00.000001+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 portal 境界 2026-11-30T23:59:59.999999+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 portal 2026-11-30T14:59:59.999999+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 portal 境界 2026-12-01T00:00:00.000000+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 portal 2026-11-30T15:00:00.000000+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 portal 境界 2026-12-01T00:00:00.000001+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 portal 2026-11-30T15:00:00.000001+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 portal 境界 2027-02-07T23:59:59.999999+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 portal 2027-02-07T14:59:59.999999+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 portal 境界 2027-02-08T00:00:00.000000+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 portal 2027-02-07T15:00:00.000000+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 portal 境界 2027-02-08T00:00:00.000001+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 UTC表現でも同じ境界 portal 2027-02-07T15:00:00.000001+00:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 明示的な真以外は受付保留 0",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 明示的な真以外は受付保留 1",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 明示的な真以外は受付保留 2",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 明示的な真以外は受付保留 3",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 対象外の参照元 legacy",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 対象外の参照元 archived",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程未設定 club_open_at",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程未設定 club_close_at",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 年度終了の直前は期間内",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 年度終了時刻は期間外",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 PHP既定タイムゾーンに依存しない UTC",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 PHP既定タイムゾーンに依存しない Asia/Tokyo",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 PHP既定タイムゾーンに依存しない America/Los_Angeles",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 開始前の画面は新規提出不可",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 開始前のPOSTを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 開始前のPOSTを拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 URLの時計指定で開始前を迂回しない",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 URLの時計指定で開始前を迂回しない 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程未設定はDB制約でも拒否 0",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程未設定はDB制約でも拒否 1",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 未登録年度への提出を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 未登録年度への提出を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 既存正本年度へクラブ申請を作らない",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 既存正本年度へクラブ申請を作らない 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 期間内はshadowのまま新規提出",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 締切後の新規POSTを拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 締切後の新規POSTを拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 締切後の同一再送は既存結果の読取だけ",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 締切後の同キー別内容は拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 締切後の同キー別内容は拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 期間変更でも停止設定は迂回不可",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 他人の申請参照を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 他人の申請参照を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 本人の事務局照合を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 本人の事務局照合を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 財務単独の事務局照合を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 財務単独の事務局照合を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認は未認証を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認は未認証を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認は一般本人を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認は一般本人を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認のPOST開放命令を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認のPOST開放命令を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認の配列年度を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認の配列年度を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認の未登録年度を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備確認の未登録年度を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程と停止を分ける 2026-11-30T23:59:59.999999+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程と停止を分ける 2026-12-01T00:00:00+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程と停止を分ける 2027-02-07T23:59:59.999999+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 日程と停止を分ける 2027-02-08T00:00:00+09:00",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備画面は日本時間と締切境界を返す",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 URLの時計は確認画面へ反映しない",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 準備画面は全業務表を変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 事務局権限の期限切れを即時拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 事務局権限の期限切れを即時拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 期限切れ事務局の照合を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 期限切れ事務局の照合を拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "C7 試験後も既存アカウント・エントリー・ダート設定は不変",
+      "result": "PASS"
     }
   ],
   "limits": [
@@ -6322,7 +6654,7 @@
   },
   "club_intake_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T09:34:52.111Z",
+    "checked_at_utc": "2026-11-16T10:37:11.184Z",
     "cases": [
       {
         "case": "chromium office JS有 未認証拒否",
@@ -6646,7 +6978,7 @@
   },
   "club_operations_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T09:35:07.791Z",
+    "checked_at_utc": "2026-11-16T10:37:26.446Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -7373,7 +7705,7 @@
   },
   "club_operations_held_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T09:37:01.967Z",
+    "checked_at_utc": "2026-11-16T10:39:18.776Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -13851,7 +14183,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T09:38:24.636Z",
+    "checked_at_utc": "2026-11-16T10:40:33.076Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -13911,6 +14243,34 @@
       },
       {
         "case": "chromium office 文字200% /manage/preparation.php",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 閲覧 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅320 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅390 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅844 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 幅1280 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 文字200% /manage/preparation.php?section=club_opening",
         "result": "PASS"
       },
       {
@@ -14118,6 +14478,26 @@
         "result": "PASS"
       },
       {
+        "case": "chromium office 開始と締切の日本時間を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 開放ボタンなし",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 正本とクラブ受付設定は別",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JavaScriptなしで年度を再確認",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office 日程・訂正期限の保留と障害手順を表示",
+        "result": "PASS"
+      },
+      {
         "case": "chromium office キャッシュ・検索・埋込の制限",
         "result": "PASS"
       },
@@ -14215,6 +14595,34 @@
       },
       {
         "case": "webkit office 文字200% /manage/preparation.php",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 閲覧 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅320 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅390 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅844 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 幅1280 /manage/preparation.php?section=club_opening",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 文字200% /manage/preparation.php?section=club_opening",
         "result": "PASS"
       },
       {
@@ -14422,6 +14830,26 @@
         "result": "PASS"
       },
       {
+        "case": "webkit office 開始と締切の日本時間を表示",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 開放ボタンなし",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 正本とクラブ受付設定は別",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JavaScriptなしで年度を再確認",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office 日程・訂正期限の保留と障害手順を表示",
+        "result": "PASS"
+      },
+      {
         "case": "webkit office キャッシュ・検索・埋込の制限",
         "result": "PASS"
       },
@@ -14479,7 +14907,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T09:38:39.703Z",
+    "checked_at_utc": "2026-11-16T10:40:45.983Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -14819,7 +15247,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T09:38:52.131Z",
+    "checked_at_utc": "2026-11-16T10:40:57.980Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -15476,12 +15904,12 @@
     "src/Content/information-template.php": "597f7f8fac639b02827fae9d4b93e6a49ae4fc79c40d906f90a1b7d137d67249",
     "tests/auth/information_http.php": "0d6f16248438c415d79240278e8712e26904a0b1e9fecdabf7a5052c13bb46fa",
     "tests/license/information_browser.cjs": "e9d50de83248c40a4b0b7b5b2614bdf9323d3bddce4cf30397df5eea413cee48",
-    "src/Operations/PreparationService.php": "bd0153f9cbd85664a3f765bc7211058a0e50c6e0fc2b541df1fc31f2657a6ddf",
+    "src/Operations/PreparationService.php": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
     "src/Auth/StaffRoleService.php": "208a3ac133d66ebd75a2e3af3ead6aef97a2e9b4517fb96efa184689c6260108",
-    "public/manage/preparation.php": "a18dec09e9052bf2b44b936faadbab56d3f29f796787dcdf22c965c4e3891e1d",
+    "public/manage/preparation.php": "2199836cbf93ce935136cb809d1cb0b30c8285152a645a92125857100c57ff6d",
     "public/manage/staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
     "tests/auth/preparation_http.php": "e038a7851ea1e22046bda1904632776fd806ebca36d8dd5de05884adfabfb874",
-    "tests/license/preparation_browser.cjs": "99ad5f15873f7bc0fe3ea2eb7e9e6cc027707b53c4197e22fa5d5893f75a2c93",
+    "tests/license/preparation_browser.cjs": "cb9ba1ffb225f76d53bac88e6f94d05b8cc1b38759b9289955fb0f392c98a136",
     "src/Bank/StrictCsv.php": "79d07b928cb19c913b9d7f2058642021fdd552390514a640744f3fa0a3c4f090",
     "src/Bank/YuchoCsv.php": "eb0e27599474560ebab58b5dbd0c04974e4da8d049767526d84397050dd971c3",
     "src/Bank/PaymentCoreCsv.php": "1dd491b0563db12046841aadd949f5c07895c16211d98888fd8439d17b0f25bd",
@@ -15524,9 +15952,11 @@
     "public/manage/memberships.php": "cc8dbef12140b9f88a4d2b5ff14264c246ddf47a6ac2feb5c48e285b42c64f4d",
     "public/manage/billing.php": "b913666c6897625323d16ff22f6fadedacc69e68291148ada43ad1db33986b78",
     "tests/club/club_operations_http.php": "5ca15355e7243a317fa882366cab397e9f434012c858b0b257cb5dedacd5c2f6",
-    "tests/license/club_operations_browser.cjs": "fdb94c96315c9973277bf4374481b24558e0474218ac0680f7d407abe6c4613d"
+    "tests/license/club_operations_browser.cjs": "fdb94c96315c9973277bf4374481b24558e0474218ac0680f7d407abe6c4613d",
+    "tests/club/club_boundary_policy.php": "3ce140304818c3a620f5ccde8555f671bc2f3790f93b6a36c070881a2b8a08b8",
+    "tests/club/club_boundary_http.php": "42d6640a690d3b1397e66f8cb1a177299f99a1b81e52adae65492621ad73376c"
   },
-  "checked_at_utc": "2026-11-16T09:38:53.185836+00:00",
+  "checked_at_utc": "2026-11-16T10:40:59.312132+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -15592,7 +16022,7 @@
     "src\\Operations\\AccountingWorkflow.php": "651091fbe8c85355f24bd9c4acdc32e929048a438f60db70650a16e6374738d8",
     "src\\Operations\\AnswerRules.php": "7dcb69a38f772612f040d48377d4d796e21e6d820d78fd165f7e46dc99573fd6",
     "src\\Operations\\MaterialsReview.php": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
-    "src\\Operations\\PreparationService.php": "bd0153f9cbd85664a3f765bc7211058a0e50c6e0fc2b541df1fc31f2657a6ddf",
+    "src\\Operations\\PreparationService.php": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
     "src\\Profile\\EntryProfile.php": "61f4bbc65dd740338dae913d743e2868dea58dd09b0f61476b5b7737a196a516",
     "src\\Profile\\ProfileService.php": "e99ca9899c592c1ea8016f5915db849e0989d06b1a46966473638173b33dd357",
     "src\\Series\\SeriesRules.php": "2d55faf72a76a3a6ef8f11a128daff36bb379e76600ddec5348bae7a8682be04",
@@ -15620,7 +16050,7 @@
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public\\manage\\memberships.php": "cc8dbef12140b9f88a4d2b5ff14264c246ddf47a6ac2feb5c48e285b42c64f4d",
-    "public\\manage\\preparation.php": "a18dec09e9052bf2b44b936faadbab56d3f29f796787dcdf22c965c4e3891e1d",
+    "public\\manage\\preparation.php": "2199836cbf93ce935136cb809d1cb0b30c8285152a645a92125857100c57ff6d",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
     "public\\manage\\review.php": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
     "public\\manage\\staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
@@ -15655,7 +16085,7 @@
     "tests\\license\\office_browser.cjs": "32180da339027443efdd0c087e6cb541743ab9887e2bd240ba48f3e7bbaec9f0",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests\\license\\package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8",
-    "tests\\license\\preparation_browser.cjs": "99ad5f15873f7bc0fe3ea2eb7e9e6cc027707b53c4197e22fa5d5893f75a2c93",
+    "tests\\license\\preparation_browser.cjs": "cb9ba1ffb225f76d53bac88e6f94d05b8cc1b38759b9289955fb0f392c98a136",
     "tests\\license\\review_browser.cjs": "6efe4a674d1b3403938f665bbc05586cbfac2b2ebf88370303ad262633393aa9"
   },
   "license_cli_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191",
@@ -15735,6 +16165,8 @@
   },
   "club_permissions_sha256": "4f6a506952e237e56a40347ced217aab0ab151d76ed9c4b6abf33f7567872b90",
   "club_test_source_sha256": {
+    "tests\\club\\club_boundary_http.php": "42d6640a690d3b1397e66f8cb1a177299f99a1b81e52adae65492621ad73376c",
+    "tests\\club\\club_boundary_policy.php": "3ce140304818c3a620f5ccde8555f671bc2f3790f93b6a36c070881a2b8a08b8",
     "tests\\club\\club_fixture.php": "412962fdc547a3685cc1bfbd21710f7f329e9c20618dc48d93e62993d9a40728",
     "tests\\club\\club_http.php": "b950ed61f7d33bb56ea54e065c178a8ebe181a5c671a8f2ca3ae11a821469ca7",
     "tests\\club\\club_intake_http.php": "45681b504976fc4c1321129476d805b6f3ae93196eb7954a9072f837159222d8",
@@ -15778,12 +16210,12 @@
     "tests\\auth\\README.md": "b3a41303f15004fcc2c1f1bafb57af847e5366542c148321bc3eb084756d06d6",
     "tests\\auth\\registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
     "tests\\auth\\review_http.php": "8d60ae4a081174cdd83a412b450a0c8f1819ce8316dc0bbeb6f9e3ca781f068f",
-    "tests\\auth\\run_http.php": "2ebdb6fbd474127d9c0e06cb30d0d81d6a10fc790fda0c47c1bc301e3ab40f31",
+    "tests\\auth\\run_http.php": "df5275edaa2a8b48533b6368e8474457f85129b3508f0ac72c371333e9ab751a",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
     "tests\\auth\\test_prepare_billing.py": "038495032457b3ee6f2a879d217029ae93d359914aaba5f85fa568b4ee7e5ddf",
-    "tests\\auth\\validate_auth.py": "213659278b14a8a446701f8f7251fc9cee7aaed95afee2ac508f83f2a8916c75"
+    "tests\\auth\\validate_auth.py": "a121d847816b4a0fa594731415d56cb7d69a79085c95182359dd0cac2d2baefb"
   },
-  "php_lint_files": 143,
+  "php_lint_files": 145,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true

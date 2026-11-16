@@ -28,7 +28,7 @@ async function run(engine,name,device){
    check(prefix+' 新導線は事務局だけ',(await p.locator('a[href="/manage/preparation.php"]').count()===1)===(account.role==='office'));
    check(prefix+' 会員受付と請求は保留',await p.locator('a[href="/manage/memberships.php"],a[href="/manage/billing.php"]').count()===0);
    if(account.role==='office'){
-    const paths=['/manage/preparation.php',...['club','event','privacy','membership'].map(x=>'/manage/preparation.php?section='+x),'/manage/staff-roles.php'];
+    const paths=['/manage/preparation.php',...['club_opening','club','event','privacy','membership'].map(x=>'/manage/preparation.php?section='+x),'/manage/staff-roles.php'];
     if(!live)paths.push('/manage/preparation.php?section=privacy&id=3','/manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new');
     for(const path of paths){
      check(prefix+' 閲覧 '+path,(await p.goto(origin+path)).status()===200);
@@ -43,6 +43,16 @@ async function run(engine,name,device){
     await p.goto(origin+'/manage/staff-roles.php');check(prefix+' 役職受付を停止表示',(await p.locator('main').innerText()).includes('役職の申請受付は準備中'));
     const result=await c.request.get(origin+'/manage/preparation.php?format=json'),data=(await result.json()).data;
     check(prefix+' 開始判断と書込を無効化',data.opening_authorized===false && data.writes_enabled===false && !data.flags.staff_role_requests_enabled);
+    await p.goto(origin+'/manage/preparation.php?section=club_opening');
+    check(prefix+' 開始と締切の日本時間を表示',(await p.locator('main').innerText()).includes('日本時間')&&(await p.locator('main').innerText()).includes('この時刻から提出不可'));
+    check(prefix+' 開放ボタンなし',await p.getByRole('button',{name:'受付を開始する',exact:true}).count()===0);
+    const opening=(await (await c.request.get(origin+'/manage/preparation.php?section=club_opening&format=json')).json()).data;
+    check(prefix+' 正本とクラブ受付設定は別',opening.source_mode==='shadow'&&opening.intake_enabled===false&&opening.new_submission_open===false);
+    await p.getByLabel('確認する年度（必須）').fill('2027');
+    await Promise.all([p.waitForURL(u=>u.searchParams.get('year')==='2027'),p.getByRole('button',{name:'日程を確認する',exact:true}).tap()]);
+    check(prefix+' JavaScriptなしで年度を再確認',new URL(p.url()).searchParams.get('year')==='2027');
+    check(prefix+' 日程・訂正期限の保留と障害手順を表示',(await p.locator('main').innerText()).includes('締切後の差し戻し再申請')&&(await p.locator('main').innerText()).includes('DB全体を上書き'));
+    await p.screenshot({path:`/artifacts/${name}-preparation-club-opening.png`,fullPage:true});
     const h=result.headers();check(prefix+' キャッシュ・検索・埋込の制限',h['cache-control'].includes('no-store')&&h['x-robots-tag'].includes('noindex')&&h['content-security-policy'].includes("frame-ancestors 'none'"));
     for(const section of ['overview','club','privacy']){await p.goto(origin+'/manage/preparation.php?section='+section);await p.setViewportSize(devices[device].viewport);await p.screenshot({path:`/artifacts/${name}-preparation-${section}.png`,fullPage:true});}
    }else{

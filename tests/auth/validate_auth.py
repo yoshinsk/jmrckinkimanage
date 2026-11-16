@@ -61,6 +61,7 @@ def main():
                   'public/manage/bank-settings.php','public/manage/clubs.php',
                   'src/Operations/AccountingWorkflow.php','public/manage/_accounting-workflow.php','public/manage/bank.php','public/manage/card-check.php','public/manage/card.php','public/manage/clubs.php','public/manage/index.php','public/manage/insurance.php','public/manage/licenses.php','public/manage/temporary-approve.php','public/manage/_office-layout.php','src/Input/TextInput.php','src/Club/ClubIntakePolicy.php','src/Club/ClubRegistrationData.php','src/Club/ClubIntakeService.php','public/manage/club-register.php','public/manage/assets/input-normalization.js','public/manage/assets/club-intake.js','design/phase2/013_club_intake.sql','design/phase2/013_club_fee_profiles_2027.sql','public/manage/_bootstrap.php']
     review_paths+=['src/Profile/EntryProfile.php','src/Club/ClubOperations.php','public/manage/club-finance.php','public/manage/memberships.php','public/manage/billing.php','tests/club/club_operations_http.php','tests/license/club_operations_browser.cjs']
+    review_paths+=['tests/club/club_boundary_policy.php','tests/club/club_boundary_http.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)

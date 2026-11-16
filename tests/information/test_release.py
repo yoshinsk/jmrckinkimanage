@@ -452,5 +452,23 @@ class ReleaseTest(unittest.TestCase):
         update.snapshot=lambda:copy.deepcopy(state)
         with self.assertRaisesRegex(RuntimeError,'Club intake enabled'):update.preflight()
 
+    def test_club_boundary_roundtrip_and_scope(self):
+        update,payload=self.confirmed_stage('club-boundary-20261116')
+        self.assertEqual(set(update.order),{'src/Operations/PreparationService.php','public/manage/preparation.php'})
+        backup=Path(update.apply(self.stage)['backup']);update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        for name,spec in payload['files'].items():self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+        for name in ['auth.config.php','public/entry/entrant/entries.php','src/Club/ClubIntakeService.php']:
+            with self.assertRaisesRegex(RuntimeError,'allowlist'):update.target(name)
+
+    def test_club_boundary_partial_failure_restores(self):
+        update,payload=self.confirmed_stage('club-boundary-20261116');update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        for name,spec in payload['files'].items():self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+
+    def test_club_boundary_requires_held_intake(self):
+        update,_=self.confirmed_stage('club-boundary-20261116');state=update.snapshot();state['flags']['club_intake_enabled']=True
+        update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'Club intake enabled'):update.preflight()
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,143 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-16T10:43:16.472Z",
+  "profile": "club-boundary-20261116",
+  "files": {
+    "src/Operations/PreparationService.php": {
+      "old_sha256": "bd0153f9cbd85664a3f765bc7211058a0e50c6e0fc2b541df1fc31f2657a6ddf",
+      "new_sha256": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/preparation.php": {
+      "old_sha256": "a18dec09e9052bf2b44b936faadbab56d3f29f796787dcdf22c965c4e3891e1d",
+      "new_sha256": "2199836cbf93ce935136cb809d1cb0b30c8285152a645a92125857100c57ff6d",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-boundary-20261116-20261116T104141Z",
+  "script_sha256": "4fcc1bc728b7fdbf374bdda00731f341dada5b935ee31925176874ddfd256c2b",
+  "isolated": {
+    "http_cases": 1593,
+    "c7_cases": 83,
+    "boundary_policy_cases": 37,
+    "c7_http_and_preparation_cases": 46,
+    "browser_cases": 2244,
+    "preparation_browser_cases": 176,
+    "php_lint_files": 145,
+    "file_release_tests": 42,
+    "database_restore_tests": 8,
+    "fixture_only": true,
+    "network_internal": true,
+    "published_ports": []
+  },
+  "production_browser": {
+    "preparation": {
+      "status": "PASS",
+      "cases": 148,
+      "business_posts": 0,
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ]
+    },
+    "existing": {
+      "status": "PASS",
+      "cases": 466,
+      "business_posts": 0,
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ]
+    }
+  },
+  "protected": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 88,
+    "protected_files": 695,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false,
+      "club_intake_enabled": false
+    },
+    "stage_removed": true
+  },
+  "integration": {
+    "schema_count": 92,
+    "schema_sha256": "cdde1462c2d0a002022ccf78802ac3558f7bb31a585c6159a220c21f194d3a2f",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "calendar": {
+    "year": 2027,
+    "club_open_at_utc": "2026-11-30 15:00:00.000000",
+    "club_close_at_exclusive_utc": "2027-02-07 15:00:00.000000",
+    "member_self_open_at_utc": "2026-12-31 15:00:00.000000",
+    "source_mode": "shadow"
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sheet": {
+    "written_cells": 22,
+    "unchanged_existing_cells": 2593,
+    "sheets": 9,
+    "native_visual_verified": true
+  },
+  "pending": [
+    "Intake opening and L03 bank/start approval",
+    "L07 post-deadline correction/payment/approval rules",
+    "L08 actual office contact details and escalation",
+    "Actual club operator acceptance and grants",
+    "Individual intake and simultaneous source cutover on January 1"
+  ]
+}
