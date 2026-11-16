@@ -28,12 +28,14 @@ $canForAnyClub = static function (string $permission) use ($auth, $clubIds): boo
     return false;
 };
 $groups = ['会員情報' => [
+    ['title'=>'登録済み個人情報','url'=>'memberships.php?reuse=entry','description'=>'既存エントリーの本人情報と所属候補を確認します。申請受付は開始しません。','enabled'=>true],
     ['title'=>'個人会員の申請','url'=>'memberships.php','description'=>'個人会員の申請内容と状況を確認します。','enabled'=>$portalReady],
     ['title'=>'Generalデジタル会員証','url'=>'card.php','description'=>'会員証と現在の資格を確認します。','enabled'=>$portalReady],
     ['title'=>'ライセンス情報','url'=>'licenses.php','description'=>'JAFライセンスの登録・更新を行います。','enabled'=>($config['license_self_service_enabled']??false)===true],
     ['title'=>'スポーツ安全保険','url'=>'insurance.php','description'=>'加入希望の申請と確認用Excelを扱います。','enabled'=>($config['insurance_intents_enabled']??false)===true],
 ], '会費・クラブ' => [
     ['title'=>'クラブ登録の申請','url'=>'club-register.php','description'=>'新規・更新・再加入の入力項目と会費を確認します。受付は準備中です。','enabled'=>true],
+    ['title'=>'クラブ会費・承認','url'=>'club-finance.php','description'=>'照合済みクラブの請求・振込先・入金・年度承認を確認します。受付準備中は書込みを停止しています。','enabled'=>true],
     ['title'=>'会費・入金状況','url'=>'billing.php','description'=>'会費の請求・入金状況を確認します。','enabled'=>$portalReady],
 ], '事務局の設定' => []];
 if ($canForAnyClub('club.registration.write')) {

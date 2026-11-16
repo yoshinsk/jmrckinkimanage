@@ -1,0 +1,196 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-16T09:40:56.016Z",
+  "profile": "club-operations-20261116",
+  "files": {
+    "src/Profile/EntryProfile.php": {
+      "old_sha256": null,
+      "new_sha256": "61f4bbc65dd740338dae913d743e2868dea58dd09b0f61476b5b7737a196a516"
+    },
+    "src/Club/ClubOperations.php": {
+      "old_sha256": null,
+      "new_sha256": "f73b4131b748dcec7ae96ea4ea96a7e2a678d2b8efe798bae39979c3801a46a0"
+    },
+    "src/Billing/BillingService.php": {
+      "old_sha256": "8d433fb65988c27c2b13ef2b2336dfba1b8b2ada5e4ce64c084382e6995adbe5",
+      "new_sha256": "3af5cfc69fb7cb1986086e28046ce9041479272ebba82677d544638dce790677",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/bootstrap.php": {
+      "old_sha256": "fd70b48fb987d781a27759ca6edea30e483b4d41a32b30427c71f4d2cf07d393",
+      "new_sha256": "a7b78f2a5fe19921ab60d33f9b483a3aae1293fc7d58764491dbde0b3cca8124",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/club-finance.php": {
+      "old_sha256": null,
+      "new_sha256": "f049b97942adbc3520c235302ff5de9415967b00620f66a95b0f1e02c0490404"
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": "7a9cd3d61610102a869b852b8d1a5582b06ef963ddeb9c0a0340593dc8304a5b",
+      "new_sha256": "c974b15d0a3b9b36515dec43cf7a92527b0e4e0c5ea3b2e75cf82012a4235bfa",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/memberships.php": {
+      "old_sha256": "1c653ed467c84be4610b122f87955e0544280ce22c9ef6ec311ac4b74aab7b96",
+      "new_sha256": "cc8dbef12140b9f88a4d2b5ff14264c246ddf47a6ac2feb5c48e285b42c64f4d",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/licenses.php": {
+      "old_sha256": "bbfb0de989da109e4bf6509589362c67195f0970fde10dd06b4f3d4542d89e1d",
+      "new_sha256": "049e7706ba7fa2ad97b6b9b727580038a15a96a0a24072bc6469891a2fb99477",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/billing.php": {
+      "old_sha256": "7b484d8e482ce465021f57269387314b0c49d20b1f2b46a22feb9ec2b0ea035f",
+      "new_sha256": "b913666c6897625323d16ff22f6fadedacc69e68291148ada43ad1db33986b78",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/index.php": {
+      "old_sha256": "d4f876a5231595f9a4cdae9e43d1bbe0a34c48421246dd5718846fa2b43a4c9c",
+      "new_sha256": "e71693174850990bbcbd02963c1890a56f3b6593c547ced012342a1f04961ecc",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-operations-20261116-20261116T093923Z",
+  "script_sha256": "c4ba704a2b0f3bc19de460ca196d664f0db8184d59976d1597671ceaac05beb9",
+  "isolated": {
+    "http_cases": 1510,
+    "browser_cases": 2220,
+    "php_lint_files": 143,
+    "file_release_tests": 39,
+    "network_internal": true,
+    "fixture_only": true,
+    "published_ports": []
+  },
+  "production_browser": {
+    "club": {
+      "status": "PASS",
+      "cases": 40,
+      "business_posts": 0,
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ]
+    },
+    "existing": {
+      "status": "PASS",
+      "cases": 466,
+      "business_posts": 0,
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ]
+    }
+  },
+  "protected": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 88,
+    "protected_files": 687,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false,
+      "club_intake_enabled": false
+    },
+    "stage_removed": true
+  },
+  "integration": {
+    "schema_count": 92,
+    "schema_sha256": "cdde1462c2d0a002022ccf78802ac3558f7bb31a585c6159a220c21f194d3a2f",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "legacy_worktree_unchanged": true,
+  "account_coverage": {
+    "accounts_by_role": "1\t7\t7\t0\t7\n2\t13\t11\t0\t13\n3\t294\t287\t0\t294",
+    "profile_counts": {
+      "clubs": "13",
+      "entrants": "293",
+      "portal_profiles": "290"
+    },
+    "club_owners_without_active_control": "0"
+  },
+  "sheet": {
+    "written_cells": 26,
+    "unchanged_existing_cells": 2571,
+    "sheets": 9,
+    "native_visual_verified": true
+  },
+  "limitations": [
+    "Actual club password not supplied: CLUB shared login tested in synthetic lab; production account coverage inspected read-only.",
+    "Production office and entrant existing credentials verified; production business POST count zero.",
+    "Real bank, intake opening, January individual source cutover and actual representative grants remain held."
+  ]
+}

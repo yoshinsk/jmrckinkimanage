@@ -9,7 +9,8 @@ use Jmrc\Club\ClubIntakePolicy;
 use Jmrc\Club\ClubRegistrationData;
 use Jmrc\Club\ClubFeePolicy;
 $auth=jmrc_auth();$user=$auth->requireIdentity();$db=jmrc_db();$config=jmrc_auth_config();$service=new ClubIntakeService($db,$config);
-$office=$service->isOffice($user['id']);$json=($_GET['format']??'')==='json';$quote=null;$record=null;$values=[];
+$office=$service->isOffice($user['id']);$json=($_GET['format']??'')==='json';$quote=null;$record=null;$values=[];$reuse=null;
+if($_SERVER['REQUEST_METHOD']==='GET'&&!isset($_GET['id'])&&($_GET['reuse']??'')==='entry'){$reuse=(new \Jmrc\Profile\EntryProfile($db))->club($user['id']);if($reuse){$values=$reuse['values'];}}
 if(($_GET['all']??'')==='1'&&!$office){throw new HttpFailure(403,'事務局の一覧権限が必要です');}
 $number=static function(array $in,string $key,bool $zero=false):int{$n=filter_var($in[$key]??null,FILTER_VALIDATE_INT,['options'=>['min_range'=>$zero?0:1]]);if($n===false){throw new HttpFailure(422,'対象・年度を確認してください');}return $n;};
 $text=static function(array $in,string $key,string $default=''):string{$v=$in[$key]??$default;if(!is_string($v)){throw new HttpFailure(422,'入力形式を確認してください');}return $v;};
@@ -26,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }elseif($action==='issue'){
         $r=$service->read($user['id'],$number($_POST,'id'));if(!$r['club_year_id']){throw new HttpFailure(409,'申請後のクラブ照合が必要です');}
         $out=(new \Jmrc\Billing\BillingService($db))->issueClub($user['id'],(int)$r['club_year_id']);
-        if(!$json){header('Location: /manage/billing.php?invoice='.$out['id'],true,303);exit;}
+        if(!$json){header('Location: /manage/club-finance.php?intake='.$r['id'],true,303);exit;}
     }else{throw new HttpFailure(422,'操作を選択してください');}
     if($out!==null){if($json){header('Content-Type: application/json; charset=utf-8');echo json_encode($out,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit;}header('Location: /manage/club-register.php?id='.$out['id'],true,303);exit;}
 }elseif($_SERVER['REQUEST_METHOD']!=='GET'){throw new HttpFailure(405,'POST required');}
@@ -47,10 +48,12 @@ header('Content-Type: text/html; charset=utf-8');
 <p>事前の事務局確認や代表者権限がなくても申請する方式です。「更新」を選ぶと、提出後に事務局が既存クラブと照合します。候補を選ぶだけではクラブの操作権限は付きません。</p>
 <p class="portal-notice" role="status"><?=$open?'クラブ登録の受付中です。':'クラブ登録は受付開始前・準備中です。まだ申請を提出できません。料金と入力項目は確認できます。'?></p>
 <p>クラブ受付は12月1日、個人会員受付と正本切替は1月1日に同時実施する方針です。ここで個人会員受付や正本の設定は変更しません。</p>
+<nav class="office-actions" aria-label="クラブ手続き"><a class="office-button secondary" href="/manage/club-register.php?reuse=entry">既存エントリーのクラブ情報を使う</a><a class="office-button secondary" href="/manage/club-finance.php">クラブ会費・承認状況</a></nav>
+<?php if($reuse):?><p class="portal-notice" role="status">このアカウントの既存クラブ情報を入力欄へ反映しました。JAF番号・区分・登録方法を確認し、空欄の追加項目を入力してください。既存の代表者連絡先：<?=$e($reuse['rep_contact_reference'])?>。申請や権限の付与はまだ行っていません。</p><?php elseif(($_GET['reuse']??'')==='entry'):?><p class="portal-notice" role="status">このアカウントに紐づく有効な旧クラブ情報はありません。新規入力できます。</p><?php endif;?>
 <?php if($quote):?><section class="office-panel"><h2>選択した区分の会費</h2><p>年会費 <?=number_format($quote['annual_yen'])?>円 ＋ 入会金 <?=number_format($quote['joining_yen'])?>円 ＝ 合計 <?=number_format($quote['total_yen'])?>円</p><p>料金確認だけでは申請・請求・入金記録は作成されません。</p></section><?php endif;?>
 <?php if($record):?><section class="office-panel"><h2>申請状況</h2><p>申請番号 <?=$e($record['id'])?> ／ <?=$e(['submitted'=>'提出済み','renewal_review'=>'更新：事務局の照合待ち','returned'=>'差し戻し：訂正して再申請してください','linked'=>'年度登録へ接続済み'][$record['review_state']])?></p><p>年会費 <?=number_format((int)$record['annual_yen'])?>円・入会金 <?=number_format((int)$record['joining_yen'])?>円・合計 <?=number_format($record['total_yen'])?>円</p>
 <?php if($record['review_state']==='returned'):?><p class="portal-notice">訂正のお願い：<?=$e($record['data']['return_reason']??'')?></p><?php endif;?>
-<?php if($record['club_year_id']):?><p>入金確認・事務局承認がそろうまで年度資格は有効になりません。</p><form method="post"><?php $hidden('issue');?><button class="office-button" <?=$open?'':'disabled'?>>振込案内・請求を確認する</button></form><?php endif;?></section><?php endif;?>
+<?php if($record['club_year_id']):?><p>入金確認・事務局承認がそろうまで年度資格は有効になりません。</p><a class="office-button" href="/manage/club-finance.php?intake=<?=$e($record['id'])?>">振込先・入金・承認状況を確認する</a><?php endif;?></section><?php endif;?>
 <section class="office-panel"><h2>既存クラブの更新候補</h2><form method="get" class="office-form"><?php if($record):?><input type="hidden" name="id" value="<?=$e($record['id'])?>"><?php endif;?><div class="office-field"><label for="candidate-query">クラブ名・正式略称・コード</label><input id="candidate-query" name="q" value="<?=$e($query)?>" maxlength="128"></div><div class="office-submit"><button class="office-button secondary">更新候補を探す</button></div></form><p>候補は最大50件です。見つからない場合も名称を入力して申請でき、更新の照合は事務局が行います。</p></section>
 <section class="office-panel"><h2><?=$record?'提出した登録内容':'登録内容を入力する'?></h2>
 <form method="post" class="office-form" id="club-intake-form"><?php echo '<input type="hidden" name="_csrf" value="'.$csrf.'">';?>

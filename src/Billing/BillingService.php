@@ -99,16 +99,18 @@ final class BillingService
     }
 
     /** 入金確認と必要額の充当。過入金は未充当残で保持し、別請求/返金へ自動で移さない。 */
-    public function confirm(int $actor,int $invoice,int $amount,string $reference,string $operation): array
+    public function confirm(int $actor,int $invoice,int $amount,string $reference,string $operation,?string $receivedOn=null): array
     {
-        return $this->tx(function () use ($actor,$invoice,$amount,$reference,$operation): array {
+        // 旧呼出しの確認時刻記録を維持し、新画面の銀行入金日だけを日本時間0時として明示保存する。
+        $receivedAt=$receivedOn===null?null:$this->receivedAt($receivedOn);
+        return $this->tx(function () use ($actor,$invoice,$amount,$reference,$operation,$receivedAt): array {
             $ch=$this->lockInvoice($invoice);$this->actor($actor);$this->permission($actor,'billing.confirm');
             if ($amount<=0 || $amount>1000000000 || !preg_match('/^[A-Za-z0-9_.:-]{1,100}$/D',$reference)) { throw new HttpFailure(422,'入金額と取引番号を確認してください'); }
             $this->key($operation);
             $prior=$this->one('SELECT * FROM portal_allocations WHERE operation_key=?',[$operation]);
             if ($prior) {
                 $p=$this->one('SELECT * FROM portal_payments WHERE id=?',[$prior['payment_id']]);
-                if ((int)$prior['invoice_line_id']!==(int)$ch['invoice_line_id'] || (int)$p['amount_yen']!==$amount || $p['source_key']!==$reference) { throw new HttpFailure(409,'処理キーが別の入金で使用済みです'); }
+                if ((int)$prior['invoice_line_id']!==(int)$ch['invoice_line_id'] || (int)$p['amount_yen']!==$amount || $p['source_key']!==$reference || ($receivedAt!==null&&$p['received_at']!==$receivedAt)) { throw new HttpFailure(409,'処理キーが別の入金で使用済みです'); }
                 return $this->invoice($invoice);
             }
             $i=$this->invoice($invoice);
@@ -116,7 +118,7 @@ final class BillingService
             // source_keyは振込名義のIDではなく、担当者が確認した銀行取引を識別する番号。
             if ($this->one("SELECT id FROM portal_payments WHERE account_id=? AND source_type='manual' AND source_key=?",[$i['account_id'],$reference])) { throw new HttpFailure(409,'この銀行取引は登録済みです'); }
             $this->run("INSERT INTO portal_payments(account_id,source_type,source_key,received_at,amount_yen,payer_name_cipher,status,confirmed_by,confirmed_at)
-                VALUES (?,'manual',?,UTC_TIMESTAMP(6),?,'','confirmed',?,UTC_TIMESTAMP(6))",[$i['account_id'],$reference,$amount,$actor]);
+                VALUES (?,'manual',?,COALESCE(?,UTC_TIMESTAMP(6)),?,'','confirmed',?,UTC_TIMESTAMP(6))",[$i['account_id'],$reference,$receivedAt,$amount,$actor]);
             $payment=(int)$this->db->lastInsertId();
             $allocated=min($amount,$i['balance_yen']);
             $this->run('INSERT INTO portal_allocations(payment_id,invoice_line_id,amount_yen,operation_key,created_by) VALUES (?,?,?,?,?)',[$payment,$ch['invoice_line_id'],$allocated,$operation,$actor]);
@@ -259,6 +261,13 @@ final class BillingService
             WHERE g.user_id=? AND p.permission_code=? AND g.scope_type='global' AND r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND g.status='active'
             AND (g.approved_by IS NOT NULL OR g.bootstrap_approval_ref IS NOT NULL) AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6)
             AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until) LIMIT 1 FOR UPDATE",[$id,$permission])) { throw new HttpFailure(403,'事務局または財務の会計権限が必要です'); }
+    }
+    /** 銀行明細の日付と確認担当者の処理時刻を区別する。実在しない日付・未来日を推測補正しない。 */
+    private function receivedAt(string $day):string
+    {
+        $zone=new \DateTimeZone('Asia/Tokyo');$d=\DateTimeImmutable::createFromFormat('!Y-m-d',$day,$zone);
+        if(!$d||$d->format('Y-m-d')!==$day||$day>(new \DateTimeImmutable('now',$zone))->format('Y-m-d')){throw new HttpFailure(422,'銀行明細の実際の入金日を確認してください');}
+        return $d->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s.u');
     }
     private function key(string $key): void { if (!preg_match('/^[a-f0-9]{32,64}$/D',$key)) { throw new HttpFailure(422,'処理キーが不正です'); } }
     private function audit(int $actor,string $action,int $member,string $key): void

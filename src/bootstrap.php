@@ -34,6 +34,8 @@ require_once __DIR__ . '/Operations/MaterialsReview.php';
 require_once __DIR__ . '/Club/ClubIntakePolicy.php';
 require_once __DIR__ . '/Club/ClubRegistrationData.php';
 require_once __DIR__ . '/Club/ClubIntakeService.php';
+require_once __DIR__ . '/Club/ClubOperations.php';
+require_once __DIR__ . '/Profile/EntryProfile.php';
 require_once __DIR__ . '/Operations/AccountingPolicy.php';
 require_once __DIR__ . '/Operations/AccountingWorkbook.php';
 require_once __DIR__ . '/Content/InformationPreview.php';

@@ -55,7 +55,7 @@ jmrc_office_header('会費・入金状況','会費・入金');
 ?>
 <p class="office-intro">資格は承認・入金確認・有効期間などの条件が揃った場合に有効になります。</p>
 <?php if(!$portalReady): ?><p class="portal-notice" role="status">会費・入金の受付は準備中です。請求の発行や入金の登録は行えません。</p><?php elseif($_SERVER['REQUEST_METHOD']==='POST' && $result): ?><p class="office-success" role="status"><?=$e($messages[$_POST['action']])?></p><?php endif; ?>
-<nav class="office-actions" aria-label="会費の確認先"><a class="office-button secondary" href="#invoices">発行済みの請求を確認</a><a class="office-button secondary" href="/manage/memberships.php">個人会員の申請へ</a></nav>
+<nav class="office-actions" aria-label="会費の確認先"><a class="office-button secondary" href="#invoices">発行済みの請求を確認</a><a class="office-button secondary" href="/manage/memberships.php">個人会員の申請へ</a><a class="office-button secondary" href="/manage/club-finance.php">クラブ会費・承認へ</a></nav>
 <?php if($result && isset($result['invoice_no'])): ?>
 <section class="office-panel" aria-labelledby="invoice-heading"><h2 id="invoice-heading">請求 <?=$e($result['invoice_no'])?></h2><p class="office-meta">請求ID #<?=$e($result['id'])?></p>
 <div class="office-columns"><dl class="office-definition office-amounts"><dt>請求額</dt><dd data-amount="total"><?=number_format((int)$result['amount_yen'])?> 円</dd><dt>確認済み充当額</dt><dd data-amount="paid"><?=number_format((int)$result['paid_yen'])?> 円</dd><dt>残額</dt><dd data-amount="balance"><?=number_format((int)$result['balance_yen'])?> 円</dd></dl>

@@ -60,6 +60,7 @@ def main():
                   'src/Bank/BankMasterService.php','src/Billing/BillingService.php','src/bootstrap.php',
                   'public/manage/bank-settings.php','public/manage/clubs.php',
                   'src/Operations/AccountingWorkflow.php','public/manage/_accounting-workflow.php','public/manage/bank.php','public/manage/card-check.php','public/manage/card.php','public/manage/clubs.php','public/manage/index.php','public/manage/insurance.php','public/manage/licenses.php','public/manage/temporary-approve.php','public/manage/_office-layout.php','src/Input/TextInput.php','src/Club/ClubIntakePolicy.php','src/Club/ClubRegistrationData.php','src/Club/ClubIntakeService.php','public/manage/club-register.php','public/manage/assets/input-normalization.js','public/manage/assets/club-intake.js','design/phase2/013_club_intake.sql','design/phase2/013_club_fee_profiles_2027.sql','public/manage/_bootstrap.php']
+    review_paths+=['src/Profile/EntryProfile.php','src/Club/ClubOperations.php','public/manage/club-finance.php','public/manage/memberships.php','public/manage/billing.php','tests/club/club_operations_http.php','tests/license/club_operations_browser.cjs']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -285,6 +286,21 @@ def main():
             time.sleep(.5)
         else:raise RuntimeError('Club intake browser timed out')
         report['club_intake_browser_validation']=json.loads(docker('logs',name).stdout)
+        print('Testing club payments, approvals and legacy profile reuse',flush=True)
+        name='jmrc-club-operations-active-20261116'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m','jmrc-license-browser:20261028','node','club_operations_browser.cjs')
+        created.append(name)
+        for _ in range(480):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                artifacts=ROOT/'tmp/club_operations_20261116/browser';artifacts.mkdir(parents=True,exist_ok=True)
+                dest=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
+                docker('cp',name+':/artifacts/.',dest)
+                if state['State']['ExitCode']!=0:raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
+                break
+            time.sleep(.5)
+        else:raise RuntimeError('Club operations browser timed out')
+        report['club_operations_browser_validation']=json.loads(docker('logs',name).stdout)
         # 本番ではなく、上で変更した使い捨てDBの年度設定だけを元へ戻す。
         db_sql("UPDATE portal_years SET "+','.join(k+'='+"'"+v+"'" for k,v in calendar.items())+" WHERE year=2027")
         docker('exec',NAMES[1],'php','/srv/tests/mobile_seed.php')
@@ -316,7 +332,7 @@ def main():
                 db_sql("UPDATE portal_years SET source_mode='shadow'")
                 config_code="""<?php
 rename('/srv/private/auth.config.php','/srv/private/dashboard-active.config.php');
-file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
+file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['club_intake_enabled'=>false,'license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
 """
                 docker('exec','-i',NAMES[1],'php',data=config_code.encode())
             name='jmrc-dashboard-'+('hold' if hold else 'active')+'-20261030'
@@ -350,6 +366,17 @@ file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(re
             else:
                 raise RuntimeError('Member browser timed out')
             member_reports.append(json.loads(docker('logs',name).stdout))
+        name='jmrc-club-operations-held-20261116'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m','-e','CLUB_OPERATIONS_HOLD=1','jmrc-license-browser:20261028','node','club_operations_browser.cjs')
+        created.append(name)
+        for _ in range(360):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                if state['State']['ExitCode']!=0:raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
+                break
+            time.sleep(.5)
+        else:raise RuntimeError('Held club operations browser timed out')
+        report['club_operations_held_browser_validation']=json.loads(docker('logs',name).stdout)
         report['dashboard_browser_validation']={'status':'PASS','cases':[case for result in dashboard_reports for case in result['cases']],
                                                 'browsers':dashboard_reports[0]['browsers'],'hold_javascript_disabled':True}
         report['member_browser_validation']={'status':'PASS','cases':[case for result in member_reports for case in result['cases']],
