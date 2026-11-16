@@ -59,7 +59,7 @@ def main():
                   'src/Club/ClubContact.php','src/Operations/AccountingPolicy.php','src/Operations/AccountingWorkbook.php',
                   'src/Bank/BankMasterService.php','src/Billing/BillingService.php','src/bootstrap.php',
                   'public/manage/bank-settings.php','public/manage/clubs.php',
-                  'src/Operations/AccountingWorkflow.php','public/manage/_accounting-workflow.php']
+                  'src/Operations/AccountingWorkflow.php','public/manage/_accounting-workflow.php','public/manage/bank.php','public/manage/card-check.php','public/manage/card.php','public/manage/clubs.php','public/manage/index.php','public/manage/insurance.php','public/manage/licenses.php','public/manage/temporary-approve.php','public/manage/_office-layout.php','src/Input/TextInput.php','src/Club/ClubIntakePolicy.php','src/Club/ClubRegistrationData.php','src/Club/ClubIntakeService.php','public/manage/club-register.php','public/manage/assets/input-normalization.js','public/manage/assets/club-intake.js','design/phase2/013_club_intake.sql','design/phase2/013_club_fee_profiles_2027.sql','public/manage/_bootstrap.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -95,6 +95,7 @@ def main():
     shutil.copyfile(ROOT/'scripts/EditorDraftDatabase.php',context/'tests/EditorDraftDatabase.php')
     shutil.copyfile(ROOT/'tests/auth/editor_database.php',context/'tests/editor_database.php')
     shutil.copyfile(ROOT/'design/phase2/012_editor_drafts.sql',context/'tests/012_editor_drafts.sql')
+    shutil.copyfile(ROOT/'design/phase2/013_club_fee_profiles_2027.sql',context/'tests/013_club_fee_profiles_2027.sql')
     shutil.copyfile(ROOT/'scripts/confirmed_answers_database.php',context/'tests/confirmed_answers_database.php')
     for source in (ROOT/'tests/membership').glob('*.php'):
         shutil.copyfile(source,context/'tests'/source.name)
@@ -168,6 +169,7 @@ def main():
         db_sql((ROOT/'design/phase2/010_profile_corrections.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/011_license_declarations.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/012_editor_drafts.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/013_club_intake.sql').read_text(encoding='utf-8'))
         db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
@@ -180,6 +182,7 @@ def main():
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_editor_drafts TO 'auth_runtime'@'%';GRANT INSERT ON jmrckinki_auth_lab.portal_editor_revisions TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_clubs TO 'auth_runtime'@'%';GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_club_intakes TO 'auth_runtime'@'%';GRANT INSERT ON jmrckinki_auth_lab.portal_club_intake_revisions TO 'auth_runtime'@'%';")
         for table in ['portal_member_numbers','portal_card_tokens']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for table in ['portal_identifiers','portal_license_claims']:
@@ -265,6 +268,25 @@ def main():
         qr_fixtures=report.pop('card_qr_fixtures')
         qr=command(['node',str(ROOT/'tests/card/verify_qr.cjs')],data=json.dumps(qr_fixtures).encode(),timeout=60)
         report['qr_client_validation']=json.loads(qr.stdout)
+        print('Testing club intake, shared normalization and renewal candidates',flush=True)
+        calendar=json.loads(db_sql("SELECT JSON_OBJECT('source_mode',source_mode,'club_open_at',club_open_at,'club_close_at',club_close_at) FROM portal_years WHERE year=2027").stdout.splitlines()[-1])
+        db_sql("UPDATE portal_years SET source_mode='shadow',club_open_at=UTC_TIMESTAMP()-INTERVAL 1 DAY,club_close_at=UTC_TIMESTAMP()+INTERVAL 40 DAY WHERE year=2027")
+        name='jmrc-club-intake-browser-20261116'
+        docker('run','--detach','--init','--name',name,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m','jmrc-license-browser:20261028','node','club_intake_browser.cjs')
+        created.append(name)
+        for _ in range(360):
+            state=json.loads(docker('inspect',name).stdout)[0]
+            if not state['State']['Running']:
+                artifacts=ROOT/'tmp/club_intake_20261116/browser';artifacts.mkdir(parents=True,exist_ok=True)
+                dest=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
+                docker('cp',name+':/artifacts/.',dest)
+                if state['State']['ExitCode']!=0:raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
+                break
+            time.sleep(.5)
+        else:raise RuntimeError('Club intake browser timed out')
+        report['club_intake_browser_validation']=json.loads(docker('logs',name).stdout)
+        # 本番ではなく、上で変更した使い捨てDBの年度設定だけを元へ戻す。
+        db_sql("UPDATE portal_years SET "+','.join(k+'='+"'"+v+"'" for k,v in calendar.items())+" WHERE year=2027")
         docker('exec',NAMES[1],'php','/srv/tests/mobile_seed.php')
         docker('run','--detach','--init','--name',BROWSER,'--label',LABEL,'--network',NETWORK,'--memory','1536m','--shm-size','512m','jmrc-license-browser:20261028')
         created.append(BROWSER)

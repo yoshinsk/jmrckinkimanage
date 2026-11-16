@@ -23,21 +23,30 @@ final class BillingService
             // 既存承認を取り込んだだけの年度に、会費を再請求しない。移行時の照合を先に行う。
             if ($a['status']==='approved') { throw new HttpFailure(409,'既存年度登録の会費証跡を事務局で照合してください'); }
             if (!in_array($a['status'],['submitted','approved'],true) || !in_array($cy['status'],['pending','approved'],true)) { throw new HttpFailure(409,'現在の状態では請求できません'); }
-            if (!$this->one("SELECT year FROM portal_years WHERE year=? AND source_mode='portal' AND UTC_TIMESTAMP(6)<valid_until FOR UPDATE",[$cy['year']])) { throw new HttpFailure(409,'年度会費の対象外です'); }
+            if(!\Jmrc\Club\ClubIntakePolicy::enabled()){throw new HttpFailure(503,'クラブ会費の受付は準備中です');}
+            if (!$this->one("SELECT year FROM portal_years WHERE year=? AND source_mode IN('shadow','portal') AND UTC_TIMESTAMP(6)<valid_until FOR UPDATE",[$cy['year']])) { throw new HttpFailure(409,'年度会費の対象外です'); }
             if (!$this->one('SELECT category_digit FROM portal_club_categories WHERE category_digit=? AND enabled=1',[$cy['category_digit']])) { throw new HttpFailure(422,'クラブ区分を確認してください'); }
             $rules=$this->all("SELECT * FROM portal_fee_rules WHERE year=? AND purpose_code='club_fee' AND member_type=? AND charge_unit='year'
                 AND enabled=1 AND valid_from<=UTC_TIMESTAMP(6) AND UTC_TIMESTAMP(6)<valid_until FOR UPDATE",[$cy['year'],'club_'.$cy['category_digit']]);
             $accounts=$this->all("SELECT * FROM portal_bank_accounts WHERE purpose_code='club_fee' AND (year=? OR year IS NULL) AND enabled=1
                 AND (valid_from IS NULL OR valid_from<=UTC_TIMESTAMP(6)) AND (valid_until IS NULL OR UTC_TIMESTAMP(6)<valid_until) FOR UPDATE",[$cy['year']]);
-            if (count($rules)!==1 || (int)$rules[0]['amount_yen']<=0) { throw new HttpFailure(422,'年度・クラブ区分の年会費マスターを設定してください'); }
+            $intake=$this->one("SELECT annual_yen,joining_yen FROM portal_club_intakes WHERE club_year_id=? AND review_state='linked' FOR UPDATE",[$clubYear]);
+            if($intake){
+                // 先頭6だけで料金を推定しない。確定した申請区分と入会金を固定した一意の合計請求へ接続する。
+                $rule=['id'=>null,'amount_yen'=>(int)$intake['annual_yen']+(int)$intake['joining_yen']];
+                $description='クラブ会費 '.$cy['year'].'（年会費 '.(int)$intake['annual_yen'].'円・入会金 '.(int)$intake['joining_yen'].'円）';
+            }else{
+                if (count($rules)!==1 || (int)$rules[0]['amount_yen']<=0) { throw new HttpFailure(422,'年度・クラブ区分の年会費マスターを設定してください'); }
+                $rule=$rules[0];$description='正会員クラブ年会費 '.$cy['year'];
+            }
             if (count($accounts)!==1) { throw new HttpFailure(422,'クラブ年会費の入金先口座を設定してください'); }
-            $rule=$rules[0];$bank=$accounts[0];
+            $bank=$accounts[0];
             // F11によりクラブ会費は対象外。旧口座設定にURLが残っていても請求へ引き継がない。
             $this->run("INSERT INTO portal_invoices(application_id,invoice_no,payer_club_year_id,status,account_id,account_snapshot_cipher,payment_url_snapshot,idempotency_key,issued_at)
                 VALUES(?,?,?,'issued',?,?,?,?,UTC_TIMESTAMP(6))",[$cy['application_id'],'CLUB-'.$cy['year'].'-'.$clubYear,$clubYear,$bank['id'],$bank['details_cipher'],null,'club:'.$clubYear]);
             $invoice=(int)$this->db->lastInsertId();
             $this->run("INSERT INTO portal_invoice_lines(invoice_id,fee_rule_id,purpose_code,club_year_id,description,quantity,unit_amount_yen,amount_yen)
-                VALUES(?,?,'club_fee',?,?,1,?,?)",[$invoice,$rule['id'],$clubYear,'正会員クラブ年会費 '.$cy['year'],$rule['amount_yen'],$rule['amount_yen']]);$line=(int)$this->db->lastInsertId();
+                VALUES(?,?,'club_fee',?,?,1,?,?)",[$invoice,$rule['id'],$clubYear,$description,$rule['amount_yen'],$rule['amount_yen']]);$line=(int)$this->db->lastInsertId();
             $this->run('INSERT INTO portal_club_charges(club_year_id,invoice_id,invoice_line_id,amount_yen) VALUES(?,?,?,?)',[$clubYear,$invoice,$line,$rule['amount_yen']]);
             $this->record($actor,'INVOICED',['membership_id'=>null,'club_year_id'=>$clubYear],'invoice:'.$invoice);return $this->invoice($invoice);
         });

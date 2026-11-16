@@ -1,0 +1,193 @@
+{
+  "status": "PASS",
+  "checked_date_jst": "2026-11-16",
+  "scope": "21 portal files, 3 added tables, 9 confirmed fee rows; intake remains closed",
+  "legacy_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "legacy_status_unchanged": true,
+  "legacy_event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+  "production_browser_cases": {
+    "club": 72,
+    "existing": 466
+  },
+  "business_posts": 0,
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1203,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false
+  },
+  "years": "2027\tshadow",
+  "file_rollback_cases": 36,
+  "database_verification": {
+    "status": "PASS",
+    "old_tables": 85,
+    "old_schema_and_rows_unchanged": true,
+    "new_tables": {
+      "portal_club_fee_profiles": 9,
+      "portal_club_intakes": 0,
+      "portal_club_intake_revisions": 0
+    },
+    "fee_rows": 9,
+    "limited_permissions": [
+      {
+        "table_name": "portal_clubs",
+        "privilege_type": "INSERT"
+      },
+      {
+        "table_name": "portal_club_intakes",
+        "privilege_type": "INSERT"
+      },
+      {
+        "table_name": "portal_club_intakes",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "table_name": "portal_club_intake_revisions",
+        "privilege_type": "INSERT"
+      }
+    ],
+    "backup_verified": true,
+    "protected_schema_sha256": "ed56a6fde426c1d03a8c733c662278a90f5056c30b139364a393bf450782c803"
+  },
+  "schema_before": {
+    "schema_count": 89,
+    "schema_sha256": "b5eab564b2dd14f884dcac433c11cf1d9856c87fbe42bcc2cccdd3589408d139",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "schema_after": {
+    "schema_count": 92,
+    "schema_sha256": "cdde1462c2d0a002022ccf78802ac3558f7bb31a585c6159a220c21f194d3a2f",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "files": {
+    "src/Input/TextInput.php": {
+      "old_sha256": null,
+      "new_sha256": "d4b350668c4ba4bf2f280cdad411278174b053c90c42965a2053f05463cfcafe"
+    },
+    "src/Club/ClubIntakePolicy.php": {
+      "old_sha256": null,
+      "new_sha256": "f60b7408379d3da4d982cb67691ef4fc2eda6ebd447b0b132d4d8bec5fe1935b"
+    },
+    "src/Club/ClubRegistrationData.php": {
+      "old_sha256": null,
+      "new_sha256": "ce6483f4ddd3919ac63e42654b2e25e44acd100184b16d8b00511877e51824e7"
+    },
+    "src/Club/ClubIntakeService.php": {
+      "old_sha256": null,
+      "new_sha256": "f94976742e76e650d6d5c8d37b83e979156275e0d51ddb5b5b313fecd8acf5b3"
+    },
+    "public/manage/assets/input-normalization.js": {
+      "old_sha256": null,
+      "new_sha256": "3f7a2dfa94cc4f51c63349831fea20d3a7c3d4bce113aef55b6289d82a0ef190"
+    },
+    "public/manage/assets/club-intake.js": {
+      "old_sha256": null,
+      "new_sha256": "1f1b1c9ae3a37cfdbd5f7222b10fa45c757a234b51714fa59e8c65c03371d909"
+    },
+    "src/Club/ClubEligibility.php": {
+      "old_sha256": "bd382cdc99aa8c9b00975cf002fac397471a8f762c01ebec899447ba200ea904",
+      "new_sha256": "43a080a283d4e51e7a5fb9fe8583efd6fc537c0ccbc589184c90a780e7bef81b"
+    },
+    "src/Club/ClubService.php": {
+      "old_sha256": "213a99d06a1bab44b586626495b3f5f2ba6f7aff83b78abadfe3265cc3663513",
+      "new_sha256": "95e038eec814d52f9178288deb44b21330b9b61e5ab6712a6704f80f9b90f02a"
+    },
+    "src/Billing/BillingService.php": {
+      "old_sha256": "4a8088ae8c5b51f0f09dc7ec8acfaefe7331ebddb11f77405c400a87d0644953",
+      "new_sha256": "8d433fb65988c27c2b13ef2b2336dfba1b8b2ada5e4ce64c084382e6995adbe5"
+    },
+    "src/bootstrap.php": {
+      "old_sha256": "f1b03c734c74755bd5366276adeef0ad2aa8e99a361d9eac097357345cbad1ae",
+      "new_sha256": "fd70b48fb987d781a27759ca6edea30e483b4d41a32b30427c71f4d2cf07d393"
+    },
+    "public/manage/_bootstrap.php": {
+      "old_sha256": "8e35620fef135911410909e5360130664c35b0511f6d0337ecfbe6da39dd0a5b",
+      "new_sha256": "a28f895ae10860b6b5a029ee44c42666b126a0ac3a71a228f7d843c34646920f"
+    },
+    "public/manage/_office-layout.php": {
+      "old_sha256": "da644ada7f74bac62d4a13db24334302bf45d8decfd6d705eefb7adebfda658e",
+      "new_sha256": "6e083a5f29b803c8a907a5a170dcf7f5fc0d454b25861df296fb55b878f14725"
+    },
+    "public/manage/bank.php": {
+      "old_sha256": "f5717501a8fb004b304ef20624b039197c3a5542638c5df07dd03bd28a3a78fb",
+      "new_sha256": "8b3b550fb58a0a2963943ca07ee821e36c44aaa1edd8098bab2e572f316be513"
+    },
+    "public/manage/card-check.php": {
+      "old_sha256": "0a88e4164a8b4343927cfd065457fcb9e7a1515f82f9cd75b6b149c0fb5fb9d7",
+      "new_sha256": "e962ce11bcd6e37c04b65f8897d7884cdcd6801ed0445391317b66e638628257"
+    },
+    "public/manage/card.php": {
+      "old_sha256": "0c0149345650e4169a329bf39feb684a60ba1a2bf84d029e541106856b2e3f39",
+      "new_sha256": "4f988e67891753cd25c727e366d541e88b4d7deb4f2b7b15fe85c78b667e93c8"
+    },
+    "public/manage/clubs.php": {
+      "old_sha256": "e03ac3e4313492ba0f6f693272fdd8d9172b9c651c8d13736158c9dded3334b3",
+      "new_sha256": "be98a741bc191807f0ddd95ea06ba59b73a53a272fec7f2006fa602febb75684"
+    },
+    "public/manage/insurance.php": {
+      "old_sha256": "fb008456ba38acfb89e71c4c2a8faef7b04f6b986c9f84f36be6be9608e2f710",
+      "new_sha256": "1ff04f847ac609c8978620053cabe50e24666589395bfcd9f6d1c7b78fe0a4cb"
+    },
+    "public/manage/licenses.php": {
+      "old_sha256": "7d69e99626b22d33ddb52a6e394d037f65c7d3672b86c8b7a4e1777e23b2a738",
+      "new_sha256": "bbfb0de989da109e4bf6509589362c67195f0970fde10dd06b4f3d4542d89e1d"
+    },
+    "public/manage/temporary-approve.php": {
+      "old_sha256": "6f73bc5c37a6108c5c977f60883b2e1530534859b66f1be4361616dc6c4a38da",
+      "new_sha256": "64e121c88d38bd6f19542fbbf68249d5c7d9519fc1ea34222ea158367d1cd965"
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": null,
+      "new_sha256": "7a9cd3d61610102a869b852b8d1a5582b06ef963ddeb9c0a0340593dc8304a5b"
+    },
+    "public/manage/index.php": {
+      "old_sha256": "1fffd7b734a01df9246da474dd1242fb953ba49b2a3473bcbc9fb2f06f9b371b",
+      "new_sha256": "d4f876a5231595f9a4cdae9e43d1bbe0a34c48421246dd5718846fa2b43a4c9c"
+    }
+  },
+  "private_file_backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-intake-20261116-20261116T034527Z",
+  "private_database_backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-intake-db-20261116-20261116T034500Z",
+  "isolated_validation_file": "tests/auth/validation_result.json",
+  "database_validation_file": "tests/club/intake_database_validation.json",
+  "sheet_readback": {
+    "written_cells": 62,
+    "preserved_cells": 2526,
+    "tabs": 9,
+    "native_visual_verified": true
+  }
+}

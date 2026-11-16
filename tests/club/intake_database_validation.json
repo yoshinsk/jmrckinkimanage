@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "cases": [
+    "追加3表と9料金・既存表不変",
+    "同じDDLを再適用しない",
+    "後続の既存業務変更があれば復元拒否",
+    "追加表に申請が入れば復元拒否",
+    "元の表・権限へ完全復元",
+    "DDL途中失敗を復元",
+    "部分失敗後も元の状態",
+    "失敗後の再適用と復元"
+  ],
+  "fixture_only": true,
+  "production_connections": 0,
+  "source_sha256": {
+    "scripts/ClubIntakeDatabase.php": "c6e557a211ef4808793b41282c95e3f741c84ccfe61b31a60cd061a3b3bc239f",
+    "design/phase2/013_club_intake.sql": "40b94e3afc9be3fc1fe79f89866db6bc30be6a9031027ebf9ff7f2324e975354",
+    "design/phase2/013_club_fee_profiles_2027.sql": "065eb58bb3d08496cf99e6c5da2a7f1cb183bc8ab2492284a04f24d9ecddab7c",
+    "tests/club/intake_database.php": "46a6bebe7ff2ed514f76de3c98917e208c78783faca130ffc970c3458353ed1d"
+  }
+}

@@ -33,6 +33,7 @@ $groups = ['会員情報' => [
     ['title'=>'ライセンス情報','url'=>'licenses.php','description'=>'JAFライセンスの登録・更新を行います。','enabled'=>($config['license_self_service_enabled']??false)===true],
     ['title'=>'スポーツ安全保険','url'=>'insurance.php','description'=>'加入希望の申請と確認用Excelを扱います。','enabled'=>($config['insurance_intents_enabled']??false)===true],
 ], '会費・クラブ' => [
+    ['title'=>'クラブ登録の申請','url'=>'club-register.php','description'=>'新規・更新・再加入の入力項目と会費を確認します。受付は準備中です。','enabled'=>true],
     ['title'=>'会費・入金状況','url'=>'billing.php','description'=>'会費の請求・入金状況を確認します。','enabled'=>$portalReady],
 ], '事務局の設定' => []];
 if ($canForAnyClub('club.registration.write')) {
@@ -72,7 +73,7 @@ header('Content-Type: text/html; charset=utf-8');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>マイページ | JMRC近畿ポータル</title>
+  <title>マイページ | JMRC近畿ポータル</title><script src="/manage/assets/input-normalization.js" defer></script>
   <link rel="stylesheet" href="/manage/assets/dashboard.css?v=20261030">
 </head>
 <body>

@@ -11,7 +11,7 @@ $rows=$service->listing($user['id']);
 if($json){header('Content-Type: application/json; charset=utf-8');echo json_encode($result??$edit??['licenses'=>$rows],JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit;}
 $e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');header('Content-Type: text/html; charset=utf-8');
 ?>
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ライセンス情報</title><link rel="stylesheet" href="/manage/assets/cards.css"><link rel="stylesheet" href="/manage/assets/licenses.css"></head><body><main><h1>ライセンス情報</h1>
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ライセンス情報</title><script src="/manage/assets/input-normalization.js" defer></script><link rel="stylesheet" href="/manage/assets/cards.css"><link rel="stylesheet" href="/manage/assets/licenses.css"></head><body><main><h1>ライセンス情報</h1>
 <p>期限だけの更新では会員番号を変えません。番号・種類の変更では旧QRを失効し、会員証の再発行は事務局確認となります。</p>
 <?php if($result): ?><p role="status">ライセンス情報を保存しました。</p><?php endif; ?>
 <?php if(!empty($edit['notice'])): ?><p role="alert"><?=$e($edit['notice'])?></p><?php endif; ?>

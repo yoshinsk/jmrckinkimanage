@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/Auth/HttpFailure.php';
+require_once __DIR__ . '/Input/TextInput.php';
 require_once __DIR__ . '/Auth/SharedAuth.php';
 require_once __DIR__ . '/Membership/LicenseDeclaration.php';
 require_once __DIR__ . '/Membership/MembershipService.php';
@@ -30,6 +31,9 @@ require_once __DIR__ . '/Profile/ProfileService.php';
 require_once __DIR__ . '/Operations/PreparationService.php';
 require_once __DIR__ . '/Operations/AccountingReview.php';
 require_once __DIR__ . '/Operations/MaterialsReview.php';
+require_once __DIR__ . '/Club/ClubIntakePolicy.php';
+require_once __DIR__ . '/Club/ClubRegistrationData.php';
+require_once __DIR__ . '/Club/ClubIntakeService.php';
 require_once __DIR__ . '/Operations/AccountingPolicy.php';
 require_once __DIR__ . '/Operations/AccountingWorkbook.php';
 require_once __DIR__ . '/Content/InformationPreview.php';

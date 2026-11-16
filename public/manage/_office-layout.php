@@ -18,7 +18,7 @@ function jmrc_office_header(string $title, string $section = '事務局'): void
 <!doctype html>
 <html lang="ja"><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?=$title?> | JMRC近畿ポータル</title>
+  <title><?=$title?> | JMRC近畿ポータル</title><script src="/manage/assets/input-normalization.js" defer></script>
   <link rel="stylesheet" href="/manage/assets/dashboard.css?v=20261030">
   <link rel="stylesheet" href="/manage/assets/office.css?v=20261030-2">
 </head><body>

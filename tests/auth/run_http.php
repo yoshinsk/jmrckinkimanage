@@ -3,6 +3,7 @@
 // 機能: 内部HTTPS経由で既存entryコピーとmanageの認証/認可を検証するCLIテスト。
 declare(strict_types=1);
 if (PHP_SAPI !== 'cli') { exit(1); }
+require_once '/srv/auth/src/bootstrap.php';
 
 final class Browser
 {
@@ -230,6 +231,7 @@ try {
     require '/srv/tests/preparation_http.php';
     require '/srv/tests/editor_http.php';
     require '/srv/tests/materials_http.php';
+    require '/srv/tests/club_intake_http.php';
     $report=['status'=>'PASS','php'=>PHP_VERSION,'sapi_under_test'=>'fpm-fcgi over HTTPS',
         'database'=>$db->query('SELECT VERSION()')->fetchColumn(),'cases'=>$results,'card_qr_fixtures'=>$cardQrFixtures,
         'limits'=>['認証版/パスワード更新はDB操作で模擬。メールを伴うreset/registerの全フローは別工程',

@@ -67,6 +67,17 @@ ANSWER16_EXISTING = ['src/Bank/PaymentCoreCsv.php','src/Operations/AccountingRev
                      'src/Operations/AccountingWorkbook.php','src/Operations/MaterialsReview.php',
                      'public/manage/assets/accounting-review.css',*REVIEW_FILES,'public/manage/accounting-review.php']
 PROFILES['answers-20261116'] = (ANSWER16_NEW + ANSWER16_EXISTING, ANSWER16_EXISTING)
+CLUB_INTAKE_NEW = ['src/Input/TextInput.php','src/Club/ClubIntakePolicy.php',
+                   'src/Club/ClubRegistrationData.php','src/Club/ClubIntakeService.php',
+                   'public/manage/assets/input-normalization.js','public/manage/assets/club-intake.js',
+                   'public/manage/club-register.php']
+CLUB_INTAKE_EXISTING = ['src/Club/ClubEligibility.php','src/Club/ClubService.php','src/Billing/BillingService.php',
+                       'src/bootstrap.php','public/manage/_bootstrap.php','public/manage/_office-layout.php',
+                       'public/manage/bank.php','public/manage/card-check.php','public/manage/card.php',
+                       'public/manage/clubs.php','public/manage/insurance.php','public/manage/licenses.php',
+                       'public/manage/temporary-approve.php','public/manage/index.php']
+# 新画面は共通処理の読込更新後に配置し、マイページの導線を最後に置く。
+PROFILES['club-intake-20261116'] = (CLUB_INTAKE_NEW[:-1]+CLUB_INTAKE_EXISTING[:-1]+CLUB_INTAKE_NEW[-1:]+CLUB_INTAKE_EXISTING[-1:],CLUB_INTAKE_EXISTING)
 
 
 
@@ -140,7 +151,7 @@ class Release:
                    'portal_memberships', 'portal_invoices', 'portal_payments']}
         flags_code = "<?php $c=require '"+str(self.private/'auth.config.php')+"';$o=[];foreach(" \
             "['profile_corrections_enabled','bank_master_enabled','license_self_service_enabled'," \
-            "'insurance_intents_enabled','yucho_import_enabled','staff_role_requests_enabled'] as $k)$o[$k]=$c[$k]??false;echo json_encode($o);"
+            "'insurance_intents_enabled','yucho_import_enabled','staff_role_requests_enabled','club_intake_enabled'] as $k)$o[$k]=$c[$k]??false;echo json_encode($o);"
         flags = json.loads(subprocess.run([PHP], input=flags_code.encode(), capture_output=True, check=True).stdout)
         return {'release_root': str(self.source), 'protected_files': {str(p): sha(p) for p in sorted(paths)},
                 'business_checksums': checks, 'counts': counts, 'flags': flags,
@@ -154,9 +165,11 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        if self.profile in ['preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116']:
+        if self.profile=='club-intake-20261116':
+            require(state['flags'].get('club_intake_enabled',False) is False,'Club intake enabled')
+        if self.profile in ['preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116']:
             require(state['flags'].get('staff_role_requests_enabled', False) is False, 'Staff intake enabled')
-        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116']:
+        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
@@ -239,7 +252,7 @@ class Release:
                 self.cache()
         content = self.source/'src/Content'
         for relative in reversed(manifest.get('created_directories', [])):
-            require(relative in ['src/Content', 'src/Events', 'src/Series', 'src/Operations'], 'Unexpected created directory')
+            require(relative in ['src/Content', 'src/Events', 'src/Series', 'src/Operations','src/Input'], 'Unexpected created directory')
             directory = self.source/relative
             require(not directory.is_symlink(), 'Created directory became symlink')
             if directory.is_dir() and not any(directory.iterdir()):
@@ -267,14 +280,14 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-', 'answers-20261114':'answers-20261114-', 'answers-20261116':'answers-20261116-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-', 'answers-20261114':'answers-20261114-', 'answers-20261116':'answers-20261116-','club-intake-20261116':'club-intake-20261116-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',
                     'created_content_directory': not (self.source/'src/Content').exists()}
         missing = sorted({str(self.target(name).parent.relative_to(self.source)) for name in self.order
                           if not name.startswith('public/') and not self.target(name).parent.exists()})
-        require(all(p in ['src/Content', 'src/Events', 'src/Series', 'src/Operations'] for p in missing), 'Unexpected missing parent')
+        require(all(p in ['src/Content', 'src/Events', 'src/Series', 'src/Operations','src/Input'] for p in missing), 'Unexpected missing parent')
         manifest['created_directories'] = missing
         for name in self.existing:
             source = self.target(name)

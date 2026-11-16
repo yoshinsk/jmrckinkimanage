@@ -38,7 +38,7 @@ if (!$values && $club!==null) { foreach($clubs as $c) { if((int)$c['id']===$club
 $labels=['name_full'=>'クラブ・団体名称','name_short'=>'正式略称','rep_name'=>'代表者名','contact_name'=>'連絡先担当者名','postcode'=>'郵便番号','address'=>'住所','phone'=>'電話番号','email'=>'メールアドレス'];
 header('Content-Type: text/html; charset=utf-8');
 ?>
-<!doctype html><html lang="ja"><meta charset="utf-8"><title>正会員クラブの年度登録</title><h1>正会員クラブの年度登録</h1>
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>正会員クラブの年度登録</title><script src="/manage/assets/input-normalization.js" defer></script><h1>正会員クラブの年度登録</h1>
 <p>年会費の満額入金確認後に事務局が承認します。年度開始前の登録は先行登録として扱います。</p>
 <form method="get"><label>クラブ<select name="club_id"><?php foreach($clubs as $c): ?><option value="<?=$e($c['id'])?>" <?=($club===(int)$c['id'])?'selected':''?>><?=$e($c['name_full'])?></option><?php endforeach; ?></select></label><label>登録年度<input type="number" name="year" value="<?=$e($year)?>" required></label><button>年度情報を開く</button></form>
 <?php if($result && isset($result['invoice_no'])): ?><p>年会費請求を発行しました。<a href="/manage/billing.php?invoice=<?=$e($result['id'])?>"><?=$e($result['invoice_no'])?></a></p><?php elseif($result): ?><p role="status">年度 <?=$e($result['year'])?> ／ コード <?=$e($result['display_code'])?> ／ 入金 <?=$result['eligibility']['paid']?'確認済み':'未完了'?> ／ 承認 <?=$result['eligibility']['approved']?'承認済み':'未完了'?> ／ 現在 <?=$result['eligibility']['active']?'有効':'無効'?></p><?php endif; ?>

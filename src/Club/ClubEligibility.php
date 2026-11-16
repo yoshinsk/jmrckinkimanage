@@ -22,9 +22,9 @@ final class ClubEligibility
         if (!$r) { throw new \Jmrc\Auth\HttpFailure(404,'年度クラブがありません'); }
         $paid=$r['amount_yen']!==null && (int)$r['paid_yen']===(int)$r['amount_yen'] && in_array($r['invoice_status'],['issued','finalized'],true);
         $approved=$r['approval']==='approved';
-        $ready=$paid && $approved && $r['status']==='approved' && (int)$r['enabled']===1 && $r['source_mode']==='portal';
+        $ready=$paid && $approved && $r['status']==='approved' && (int)$r['enabled']===1 && in_array($r['source_mode'],['shadow','portal'],true);
         $time=($at??new DateTimeImmutable('now',new DateTimeZone('UTC')))->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s.u');
         return ['club_year_id'=>$id,'paid'=>$paid,'approved'=>$approved,'ready'=>$ready,
-            'active'=>$ready && $r['valid_from']<=$time && $time<$r['valid_until'],'valid_from'=>$r['valid_from'],'valid_until'=>$r['valid_until']];
+            'active'=>$ready && $r['source_mode']==='portal' && $r['valid_from']<=$time && $time<$r['valid_until'],'valid_from'=>$r['valid_from'],'valid_until'=>$r['valid_until']];
     }
 }

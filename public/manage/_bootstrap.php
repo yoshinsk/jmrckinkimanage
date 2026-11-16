@@ -8,4 +8,7 @@ if (!$authBootstrap || !is_file($authBootstrap)) {
     exit('Authentication service unavailable');
 }
 require_once $authBootstrap;
+// 本人照合・CSRF・業務検証は各処理で継続。CSVアップロード原本と認証用照合値は変換しない。
+$_POST=\Jmrc\Input\TextInput::http($_POST);
+$_GET=\Jmrc\Input\TextInput::http($_GET);
 jmrc_auth();

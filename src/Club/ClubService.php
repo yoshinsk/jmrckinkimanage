@@ -22,7 +22,12 @@ final class ClubService
             AND g.revoked_at IS NULL AND g.valid_from<=UTC_TIMESTAMP(6) AND (g.valid_until IS NULL OR UTC_TIMESTAMP(6)<g.valid_until)
             AND ((r.code IN ('OFFICE','FINANCE','COMMITTEE','APPROVER') AND g.scope_type='global') OR (?=0 AND r.code='CLUB_REP' AND g.scope_type='club' AND g.scope_club_id=?)) LIMIT 1");
         $s->execute([$permission,$actor,(int)$approve,$club]);
-        if (!$s->fetchColumn()) { throw new HttpFailure(403,'対象クラブの登録権限または事務局承認権限が必要です'); }
+        if ($s->fetchColumn()) { return; }
+        // 事務局が申請後に照合した本人は、その年度クラブを操作できる。自己申告だけでは接続しない。
+        if(!$approve){
+            $owner=$this->db->prepare("SELECT i.id FROM portal_club_intakes i JOIN portal_club_years cy ON cy.id=i.club_year_id JOIN users u ON u.id=i.applicant_user_id JOIN portal_account_controls c ON c.user_id=u.id WHERE i.applicant_user_id=? AND cy.club_id=? AND i.review_state='linked' AND u.email_verified=1 AND c.status='active' LIMIT 1");$owner->execute([$actor,$club]);if($owner->fetchColumn()){return;}
+        }
+        throw new HttpFailure(403,'対象クラブの登録権限または事務局承認権限が必要です');
     }
 
     /** 受付開始/締切は年度マスターに従う。前年の最新登録から口座等を明示的に引き継げる。 */
@@ -47,8 +52,7 @@ final class ClubService
                 if (!$same) { throw new HttpFailure(409,'年度登録済みです。既存の登録を確認してください'); }
                 return $this->read($actor,(int)$old['id'])+['replayed'=>true];
             }
-            if (!$this->one("SELECT year FROM portal_years WHERE year=? AND source_mode='portal' AND club_open_at<=UTC_TIMESTAMP(6)
-                AND UTC_TIMESTAMP(6)<club_close_at AND UTC_TIMESTAMP(6)<valid_until FOR UPDATE",[$year])) { throw new HttpFailure(422,'クラブ年度登録の受付期間外です'); }
+            ClubIntakePolicy::requireOpen($this->db,$year);
             if (!$this->one('SELECT category_digit FROM portal_club_categories WHERE category_digit=? AND enabled=1',[$category])) { throw new HttpFailure(422,'有効なクラブ区分を指定してください'); }
             $bank=$this->bank($club,$year,$input);
             $this->run("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key,submitted_at) VALUES('club',?,?,'submitted',?,UTC_TIMESTAMP(6))",[$actor,$year,$key]);$app=(int)$this->db->lastInsertId();

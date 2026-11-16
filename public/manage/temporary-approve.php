@@ -31,7 +31,7 @@ if ($json) {
 }
 $esc=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8'); header('Content-Type: text/html; charset=utf-8');
 ?>
-<!doctype html><html lang="ja"><meta charset="utf-8"><title>Temporaryの承認</title><h1>Temporaryの承認</h1>
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>Temporaryの承認</title><script src="/manage/assets/input-normalization.js" defer></script><h1>Temporaryの承認</h1>
 <?php if (isset($_GET['approved'])): ?><p role="status">主催クラブの承認を記録しました。入金確認前の会員資格は有効になりません。</p><?php endif; ?>
 <?php foreach ($rows as $row): ?><form method="post">
 <p><?=$esc($row['participation_date'].' '.$row['title'].' ／ '.$row['applicant'])?></p><input type="hidden" name="_csrf" value="<?=jmrc_auth()->csrfToken()?>">

@@ -408,5 +408,27 @@ class ReleaseTest(unittest.TestCase):
             self.assertEqual(deploy.sha(update.target(name)), spec['old_sha256'])
 
 
+    def test_club_intake_roundtrip_preserves_entry_and_settings(self):
+        update,payload=self.confirmed_stage('club-intake-20261116')
+        self.assertEqual(len(update.order),21)
+        backup=Path(update.apply(self.stage)['backup'])
+        update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        for name,spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+        for name in ['auth.config.php','public/entry/login.php','design/phase2/013_club_intake.sql']:
+            with self.assertRaisesRegex(RuntimeError,'allowlist'):update.target(name)
+
+    def test_club_intake_refuses_open_reception(self):
+        update,_=self.confirmed_stage('club-intake-20261116')
+        state=update.snapshot();state['flags']['club_intake_enabled']=True
+        update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'Club intake enabled'):update.preflight()
+
+    def test_club_intake_partial_failure_restores(self):
+        update,payload=self.confirmed_stage('club-intake-20261116');update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        for name,spec in payload['files'].items():
+            self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+
 if __name__ == '__main__':
     unittest.main()
