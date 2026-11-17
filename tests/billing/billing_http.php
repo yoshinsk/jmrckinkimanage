@@ -72,7 +72,7 @@ check('訂正後に同じ入金を再充当',billPost($finance,'reallocate',$iid
 $db->exec("UPDATE portal_account_controls SET status='blocked' WHERE user_id=3");
 check('会員アカウント停止で資格無効',!billState($finance,$iid)['eligibility']['active']);
 $db->exec("UPDATE portal_account_controls SET status='active' WHERE user_id=3; UPDATE portal_identifiers SET expires_on=CURRENT_DATE()-INTERVAL 1 DAY WHERE id=101");
-check('ライセンス期限切れで資格無効',!billState($finance,$iid)['eligibility']['active']);
+check('L05 旧ライセンス期限だけでは資格を失効させない',billState($finance,$iid)['eligibility']['active']);
 $db->exec("UPDATE portal_identifiers SET expires_on=NULL WHERE id=101; UPDATE portal_club_years SET status='returned' WHERE id=900");
 check('クラブ承認取消で資格無効',!billState($finance,$iid)['eligibility']['active']);
 $db->exec("UPDATE portal_club_years SET status='approved' WHERE id=900");

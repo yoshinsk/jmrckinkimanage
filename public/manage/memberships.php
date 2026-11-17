@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         if ($id===false || $id===null) { throw new \Jmrc\Auth\HttpFailure(422,'申請項目を確認してください'); }
         return $id;
     };
-    $service=new \Jmrc\Membership\MembershipService($db);
+    $service=new \Jmrc\Membership\MembershipService($db,jmrc_auth_config());
     $result=match ($_POST['member_type']??null) {
         'general'=>$service->submitGeneral($user['id'],$positive('year'),$positive('club_year_id'),$positive('identifier_id'),$key,$_POST),
         'temporary'=>$service->submitTemporary($user['id'],$positive('event_id'),$key),
@@ -31,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
 }
 if ($_SERVER['REQUEST_METHOD']!=='GET') { throw new \Jmrc\Auth\HttpFailure(405,'POST required'); }
 $categories=$db->query('SELECT category_digit,name FROM portal_club_categories WHERE enabled=1 ORDER BY category_digit')->fetchAll();
-$licenses=$db->prepare("SELECT id,kind,license_type FROM portal_identifiers WHERE user_id=? AND kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(value_cipher)>0
-    AND (expires_on IS NULL OR expires_on>=DATE(UTC_TIMESTAMP()+INTERVAL 9 HOUR))");
+$licenses=$db->prepare("SELECT id,kind,license_type FROM portal_identifiers WHERE user_id=? AND kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(value_cipher)>0");
 $licenses->execute([$user['id']]); $licenses=$licenses->fetchAll();
 $clubs=$db->query("SELECT cy.id,cy.year,COALESCE(cy.name_full,c.name_full) AS name_full,COALESCE(cy.name_short,c.name_short) AS name_short,cy.display_code FROM portal_club_years cy JOIN portal_clubs c ON c.id=cy.club_id
     WHERE cy.status='approved' ORDER BY cy.year DESC,c.fixed_code")->fetchAll();
@@ -64,6 +63,9 @@ $events=$db->query("SELECT e.id,e.title,e.participation_date FROM portal_events 
     AND e.participation_date>=DATE(UTC_TIMESTAMP()+INTERVAL 9 HOUR)
     AND DATE(e.ends_at-INTERVAL 1 MICROSECOND+INTERVAL 9 HOUR)=e.participation_date
     AND YEAR(e.starts_at+INTERVAL 9 HOUR)=e.year ORDER BY e.starts_at")->fetchAll();
+// 画面の非表示だけに依存せず、同じ保留をMembershipServiceでも検証する。
+$temporaryEnabled=(jmrc_auth_config()['temporary_intake_enabled']??false)===true;
+if(!$temporaryEnabled){$events=[];}
 $applicationLabels=['draft'=>'下書き','submitted'=>'申請中','approved'=>'承認済み','rejected'=>'不承認','returned'=>'差戻し','cancelled'=>'取消済み'];
 require_once __DIR__.'/_office-layout.php';
 jmrc_office_header('個人会員の申請','会員情報');
@@ -97,7 +99,7 @@ jmrc_office_header('個人会員の申請','会員情報');
 <div class="office-field office-wide"><label for="event-id">イベント</label><select id="event-id" name="event_id" required><option value="">イベントを選択</option><?php foreach($events as $event): ?><option value="<?=$esc($event['id'])?>"><?=$esc($event['participation_date'].' '.$event['title'])?></option><?php endforeach; ?></select></div>
 <div class="office-submit"><button type="submit" class="office-button">Temporaryを申請</button></div>
 </form>
-<?php else: ?><p class="office-readonly"><?=$openYears?'現在、申請できるイベントはありません。':'Temporaryの申請受付は準備中です。'?></p><?php endif; ?>
+<?php else: ?><p class="office-readonly"><?=$temporaryEnabled&&$openYears?'現在、申請できるイベントはありません。':'Temporaryの申請受付は準備中です。'?></p><?php endif; ?>
 </section>
 <section id="applications" class="office-panel" aria-labelledby="applications-heading"><h2 id="applications-heading">申請状況</h2>
 <?php if(!$mine): ?><p>個人会員の申請はまだありません。</p><?php else: ?><ul class="office-records"><?php foreach($mine as $item): ?><li><h3><?=$esc($item['year'])?>年度 <?=$item['member_type']==='general'?'General':'Temporary'?></h3><dl class="office-definition"><dt>申請番号</dt><dd>#<?=$esc($item['id'])?></dd><dt>申請</dt><dd><?=$esc($applicationLabels[$item['application_status']]??$item['application_status'])?></dd><dt>資格</dt><dd><?=$item['eligibility']['active']?'有効':($item['status']==='suspended'?'資格停止中':($item['eligibility']['ready']?'有効期間外':'現在は無効'))?></dd><?php if($item['competition_type']!==null): ?><dt>申告した競技種別</dt><dd><?=$esc($item['competition_type'])?></dd><dt>申告した審判員種別</dt><dd><?=$esc($item['official_type'])?></dd><?php endif; ?><?php if($item['participation_date']): ?><dt>参加日</dt><dd><?=$esc($item['participation_date'])?></dd><?php endif; ?></dl></li><?php endforeach; ?></ul><?php endif; ?>

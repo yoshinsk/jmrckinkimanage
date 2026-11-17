@@ -1,0 +1,153 @@
+{
+  "date_jst": "2026-11-17",
+  "status": "PASS",
+  "release_profile": "member-confirmed-20261117",
+  "scope": [
+    "L04のGeneralのみの受付範囲とTemporaryの既定停止",
+    "L05のライセンス本人申告と旧期限による自動失効の解除",
+    "L03・L06・L07の事務局向け確定・保留説明"
+  ],
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/member-confirmed-20261117-20261117T005218Z",
+  "script_sha256": "1d2dc1113b4c61a21f34d4eb5768e2f67db025aa64d048d759f88774fff863e6",
+  "files": {
+    "src/Billing/Eligibility.php": {
+      "old_sha256": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
+      "new_sha256": "e2bbc9bae944e60fbc4cf5d4f59ce7308708681d262600a4b526b1e7884ceda9",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Membership/MembershipService.php": {
+      "old_sha256": "b0441dbe186c2136df2dd10a4af402ac338a140c29801cf84024eeb36b4cd2fc",
+      "new_sha256": "0656231f35501a372edb601cfd281445bba01490f28a69232134b698f4068df0",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/memberships.php": {
+      "old_sha256": "cc8dbef12140b9f88a4d2b5ff14264c246ddf47a6ac2feb5c48e285b42c64f4d",
+      "new_sha256": "5c77a2c87467b881e4d283ae2116f336c7a319e1ef394b1826a47bc15e890859",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/licenses.php": {
+      "old_sha256": "049e7706ba7fa2ad97b6b9b727580038a15a96a0a24072bc6469891a2fb99477",
+      "new_sha256": "949aca2352c197f8e55a4edd86d1eb944df1ee0bbecdc948782faa9790b7e888",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/preparation.php": {
+      "old_sha256": "3c0bb055e3e5ceb1e8a46825fb939590dffd89a2882a7efd3480edf6f47272fb",
+      "new_sha256": "76eb791185972ce3e4e5a1603c19795717f57f59e7d160939454b213cafb528e",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "isolated": {
+    "status": "PASS",
+    "http_cases": 1604,
+    "browser_cases": 2252,
+    "php_lint_files": 145,
+    "release_restore_tests": 49,
+    "network_internal": true,
+    "published_ports": [],
+    "fixture_only": true,
+    "source_hashes_unchanged": true,
+    "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26"
+  },
+  "production_readback": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 88,
+    "protected_files": 692,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "temporary_intake_enabled": false,
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false,
+      "club_intake_enabled": false
+    },
+    "stage_removed": true,
+    "live_browser_cases": 614,
+    "live_case_breakdown": {
+      "preparation": 148,
+      "existing": 466
+    },
+    "business_posts": 0,
+    "integration": {
+      "schema_count": 92,
+      "schema_sha256": "cdde1462c2d0a002022ccf78802ac3558f7bb31a585c6159a220c21f194d3a2f",
+      "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+      "billing_guard_triggers": "4",
+      "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+      "source_matches": {
+        "common/auth.php": true,
+        "common/portal_billing.php": true,
+        "common/dirt_trial_fees.php": true,
+        "common/entry_readiness.php": true,
+        "entrant/entries.php": true,
+        "login.php": true,
+        "logout.php": true
+      }
+    },
+    "sibling_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+    "sibling_uncommitted_changes_preserved": true,
+    "runtime_config_unchanged": true,
+    "schema_changed": false,
+    "roles_granted": false
+  },
+  "first_release_record": "production_club_followup_20261117.json",
+  "first_release_backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-followup-20261117-20261117T002026Z",
+  "sheet_verification": {
+    "sheets": 9,
+    "written_cells": 45,
+    "unchanged_existing_cells": 2597,
+    "native_structure_verified": true,
+    "existing_answers_preserved": true,
+    "formula_M2_preserved": true,
+    "native_visual_verified": true
+  },
+  "pending": [
+    "L09のクローズ範囲・操作・再開条件",
+    "L10の初回承認アカウント・任期・承認根拠",
+    "L11の会計承認代行の範囲",
+    "L07の入金・年度承認の終了条件",
+    "L08の具体的連絡先・対応時間",
+    "実振込先・実担当者の受入・権限",
+    "M2の発行日・指定種類・移行・JAF照会用出力・運営受入",
+    "Temporary・保険の受付準備",
+    "個人受付と正本の同時切替"
+  ],
+  "launch_held": true,
+  "source_mode": "shadow",
+  "production_business_records_created": false
+}

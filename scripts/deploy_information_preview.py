@@ -84,6 +84,10 @@ CLUB_OPERATIONS_EXISTING = ['src/Billing/BillingService.php','src/bootstrap.php'
 PROFILES['club-operations-20261116'] = (CLUB_OPERATIONS_NEW[:2]+CLUB_OPERATIONS_EXISTING[:2]+CLUB_OPERATIONS_NEW[2:]+CLUB_OPERATIONS_EXISTING[2:],CLUB_OPERATIONS_EXISTING)
 CLUB_BOUNDARY_FILES = ['src/Operations/PreparationService.php','public/manage/preparation.php']
 PROFILES['club-boundary-20261116'] = (CLUB_BOUNDARY_FILES,CLUB_BOUNDARY_FILES)
+CLUB_FOLLOWUP_FILES = ['public/manage/preparation.php']
+PROFILES['club-followup-20261117'] = (CLUB_FOLLOWUP_FILES,CLUB_FOLLOWUP_FILES)
+MEMBER_CONFIRM_FILES=['src/Billing/Eligibility.php','src/Membership/MembershipService.php','public/manage/memberships.php','public/manage/licenses.php','public/manage/preparation.php']
+PROFILES['member-confirmed-20261117']=(MEMBER_CONFIRM_FILES,MEMBER_CONFIRM_FILES)
 
 
 
@@ -156,7 +160,7 @@ class Release:
                   ['users', 'jmrc_entries', 'jmrc_entry_fees', 'portal_profiles', 'portal_applications',
                    'portal_memberships', 'portal_invoices', 'portal_payments']}
         flags_code = "<?php $c=require '"+str(self.private/'auth.config.php')+"';$o=[];foreach(" \
-            "['profile_corrections_enabled','bank_master_enabled','license_self_service_enabled'," \
+            "['temporary_intake_enabled','profile_corrections_enabled','bank_master_enabled','license_self_service_enabled'," \
             "'insurance_intents_enabled','yucho_import_enabled','staff_role_requests_enabled','club_intake_enabled'] as $k)$o[$k]=$c[$k]??false;echo json_encode($o);"
         flags = json.loads(subprocess.run([PHP], input=flags_code.encode(), capture_output=True, check=True).stdout)
         return {'release_root': str(self.source), 'protected_files': {str(p): sha(p) for p in sorted(paths)},
@@ -171,11 +175,14 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        if self.profile in ['club-intake-20261116','club-operations-20261116','club-boundary-20261116']:
+        if self.profile in ['club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['flags'].get('club_intake_enabled',False) is False,'Club intake enabled')
-        if self.profile in ['preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116','club-operations-20261116','club-boundary-20261116']:
+        if self.profile=='member-confirmed-20261117':
+            require(state['flags'].get('temporary_intake_enabled',False) is False,'Temporary intake enabled')
+            require(state['counts'].get('portal_memberships',0)==0,'Existing portal qualifications require separate review')
+        if self.profile in ['preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['flags'].get('staff_role_requests_enabled', False) is False, 'Staff intake enabled')
-        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116','club-operations-20261116','club-boundary-20261116']:
+        if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
@@ -286,7 +293,7 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-', 'answers-20261114':'answers-20261114-', 'answers-20261116':'answers-20261116-','club-intake-20261116':'club-intake-20261116-','club-operations-20261116':'club-operations-20261116-','club-boundary-20261116':'club-boundary-20261116-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-', 'answers-20261114':'answers-20261114-', 'answers-20261116':'answers-20261116-','club-intake-20261116':'club-intake-20261116-','club-operations-20261116':'club-operations-20261116-','club-boundary-20261116':'club-boundary-20261116-','club-followup-20261117':'club-followup-20261117-','member-confirmed-20261117':'member-confirmed-20261117-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',

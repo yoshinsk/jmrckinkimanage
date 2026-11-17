@@ -145,10 +145,7 @@ final class MembershipService
                 AND kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(value_cipher)>0 FOR UPDATE",[$identifierId,$actorId]);
             if (!$license) { throw new HttpFailure(422,'Generalは本人のJAF競技・審判員ライセンスが必要です'); }
             $declared=LicenseDeclaration::validate($declaration,$license['kind']);
-            $today = (new DateTimeImmutable('now',new DateTimeZone('Asia/Tokyo')))->format('Y-m-d');
-            if ($license['expires_on'] !== null && $license['expires_on'] < $today) {
-                throw new HttpFailure(422,'期限切れのライセンスは使用できません');
-            }
+            // L05: 番号・所有者・種類・本人申告は検証する。JAFの有効性を旧期限から自動判定しない。
             $application = $this->application($actorId,$year,'general',$requestKey);
             $this->execute("INSERT INTO portal_memberships(user_id,year,member_type,application_id,general_license_identifier_id,general_license_kind)
                 VALUES (?,?,'general',?,?,?)",[$actorId,$year,$application,$identifierId,$license['kind']]);
@@ -168,6 +165,8 @@ final class MembershipService
             $this->actor($actorId);
             $existing=$this->replay($actorId,$requestKey,'temporary',null,$eventId,null,null);
             if ($existing) { return $existing; }
+            // L04: 1月はGeneralのみ。Temporaryは明示した別の開始判断まで、新しい申請を受け付けない。
+            if(($this->config['temporary_intake_enabled']??false)!==true){throw new HttpFailure(503,'Temporaryの申請受付は準備中です');}
             $event=$this->event($eventId);
             $this->openYear((int)$event['year']);
             [$day]=$this->eventDay($event);

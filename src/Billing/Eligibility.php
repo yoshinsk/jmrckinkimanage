@@ -38,11 +38,11 @@ final class Eligibility
             && $clubReady
             && $m['account_status']==='active' && $m['status']!=='suspended' && $m['source_mode']==='portal';
         if ($m['member_type']==='general') {
-            $st=$this->db->prepare("SELECT expires_on FROM portal_identifiers WHERE id=? AND user_id=?
+            // L05: ライセンスの真偽・期限は本人申告。保有情報は必須だが、旧expires_onで会員資格を失効させない。
+            $st=$this->db->prepare("SELECT id FROM portal_identifiers WHERE id=? AND user_id=?
                 AND kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(value_cipher)>0");
             $st->execute([$m['general_license_identifier_id'],$m['user_id']]);$license=$st->fetch(PDO::FETCH_ASSOC);
-            $day=$at->setTimezone(new DateTimeZone('Asia/Tokyo'))->format('Y-m-d');
-            $ready=$ready && $license && ($license['expires_on']===null || $license['expires_on']>=$day);
+            $ready=$ready && (bool)$license;
             $from=$m['year_from'];$until=$m['year_until'];
         } else {
             $st=$this->db->prepare("SELECT organizer_club_year_id,participation_date,starts_at,ends_at FROM portal_events WHERE id=? AND status='published'");

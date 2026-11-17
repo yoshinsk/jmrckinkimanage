@@ -12,15 +12,21 @@ $dirtReject=static function(string $name,callable $f):void{try{$f();check($name,
 check('ダートラ資格の基準は有効なGeneral',dirt_trial_resolve_membership($db,$dirtOfficial,3,'none')==='kinki');
 $db->beginTransaction();
 try {
-    foreach (["UPDATE portal_memberships SET status='suspended' WHERE id=$dirtMember",
-        "UPDATE portal_applications a JOIN portal_memberships m ON m.application_id=a.id SET a.status='submitted' WHERE m.id=$dirtMember",
-        "UPDATE portal_invoices i JOIN portal_membership_charges c ON c.invoice_id=i.id SET i.status='cancelled' WHERE c.membership_id=$dirtMember",
-        "UPDATE portal_identifiers i JOIN portal_memberships m ON m.general_license_identifier_id=i.id SET i.expires_on=CURRENT_DATE()-INTERVAL 1 DAY WHERE m.id=$dirtMember",
-        "UPDATE portal_years SET valid_until=UTC_TIMESTAMP()-INTERVAL 1 SECOND WHERE year=$dirtYear",
-        "UPDATE portal_club_years SET status='returned' WHERE id=900"] as $i=>$sql) {
+    foreach (['suspended'=>"UPDATE portal_memberships SET status='suspended' WHERE id=$dirtMember",
+        'unapproved'=>"UPDATE portal_applications a JOIN portal_memberships m ON m.application_id=a.id SET a.status='submitted' WHERE m.id=$dirtMember",
+        'invoice_cancelled'=>"UPDATE portal_invoices i JOIN portal_membership_charges c ON c.invoice_id=i.id SET i.status='cancelled' WHERE c.membership_id=$dirtMember",
+        'legacy_license_expiry'=>"UPDATE portal_identifiers i JOIN portal_memberships m ON m.general_license_identifier_id=i.id SET i.expires_on=CURRENT_DATE()-INTERVAL 1 DAY WHERE m.id=$dirtMember",
+        'year_end'=>"UPDATE portal_years SET valid_until=UTC_TIMESTAMP()-INTERVAL 1 SECOND WHERE year=$dirtYear",
+        'club_returned'=>"UPDATE portal_club_years SET status='returned' WHERE id=900"] as $i=>$sql) {
         $db->exec('SAVEPOINT dirt_state');$db->exec($sql);
-        $dirtReject('ダートラ無効資格の自己申告拒否 '.$i,fn()=>dirt_trial_resolve_membership($db,$dirtOfficial,3,'kinki'));
-        check('ダートラ無効資格を会員扱いしない '.$i,dirt_trial_resolve_membership($db,$dirtOfficial,3,'none')==='none');
+        if($i==='legacy_license_expiry'){
+            // L05の本人申告を同じ資格参照へ反映。旧期限だけでは所属・満額入金済みGeneralを失効させない。
+            check('L05 ダートラも旧ライセンス期限だけで拒否しない',dirt_trial_resolve_membership($db,$dirtOfficial,3,'kinki')==='kinki');
+            check('L05 ダートラ資格参照はポータルと一致',dirt_trial_resolve_membership($db,$dirtOfficial,3,'none')==='kinki');
+        }else{
+            $dirtReject('ダートラ無効資格の自己申告拒否 '.$i,fn()=>dirt_trial_resolve_membership($db,$dirtOfficial,3,'kinki'));
+            check('ダートラ無効資格を会員扱いしない '.$i,dirt_trial_resolve_membership($db,$dirtOfficial,3,'none')==='none');
+        }
         $db->exec('ROLLBACK TO SAVEPOINT dirt_state');
     }
     $db->exec("UPDATE portal_years SET source_mode='shadow' WHERE year=$dirtYear");

@@ -2,6 +2,7 @@
 // Path: tests/auth/auth.config.php
 // 機能: network=internalの隔離コンテナ専用設定。実在アカウントの資格情報ではない。
 return [
+    'temporary_intake_enabled'=>true, // 架空データの既存Temporary処理だけを検証。本番未設定は停止。
     'club_intake_enabled'=>true, // 架空申請だけ。本番は未設定=停止を維持。
     'staff_role_requests_enabled'=>true, // 架空アカウントのHTTP申請・相互承認だけで使用。本番では未設定=停止。
     'profile_corrections_enabled'=>true,

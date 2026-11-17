@@ -41,6 +41,17 @@ declare(strict_types=1);
         $before=$fingerprint();$replay=$submit(['request_key'=>$key]);$again=json_decode($replay['body'],true);
         check('C7 締切後の同一再送は既存結果の読取だけ',$replay['status']===200&&$again['replayed']&&(int)$again['id']===$id&&$before===$fingerprint());
         $reject('C7 締切後の同キー別内容は拒否',409,fn()=>$submit(['request_key'=>$key,'club_name'=>'別内容']));
+        // L07: 新規提出の締切と、提出済み申請の事務局差し戻しを分けて検証する。
+        // クローズの単位・再申請終了条件は未回答のため、この試験から設定や新しい終了操作を増やさない。
+        $return=static fn(Browser $b,array $extra=[])=>$b->request($path,array_replace(['action'=>'return','id'=>$id,'row_version'=>1,'reason'=>'番号を確認してください','_csrf'=>identity($b)['csrf']],$extra));
+        $reject('L07 締切後も本人による事務局差し戻しは拒否',403,fn()=>$return($owner));
+        $reject('L07 締切後も財務単独の差し戻しは拒否',403,fn()=>$return($finance));
+        $reject('L07 締切後も差し戻し理由は必須',422,fn()=>$return($office,['reason'=>'']));
+        $legacyBeforeReturn=$db->query('CHECKSUM TABLE users,entrants,clubs,jmrc_entries,jmrc_entry_fees,jmrc_events,jmrc_annual_memberships')->fetchAll(PDO::FETCH_ASSOC);
+        $returned=$return($office);$returnedData=json_decode($returned['body'],true,512,JSON_THROW_ON_ERROR);
+        check('L07 事務局は締切後も理由付きで差し戻せる',$returned['status']===200&&$returnedData['review_state']==='returned'&&(int)$returnedData['row_version']===2&&$returnedData['data']['return_reason']==='番号を確認してください');
+        check('L07 差し戻しは既存エントリー・会費・ダート設定を変更しない',$legacyBeforeReturn===$db->query('CHECKSUM TABLE users,entrants,clubs,jmrc_entries,jmrc_entry_fees,jmrc_events,jmrc_annual_memberships')->fetchAll(PDO::FETCH_ASSOC));
+        $reject('L07 締切後の古い版による差し戻しは拒否',409,fn()=>$return($office));
         $before=$fingerprint();$held=new \Jmrc\Club\ClubIntakeService($db,array_replace($cfg,['club_intake_enabled'=>false]));
         try{$held->submit(1,2027,$in,bin2hex(random_bytes(24)));check('C7 期間変更でも停止設定は迂回不可',false);}catch(\Jmrc\Auth\HttpFailure $e){check('C7 期間変更でも停止設定は迂回不可',$e->status===503&&$before===$fingerprint());}
         $reject('C7 他人の申請参照を拒否',403,fn()=>$other->request($path.'&id='.$id));

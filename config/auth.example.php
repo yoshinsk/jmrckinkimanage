@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 return [
+    'temporary_intake_enabled' => getenv('JMRC_TEMPORARY_INTAKE') === '1', // L04: General開始とは別。未指定は停止。
     'profile_corrections_enabled' => getenv('JMRC_PROFILE_CORRECTIONS') === '1', // 事務局だけに許可。
     'bank_master_enabled' => getenv('JMRC_BANK_MASTER') === '1', // 事務局の専用権限でのみ変更。
     'staff_role_requests_enabled' => getenv('JMRC_STAFF_ROLE_REQUESTS') === '1', // 未指定は停止。運営者の開始判断とDB権限確認後だけ有効化。

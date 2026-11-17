@@ -82,7 +82,7 @@ $db->exec("UPDATE portal_memberships SET status='active' WHERE id=$member");
 check('停止解除後も資格を再評価',qrActive($anonymous,$token));
 $today=(new DateTimeImmutable('now',new DateTimeZone('Asia/Tokyo')))->modify('-1 day')->format('Y-m-d');
 $db->exec("UPDATE portal_identifiers SET expires_on='$today' WHERE id=102");
-check('ライセンス期限切れでQR無効',!qrActive($anonymous,$token) && !cardRead($owner,$member)['available']);
+check('L05 旧ライセンス期限だけではQRと本人証を失効させない',qrActive($anonymous,$token) && cardRead($owner,$member)['available']);
 $db->exec('UPDATE portal_identifiers SET expires_on=NULL WHERE id=102');
 $until=$db->query("SELECT valid_until FROM portal_years WHERE year=$nowYear")->fetchColumn();
 $db->exec("UPDATE portal_years SET valid_until=UTC_TIMESTAMP()-INTERVAL 1 SECOND WHERE year=$nowYear");

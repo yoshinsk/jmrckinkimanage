@@ -46,7 +46,7 @@ dbReject($db,'クラブ年度内コード変更拒否',"UPDATE portal_club_years
 $db->exec("UPDATE portal_club_years SET phone='111' WHERE id=101");
 check('コード固定後も連絡先訂正可',$db->query('SELECT phone FROM portal_club_years WHERE id=101')->fetchColumn()==='111');
 $base=['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$year,'club_year_id'=>101];
-foreach ([0=>'未選択',103=>'運転免許証のみ',104=>'他人の番号',105=>'空の番号',106=>'期限切れ',107=>'分類不明の番号'] as $id=>$label) {
+foreach ([0=>'未選択',103=>'運転免許証のみ',104=>'他人の番号',105=>'空の番号',107=>'分類不明の番号'] as $id=>$label) {
     $before=memberCounts($db);
     check('General '.$label.'を拒否',submitMember($member,$base+['identifier_id'=>$id])['status']===422);
     check('General '.$label.'失敗は原子的',memberCounts($db)===$before);
@@ -54,8 +54,12 @@ foreach ([0=>'未選択',103=>'運転免許証のみ',104=>'他人の番号',105
 check('未承認クラブを拒否',submitMember($member,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>$year,'club_year_id'=>999,'identifier_id'=>101])['status']===422);
 check('未設定年度を拒否',submitMember($member,['member_type'=>'general','competition_type'=>'確認用競技種別','official_type'=>'確認用審判種別','year'=>2099,'club_year_id'=>101,'identifier_id'=>101])['status']===422);
 $key=bin2hex(random_bytes(24));
+$oldExpiry=$db->query('SELECT expires_on FROM portal_identifiers WHERE id=101')->fetchColumn();
+$db->exec("UPDATE portal_identifiers SET expires_on='2000-01-01' WHERE id=101");
+check('L05 過去の期限でも本人のライセンスを画面に表示',str_contains($member->request('/manage/memberships.php')['body'],'value="106"'));
 $result=submitMember($member,$base+['identifier_id'=>101,'request_key'=>$key,'user_id'=>9]);
-check('General競技ライセンスで受付',$result['status']===201);
+check('L05 本人申告の競技ライセンスを旧期限で拒否しない',$result['status']===201);
+$db->prepare('UPDATE portal_identifiers SET expires_on=? WHERE id=101')->execute([$oldExpiry]);
 $general=json_decode($result['body'],true,512,JSON_THROW_ON_ERROR);
 check('General申請者はPOSTではなくsession',(int)$db->query('SELECT user_id FROM portal_memberships WHERE id='.(int)$general['id'])->fetchColumn()===3);
 check('Generalは入金前pending',$general['status']==='pending' && $general['application_status']==='submitted');
@@ -72,6 +76,9 @@ check('会員申請CSRF欠落拒否',$member->request('/manage/memberships.php?f
 check('CSRF失敗は原子的',memberCounts($db)===$before);
 check('申請キー配列を拒否',submitMember($member,$base+['identifier_id'=>101,'request_key'=>[]])['status']===422);
 $temporaryKey=bin2hex(random_bytes(24));
+$before=memberCounts($db);$heldService=new \Jmrc\Membership\MembershipService($db);
+try{$heldService->submitTemporary(3,101,bin2hex(random_bytes(24)));check('L04 Temporary未設定は停止',false);}catch(\Jmrc\Auth\HttpFailure $e){check('L04 Temporary未設定は停止',$e->status===503);}
+check('L04 Temporary停止時は業務記録を作らない',$before===memberCounts($db));
 $result=submitMember($member,['member_type'=>'temporary','event_id'=>101,'request_key'=>$temporaryKey,'participation_date'=>"$year-04-01"]);
 check('TemporaryはGeneralと別の新規申請',$result['status']===201);
 $temporary=json_decode($result['body'],true,512,JSON_THROW_ON_ERROR); $temporaryId=(int)$temporary['id'];

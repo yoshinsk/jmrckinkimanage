@@ -453,14 +453,6 @@
       "result": "PASS"
     },
     {
-      "case": "General 期限切れを拒否",
-      "result": "PASS"
-    },
-    {
-      "case": "General 期限切れ失敗は原子的",
-      "result": "PASS"
-    },
-    {
       "case": "General 分類不明の番号を拒否",
       "result": "PASS"
     },
@@ -477,7 +469,11 @@
       "result": "PASS"
     },
     {
-      "case": "General競技ライセンスで受付",
+      "case": "L05 過去の期限でも本人のライセンスを画面に表示",
+      "result": "PASS"
+    },
+    {
+      "case": "L05 本人申告の競技ライセンスを旧期限で拒否しない",
       "result": "PASS"
     },
     {
@@ -526,6 +522,14 @@
     },
     {
       "case": "申請キー配列を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "L04 Temporary未設定は停止",
+      "result": "PASS"
+    },
+    {
+      "case": "L04 Temporary停止時は業務記録を作らない",
       "result": "PASS"
     },
     {
@@ -809,7 +813,7 @@
       "result": "PASS"
     },
     {
-      "case": "ライセンス期限切れで資格無効",
+      "case": "L05 旧ライセンス期限だけでは資格を失効させない",
       "result": "PASS"
     },
     {
@@ -997,51 +1001,51 @@
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格の自己申告拒否 0",
+      "case": "ダートラ無効資格の自己申告拒否 suspended",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格を会員扱いしない 0",
+      "case": "ダートラ無効資格を会員扱いしない suspended",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格の自己申告拒否 1",
+      "case": "ダートラ無効資格の自己申告拒否 unapproved",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格を会員扱いしない 1",
+      "case": "ダートラ無効資格を会員扱いしない unapproved",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格の自己申告拒否 2",
+      "case": "ダートラ無効資格の自己申告拒否 invoice_cancelled",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格を会員扱いしない 2",
+      "case": "ダートラ無効資格を会員扱いしない invoice_cancelled",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格の自己申告拒否 3",
+      "case": "L05 ダートラも旧ライセンス期限だけで拒否しない",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格を会員扱いしない 3",
+      "case": "L05 ダートラ資格参照はポータルと一致",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格の自己申告拒否 4",
+      "case": "ダートラ無効資格の自己申告拒否 year_end",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格を会員扱いしない 4",
+      "case": "ダートラ無効資格を会員扱いしない year_end",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格の自己申告拒否 5",
+      "case": "ダートラ無効資格の自己申告拒否 club_returned",
       "result": "PASS"
     },
     {
-      "case": "ダートラ無効資格を会員扱いしない 5",
+      "case": "ダートラ無効資格を会員扱いしない club_returned",
       "result": "PASS"
     },
     {
@@ -1741,7 +1745,7 @@
       "result": "PASS"
     },
     {
-      "case": "ライセンス期限切れでQR無効",
+      "case": "L05 旧ライセンス期限だけではQRと本人証を失効させない",
       "result": "PASS"
     },
     {
@@ -1921,11 +1925,11 @@
       "result": "PASS"
     },
     {
-      "case": "期限切れ更新を受付け資格を無効化",
+      "case": "L05 旧期限の訂正だけでは資格・QRを失効させない",
       "result": "PASS"
     },
     {
-      "case": "資格保存状態も期限切れへ反映",
+      "case": "L05 資格保存状態も本人申告の方針を維持",
       "result": "PASS"
     },
     {
@@ -6261,6 +6265,46 @@
       "result": "PASS"
     },
     {
+      "case": "L07 締切後も本人による事務局差し戻しは拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後も本人による事務局差し戻しは拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後も財務単独の差し戻しは拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後も財務単独の差し戻しは拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後も差し戻し理由は必須",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後も差し戻し理由は必須 業務表不変",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 事務局は締切後も理由付きで差し戻せる",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 差し戻しは既存エントリー・会費・ダート設定を変更しない",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後の古い版による差し戻しは拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "L07 締切後の古い版による差し戻しは拒否 業務表不変",
+      "result": "PASS"
+    },
+    {
       "case": "C7 期間変更でも停止設定は迂回不可",
       "result": "PASS"
     },
@@ -6654,7 +6698,7 @@
   },
   "club_intake_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T10:37:11.184Z",
+    "checked_at_utc": "2026-11-17T00:47:38.675Z",
     "cases": [
       {
         "case": "chromium office JS有 未認証拒否",
@@ -6978,7 +7022,7 @@
   },
   "club_operations_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T10:37:26.446Z",
+    "checked_at_utc": "2026-11-17T00:47:54.291Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -7492,7 +7536,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium-mobile 期限更新を旧QRへ反映",
+        "case": "chromium-mobile L05 旧期限の訂正では本人証を失効しない",
         "result": "PASS"
       },
       {
@@ -7656,7 +7700,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit-mobile 期限更新を旧QRへ反映",
+        "case": "webkit-mobile L05 旧期限の訂正では本人証を失効しない",
         "result": "PASS"
       },
       {
@@ -7705,7 +7749,7 @@
   },
   "club_operations_held_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T10:39:18.776Z",
+    "checked_at_utc": "2026-11-17T00:49:45.818Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -9673,6 +9717,10 @@
         "result": "PASS"
       },
       {
+        "case": "chromium 保留 entrant L04 Temporaryの準備中を明示",
+        "result": "PASS"
+      },
+      {
         "case": "chromium 保留 entrant-memberships 幅320pxの表示と操作寸法",
         "result": "PASS"
       },
@@ -9742,6 +9790,10 @@
       },
       {
         "case": "chromium 保留 office memberships.php 受付前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 office L04 Temporaryの準備中を明示",
         "result": "PASS"
       },
       {
@@ -9817,6 +9869,10 @@
         "result": "PASS"
       },
       {
+        "case": "chromium 保留 finance L04 Temporaryの準備中を明示",
+        "result": "PASS"
+      },
+      {
         "case": "chromium 保留 finance-memberships 幅320pxの表示と操作寸法",
         "result": "PASS"
       },
@@ -9886,6 +9942,10 @@
       },
       {
         "case": "chromium 保留 club memberships.php 受付前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium 保留 club L04 Temporaryの準備中を明示",
         "result": "PASS"
       },
       {
@@ -10009,7 +10069,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium 保留 保留中の新規申請を拒否",
+        "case": "chromium 保留 L04 保留中のTemporary新規申請を503で拒否",
         "result": "PASS"
       },
       {
@@ -10030,6 +10090,10 @@
       },
       {
         "case": "webkit 保留 entrant memberships.php 受付前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 entrant L04 Temporaryの準備中を明示",
         "result": "PASS"
       },
       {
@@ -10105,6 +10169,10 @@
         "result": "PASS"
       },
       {
+        "case": "webkit 保留 office L04 Temporaryの準備中を明示",
+        "result": "PASS"
+      },
+      {
         "case": "webkit 保留 office-memberships 幅320pxの表示と操作寸法",
         "result": "PASS"
       },
@@ -10177,6 +10245,10 @@
         "result": "PASS"
       },
       {
+        "case": "webkit 保留 finance L04 Temporaryの準備中を明示",
+        "result": "PASS"
+      },
+      {
         "case": "webkit 保留 finance-memberships 幅320pxの表示と操作寸法",
         "result": "PASS"
       },
@@ -10246,6 +10318,10 @@
       },
       {
         "case": "webkit 保留 club memberships.php 受付前の案内",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit 保留 club L04 Temporaryの準備中を明示",
         "result": "PASS"
       },
       {
@@ -10369,7 +10445,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit 保留 保留中の新規申請を拒否",
+        "case": "webkit 保留 L04 保留中のTemporary新規申請を503で拒否",
         "result": "PASS"
       },
       {
@@ -14183,7 +14259,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T10:40:33.076Z",
+    "checked_at_utc": "2026-11-17T00:50:58.465Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -14907,7 +14983,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T10:40:45.983Z",
+    "checked_at_utc": "2026-11-17T00:51:11.123Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -15247,7 +15323,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-16T10:40:57.980Z",
+    "checked_at_utc": "2026-11-17T00:51:23.015Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -15906,7 +15982,7 @@
     "tests/license/information_browser.cjs": "e9d50de83248c40a4b0b7b5b2614bdf9323d3bddce4cf30397df5eea413cee48",
     "src/Operations/PreparationService.php": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
     "src/Auth/StaffRoleService.php": "208a3ac133d66ebd75a2e3af3ead6aef97a2e9b4517fb96efa184689c6260108",
-    "public/manage/preparation.php": "2199836cbf93ce935136cb809d1cb0b30c8285152a645a92125857100c57ff6d",
+    "public/manage/preparation.php": "76eb791185972ce3e4e5a1603c19795717f57f59e7d160939454b213cafb528e",
     "public/manage/staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
     "tests/auth/preparation_http.php": "e038a7851ea1e22046bda1904632776fd806ebca36d8dd5de05884adfabfb874",
     "tests/license/preparation_browser.cjs": "cb9ba1ffb225f76d53bac88e6f94d05b8cc1b38759b9289955fb0f392c98a136",
@@ -15933,7 +16009,7 @@
     "public/manage/card-check.php": "e962ce11bcd6e37c04b65f8897d7884cdcd6801ed0445391317b66e638628257",
     "public/manage/card.php": "4f988e67891753cd25c727e366d541e88b4d7deb4f2b7b15fe85c78b667e93c8",
     "public/manage/insurance.php": "1ff04f847ac609c8978620053cabe50e24666589395bfcd9f6d1c7b78fe0a4cb",
-    "public/manage/licenses.php": "049e7706ba7fa2ad97b6b9b727580038a15a96a0a24072bc6469891a2fb99477",
+    "public/manage/licenses.php": "949aca2352c197f8e55a4edd86d1eb944df1ee0bbecdc948782faa9790b7e888",
     "public/manage/temporary-approve.php": "64e121c88d38bd6f19542fbbf68249d5c7d9519fc1ea34222ea158367d1cd965",
     "public/manage/_office-layout.php": "6e083a5f29b803c8a907a5a170dcf7f5fc0d454b25861df296fb55b878f14725",
     "src/Input/TextInput.php": "d4b350668c4ba4bf2f280cdad411278174b053c90c42965a2053f05463cfcafe",
@@ -15949,14 +16025,25 @@
     "src/Profile/EntryProfile.php": "61f4bbc65dd740338dae913d743e2868dea58dd09b0f61476b5b7737a196a516",
     "src/Club/ClubOperations.php": "f73b4131b748dcec7ae96ea4ea96a7e2a678d2b8efe798bae39979c3801a46a0",
     "public/manage/club-finance.php": "f049b97942adbc3520c235302ff5de9415967b00620f66a95b0f1e02c0490404",
-    "public/manage/memberships.php": "cc8dbef12140b9f88a4d2b5ff14264c246ddf47a6ac2feb5c48e285b42c64f4d",
+    "public/manage/memberships.php": "5c77a2c87467b881e4d283ae2116f336c7a319e1ef394b1826a47bc15e890859",
     "public/manage/billing.php": "b913666c6897625323d16ff22f6fadedacc69e68291148ada43ad1db33986b78",
     "tests/club/club_operations_http.php": "5ca15355e7243a317fa882366cab397e9f434012c858b0b257cb5dedacd5c2f6",
     "tests/license/club_operations_browser.cjs": "fdb94c96315c9973277bf4374481b24558e0474218ac0680f7d407abe6c4613d",
     "tests/club/club_boundary_policy.php": "3ce140304818c3a620f5ccde8555f671bc2f3790f93b6a36c070881a2b8a08b8",
-    "tests/club/club_boundary_http.php": "42d6640a690d3b1397e66f8cb1a177299f99a1b81e52adae65492621ad73376c"
+    "tests/club/club_boundary_http.php": "285e7db2cf867d4c77aabcd7b67e2bbd6f3a726622e586640c457bc8841e53bd",
+    "src/Billing/Eligibility.php": "e2bbc9bae944e60fbc4cf5d4f59ce7308708681d262600a4b526b1e7884ceda9",
+    "tests/membership/membership_http.php": "492a26d5cf6025639122fc95216b2f2dab13469d4d302732421cd76f403b22fd",
+    "tests/membership/concurrent_submit.php": "38d45d4e092e32deade612253ca7fc9281b4d257eec151de2d6491733e99f5f7",
+    "tests/billing/billing_http.php": "736e813137a905a60e8b5a0c38ecb0ad95420ab4559a91abe7104a206373fbae",
+    "tests/card/card_http.php": "aed2d515c956e3ab102395743cb344aedd6f76fccd472c8a4f1bb5a1457dd9d0",
+    "tests/license/license_http.php": "5d3be358310a0258bd3c864a8e9c95f6cf77d492c7ca0aed37507273a53c2bc8",
+    "tests/license/mobile_browser.cjs": "114d6648fe423f1444e69fd828d2cf1004661144211cbeaff863b649d29cc1e9",
+    "tests/auth/auth.config.php": "e8bf6e6d5c89740b8da8059df563b2bb1297969d1a00a800cf4cd56873b6661f",
+    "config/auth.example.php": "11854ff552708effbb35da102bc2525a9bddb11053c127fbb74994d0c5a71e54",
+    "tests/license/member_browser.cjs": "9d059dfe7a7caf7f269d9b20b59021759b7524b1558e16d83083d262c7a76aea",
+    "tests/auth/dirt_integration.php": "8a4a0aa8c751a5ebabae04367631e9e62985ac62a8b2fd04e6ff1a77050afdfa"
   },
-  "checked_at_utc": "2026-11-16T10:40:59.312132+00:00",
+  "checked_at_utc": "2026-11-17T00:51:23.876717+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -15993,7 +16080,7 @@
     "src\\Bank\\StrictCsv.php": "79d07b928cb19c913b9d7f2058642021fdd552390514a640744f3fa0a3c4f090",
     "src\\Bank\\YuchoCsv.php": "eb0e27599474560ebab58b5dbd0c04974e4da8d049767526d84397050dd971c3",
     "src\\Billing\\BillingService.php": "3af5cfc69fb7cb1986086e28046ce9041479272ebba82677d544638dce790677",
-    "src\\Billing\\Eligibility.php": "a8eb9b08f16354313653dd81121760b11a423091982dc339250476a66017ff7a",
+    "src\\Billing\\Eligibility.php": "e2bbc9bae944e60fbc4cf5d4f59ce7308708681d262600a4b526b1e7884ceda9",
     "src\\Card\\CardService.php": "5ee101411dd4b9e9ad3d1148540c7bcb7daf28cf7c7f87db8c35f958b691c05c",
     "src\\Card\\SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src\\Club\\ClubContact.php": "5d20ddd3be455ab147b306188054069b6a903f97ca613c0e26d342218844b342",
@@ -16015,7 +16102,7 @@
     "src\\License\\LicenseMigration.php": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
     "src\\License\\LicenseService.php": "5536a9017ecbf34fcfc4abfec0a9c1e61ea42d301dfa93313e532671d94aecc7",
     "src\\Membership\\LicenseDeclaration.php": "05c8bc84f483b0484de307acbca0715029e92b63c62f42055867bfa9e575ffb3",
-    "src\\Membership\\MembershipService.php": "b0441dbe186c2136df2dd10a4af402ac338a140c29801cf84024eeb36b4cd2fc",
+    "src\\Membership\\MembershipService.php": "0656231f35501a372edb601cfd281445bba01490f28a69232134b698f4068df0",
     "src\\Operations\\AccountingPolicy.php": "862724b68f811454d24a1a87d2120dd8b05d06dabd5a96fc7acb41b665e69c61",
     "src\\Operations\\AccountingReview.php": "75932f63ab8ccb09dfa8f560e872f8b1cf3a050d58144bc9251264653d58f53d",
     "src\\Operations\\AccountingWorkbook.php": "089024be1276b1da68b0e4e379f6f2e0469e87a44bb9a31890e2c54050cc987f",
@@ -16046,11 +16133,11 @@
     "public\\manage\\index.php": "e71693174850990bbcbd02963c1890a56f3b6593c547ced012342a1f04961ecc",
     "public\\manage\\information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public\\manage\\insurance.php": "1ff04f847ac609c8978620053cabe50e24666589395bfcd9f6d1c7b78fe0a4cb",
-    "public\\manage\\licenses.php": "049e7706ba7fa2ad97b6b9b727580038a15a96a0a24072bc6469891a2fb99477",
+    "public\\manage\\licenses.php": "949aca2352c197f8e55a4edd86d1eb944df1ee0bbecdc948782faa9790b7e888",
     "public\\manage\\login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public\\manage\\logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
-    "public\\manage\\memberships.php": "cc8dbef12140b9f88a4d2b5ff14264c246ddf47a6ac2feb5c48e285b42c64f4d",
-    "public\\manage\\preparation.php": "2199836cbf93ce935136cb809d1cb0b30c8285152a645a92125857100c57ff6d",
+    "public\\manage\\memberships.php": "5c77a2c87467b881e4d283ae2116f336c7a319e1ef394b1826a47bc15e890859",
+    "public\\manage\\preparation.php": "76eb791185972ce3e4e5a1603c19795717f57f59e7d160939454b213cafb528e",
     "public\\manage\\profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
     "public\\manage\\review.php": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
     "public\\manage\\staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
@@ -16078,9 +16165,9 @@
     "tests\\license\\editor_browser.cjs": "017e49204950a31e03462df7b68c1444c3fe0f65398662f922379154c519b70d",
     "tests\\license\\information_browser.cjs": "e9d50de83248c40a4b0b7b5b2614bdf9323d3bddce4cf30397df5eea413cee48",
     "tests\\license\\information_offline_browser.cjs": "6c746429663c42e372e80cebe0b1572fa8f163c6517939192a984f41ca740ee7",
-    "tests\\license\\license_http.php": "0188a25612ed76799d1c916bd90cf1d522779b55963c1b00f8a4090d54ffa9b0",
-    "tests\\license\\member_browser.cjs": "36e457487d26f3588b8ea7c9b6b894bb79ee3af764c705b07143f593aa1603cf",
-    "tests\\license\\mobile_browser.cjs": "dfd949f561a9b9ed18b94b8171b5461a28e02ad0ead1bfb2eef95150444be943",
+    "tests\\license\\license_http.php": "5d3be358310a0258bd3c864a8e9c95f6cf77d492c7ca0aed37507273a53c2bc8",
+    "tests\\license\\member_browser.cjs": "9d059dfe7a7caf7f269d9b20b59021759b7524b1558e16d83083d262c7a76aea",
+    "tests\\license\\mobile_browser.cjs": "114d6648fe423f1444e69fd828d2cf1004661144211cbeaff863b649d29cc1e9",
     "tests\\license\\mobile_seed.php": "b254ae8ffce0c62420340f89008fd0a27d32a422b1b9e57d6c9fa1420b4ae47a",
     "tests\\license\\office_browser.cjs": "32180da339027443efdd0c087e6cb541743ab9887e2bd240ba48f3e7bbaec9f0",
     "tests\\license\\package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
@@ -16140,7 +16227,7 @@
   "bank_master_migration_sha256": "7f6ca252a62bb25b87ca584d21b7fc596a58673ac660d0eb78c55252e99c3498",
   "bank_master_permissions_sha256": "46ea63020eb0035fce292d1f31a564c49cb30fb7547ce23a3bc4d056c2d85839",
   "card_test_source_sha256": {
-    "tests\\card\\card_http.php": "6ee5a68fec882d537a345e8998f84dc79dc3ece4b904682669318329e46cee99",
+    "tests\\card\\card_http.php": "aed2d515c956e3ab102395743cb344aedd6f76fccd472c8a4f1bb5a1457dd9d0",
     "tests\\card\\concurrent_card.php": "7aa4e49ac3439adfc3c139eb54054f4caac7c47c70c3399ad11076a2e985c8f6",
     "tests\\card\\package-lock.json": "9fdba27de8c049d1506eaa0845379bcb9d26b6a0fe0d0246ee7f49a616e2472c",
     "tests\\card\\package.json": "584edf8163591836fb860826a7d672910cdc6979183ad4812de7bcb6ee384983",
@@ -16165,7 +16252,7 @@
   },
   "club_permissions_sha256": "4f6a506952e237e56a40347ced217aab0ab151d76ed9c4b6abf33f7567872b90",
   "club_test_source_sha256": {
-    "tests\\club\\club_boundary_http.php": "42d6640a690d3b1397e66f8cb1a177299f99a1b81e52adae65492621ad73376c",
+    "tests\\club\\club_boundary_http.php": "285e7db2cf867d4c77aabcd7b67e2bbd6f3a726622e586640c457bc8841e53bd",
     "tests\\club\\club_boundary_policy.php": "3ce140304818c3a620f5ccde8555f671bc2f3790f93b6a36c070881a2b8a08b8",
     "tests\\club\\club_fixture.php": "412962fdc547a3685cc1bfbd21710f7f329e9c20618dc48d93e62993d9a40728",
     "tests\\club\\club_http.php": "b950ed61f7d33bb56ea54e065c178a8ebe181a5c671a8f2ca3ae11a821469ca7",
@@ -16178,22 +16265,22 @@
   "billing_permissions_sha256": "74fdc97d3999c3817226916c78bc607879eb97a43162f8f679f12c7f280f42dc",
   "entry_billing_prepare_sha256": "5a6dc89b65ec4583de51126051713fb98a24e1e1701675776c650b75fef125d9",
   "billing_test_source_sha256": {
-    "tests\\billing\\billing_http.php": "91277a8d08b7fc76163ad1eb8528a192dd10e3070284a15ea6459c29fe4cde5a",
+    "tests\\billing\\billing_http.php": "736e813137a905a60e8b5a0c38ecb0ad95420ab4559a91abe7104a206373fbae",
     "tests\\billing\\concurrent_billing.php": "09a57e732fecf80612a5d5b2a6410a0cc93e199cb33ce19cb53f6ed6c2521fd4"
   },
   "membership_test_source_sha256": {
-    "tests\\membership\\concurrent_submit.php": "35ebeefd0bc3b3f9d53917fcf76bc748c9afb839da500650007f185ef65cfc9d",
-    "tests\\membership\\membership_http.php": "5a0719f067c63eba069974ec0644f95392dba3c859988e86de254e1380472356",
+    "tests\\membership\\concurrent_submit.php": "38d45d4e092e32deade612253ca7fc9281b4d257eec151de2d6491733e99f5f7",
+    "tests\\membership\\membership_http.php": "492a26d5cf6025639122fc95216b2f2dab13469d4d302732421cd76f403b22fd",
     "tests\\membership\\membership_seed.php": "06a6b2d7e1d3ede3a98c2473e517d21646c022dbc0fb10b8212c74a528e85e34"
   },
   "test_source_sha256": {
     "tests\\auth\\accounting_answers.php": "e0dcca4c55ab1f8b9e3f4aa7613902b02e22f2eca9a1bcb46fed45e82e9e3d05",
     "tests\\auth\\answer_rules.php": "11226b310e40130455475615658592dcb5c2d0d7a8cc07718e4c92e6ae213a9f",
-    "tests\\auth\\auth.config.php": "ccd7fdc093a6f7d3f90787b74771e086038a3b502d961dbd9b6418d8caed3146",
+    "tests\\auth\\auth.config.php": "e8bf6e6d5c89740b8da8059df563b2bb1297969d1a00a800cf4cd56873b6661f",
     "tests\\auth\\confirmed_answers.php": "b1da7a62ec5548636854141794792fb0e10e91dd30f7f1c117781494065d9b50",
     "tests\\auth\\dashboard_http.php": "3289e51822c42d2ad2c7d5c4f03e91d9e718e166f038a7fefe863ecc7def966d",
     "tests\\auth\\database_answers.php": "b3f33c7daf2778353c73186a7437ca93def96a9c136041f899609f8eca5e15ab",
-    "tests\\auth\\dirt_integration.php": "640e00f303082e67473fe4db02be028c980df494dfbdeb7bea2b64cd8cf609db",
+    "tests\\auth\\dirt_integration.php": "8a4a0aa8c751a5ebabae04367631e9e62985ac62a8b2fd04e6ff1a77050afdfa",
     "tests\\auth\\Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests\\auth\\Dockerfile.php": "56e6a672143f1a7ab8f9e80b60b67c0e1b594fa6637891d80b5d2d50336d25a4",
     "tests\\auth\\editor_database.php": "80306ca73d16c9dcac2c86adea2f80f77b7b2af0fb0a3116d3f37c6e8eea1649",
@@ -16213,7 +16300,7 @@
     "tests\\auth\\run_http.php": "df5275edaa2a8b48533b6368e8474457f85129b3508f0ac72c371333e9ab751a",
     "tests\\auth\\seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
     "tests\\auth\\test_prepare_billing.py": "038495032457b3ee6f2a879d217029ae93d359914aaba5f85fa568b4ee7e5ddf",
-    "tests\\auth\\validate_auth.py": "a121d847816b4a0fa594731415d56cb7d69a79085c95182359dd0cac2d2baefb"
+    "tests\\auth\\validate_auth.py": "fb740b422b494cddc020cbb473150857d0dc154e6627edfb50d111785e868acc"
   },
   "php_lint_files": 145,
   "network_internal": true,

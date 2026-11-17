@@ -470,5 +470,44 @@ class ReleaseTest(unittest.TestCase):
         update.snapshot=lambda:copy.deepcopy(state)
         with self.assertRaisesRegex(RuntimeError,'Club intake enabled'):update.preflight()
 
+    def test_club_followup_roundtrip_and_scope(self):
+        update,payload=self.confirmed_stage('club-followup-20261117')
+        self.assertEqual(update.order,['public/manage/preparation.php'])
+        backup=Path(update.apply(self.stage)['backup']);update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        self.assertEqual(deploy.sha(update.target(update.order[0])),payload['files'][update.order[0]]['old_sha256'])
+        with self.assertRaisesRegex(RuntimeError,'allowlist'):update.target('src/Club/ClubIntakeService.php')
+
+    def test_club_followup_partial_failure_restores(self):
+        update,payload=self.confirmed_stage('club-followup-20261117');update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        for name,spec in payload['files'].items():self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+
+    def test_club_followup_requires_held_intake(self):
+        update,_=self.confirmed_stage('club-followup-20261117');state=update.snapshot();state['flags']['club_intake_enabled']=True
+        update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'Club intake enabled'):update.preflight()
+
+    def test_member_confirmed_roundtrip_and_scope(self):
+        update,payload=self.confirmed_stage('member-confirmed-20261117')
+        self.assertEqual(set(update.order),{'src/Billing/Eligibility.php','src/Membership/MembershipService.php','public/manage/memberships.php','public/manage/licenses.php','public/manage/preparation.php'})
+        backup=Path(update.apply(self.stage)['backup']);update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        for name,spec in payload['files'].items():self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+        with self.assertRaisesRegex(RuntimeError,'allowlist'):update.target('public/entry/common/portal_billing.php')
+
+    def test_member_confirmed_partial_failure_restores(self):
+        update,payload=self.confirmed_stage('member-confirmed-20261117');update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        for name,spec in payload['files'].items():self.assertEqual(deploy.sha(update.target(name)),spec['old_sha256'])
+
+    def test_member_confirmed_requires_held_temporary(self):
+        update,_=self.confirmed_stage('member-confirmed-20261117');state=update.snapshot();state['flags']['temporary_intake_enabled']=True
+        update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'Temporary intake enabled'):update.preflight()
+
+    def test_member_confirmed_requires_empty_memberships(self):
+        update,_=self.confirmed_stage('member-confirmed-20261117');state=update.snapshot();state['counts']={'portal_memberships':1}
+        update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'Existing portal qualifications'):update.preflight()
+
 if __name__ == '__main__':
     unittest.main()

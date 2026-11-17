@@ -11,7 +11,7 @@ $db->exec("SET time_zone='+00:00'");
 $at=(float)$argv[1];
 while (microtime(true)<$at) { usleep(1000); }
 try {
-    $service=new \Jmrc\Membership\MembershipService($db);
+    $service=new \Jmrc\Membership\MembershipService($db,['temporary_intake_enabled'=>true]);
     $row=$service->submitTemporary(11,(int)$argv[2],str_repeat($argv[3],48));
     echo json_encode(['status'=>201,'id'=>$row['id']]);
 } catch (\Jmrc\Auth\HttpFailure $failure) {

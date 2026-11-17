@@ -62,6 +62,8 @@ def main():
                   'src/Operations/AccountingWorkflow.php','public/manage/_accounting-workflow.php','public/manage/bank.php','public/manage/card-check.php','public/manage/card.php','public/manage/clubs.php','public/manage/index.php','public/manage/insurance.php','public/manage/licenses.php','public/manage/temporary-approve.php','public/manage/_office-layout.php','src/Input/TextInput.php','src/Club/ClubIntakePolicy.php','src/Club/ClubRegistrationData.php','src/Club/ClubIntakeService.php','public/manage/club-register.php','public/manage/assets/input-normalization.js','public/manage/assets/club-intake.js','design/phase2/013_club_intake.sql','design/phase2/013_club_fee_profiles_2027.sql','public/manage/_bootstrap.php']
     review_paths+=['src/Profile/EntryProfile.php','src/Club/ClubOperations.php','public/manage/club-finance.php','public/manage/memberships.php','public/manage/billing.php','tests/club/club_operations_http.php','tests/license/club_operations_browser.cjs']
     review_paths+=['tests/club/club_boundary_policy.php','tests/club/club_boundary_http.php']
+    review_paths+=['src/Billing/Eligibility.php','tests/membership/membership_http.php','tests/membership/concurrent_submit.php','tests/billing/billing_http.php','tests/card/card_http.php','tests/license/license_http.php','tests/license/mobile_browser.cjs','tests/auth/auth.config.php','config/auth.example.php']
+    review_paths+=['tests/license/member_browser.cjs','tests/auth/dirt_integration.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -333,7 +335,7 @@ def main():
                 db_sql("UPDATE portal_years SET source_mode='shadow'")
                 config_code="""<?php
 rename('/srv/private/auth.config.php','/srv/private/dashboard-active.config.php');
-file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['club_intake_enabled'=>false,'license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
+file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['temporary_intake_enabled'=>false,'club_intake_enabled'=>false,'license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
 """
                 docker('exec','-i',NAMES[1],'php',data=config_code.encode())
             name='jmrc-dashboard-'+('hold' if hold else 'active')+'-20261030'

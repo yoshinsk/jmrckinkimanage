@@ -33,6 +33,7 @@ async function run(engine,name,device,uid){
     for(const path of ['memberships.php','billing.php']){
      await navigate(session.p,path);check(prefix+' '+role+' '+path+' 書込フォームなし',await session.p.locator('main form[method="post"]').count()===0);
      check(prefix+' '+role+' '+path+' 受付前の案内',await session.p.getByRole('status').count()===1);
+     if(path==='memberships.php')check(prefix+' '+role+' L04 Temporaryの準備中を明示',(await session.p.locator('main').innerText()).includes('Temporaryの申請受付は準備中です。'));
      await layout(session.p,role+'-'+path.replace('.php',''),false);
     }
    }
@@ -42,7 +43,7 @@ async function run(engine,name,device,uid){
    for(const action of ['issue','confirm','reverse','reallocate','approve']){const r=await staff.c.request.post('https://web/manage/billing.php?format=json',{form:{_csrf:csrf,action,id:before.id,amount:1,payment:before.allocations[0].payment_id,reference:'MEMBER-HOLD-'+uid,reason:'架空保留',operation:crypto.randomBytes(24).toString('hex')}});check(prefix+' '+action+' 直接送信も409',r.status()===409);}
    const after=await json(owner.c,'billing.php'+invoiceLink+'&format=json');check(prefix+' 保留中の確認で入金明細不変',JSON.stringify(before)===JSON.stringify(after));
    await navigate(p,'billing.php'+invoiceLink);check(prefix+' 保留中は決済ページへのリンクなし',await p.getByRole('link',{name:'決済ページへ',exact:true}).count()===0);await layout(p,'invoice');
-   const token=await p.locator('[name=_csrf]').first().inputValue();const denied=await owner.c.request.post('https://web/manage/memberships.php?format=json',{form:{_csrf:token,member_type:'temporary',event_id:103,request_key:crypto.randomBytes(24).toString('hex')}});check(prefix+' 保留中の新規申請を拒否',denied.status()===422);
+   const token=await p.locator('[name=_csrf]').first().inputValue();const denied=await owner.c.request.post('https://web/manage/memberships.php?format=json',{form:{_csrf:token,member_type:'temporary',event_id:103,request_key:crypto.randomBytes(24).toString('hex')}});check(prefix+' L04 保留中のTemporary新規申請を503で拒否',denied.status()===503);
    assert.ok(membership);
   }else{
    await navigate(p,'memberships.php');check(prefix+' ライセンスなしではGeneralを送信できない',await p.getByRole('button',{name:'Generalを申請',exact:true}).isDisabled());await layout(p,'no-license');

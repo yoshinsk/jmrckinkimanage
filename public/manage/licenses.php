@@ -15,6 +15,7 @@ $e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');header('Conten
 ?>
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ライセンス情報</title><script src="/manage/assets/input-normalization.js" defer></script><link rel="stylesheet" href="/manage/assets/cards.css"><link rel="stylesheet" href="/manage/assets/licenses.css"></head><body><main><h1>ライセンス情報</h1>
 <p>期限だけの更新では会員番号を変えません。番号・種類の変更では旧QRを失効し、会員証の再発行は事務局確認となります。</p>
+<p>JAFライセンスは本人申告として扱います。旧有効期限だけで会員資格・会員証を失効させません。下欄の有効期限は参考記録です。発行日と新しい種別の入力欄は準備中です。</p>
 <p><a href="/manage/licenses.php?reuse=entry">このアカウントの既存JAF登録情報を入力欄へ表示する</a></p>
 <?php if(!$enabled):?><p role="status">ライセンスの本人登録・更新は準備中です。まだ保存できません。</p><?php endif;?>
 <?php if($reused):?><p role="status">既存のJAF番号と種類を表示しました。競技・審判員の区分を券面で確認してください。運転免許証の期限はJAFの期限として引き継ぎません。資格の自動承認や暗号移行は行っていません。</p><?php endif;?>

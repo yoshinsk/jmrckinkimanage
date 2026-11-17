@@ -1,0 +1,129 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-17T00:27:48.211389+00:00",
+  "profile": "club-followup-20261117",
+  "files": {
+    "public/manage/preparation.php": {
+      "old_sha256": "2199836cbf93ce935136cb809d1cb0b30c8285152a645a92125857100c57ff6d",
+      "new_sha256": "3c0bb055e3e5ceb1e8a46825fb939590dffd89a2882a7efd3480edf6f47272fb",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-followup-20261117-20261117T002026Z",
+  "script_sha256": "a0c7312a9f188810683877b05bc8e15a284c87ede2454c272fc40578aff9559a",
+  "isolated": {
+    "http_cases": 1603,
+    "added_post_deadline_cases": 10,
+    "browser_cases": 2244,
+    "preparation_browser_cases": 176,
+    "php_lint_files": 145,
+    "release_restore_tests": 45,
+    "network_internal": true,
+    "fixture_only": true,
+    "published_ports": []
+  },
+  "production_browser": {
+    "preparation": {
+      "status": "PASS",
+      "cases": 148,
+      "business_posts": 0,
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ]
+    },
+    "existing": {
+      "status": "PASS",
+      "cases": 466,
+      "business_posts": 0,
+      "browsers": [
+        {
+          "engine": "chromium",
+          "version": "156.0.8078.4",
+          "device": "Pixel 7"
+        },
+        {
+          "engine": "webkit",
+          "version": "27.2",
+          "device": "iPhone 13"
+        }
+      ]
+    }
+  },
+  "protected": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 88,
+    "protected_files": 696,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false,
+      "club_intake_enabled": false
+    },
+    "stage_removed": true
+  },
+  "integration": {
+    "schema_count": 92,
+    "schema_sha256": "cdde1462c2d0a002022ccf78802ac3558f7bb31a585c6159a220c21f194d3a2f",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sheet": {
+    "sheets": 9,
+    "written_cells": 15,
+    "unchanged_existing_cells": 2609,
+    "native_structure_verified": true,
+    "existing_answers_preserved": true,
+    "formula_M2_preserved": true,
+    "native_visual_verified": true
+  },
+  "pending": [
+    "L09のクローズ範囲・操作・再開条件",
+    "L07の入金・年度承認の終了条件",
+    "L08の具体的連絡先・対応時間",
+    "実振込先・実担当者の受入・権限",
+    "個人受付と正本の同時切替"
+  ],
+  "club_intake_enabled": false,
+  "source_mode": "shadow"
+}

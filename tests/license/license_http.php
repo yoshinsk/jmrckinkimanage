@@ -31,8 +31,8 @@ $private=new Browser();$private->login(9);$year=(int)gmdate('Y');$member=(int)$d
 $card=cardRead($private,$member);$token=parse_url($card['qr_url'],PHP_URL_FRAGMENT);$box=new \Jmrc\Card\SecretBox(base64_encode(str_repeat('L',32)));
 $old=$db->query('SELECT * FROM portal_identifiers WHERE id=102')->fetch(PDO::FETCH_ASSOC);
 $past=['id'=>102,'row_version'=>$old['row_version'],'kind'=>'jaf_official','number'=>'','license_type'=>$old['license_type'],'expires_on'=>'2000-01-01'];
-check('期限切れ更新を受付け資格を無効化',licensePost($private,$past)['status']===200 && !qrActive($anonymous,$token) && !cardRead($private,$member)['available']);
-check('資格保存状態も期限切れへ反映',$db->query("SELECT status FROM portal_memberships WHERE id=$member")->fetchColumn()==='pending');
+check('L05 旧期限の訂正だけでは資格・QRを失効させない',licensePost($private,$past)['status']===200 && qrActive($anonymous,$token) && cardRead($private,$member)['available']);
+check('L05 資格保存状態も本人申告の方針を維持',$db->query("SELECT status FROM portal_memberships WHERE id=$member")->fetchColumn()==='active');
 $current=$db->query('SELECT * FROM portal_identifiers WHERE id=102')->fetch(PDO::FETCH_ASSOC);$renew=array_replace($past,['row_version'=>$current['row_version'],'expires_on'=>'2099-12-31']);
 check('同番号の期限更新で資格復旧',licensePost($private,$renew)['status']===200 && qrActive($anonymous,$token));
 check('期限だけの更新は番号・暗号文・QRを維持',$db->query('SELECT value_cipher FROM portal_identifiers WHERE id=102')->fetchColumn()===$old['value_cipher'] && cardRead($private,$member)['qr_url']===$card['qr_url']);
