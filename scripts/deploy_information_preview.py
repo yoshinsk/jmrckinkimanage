@@ -88,6 +88,8 @@ CLUB_FOLLOWUP_FILES = ['public/manage/preparation.php']
 PROFILES['club-followup-20261117'] = (CLUB_FOLLOWUP_FILES,CLUB_FOLLOWUP_FILES)
 MEMBER_CONFIRM_FILES=['src/Billing/Eligibility.php','src/Membership/MembershipService.php','public/manage/memberships.php','public/manage/licenses.php','public/manage/preparation.php']
 PROFILES['member-confirmed-20261117']=(MEMBER_CONFIRM_FILES,MEMBER_CONFIRM_FILES)
+CLUB_REVIEW_FILES=['src/Club/ClubReviewClosure.php','src/bootstrap.php','src/Club/ClubFeePolicy.php','src/Club/ClubRegistrationData.php','src/Club/ClubIntakeService.php','public/manage/_review-workspace.php','public/manage/club-register.php','public/manage/preparation.php']
+PROFILES['club-review-20261118']=(CLUB_REVIEW_FILES,CLUB_REVIEW_FILES[1:])
 
 
 
@@ -175,6 +177,8 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
+        if self.profile=='club-review-20261118':
+            require(all(state['flags'].get(k,False) is False for k in ['club_intake_enabled','temporary_intake_enabled','staff_role_requests_enabled']),'Intake or roles enabled')
         if self.profile in ['club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['flags'].get('club_intake_enabled',False) is False,'Club intake enabled')
         if self.profile=='member-confirmed-20261117':
@@ -184,6 +188,8 @@ class Release:
             require(state['flags'].get('staff_role_requests_enabled', False) is False, 'Staff intake enabled')
         if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
+        elif self.profile=='club-review-20261118':
+            require(state['permission_roles'] in ['OFFICE','APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'],'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
         return {'before': state, 'files': {n: {'old_sha256': sha(self.target(n))} for n in self.order}}
@@ -293,7 +299,7 @@ class Release:
                 subprocess.run([PHP, '-l', str(source)], capture_output=True, check=True)
         require(self.preflight()['before'] == expected['before'], 'Protected state changed before apply')
         require(self.backups.is_dir() and not self.backups.is_symlink(), 'Backup directory invalid')
-        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-', 'answers-20261114':'answers-20261114-', 'answers-20261116':'answers-20261116-','club-intake-20261116':'club-intake-20261116-','club-operations-20261116':'club-operations-20261116-','club-boundary-20261116':'club-boundary-20261116-','club-followup-20261117':'club-followup-20261117-','member-confirmed-20261117':'member-confirmed-20261117-'}[self.profile]
+        prefix = {'initial':'information-preview-', 'answers':'information-answers-', 'review':'review-guidance-', 'confirmed':'confirmed-answers-', 'insurance-notices':'insurance-notices-', 'club-region':'club-region-', 'preparation':'preparation-', 'additional-answers':'additional-answers-', 'dirt-followup':'dirt-followup-', 'financial-review':'financial-review-', 'answers-20261114':'answers-20261114-', 'answers-20261116':'answers-20261116-','club-intake-20261116':'club-intake-20261116-','club-operations-20261116':'club-operations-20261116-','club-boundary-20261116':'club-boundary-20261116-','club-followup-20261117':'club-followup-20261117-','member-confirmed-20261117':'member-confirmed-20261117-','club-review-20261118':'club-review-20261118-'}[self.profile]
         backup = self.backups/(prefix+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
         backup.mkdir(mode=0o700)
         manifest = {**expected, 'profile': self.profile, 'backup': str(backup), 'phase': 'backed_up',

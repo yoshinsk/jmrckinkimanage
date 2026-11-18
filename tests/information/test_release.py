@@ -85,6 +85,23 @@ class ReleaseTest(unittest.TestCase):
         for name in deploy.EXISTING:
             self.assertEqual(self.release.target(name).stat().st_mode & 0o777, 0o640)
 
+    def test_club_review_profile_roundtrip(self):
+        update,payload=self.confirmed_stage('club-review-20261118')
+        result=update.apply(self.stage);backup=Path(result['backup']);manifest=json.loads((backup/'manifest.json').read_text())
+        update.restore(backup,manifest)
+        self.assertEqual(update.preflight(),payload)
+
+    def test_club_review_profile_rejects_intake(self):
+        update,_=self.confirmed_stage('club-review-20261118')
+        original=update.snapshot
+        update.snapshot=lambda:{**original(),'flags':{**original()['flags'],'club_intake_enabled':True}}
+        with self.assertRaisesRegex(RuntimeError,'Intake or roles enabled'):update.preflight()
+
+    def test_club_review_profile_partial_restore(self):
+        update,payload=self.confirmed_stage('club-review-20261118');update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        self.assertEqual(update.preflight(),payload)
+
     def test_bad_payload_refused_before_backup(self):
         (self.stage/deploy.ORDER[0]).write_text('changed')
         with self.assertRaisesRegex(RuntimeError, 'Payload hash mismatch'):

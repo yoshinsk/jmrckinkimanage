@@ -32,6 +32,7 @@ require_once __DIR__ . '/Operations/PreparationService.php';
 require_once __DIR__ . '/Operations/AccountingReview.php';
 require_once __DIR__ . '/Operations/MaterialsReview.php';
 require_once __DIR__ . '/Club/ClubIntakePolicy.php';
+require_once __DIR__ . '/Club/ClubReviewClosure.php';
 require_once __DIR__ . '/Club/ClubRegistrationData.php';
 require_once __DIR__ . '/Club/ClubIntakeService.php';
 require_once __DIR__ . '/Club/ClubOperations.php';

@@ -144,7 +144,7 @@ final class JmrcReviewWorkspace
                 }
                 if($action==='quote') {
                     try { $s['club_quote']=\Jmrc\Club\ClubFeePolicy::quote(2027,$f['rate_category'],$f['membership_class'],$f['registration_kind']); }
-                    catch(\InvalidArgumentException $error) { $this->fail($error->getMessage()); }
+                    catch(\InvalidArgumentException|\DomainException $error) { $this->fail($error->getMessage()); }
                     break;
                 }
                 if($action==='save') {

@@ -61,6 +61,7 @@ final class ClubIntakeService
     public function update(int $actor,int $id,int $version,array $input):array
     {
         return $this->tx(function()use($actor,$id,$version,$input){
+            $this->lockReview($actor,$id);
             $r=$this->one('SELECT * FROM portal_club_intakes WHERE id=? FOR UPDATE',[$id])?:throw new HttpFailure(404,'クラブ申請がありません');$this->read($actor,$id);
             if(!ClubIntakePolicy::enabled($this->config)){throw new HttpFailure(503,'クラブ申請の変更は準備中です');}
             if((int)$r['row_version']!==$version||$r['review_state']==='linked'){throw new HttpFailure(409,'別の更新または年度登録があります。事務局へ確認してください');}
@@ -77,6 +78,7 @@ final class ClubIntakeService
     public function returnForCorrection(int $actor,int $id,int $version,string $reason):array
     {
         return $this->tx(function()use($actor,$id,$version,$reason){
+            $this->lockReview($actor,$id);
             $this->office($actor);if(!ClubIntakePolicy::enabled($this->config)){throw new HttpFailure(503,'クラブ申請の照合は準備中です');}
             $r=$this->one('SELECT * FROM portal_club_intakes WHERE id=? FOR UPDATE',[$id])?:throw new HttpFailure(404,'クラブ申請がありません');
             if((int)$r['row_version']!==$version||!in_array($r['review_state'],['submitted','renewal_review'],true)){throw new HttpFailure(409,'差し戻せる申請と版を確認してください');}
@@ -92,6 +94,7 @@ final class ClubIntakeService
     public function link(int $actor,int $id,int $version,int $clubId,string $fixedCode,bool $checked,int $legacyId=0):array
     {
         return $this->tx(function()use($actor,$id,$version,$clubId,$fixedCode,$checked,$legacyId){
+            $this->lockReview($actor,$id);
             $fixedCode=trim(\Jmrc\Input\TextInput::normalize($fixedCode));
             $this->office($actor);if(!ClubIntakePolicy::enabled($this->config)){throw new HttpFailure(503,'クラブ申請の照合は準備中です');}
             $r=$this->one('SELECT * FROM portal_club_intakes WHERE id=? FOR UPDATE',[$id])?:throw new HttpFailure(404,'クラブ申請がありません');
@@ -127,6 +130,12 @@ final class ClubIntakeService
     private function actor(int $actor):void
     {
         if(!$this->one("SELECT u.id FROM users u JOIN portal_account_controls c ON c.user_id=u.id WHERE u.id=? AND u.email_verified=1 AND c.status='active'",[$actor])){throw new HttpFailure(401,'共通アカウントの本人確認が必要です');}
+    }
+    /** 認証・対象参照を先に検証し、申請行より年度行を先にロックして終了操作と直列化する。 */
+    private function lockReview(int $actor,int $id):void
+    {
+        $r=$this->read($actor,$id);
+        (new ClubReviewClosure($this->db,$this->config))->requireMutable((int)$r['year']);
     }
     /** 候補IDは存在だけを検証。本人の所属・更新履歴が正しいとの承認にはしない。 */
     private function candidate(array $data):void

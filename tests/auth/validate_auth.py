@@ -64,6 +64,7 @@ def main():
     review_paths+=['tests/club/club_boundary_policy.php','tests/club/club_boundary_http.php']
     review_paths+=['src/Billing/Eligibility.php','tests/membership/membership_http.php','tests/membership/concurrent_submit.php','tests/billing/billing_http.php','tests/card/card_http.php','tests/license/license_http.php','tests/license/mobile_browser.cjs','tests/auth/auth.config.php','config/auth.example.php']
     review_paths+=['tests/license/member_browser.cjs','tests/auth/dirt_integration.php']
+    review_paths+=['src/Club/ClubFeePolicy.php','src/Club/ClubReviewClosure.php','src/Club/ClubRegistrationData.php','tests/club/club_closure_http.php','tests/license/club_intake_browser.cjs','design/phase2/014_club_review_closure.sql']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -174,6 +175,7 @@ def main():
         db_sql((ROOT/'design/phase2/011_license_declarations.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/012_editor_drafts.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/013_club_intake.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/014_club_review_closure.sql').read_text(encoding='utf-8'))
         db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
@@ -187,6 +189,7 @@ def main():
         db_sql("GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_editor_drafts TO 'auth_runtime'@'%';GRANT INSERT ON jmrckinki_auth_lab.portal_editor_revisions TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_outbox TO 'auth_runtime'@'%';")
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_clubs TO 'auth_runtime'@'%';GRANT INSERT,UPDATE ON jmrckinki_auth_lab.portal_club_intakes TO 'auth_runtime'@'%';GRANT INSERT ON jmrckinki_auth_lab.portal_club_intake_revisions TO 'auth_runtime'@'%';")
+        db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_club_intake_closures TO 'auth_runtime'@'%';")
         for table in ['portal_member_numbers','portal_card_tokens']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for table in ['portal_identifiers','portal_license_claims']:

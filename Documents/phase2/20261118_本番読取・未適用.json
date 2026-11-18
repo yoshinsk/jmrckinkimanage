@@ -1,0 +1,56 @@
+{
+  "date_jst": "2026-11-18",
+  "status": "READ_ONLY_PASS_IMPLEMENTATION_PENDING",
+  "production_changed": false,
+  "production_deployed": false,
+  "business_posts": 0,
+  "main_commit": "17f19f58e09f373a32c6c5008f96ca7d67d75616",
+  "remote_main_matches": true,
+  "production_runtime_matches_main": true,
+  "protected_unchanged": true,
+  "protected_files": 692,
+  "business_tables": 88,
+  "integration": {
+    "schema_count": 92,
+    "schema_sha256": "cdde1462c2d0a002022ccf78802ac3558f7bb31a585c6159a220c21f194d3a2f",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1203,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false
+  },
+  "year": "2027\tshadow",
+  "sibling_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sibling_changes_preserved": true,
+  "isolated_validation_complete": false,
+  "blocker": "WSL/Service/E_UNEXPECTED; Ubuntu restart approval pending",
+  "php_syntax_files": 12,
+  "new_db_schema_applied": false
+}

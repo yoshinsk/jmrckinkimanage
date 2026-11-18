@@ -28,6 +28,8 @@ async function run(engine,name,device){
    check(prefix+' 横にはみ出さない',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    check(prefix+' 入力欄は16px以上',await p.locator('#club-name').count()===0&&await p.locator('#club-club_name').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=16));
    check(prefix+' 既存候補を表示',await p.locator('#club-candidate_ref option').count()>1);
+   check(prefix+' 確定した団体区分を選択可',await p.locator('#club-jaf_kind option').evaluateAll(es=>['official_org','special_org','associate_org'].every(v=>es.some(e=>e.value===v))));
+   check(prefix+' 年度全体終了は事務局だけ',await p.locator('form[aria-labelledby="review-close-title"]').count()===(a.role==='office'?1:0));
    if(a.role==='entrant')check(prefix+' 事務局一覧は拒否',(await c.request.get(origin+base+'?all=1')).status()===403);
    if(live){check(prefix+' 本番受付停止',await p.getByRole('button',{name:'申請を提出する',exact:true}).isDisabled());}
    if(js){

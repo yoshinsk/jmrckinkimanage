@@ -32,7 +32,9 @@ final class ClubRegistrationData
     /** 正式略称や所在地から正賛・JAF区分を逆算しない。数字コードの6は料金区分ではない。 */
     public static function quote(\PDO $db,int $year,string $jaf,string $membership,string $registration):array
     {
-        try{$known=ClubFeePolicy::quote($year,$jaf,$membership,$registration);}catch(\InvalidArgumentException){throw new HttpFailure(422,'確定済み年度・登録区分を選択してください');}
+        try{$known=ClubFeePolicy::quote($year,$jaf,$membership,$registration);}
+        catch(\DomainException $e){throw new HttpFailure(409,$e->getMessage());}
+        catch(\InvalidArgumentException){throw new HttpFailure(422,'確定済み年度・登録区分を選択してください');}
         $s=$db->prepare('SELECT annual_yen,joining_yen FROM portal_club_fee_profiles WHERE year=? AND jaf_kind=? AND membership_kind=? AND enabled=1');$s->execute([$year,$jaf,$membership]);$r=$s->fetch(\PDO::FETCH_ASSOC);
         if(!$r){throw new HttpFailure(409,'この年度・区分の料金表は未設定です');}
         $annual=(int)$r['annual_yen'];$join=$registration==='new'?(int)$r['joining_yen']:0;

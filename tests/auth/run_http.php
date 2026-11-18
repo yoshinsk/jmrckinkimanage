@@ -235,6 +235,7 @@ try {
     require '/srv/tests/club_operations_http.php';
     require '/srv/tests/club_boundary_policy.php';
     require '/srv/tests/club_boundary_http.php';
+    require '/srv/tests/club_closure_http.php';
     $report=['status'=>'PASS','php'=>PHP_VERSION,'sapi_under_test'=>'fpm-fcgi over HTTPS',
         'database'=>$db->query('SELECT VERSION()')->fetchColumn(),'cases'=>$results,'card_qr_fixtures'=>$cardQrFixtures,
         'limits'=>['認証版/パスワード更新はDB操作で模擬。メールを伴うreset/registerの全フローは別工程',
