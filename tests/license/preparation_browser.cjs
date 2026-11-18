@@ -51,7 +51,8 @@ async function run(engine,name,device){
     await p.getByLabel('確認する年度（必須）').fill('2027');
     await Promise.all([p.waitForURL(u=>u.searchParams.get('year')==='2027'),p.getByRole('button',{name:'日程を確認する',exact:true}).tap()]);
     check(prefix+' JavaScriptなしで年度を再確認',new URL(p.url()).searchParams.get('year')==='2027');
-    check(prefix+' 日程・訂正期限の保留と障害手順を表示',(await p.locator('main').innerText()).includes('締切後の差し戻し再申請')&&(await p.locator('main').innerText()).includes('DB全体を上書き'));
+    const openingText=await p.locator('main').innerText();
+    check(prefix+' 年度全体終了の条件・再開保留と障害手順を表示',openingText.includes('年度全体の訂正再申請を終了')&&openingText.includes('未確認・差し戻し中がない')&&openingText.includes('再開方法と')&&openingText.includes('DB全体を上書き'));
     await p.screenshot({path:`/artifacts/${name}-preparation-club-opening.png`,fullPage:true});
     const h=result.headers();check(prefix+' キャッシュ・検索・埋込の制限',h['cache-control'].includes('no-store')&&h['x-robots-tag'].includes('noindex')&&h['content-security-policy'].includes("frame-ancestors 'none'"));
     for(const section of ['overview','club','privacy']){await p.goto(origin+'/manage/preparation.php?section='+section);await p.setViewportSize(devices[device].viewport);await p.screenshot({path:`/artifacts/${name}-preparation-${section}.png`,fullPage:true});}

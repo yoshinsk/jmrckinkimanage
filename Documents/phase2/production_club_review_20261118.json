@@ -1,0 +1,182 @@
+{
+  "date_jst": "2026-11-18",
+  "status": "PASS",
+  "scope": "L09年度再申請終了とR03・N16クラブ区分追加",
+  "isolated": {
+    "http": 1635,
+    "browser": 2268,
+    "php_lint_files": 149,
+    "ddl_roundtrip_tests": 9,
+    "release_roundtrip_tests": 52,
+    "fixture_only": true,
+    "published_ports": [],
+    "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+    "test_release_sha256": "0dc412f0ff6737e45c7efc229d1348be8c6ff6654fb18ead1c5e0b77f248638d"
+  },
+  "database": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-review-db-20261118-20261118T035551Z",
+    "migration_sha256": "66ff6176c8141544aca596b00046c5559f5a3efea5a1ff99fdd0ae0dab23fa41",
+    "files_sha256": {
+      "ClubFollowupDatabase.php": "f7973b8d0c3e7a584d3dc9a89b0813b87a7d00785988311e39fae137a10d7a43",
+      "migration.sql": "66ff6176c8141544aca596b00046c5559f5a3efea5a1ff99fdd0ae0dab23fa41",
+      "database.php": "2f62271f976b454ae26794dd741629b6bc5055d9b8eae908914fe2e6ae06cadc",
+      "input.json": "584ad040b459f6d47cee2748b43b3e70f2e2d5a764e5a63ff14f6a871a0adb5d"
+    },
+    "verification": {
+      "status": "PASS",
+      "private_backup_verified": true,
+      "protected_tables": 87,
+      "current_matches_after": true,
+      "closures": 0,
+      "categories": 7,
+      "rollback_executed": false
+    },
+    "categories_before": 4,
+    "categories_after": 7,
+    "existing_categories_preserved": true,
+    "business_schema_and_checksums_preserved": true
+  },
+  "code": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-review-20261118-20261118T035612Z",
+    "profile": "club-review-20261118",
+    "files": {
+      "src/Club/ClubReviewClosure.php": {
+        "old_sha256": null,
+        "new_sha256": "f2aee3da2b04b4ed2f7ee2c181a198e0df33a261adfc24316dfa8a1cb28ad0fc"
+      },
+      "src/bootstrap.php": {
+        "old_sha256": "a7b78f2a5fe19921ab60d33f9b483a3aae1293fc7d58764491dbde0b3cca8124",
+        "new_sha256": "113f84c39a87a7ca1a56058a8a6a68d6f000cb54fa037e544ea289442a3ba7e8"
+      },
+      "src/Club/ClubFeePolicy.php": {
+        "old_sha256": "c01a42ed0cb1bebd84bf27bb5d6abd73f9d40f8bc40575a0ff27fdf7d710c864",
+        "new_sha256": "51531bb1b7f09243f6db099186882361cebf7d16aa4d7005977f084e3d5cf1aa"
+      },
+      "src/Club/ClubRegistrationData.php": {
+        "old_sha256": "ce6483f4ddd3919ac63e42654b2e25e44acd100184b16d8b00511877e51824e7",
+        "new_sha256": "52f5e0a668afe81476a9382339d0246333c7885c688f4c2cf877231780cf1fe5"
+      },
+      "src/Club/ClubIntakeService.php": {
+        "old_sha256": "f94976742e76e650d6d5c8d37b83e979156275e0d51ddb5b5b313fecd8acf5b3",
+        "new_sha256": "bf8591447b0e8fa3f21a1d47cc66a2582e2533b74a5e214e2330896c8a1954ea"
+      },
+      "public/manage/_review-workspace.php": {
+        "old_sha256": "cb9513fbc622500360f98fb386a2311f15d2eb1128e65d705274232e3da03831",
+        "new_sha256": "e935c85d21e618981113c2180651a8acca960313fadee24d56f89b5818184017"
+      },
+      "public/manage/club-register.php": {
+        "old_sha256": "c974b15d0a3b9b36515dec43cf7a92527b0e4e0c5ea3b2e75cf82012a4235bfa",
+        "new_sha256": "e723b882c2fbcb6aeb1b5398bbbf27620d9ad6cc341d7f9356d806550c673e4e"
+      },
+      "public/manage/preparation.php": {
+        "old_sha256": "76eb791185972ce3e4e5a1603c19795717f57f59e7d160939454b213cafb528e",
+        "new_sha256": "2dbad2dddc0df648d147f91a4656cce21fffba6a41e67279368cefb75ed3c27b"
+      }
+    },
+    "script_sha256": "e8ad2285c0bc450ea6168c8d9756b9a19aa3355cce8f1b5cc96cd7cdf9729f97",
+    "verification": {
+      "status": "PASS",
+      "backup_verified": true,
+      "protected_state_unchanged": true,
+      "entry_files_unchanged": true,
+      "business_tables": 89,
+      "protected_files": 690,
+      "counts": {
+        "users": 314,
+        "jmrc_entries": 1203,
+        "jmrc_entry_fees": 1511,
+        "portal_profiles": 290,
+        "portal_applications": 0,
+        "portal_memberships": 0,
+        "portal_invoices": 0,
+        "portal_payments": 0
+      },
+      "years": "2027\tshadow",
+      "flags": {
+        "temporary_intake_enabled": false,
+        "profile_corrections_enabled": true,
+        "bank_master_enabled": true,
+        "license_self_service_enabled": false,
+        "insurance_intents_enabled": false,
+        "yucho_import_enabled": false,
+        "staff_role_requests_enabled": false,
+        "club_intake_enabled": false
+      },
+      "stage_removed": true
+    }
+  },
+  "live": {
+    "cases": 702,
+    "business_posts": 0,
+    "real_club_account_login_verified": false,
+    "suites": {
+      "preparation": {
+        "status": "PASS",
+        "cases": 148,
+        "business_posts": 0
+      },
+      "existing": {
+        "status": "PASS",
+        "cases": 466,
+        "business_posts": 0
+      },
+      "club": {
+        "status": "PASS",
+        "cases": 88,
+        "business_posts": 0
+      }
+    }
+  },
+  "integration": {
+    "schema_count": 93,
+    "schema_sha256": "3493031b67324e12088ce19e73b19e8e619b7fb9526391303ad1ebd99af34c89",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "sibling_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sibling_untracked_changes_preserved": true,
+  "sheets": {
+    "status": "PASS",
+    "sheets": 9,
+    "changed_cells": 10,
+    "preserved_cells": 2677,
+    "formula_M2": {
+      "formulaValue": "=AI(\"\")"
+    },
+    "unanswered_L12_L14_preserved": true,
+    "separate_target_and_existing_readback": true,
+    "visual_verification": "Google UI unavailable (GetCursorPos access denied); exported XLSX rendered read-only with artifact_tool; status, preparation and unanswered rows checked",
+    "native_visual_verified": false,
+    "export_render_verified": true
+  },
+  "holds": [
+    "受付開始",
+    "個人会員受付と正本の同時切替",
+    "再開操作",
+    "新区分料金",
+    "実口座の用途別登録",
+    "実権限の追加付与",
+    "一般公開",
+    "実メール送信",
+    "削除実行"
+  ],
+  "remaining_questions": [
+    "L07",
+    "L08",
+    "L09再開",
+    "L12",
+    "L13",
+    "L14"
+  ],
+  "project_remaining": "M1～M7の未完了分は今回の完了に含めない"
+}

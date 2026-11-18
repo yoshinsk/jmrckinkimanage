@@ -65,6 +65,7 @@ def main():
     review_paths+=['src/Billing/Eligibility.php','tests/membership/membership_http.php','tests/membership/concurrent_submit.php','tests/billing/billing_http.php','tests/card/card_http.php','tests/license/license_http.php','tests/license/mobile_browser.cjs','tests/auth/auth.config.php','config/auth.example.php']
     review_paths+=['tests/license/member_browser.cjs','tests/auth/dirt_integration.php']
     review_paths+=['src/Club/ClubFeePolicy.php','src/Club/ClubReviewClosure.php','src/Club/ClubRegistrationData.php','tests/club/club_closure_http.php','tests/license/club_intake_browser.cjs','design/phase2/014_club_review_closure.sql']
+    review_paths+=['tests/club/concurrent_closure.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)

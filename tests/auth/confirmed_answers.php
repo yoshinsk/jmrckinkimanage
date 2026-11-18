@@ -75,6 +75,12 @@ try {
     $approver=$service->request(90105,'APPROVER');
     $denied('承認者同士での登録承認は不可',fn()=>$service->approve(90101,$approver['id'],1));
     check('運営委員が承認者を承認',$service->approve(90102,$approver['id'],1)['status']==='active');
+    check('L11 複数の承認者を同時に保持',in_array('APPROVER',$service->activeRoles(90101),true)&&in_array('APPROVER',$service->activeRoles(90105),true));
+    $db->exec("UPDATE portal_user_role_grants SET valid_from=UTC_TIMESTAMP()+INTERVAL 1 DAY,valid_until=UTC_TIMESTAMP()+INTERVAL 2 DAY WHERE id=".(int)$approver['id']);
+    check('L10 任期前の承認者は無効',!in_array('APPROVER',$service->activeRoles(90105),true));
+    $db->exec("UPDATE portal_user_role_grants SET valid_from=UTC_TIMESTAMP()-INTERVAL 1 DAY,valid_until=UTC_TIMESTAMP()-INTERVAL 1 MICROSECOND WHERE id=".(int)$approver['id']);
+    check('L10 任期終了の承認者は無効',!in_array('APPROVER',$service->activeRoles(90105),true));
+    $db->exec("UPDATE portal_user_role_grants SET valid_from=UTC_TIMESTAMP()-INTERVAL 1 DAY,valid_until=NULL WHERE id=".(int)$approver['id']);
     $self=$service->request(90101,'OFFICE');
     $denied('実grantに承認者があっても自己承認不可',fn()=>$service->approve(90101,$self['id'],1));
     $waiting=$service->request(90106,'OFFICE');

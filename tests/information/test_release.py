@@ -87,9 +87,10 @@ class ReleaseTest(unittest.TestCase):
 
     def test_club_review_profile_roundtrip(self):
         update,payload=self.confirmed_stage('club-review-20261118')
+        before=update.preflight()
         result=update.apply(self.stage);backup=Path(result['backup']);manifest=json.loads((backup/'manifest.json').read_text())
         update.restore(backup,manifest)
-        self.assertEqual(update.preflight(),payload)
+        self.assertEqual(update.preflight(),before)
 
     def test_club_review_profile_rejects_intake(self):
         update,_=self.confirmed_stage('club-review-20261118')
@@ -99,8 +100,9 @@ class ReleaseTest(unittest.TestCase):
 
     def test_club_review_profile_partial_restore(self):
         update,payload=self.confirmed_stage('club-review-20261118');update.fail_cache_once=True
+        before=update.preflight()
         with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
-        self.assertEqual(update.preflight(),payload)
+        self.assertEqual(update.preflight(),before)
 
     def test_bad_payload_refused_before_backup(self):
         (self.stage/deploy.ORDER[0]).write_text('changed')

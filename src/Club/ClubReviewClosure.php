@@ -40,6 +40,8 @@ final class ClubReviewClosure
     public function close(int $actor,int $year,string $reason):array
     {
         if($this->db->inTransaction()){throw new \LogicException('Independent club review transaction required');}
+        // 年度ロックを待った後、直前の照合・終了を参照する。承認権限の読取時点のスナップショットを使い続けない。
+        $this->db->exec('SET TRANSACTION ISOLATION LEVEL READ COMMITTED');
         $this->db->beginTransaction();
         try{
             (new ClubService($this->db))->requireAccess($actor,0,true);
