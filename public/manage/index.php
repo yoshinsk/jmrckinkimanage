@@ -50,6 +50,9 @@ if ($auth->can('billing.confirm')) {
 if ($auth->can('billing.accounts.manage')) {
     $groups['事務局の設定'][] = ['title'=>'入金先・決済URLの設定','url'=>'bank-settings.php','description'=>'用途別口座・ペイメントコアURL・CSV取込元を管理します。','enabled'=>($config['bank_master_enabled']??false)===true];
 }
+if ($auth->can('identifiers.migrate')) {
+    $groups['事務局の設定'][] = ['title'=>'JAF照会用出力の確認','url'=>'license-export.php','description'=>'照会用CSVの項目を確認します。正式書式と対象範囲の確認までダウンロードは停止中です。','enabled'=>true];
+}
 if ($auth->can('profiles.correct')) {
     $groups['事務局の設定'][] = ['title'=>'予算・会計と追加資料の確認','url'=>'accounting-review.php','description'=>'年度予算・収支・残高・CSV・申請項目・通知文面を検証します。正式登録はしません。','enabled'=>true];
     $groups['事務局の設定'][] = ['title'=>'資料・日程・文面の下書き','url'=>'editor.php','description'=>'事務局だけでPDF・結果CSV・日程・メール文案を準備します。公開・送信は保留中です。','enabled'=>true];

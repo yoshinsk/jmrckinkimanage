@@ -17,8 +17,8 @@ function jmrc_review_catalog(): array
             'actions'=>['save'=>'年度登録を試す','issue'=>'年会費請求を試す','approve'=>'事務局承認を試す']],
         'licenses'=>['title'=>'ライセンス登録・更新','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','member'],
             'flow'=>'ライセンス登録 → General申請 → 更新時の資格再確認',
-            'pending'=>'本番の既存ライセンス移行、採用順と会員番号再発行の運用は保留です。番号を変えた後の旧会員証は失効として確認できます。',
-            'fields'=>['number'=>['JAFライセンス番号（架空）','text','DEMO123'],'kind'=>['種類',['competition'=>'競技 国内B','official'=>'審判員 B3'],'competition'],'expiry'=>['有効期限','date','2027-12-31']],
+            'pending'=>'ライセンスは本人申告で、旧期限だけでは失効しません。指定複数種別と発行日は本人の「ライセンス情報」で確認できます。本番の確認移行と会員番号再発行の運用は保留です。番号変更後の旧会員証は失効として確認できます。',
+            'fields'=>['number'=>['JAFライセンス番号（架空）','text','DEMO123'],'kind'=>['種類',['competition'=>'競技 国内B','official'=>'審判員 コースB1'],'competition'],'expiry'=>['旧有効期限（参考・架空）','date','2027-12-31']],
             'actions'=>['save'=>'登録・更新を試す']],
         'memberships'=>['title'=>'個人会員の申請','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','member'],
             'flow'=>'有効なライセンス → General申請 → 所属承認・満額入金 → 資格有効',
@@ -126,7 +126,7 @@ function jmrc_review_catalog(): array
             'actions'=>['save'=>'状態例を表示する']],
     ];
     // C02/C06～C16/C24: 確定条件の計算と操作例を、既存の24画面内に追加する。
-    $catalog['memberships']['fields'] += ['competition_type'=>['競技ライセンス種別（架空）','text','確認用競技種別'], 'official_type'=>['審判員ライセンス種別（架空・非保有は「なし」）','text','確認用審判種別']];
+    $catalog['memberships']['fields'] += ['competition_type'=>['競技ライセンスの種類（架空）','text','国内B'], 'official_type'=>['審判員ライセンスの種類（架空・非保有は「なし」）','text','コースB1']];
     $catalog['clubs']['fields'] += ['rate_category'=>['料金計算の区分',['official'=>'公認','affiliated'=>'加盟','associate'=>'準加盟','organization'=>'登録団体','business'=>'関連団体・企業'],'official'], 'membership_class'=>['料金計算の会員区分',['regular'=>'正会員','supporting'=>'賛助会員'],'regular'], 'registration_kind'=>['料金計算の登録方法',['new'=>'新規','renewal'=>'年度更新','rejoin'=>'再加入'],'renewal']];
     $catalog['clubs']['actions']['quote']='2027年度の料金を計算';
     $catalog['clubs']['region_fields'] = ['jaf_registered_club'=>['JAF登録クラブですか',['unknown'=>'確認できていない','yes'=>'はい','no'=>'いいえ'],'unknown'], 'hosts_kinki_business'=>['JMRC近畿の事業として競技会を主催しますか',['unknown'=>'確認できていない','yes'=>'はい','no'=>'いいえ'],'unknown']];

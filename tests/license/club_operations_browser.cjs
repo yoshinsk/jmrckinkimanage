@@ -55,8 +55,17 @@ async function run(engine,name,device){
    check(prefix+' 個人情報の再利用画面',await p.locator('h1').innerText()==='個人会員の申請');
    if(!live&&a.role==='entrant')check(prefix+' 訂正済み氏名を参照',(await p.locator('main').innerText()).includes('訂正後姓'));
    await p.goto(origin+'/manage/licenses.php?reuse=entry');
-   check(prefix+' 運転免許期限をJAFへ流用しない',await p.locator('input[name=expires_on]').inputValue()==='');
+   check(prefix+' 運転免許期限を発行日へ流用しない',await p.locator('input[name=issued_on]').inputValue()===''&&await p.locator('input[name=expires_on]').count()===0);
+   check(prefix+' 競技の指定9種を複数選択',await p.locator('input[name="license_types[]"]').count()===9);
+   await Promise.all([p.waitForURL(u=>u.searchParams.get('kind')==='jaf_official'),p.getByRole('link',{name:'審判員の登録',exact:true}).tap()]);
+   check(prefix+' JSなしで審判員の指定15種を表示',await p.locator('input[name="license_types[]"]').count()===15);
+   check(prefix+' 発行日は不明を許可し期限から補完しない',await p.locator('input[name=issued_on]').inputValue()===''&&!await p.locator('input[name=issued_on]').getAttribute('required'));
    if(live)check(prefix+' ライセンス保存は保留',await p.getByRole('button',{name:'保存する',exact:true}).isEnabled()===false);
+   if(a.role==='office'){
+    await p.goto(origin+'/manage/license-export.php');
+    check(prefix+' 照会用CSVの確認画面',await p.locator('h1').innerText()==='JAF照会用出力の確認');
+    if(hold)check(prefix+' 照会CSVも保留',!await p.getByRole('button',{name:'照会用CSVをダウンロード',exact:true}).isEnabled());
+   }else if(a.role==='entrant')check(prefix+' 本人に全体CSVの権限を与えない',(await c.request.get(origin+'/manage/license-export.php')).status()===403);
    // 本人のJAF番号・住所が出る画面はスクリーンショットに残さない。
    await p.goto(origin+base);await p.screenshot({path:`/artifacts/club-operations-${name}-${a.role}.png`,fullPage:true});
    check(prefix+' 許可外POSTゼロ',blocked===0);

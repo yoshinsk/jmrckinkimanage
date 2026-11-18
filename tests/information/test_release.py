@@ -92,6 +92,24 @@ class ReleaseTest(unittest.TestCase):
         update.restore(backup,manifest)
         self.assertEqual(update.preflight(),before)
 
+    def test_license_m2_roundtrip(self):
+        update,_=self.confirmed_stage('license-m2-20261118');before=update.preflight()
+        self.assertIn('scripts/license_migrate.php',update.order);self.assertEqual(len(update.order),16)
+        self.assertLess(update.order.index('src/bootstrap.php'),update.order.index('src/License/LicenseService.php'))
+        result=update.apply(self.stage);backup=Path(result['backup'])
+        update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        self.assertEqual(update.preflight(),before)
+
+    def test_license_m2_partial_restore(self):
+        update,_=self.confirmed_stage('license-m2-20261118');before=update.preflight();update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        self.assertEqual(update.preflight(),before)
+
+    def test_license_m2_refuses_export_open(self):
+        update,_=self.confirmed_stage('license-m2-20261118');original=update.snapshot
+        update.snapshot=lambda:{**original(),'flags':{**original()['flags'],'license_export_enabled':True}}
+        with self.assertRaisesRegex(RuntimeError,'License export enabled'):update.preflight()
+
     def test_club_review_profile_rejects_intake(self):
         update,_=self.confirmed_stage('club-review-20261118')
         original=update.snapshot

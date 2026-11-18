@@ -36,7 +36,7 @@ final class LicenseService
     public function listing(int $owner): array
     {
         $this->actor($owner);
-        return $this->run("SELECT id,kind,license_type,expires_on,row_version FROM portal_identifiers WHERE user_id=? AND kind IN ('jaf_competition','jaf_official') ORDER BY id",[$owner])->fetchAll(PDO::FETCH_ASSOC);
+        return array_map($this->publicRow(...),$this->run("SELECT i.*,d.types_json,d.issued_on FROM portal_identifiers i LEFT JOIN portal_license_details d ON d.identifier_id=i.id WHERE i.user_id=? AND i.kind IN ('jaf_competition','jaf_official') ORDER BY i.id",[$owner])->fetchAll(PDO::FETCH_ASSOC));
     }
     public function read(int $owner,int $id): array
     {
@@ -49,6 +49,7 @@ final class LicenseService
     /** 同じ番号の期限更新では暗号文を維持。番号/種類の変更では旧QRを失効し、番号再発行は保留。 */
     private function write(int $actor,int $owner,array $in,bool $migration): array
     {
+        $in=\Jmrc\Input\TextInput::http($in);
         $this->actor($owner);$id=$this->positive($in['id']??0,true);$old=$id?$this->row($owner,$id,true):false;
         if($old && (int)$old['row_version']!==$this->positive($in['row_version']??null)){throw new HttpFailure(409,'別の更新があります。再読込してください');}
         $kind=$in['kind']??null;
@@ -59,22 +60,24 @@ final class LicenseService
         if(!is_string($number)){throw new HttpFailure(422,'番号を確認してください');}
         $number=trim($number);if($number==='' && $plain!==null){$number=$plain;}
         if(!preg_match('/^[A-Za-z0-9-]{1,64}$/D',$number)){throw new HttpFailure(422,'JAFライセンス番号を入力してください');}
-        $type=$in['license_type']??($old['license_type']??'');
-        if(!is_string($type) || preg_match_all('/./us',$type)===false || preg_match_all('/./us',$type)>40 || preg_match('/[\x00-\x1F]/',$type)){throw new HttpFailure(422,'ライセンス種類を確認してください');}
-        $type=trim($type);$type=$type===''?null:$type;$expiry=$this->expiry(array_key_exists('expires_on',$in)?$in['expires_on']:($old['expires_on']??null));
+        $types=LicenseTypes::validate($kind,$in['license_types']??null);$typesJson=json_encode($types,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
+        $issued=LicenseTypes::issuedOn($in['issued_on']??null);
+        // 従来の40字欄は短い参照表示として維持し、全種別と発行日は独立した表に保存する。
+        $type=$types[0].(count($types)>1?' 他'.(count($types)-1).'種':'');
+        $expiry=$this->expiry(array_key_exists('expires_on',$in)?$in['expires_on']:($old['expires_on']??null));
         $hmac=$box->digest($number,'identifier:'.$kind);
         $duplicate=$this->run('SELECT id,user_id FROM portal_identifiers WHERE kind=? AND key_version=1 AND lookup_hmac=? AND id<>? LIMIT 1',[$kind,$hmac,$id])->fetch(PDO::FETCH_ASSOC);
         if($duplicate){
-            if(!$old && (int)$duplicate['user_id']===$owner){$r=$this->row($owner,(int)$duplicate['id']);if($r['license_type']===$type && $r['expires_on']===$expiry){return $this->publicRow($r);}}
+            if(!$old && (int)$duplicate['user_id']===$owner){$r=$this->row($owner,(int)$duplicate['id']);if($r['types_json']===$typesJson && $r['issued_on']===$issued && $r['expires_on']===$expiry){return $this->publicRow($r);}}
             throw new HttpFailure(409,'同じライセンスの登録があります。事務局へ確認してください');
         }
-        if($old && $plain===$number && $old['license_type']===$type && $old['expires_on']===$expiry && (int)$old['key_version']===1 && hash_equals($old['lookup_hmac'],$hmac)) {
+        if($old && $plain===$number && $old['license_type']===$type && $old['types_json']===$typesJson && $old['issued_on']===$issued && $old['expires_on']===$expiry && (int)$old['key_version']===1 && hash_equals($old['lookup_hmac'],$hmac)) {
             // 既に暗号化済みでも重複確保が未移行なら、claim作成まで省略しない。
             if($this->run('SELECT identifier_id FROM portal_license_claims WHERE identifier_id=? AND kind=? AND lookup_hmac=? AND key_version=1 FOR UPDATE',[$id,$kind,$hmac])->fetchColumn()){return $this->publicRow($old);}
         }
-        $basisChanged=$old && ($plain!==$number || $old['license_type']!==$type || (int)$old['key_version']!==1);
+        $basisChanged=$old && ($plain!==$number || $old['license_type']!==$type || ($old['types_json']!==null && $old['types_json']!==$typesJson) || (int)$old['key_version']!==1);
         if($old){
-            $snapshot=json_encode(['kind'=>$old['kind'],'value_cipher'=>base64_encode($old['value_cipher']),'lookup_hmac'=>bin2hex($old['lookup_hmac']),'key_version'=>$old['key_version'],'license_type'=>$old['license_type'],'expires_on'=>$old['expires_on']],JSON_THROW_ON_ERROR);
+            $snapshot=json_encode(['kind'=>$old['kind'],'value_cipher'=>base64_encode($old['value_cipher']),'lookup_hmac'=>bin2hex($old['lookup_hmac']),'key_version'=>$old['key_version'],'license_type'=>$old['license_type'],'expires_on'=>$old['expires_on'],'license_types'=>$old['types_json']===null?null:json_decode($old['types_json'],true,512,JSON_THROW_ON_ERROR),'issued_on'=>$old['issued_on']],JSON_THROW_ON_ERROR);
             $this->run('INSERT INTO portal_identifier_revisions(identifier_id,previous_version,actor_user_id,snapshot_cipher) VALUES(?,?,?,?)',[$id,$old['row_version'],$actor,$box->seal($snapshot,'jmrc:identifier-history:v1:'.$id.':'.$old['row_version'])]);
             $cipher=$plain===$number && (int)$old['key_version']===1?$old['value_cipher']:$box->seal($number,'jmrc:identifier:v1:'.$id);
             $this->run('UPDATE portal_identifiers SET value_cipher=?,lookup_hmac=?,key_version=1,license_type=?,expires_on=?,verified_at=IF(?=1,NULL,verified_at),row_version=row_version+1 WHERE id=?',[$cipher,$hmac,$type,$expiry,(int)$basisChanged,$id]);
@@ -82,6 +85,7 @@ final class LicenseService
             $this->run("INSERT INTO portal_identifiers(user_id,kind,value_cipher,lookup_hmac,key_version,license_type,expires_on) VALUES(?,?,'pending',?,1,?,?)",[$owner,$kind,$hmac,$type,$expiry]);$id=(int)$this->db->lastInsertId();
             $this->run('UPDATE portal_identifiers SET value_cipher=? WHERE id=?',[$box->seal($number,'jmrc:identifier:v1:'.$id),$id]);
         }
+        $this->run('INSERT INTO portal_license_details(identifier_id,types_json,issued_on) VALUES(?,?,?) ON DUPLICATE KEY UPDATE types_json=VALUES(types_json),issued_on=VALUES(issued_on)',[$id,$typesJson,$issued]);
         $claim=$this->run('SELECT identifier_id FROM portal_license_claims WHERE identifier_id=? FOR UPDATE',[$id])->fetchColumn();
         if($claim){$this->run('UPDATE portal_license_claims SET kind=?,lookup_hmac=?,key_version=1 WHERE identifier_id=?',[$kind,$hmac,$id]);}
         else{$this->run('INSERT INTO portal_license_claims(kind,lookup_hmac,key_version,identifier_id,user_id) VALUES(?,?,1,?,?)',[$kind,$hmac,$id,$owner]);}
@@ -112,9 +116,12 @@ final class LicenseService
     }
     private function row(int $owner,int $id,bool $lock=false): array
     {
-        return $this->run("SELECT * FROM portal_identifiers WHERE id=? AND user_id=? AND kind IN ('jaf_competition','jaf_official')".($lock?' FOR UPDATE':''),[$id,$owner])->fetch(PDO::FETCH_ASSOC)?:throw new HttpFailure(404,'本人のライセンスがありません');
+        return $this->run("SELECT i.*,d.types_json,d.issued_on FROM portal_identifiers i LEFT JOIN portal_license_details d ON d.identifier_id=i.id WHERE i.id=? AND i.user_id=? AND i.kind IN ('jaf_competition','jaf_official')".($lock?' FOR UPDATE':''),[$id,$owner])->fetch(PDO::FETCH_ASSOC)?:throw new HttpFailure(404,'本人のライセンスがありません');
     }
-    private function publicRow(array $r): array {return array_intersect_key($r,array_flip(['id','kind','license_type','expires_on','row_version']));}
+    private function publicRow(array $r): array
+    {
+        return array_intersect_key($r,array_flip(['id','kind','expires_on','issued_on','row_version']))+['license_type'=>LicenseTypes::display($r['types_json'],$r['license_type']),'license_types'=>$r['types_json']===null?[]:json_decode($r['types_json'],true,512,JSON_THROW_ON_ERROR)];
+    }
     private function box(): SecretBox {return new SecretBox($this->config['data_key']??null);}
     private function run(string $sql,array $args): \PDOStatement {$s=$this->db->prepare($sql);$s->execute($args);return $s;}
     private function tx(callable $fn): array

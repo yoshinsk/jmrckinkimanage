@@ -100,7 +100,7 @@ final class CardService
         return ['available'=>true,'can_issue'=>true,'year'=>(int)$m['year'],'name'=>$name,
             'member_number'=>$box->open($n['number_cipher'],'jmrc:member-number:v1:'.$member),
             'club_abbreviation'=>$basis['club_abbreviation'],
-            'license_type'=>$basis['license_type']?:($basis['kind']==='jaf_competition'?'JAF競技':'JAF審判員'),
+            'license_type'=>\Jmrc\License\LicenseTypes::display($basis['types_json'],$basis['license_type'])?:($basis['kind']==='jaf_competition'?'JAF競技':'JAF審判員'),
             'qr_url'=>$this->publicUrl().'#'.$plain];
     }
 
@@ -145,16 +145,20 @@ final class CardService
     /** 採番元は申請時に選択済みの本人ライセンスと、現在の承認済み所属。別番号を自動選択しない。 */
     private function basis(int $member): array
     {
-        $s=$this->run("SELECT m.id,m.user_id,m.year,i.id AS source_identifier_id,i.kind,i.key_version,i.value_cipher,i.license_type,
+        $s=$this->run("SELECT m.id,m.user_id,m.year,i.id AS source_identifier_id,i.kind,i.key_version,i.value_cipher,i.license_type,d.types_json,
             cy.id AS club_year_id,cy.display_code,COALESCE(cy.name_short,c.name_short) AS club_abbreviation
             FROM portal_memberships m JOIN portal_identifiers i ON i.id=m.general_license_identifier_id AND i.user_id=m.user_id AND i.kind=m.general_license_kind
+            LEFT JOIN portal_license_details d ON d.identifier_id=i.id
             JOIN portal_affiliations f ON f.membership_id=m.id AND f.status='approved' AND f.valid_until IS NULL
             JOIN portal_club_years cy ON cy.id=f.club_year_id AND cy.year=m.year JOIN portal_clubs c ON c.id=cy.club_id WHERE m.id=?",[$member]);
         return $s->fetch(PDO::FETCH_ASSOC)?:throw new HttpFailure(409,'会員証の登録元を確認してください');
     }
     private function fingerprint(array $b,SecretBox $box): string
     {
-        return $box->digest(json_encode([$b['id'],$b['user_id'],$b['year'],$b['source_identifier_id'],$b['kind'],$b['key_version'],base64_encode($b['value_cipher']),$b['license_type'],$b['club_year_id'],$b['display_code']],JSON_THROW_ON_ERROR),'card-source');
+        $parts=[$b['id'],$b['user_id'],$b['year'],$b['source_identifier_id'],$b['kind'],$b['key_version'],base64_encode($b['value_cipher']),$b['license_type'],$b['club_year_id'],$b['display_code']];
+        // 移行前の採番元は維持。発行日は本人証・公開QRの追加項目にも失効条件にも使わない。
+        if($b['types_json']!==null){$parts[]=$b['types_json'];}
+        return $box->digest(json_encode($parts,JSON_THROW_ON_ERROR),'card-source');
     }
     private function matches(array $n,array $b,string $fingerprint): bool
     {

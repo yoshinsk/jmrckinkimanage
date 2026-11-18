@@ -1,0 +1,236 @@
+{
+  "date_jst": "2026-11-18",
+  "status": "PASS",
+  "scope": "M2の確定部分：指定複数種別・発行日・v2確認移行・照会出力準備",
+  "base_commit": "891b13573d44e50205976df5f76bc85f16942f49",
+  "isolated": {
+    "http": 1674,
+    "browser": 2328,
+    "php_lint_files": 155,
+    "ddl_tests": 9,
+    "release_tests": 55,
+    "pure_policy_tests": 24,
+    "fixture_only": true,
+    "published_ports": [],
+    "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+    "release_script_sha256": "54caf5282af30a8d67c6e4cc263320315edc56da4fc483798175cd2d66f6c686",
+    "release_test_sha256": "1a5ff8318adb494cc49169bbeb73c0f300bbadce844a2d0cec58376ee78f0f55",
+    "post_suite_live_test_adjustment": {
+      "path": "tests/license/club_operations_browser.cjs",
+      "full_suite_sha256": "beea9c67bd157f84dd24ecde4e528700543df4a721122a4d6745bd4386960f74",
+      "live_checked_sha256": "265bb838db7b1e899d09b3a2fdd7a82b21b8d87037780de76a57c68e8ea9db4a",
+      "change": "本番専用の保存停止確認を、ライセンス画面から出力画面へ移動する前に実行するよう位置だけ修正。アプリコードと隔離試験分岐は変更なし",
+      "validation": "本番専用分岐をChromium・WebKitの既存事務局・エントラントで58項目、業務POST0件として再検証"
+    }
+  },
+  "database": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/license-details-db-20261118-20261118T090839Z",
+    "migration_sha256": "ef4f429d5ff8b6ad91373edd6f1efc8e10c21a948b41e7fb5a5c04df9646c6b9",
+    "files_sha256": {
+      "LicenseDetailsDatabase.php": "eb76f1d9fecf9fe48e1bea139295f1a70f8c1026d15bad11179cb52a6093ab9e",
+      "migration.sql": "ef4f429d5ff8b6ad91373edd6f1efc8e10c21a948b41e7fb5a5c04df9646c6b9",
+      "database.php": "fd34337f99ac431c497a447fe07f57691f6f92a07c269e8561a0d75cfe2f4111",
+      "input.json": "1c333d3ce704e4fb33d2018effdc5d349b8ada617b0cad9ae09ecbd07a9e36c1"
+    },
+    "verification": {
+      "status": "PASS",
+      "private_backup_verified": true,
+      "protected_tables": 89,
+      "current_matches_after": true,
+      "rows": 0,
+      "rollback_executed": false
+    },
+    "existing_data_and_schemas_preserved": true,
+    "rows": 0,
+    "permissions": [
+      "INSERT",
+      "UPDATE"
+    ]
+  },
+  "code": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/license-m2-20261118-20261118T090900Z",
+    "profile": "license-m2-20261118",
+    "files": {
+      "src/License/LicenseTypes.php": {
+        "old_sha256": null,
+        "new_sha256": "9f57d04dead85db4cd446d6e20083d8ef3f5403fe1a7100b4f6701d7b08da075"
+      },
+      "src/License/LicenseExport.php": {
+        "old_sha256": null,
+        "new_sha256": "d2e4901ab0d3da3404f14c5b0ad39b36303c3ef65187811b80dd1dea511255cf"
+      },
+      "scripts/license_migrate.php": {
+        "old_sha256": null,
+        "new_sha256": "11a1038ee001a3dbbc0eed9a7199c411c2e20fcb39cf1f596e3ca68cdf242191"
+      },
+      "src/bootstrap.php": {
+        "old_sha256": "113f84c39a87a7ca1a56058a8a6a68d6f000cb54fa037e544ea289442a3ba7e8",
+        "new_sha256": "b57e94cbf751813e531391215aa68a8e6213c694103b11e15f0bf477d9f51c27"
+      },
+      "src/License/LicenseService.php": {
+        "old_sha256": "5536a9017ecbf34fcfc4abfec0a9c1e61ea42d301dfa93313e532671d94aecc7",
+        "new_sha256": "9b210cb6364c4a4caeb385b4a836d447896766cab480e32e507bef18f5b01f11"
+      },
+      "src/License/LicenseMigration.php": {
+        "old_sha256": "0024af2f2fb275ebca1dff8e0cc9f4429362a0d5cd59a559027747a2e2602f9e",
+        "new_sha256": "032400d43b35bcdc5c657535ee22b3035fd77a131a7ee8867eec80ed677c7f03"
+      },
+      "src/Membership/LicenseDeclaration.php": {
+        "old_sha256": "05c8bc84f483b0484de307acbca0715029e92b63c62f42055867bfa9e575ffb3",
+        "new_sha256": "7f1e1723d18367390104fa2b6e14369447188435839edf9f5f69f57d281db519"
+      },
+      "src/Membership/MembershipService.php": {
+        "old_sha256": "0656231f35501a372edb601cfd281445bba01490f28a69232134b698f4068df0",
+        "new_sha256": "887674afcb617499802fc5589dbfc5870930b42cb08e1d5c9a48cdf598028223"
+      },
+      "src/Card/CardService.php": {
+        "old_sha256": "5ee101411dd4b9e9ad3d1148540c7bcb7daf28cf7c7f87db8c35f958b691c05c",
+        "new_sha256": "e40705eba3a404de5c8b1fb5353b6f7afed9f6f0b6c16f8f0df059dd8c3ddcb4"
+      },
+      "public/manage/licenses.php": {
+        "old_sha256": "949aca2352c197f8e55a4edd86d1eb944df1ee0bbecdc948782faa9790b7e888",
+        "new_sha256": "55a24e119f3be11bec304af868398f5b415db18f71b188c40149d79c1c7ec17f"
+      },
+      "public/manage/memberships.php": {
+        "old_sha256": "5c77a2c87467b881e4d283ae2116f336c7a319e1ef394b1826a47bc15e890859",
+        "new_sha256": "9fc993f2c12e91c1d65e7a4c6da032304a1eabca4f093022087c6e769358cc26"
+      },
+      "public/manage/assets/licenses.css": {
+        "old_sha256": "7cc29e3503b3302fa65fd5249a0caddd6f99c43f61d080b3c0cac0ce6521a8e8",
+        "new_sha256": "ec11b1f51096099e314350d2eb8c3a00aeb6453d0517f1fb615d758db117b7ff"
+      },
+      "public/manage/_review-catalog.php": {
+        "old_sha256": "9f3a1c434678d37c846b34b791f7a550b8c1cc67ee89e57adcb4f21a4fee1769",
+        "new_sha256": "10c51efe41bdff0b2a029a019aa24dcf1058e5ea9512a66c7f3a41602b5a862b"
+      },
+      "public/manage/_review-workspace.php": {
+        "old_sha256": "e935c85d21e618981113c2180651a8acca960313fadee24d56f89b5818184017",
+        "new_sha256": "66eece258f7ea5ab38cf27e13e5b3ac20547adeebe0e229d5288417181b8118f"
+      },
+      "public/manage/license-export.php": {
+        "old_sha256": null,
+        "new_sha256": "1a3b07925a477139d8cf44eaaea15ef0532ebd79e4678b2299de5372a98a97a7"
+      },
+      "public/manage/index.php": {
+        "old_sha256": "e71693174850990bbcbd02963c1890a56f3b6593c547ced012342a1f04961ecc",
+        "new_sha256": "23c5aa261aa6f02bb6019d4c6010d78652c0f9652f5289870ba3a6c28027d709"
+      }
+    },
+    "script_sha256": "54caf5282af30a8d67c6e4cc263320315edc56da4fc483798175cd2d66f6c686",
+    "verification": {
+      "status": "PASS",
+      "backup_verified": true,
+      "protected_state_unchanged": true,
+      "entry_files_unchanged": true,
+      "business_tables": 90,
+      "protected_files": 686,
+      "counts": {
+        "users": 314,
+        "jmrc_entries": 1203,
+        "jmrc_entry_fees": 1511,
+        "portal_profiles": 290,
+        "portal_applications": 0,
+        "portal_memberships": 0,
+        "portal_invoices": 0,
+        "portal_payments": 0
+      },
+      "years": "2027\tshadow",
+      "flags": {
+        "temporary_intake_enabled": false,
+        "profile_corrections_enabled": true,
+        "bank_master_enabled": true,
+        "license_self_service_enabled": false,
+        "insurance_intents_enabled": false,
+        "yucho_import_enabled": false,
+        "staff_role_requests_enabled": false,
+        "club_intake_enabled": false,
+        "license_export_enabled": false
+      },
+      "stage_removed": true
+    }
+  },
+  "live": {
+    "cases": 760,
+    "business_posts": 0,
+    "suites": {
+      "preparation": {
+        "status": "PASS",
+        "cases": 148,
+        "business_posts": 0
+      },
+      "existing": {
+        "status": "PASS",
+        "cases": 466,
+        "business_posts": 0
+      },
+      "club": {
+        "status": "PASS",
+        "cases": 88,
+        "business_posts": 0
+      },
+      "m2": {
+        "status": "PASS",
+        "cases": 58,
+        "business_posts": 0
+      }
+    },
+    "real_club_account_login_verified": false
+  },
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "47d1161450c7635b3c17c027037a0d87dfdce20f07186ba8b2cb37b592303324",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "sibling_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sibling_untracked_preserved": true,
+  "sheets": {
+    "status": "PASS",
+    "sheets": 9,
+    "progress_cells_changed": 9,
+    "unchanged_existing_cells": 2687,
+    "existing_cells_preserved_when_appending_L15": 2687,
+    "new_question_row": 133,
+    "formula_M2": {
+      "formulaValue": "=AI(\"\")"
+    },
+    "separate_target_and_existing_readback": true,
+    "L15_answer_blank": true,
+    "visual_native_verified": false,
+    "visual_limitation": "GetCursorPos access denied",
+    "export_render_verified": true,
+    "sharing_unchanged": true
+  },
+  "local_recovery": {
+    "ubuntu_restart_authorized": true,
+    "ubuntu_restart_count": 2,
+    "wsl_global_restart": false,
+    "production_restart": false
+  },
+  "holds": [
+    "L05の発行日の必須条件・複数券面の日付",
+    "L15の正式JAF書式・対象状態・氏名の種類",
+    "実データ確認移行",
+    "本人登録開始",
+    "照会CSVダウンロード",
+    "JAF送信",
+    "個人受付と正本の同時切替",
+    "一般公開",
+    "実メール送信",
+    "削除実行",
+    "実権限の追加付与"
+  ],
+  "intake_opened": false,
+  "source_mode": "shadow",
+  "production_license_migration_executed": false
+}

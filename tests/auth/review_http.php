@@ -103,6 +103,8 @@ $act('affiliations','approve');$act('billing','confirm',['amount'=>'1000','refer
 check('不足入金で資格を有効にしない',!$model->eligibility()['active']);
 $act('billing','confirm',['amount'=>'1000','reference'=>'PART-2']);
 check('必要承認と満額で資格有効',$model->eligibility()['active']);
+$oldExpiry=$model->state['license']['expiry'];$model->state['license']['expiry']='2000-01-01';
+check('L05 操作確認も旧ライセンス期限だけで失効しない',$model->eligibility()['active']);$model->state['license']['expiry']=$oldExpiry;
 $savedModel=$model;$model=new JmrcReviewWorkspace($model->state);
 $act('affiliations','change');
 check('P19確認画面も承認前は旧番号を維持',$model->eligibility()['active']&&$model->state['club']['code']==='100001');

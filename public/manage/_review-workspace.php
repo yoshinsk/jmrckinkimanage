@@ -38,7 +38,7 @@ final class JmrcReviewWorkspace
         $checks=['申請済み'=>$s['member']['submitted'],'所属承認済み'=>$s['member']['approved'],
             '個人会費が満額入金'=>$this->paid('general')>=2000 && isset($s['invoices']['general']),
             '年度クラブが有効'=>$s['club']['approved'] && isset($s['invoices']['club']) && $this->paid('club') >= $s['invoices']['club'],
-            'ライセンスが有効'=>$s['license']!==null && $s['license']['expiry'] >= $s['date'],
+            '本人申告のJAFライセンス登録あり'=>$s['license']!==null,
             '年度内'=>$s['date']>='2027-01-01' && $s['date']<='2027-12-31',
             '資格停止なし'=>!$s['member']['suspended'],'番号の再発行待ちでない'=>!$s['member']['card_invalid'],
             'プロフィールあり'=>$s['profile']!==null];
@@ -156,7 +156,7 @@ final class JmrcReviewWorkspace
                 else { if(!$s['club']['submitted'] || !isset($s['invoices']['club']) || $this->paid('club')<$s['invoices']['club']) { $this->fail('年度申請・年会費請求・満額入金が必要です'); }$s['club']['approved']=true; }
                 break;
             case 'memberships':
-                if(!$s['license'] || $s['license']['expiry']<$s['date']) { $this->fail('有効なJAFライセンスを先に登録してください'); }
+                if(!$s['license']) { $this->fail('本人申告のJAFライセンスを先に登録してください'); }
                 if(!$s['club']['approved'] || !isset($s['invoices']['club']) || $this->paid('club')<$s['invoices']['club']) { $this->fail('有効な年度クラブ登録が必要です。クラブ登録から確認してください'); }
                 if($s['member']['submitted']) { return '同じ年度の申請を表示しました。申請・請求は増やしていません'; }
                 $s['declaration']=\Jmrc\Membership\LicenseDeclaration::validate($f,$s['license']['kind']);

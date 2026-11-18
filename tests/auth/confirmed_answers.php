@@ -45,8 +45,8 @@ check('表彰上限は6位と平均の半分の両方',\Jmrc\Series\SeriesRules:
 foreach([[],['competition_type'=>'なし','official_type'=>'なし'],['competition_type'=>[], 'official_type'=>'なし'],['competition_type'=>str_repeat('競',81),'official_type'=>'なし']] as $input) {
     $denied('未申告・型不正・競技種別なしを拒否',fn()=>LicenseDeclaration::validate($input,'jaf_competition'),422);
 }
-check('審判員のみの申告',LicenseDeclaration::validate(['competition_type'=>'なし','official_type'=>'確認用審判種別'],'jaf_official')['competition_type']==='なし');
-check('申請時の両種別がDBに保存される',(int)$db->query("SELECT COUNT(*) FROM portal_membership_declarations d JOIN portal_memberships m ON m.id=d.membership_id WHERE m.member_type='general' AND d.competition_type='確認用競技種別' AND d.official_type='確認用審判種別'")->fetchColumn()>0);
+check('審判員のみの申告',LicenseDeclaration::validate(['competition_type'=>'なし','official_type'=>'コースB1'],'jaf_official')['competition_type']==='なし');
+check('申請時の両種別がDBに保存される',(int)$db->query("SELECT COUNT(*) FROM portal_membership_declarations d JOIN portal_memberships m ON m.id=d.membership_id WHERE m.member_type='general' AND d.competition_type='国内B' AND d.official_type='コースB1'")->fetchColumn()>0);
 
 check('役職試験は隔離DBだけ',$db->query('SELECT DATABASE()')->fetchColumn()==='jmrckinki_auth_lab');
 $oldRoles=$db->query('SELECT * FROM portal_roles ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);

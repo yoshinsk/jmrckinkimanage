@@ -66,6 +66,7 @@ def main():
     review_paths+=['tests/license/member_browser.cjs','tests/auth/dirt_integration.php']
     review_paths+=['src/Club/ClubFeePolicy.php','src/Club/ClubReviewClosure.php','src/Club/ClubRegistrationData.php','tests/club/club_closure_http.php','tests/license/club_intake_browser.cjs','design/phase2/014_club_review_closure.sql']
     review_paths+=['tests/club/concurrent_closure.php']
+    review_paths+=['src/License/LicenseTypes.php','src/License/LicenseService.php','src/License/LicenseMigration.php','src/License/LicenseExport.php','src/Card/CardService.php','public/manage/license-export.php','public/manage/assets/licenses.css','design/phase2/015_license_details.sql','tests/license/m2_http.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -177,6 +178,7 @@ def main():
         db_sql((ROOT/'design/phase2/012_editor_drafts.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/013_club_intake.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/014_club_review_closure.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/015_license_details.sql').read_text(encoding='utf-8'))
         db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
@@ -193,7 +195,7 @@ def main():
         db_sql("GRANT INSERT ON jmrckinki_auth_lab.portal_club_intake_closures TO 'auth_runtime'@'%';")
         for table in ['portal_member_numbers','portal_card_tokens']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
-        for table in ['portal_identifiers','portal_license_claims']:
+        for table in ['portal_identifiers','portal_license_claims','portal_license_details']:
             db_sql(f"GRANT INSERT,UPDATE ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
         for table in ['portal_identifier_revisions','portal_license_migrations']:
             db_sql(f"GRANT INSERT ON jmrckinki_auth_lab.{table} TO 'auth_runtime'@'%';")
@@ -339,7 +341,7 @@ def main():
                 db_sql("UPDATE portal_years SET source_mode='shadow'")
                 config_code="""<?php
 rename('/srv/private/auth.config.php','/srv/private/dashboard-active.config.php');
-file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['temporary_intake_enabled'=>false,'club_intake_enabled'=>false,'license_self_service_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
+file_put_contents('/srv/private/auth.config.php', "<?php return array_replace(require '/srv/private/dashboard-active.config.php', ['temporary_intake_enabled'=>false,'club_intake_enabled'=>false,'license_self_service_enabled'=>false,'license_export_enabled'=>false,'insurance_intents_enabled'=>false,'yucho_import_enabled'=>false,'staff_role_requests_enabled'=>false,'deployment_notice'=>'初回導入の確認中です。会員登録・保険・入金の受付は開始していません。']);");
 """
                 docker('exec','-i',NAMES[1],'php',data=config_code.encode())
             name='jmrc-dashboard-'+('hold' if hold else 'active')+'-20261030'

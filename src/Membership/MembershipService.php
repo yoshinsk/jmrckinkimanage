@@ -130,8 +130,13 @@ final class MembershipService
             $this->actor($actorId);
             $existing = $this->replay($actorId,$requestKey,'general',$year,null,$identifierId,$clubYearId);
             if ($existing) {
-                $saved=$this->one('SELECT competition_type,official_type FROM portal_membership_declarations WHERE membership_id=?',[$existing['id']]);
-                if (!$saved || $saved !== array_map(static fn($v)=>is_string($v)?trim($v):$v,['competition_type'=>$declaration['competition_type']??null,'official_type'=>$declaration['official_type']??null])) {
+                $saved=$this->one('SELECT d.competition_type,d.official_type,m.general_license_kind FROM portal_membership_declarations d JOIN portal_memberships m ON m.id=d.membership_id WHERE d.membership_id=?',[$existing['id']]);
+                $licenseKind=$saved['general_license_kind']??'';if($saved){unset($saved['general_license_kind']);}
+                $raw=array_map(static fn($v)=>is_string($v)?trim($v):$v,['competition_type'=>$declaration['competition_type']??null,'official_type'=>$declaration['official_type']??null]);
+                // 旧申告の同一再送は履歴の読取として維持。新しい複数選択は保存時と同じ正規順で照合する。
+                try{$same=$saved&&($saved===$raw||$saved===LicenseDeclaration::validate($declaration,$licenseKind));}
+                catch(HttpFailure){$same=false;}
+                if (!$same) {
                     throw new HttpFailure(409,'申告内容が異なります。既存申請を確認してください');
                 }
                 return $existing;

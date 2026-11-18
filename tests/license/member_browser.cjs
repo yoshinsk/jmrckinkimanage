@@ -21,7 +21,7 @@ async function run(engine,name,device,uid){
    current=prefix+' '+label;
    for(const width of [320,375,390,412,844,1280]){
     await p.setViewportSize({width,height:width===844?390:844});
-    check(current+' 幅'+width+'pxの表示と操作寸法',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1 && [...document.querySelectorAll('.office-button,.signout,.portal-brand,summary,.office-form input:not([type="hidden"]),.office-form select')].filter(e=>e.getClientRects().length).every(e=>{const r=e.getBoundingClientRect();return r.height>=44 && r.left>=-1 && r.right<=innerWidth+1;})));
+    check(current+' 幅'+width+'pxの表示と操作寸法',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1 && [...document.querySelectorAll('.office-button,.signout,.portal-brand,summary,.office-form input:not([type="hidden"]):not([type="checkbox"]),.office-form select,.license-choice label')].filter(e=>e.getClientRects().length).every(e=>{const r=e.getBoundingClientRect();return r.height>=44 && r.left>=-1 && r.right<=innerWidth+1;})));
    }
    await p.setViewportSize({width:320,height:844});await p.evaluate(()=>document.documentElement.style.fontSize='200%');check(current+' 文字200%で横はみ出しなし',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await p.evaluate(()=>document.documentElement.style.fontSize='');await p.setViewportSize(devices[device].viewport);
    await p.screenshot({path:`/artifacts/${name}-member-${hold?'hold':'active'}-${label}.png`,fullPage});
@@ -47,9 +47,10 @@ async function run(engine,name,device,uid){
    assert.ok(membership);
   }else{
    await navigate(p,'memberships.php');check(prefix+' ライセンスなしではGeneralを送信できない',await p.getByRole('button',{name:'Generalを申請',exact:true}).isDisabled());await layout(p,'no-license');
-   await navigate(p,'licenses.php');await p.getByLabel('JAFライセンス番号').fill('MEMBER'+uid);await p.getByLabel('ライセンス種類',{exact:true}).fill('国内B');await p.getByLabel('有効期限',{exact:true}).fill('2099-12-31');await submit(p,p.getByRole('button',{name:'保存する',exact:true}));
+   await navigate(p,'licenses.php');await p.getByLabel('JAFライセンス番号（必須）',{exact:true}).fill('MEMBER'+uid);await p.getByLabel('国内B',{exact:true}).check();await p.getByLabel('発行日（任意）',{exact:true}).fill('2026-01-01');await submit(p,p.getByRole('button',{name:'保存する',exact:true}));
    const license=(await json(owner.c,'licenses.php?format=json')).licenses.at(-1);
-   await navigate(p,'memberships.php');const form=p.getByRole('form',{name:'General申請',exact:true});await form.getByLabel('年度',{exact:true}).selectOption(String(new Date().getUTCFullYear()));await form.getByLabel('所属クラブ',{exact:true}).selectOption('900');await form.getByLabel('登録済みライセンス',{exact:true}).selectOption(String(license.id));await form.getByLabel('競技ライセンス種別',{exact:true}).fill('確認用競技種別');await form.getByLabel('審判員ライセンス種別',{exact:true}).fill('なし');
+   check(prefix+' 指定種別と発行日を期限と分離',license.license_types.join(',')==='国内B'&&license.issued_on==='2026-01-01'&&license.expires_on===null);
+   await navigate(p,'memberships.php');const form=p.getByRole('form',{name:'General申請',exact:true});await form.getByLabel('年度',{exact:true}).selectOption(String(new Date().getUTCFullYear()));await form.getByLabel('所属クラブ',{exact:true}).selectOption('900');await form.getByLabel('登録済みライセンス',{exact:true}).selectOption(String(license.id));await form.getByRole('group',{name:'競技ライセンスの種類（必須・複数選択可）',exact:true}).getByLabel('国内B',{exact:true}).check();await form.getByRole('group',{name:'審判員ライセンスの種類（必須・複数選択可）',exact:true}).getByLabel('なし',{exact:true}).check();
    const initial=await form.evaluate(f=>Object.fromEntries(new FormData(f)));await layout(p,'general-form');await submit(p,form.getByRole('button',{name:'Generalを申請',exact:true}));
    check(prefix+' General申請の受理表示',(await p.getByRole('status').innerText()).includes('申請を受け付けました'));
    let mine=await json(owner.c,'memberships.php?format=json');const membership=mine.memberships.find(m=>m.member_type==='general');assert.ok(membership);

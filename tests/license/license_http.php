@@ -4,13 +4,13 @@
 declare(strict_types=1);
 require_once '/srv/auth/src/License/LicenseService.php';require_once '/srv/auth/src/License/LicenseMigration.php';
 function licensePost(Browser $b,array $fields): array{return $b->request('/manage/licenses.php?format=json',$fields+['_csrf'=>identity($b)['csrf']]);}
-function licenseCounts(PDO $db): array{$r=[];foreach(['portal_identifiers','portal_license_claims','portal_identifier_revisions','portal_license_migrations','portal_audit_events','portal_outbox'] as $t){$r[]=(int)$db->query('SELECT COUNT(*) FROM '.$t)->fetchColumn();}return $r;}
+function licenseCounts(PDO $db): array{$r=[];foreach(['portal_identifiers','portal_license_details','portal_license_claims','portal_identifier_revisions','portal_license_migrations','portal_audit_events','portal_outbox'] as $t){$r[]=(int)$db->query('SELECT COUNT(*) FROM '.$t)->fetchColumn();}return $r;}
 function licenseReject(string $case,callable $fn,int $status): void{$caught=false;try{$fn();}catch(\Jmrc\Auth\HttpFailure $e){$caught=$e->status===$status;}check($case,$caught);}
 function runLicenseCli(array $args): array{$pipes=[];$p=proc_open([PHP_BINARY,'/srv/auth/scripts/license_migrate.php',...$args],[1=>['pipe','w'],2=>['pipe','w']],$pipes);$out=stream_get_contents($pipes[1]);$err=stream_get_contents($pipes[2]);fclose($pipes[1]);fclose($pipes[2]);return ['exit'=>proc_close($p),'out'=>$out,'err'=>$err];}
 $create=$db->prepare('INSERT INTO users(id,role_id,email,email_verified,password_hash) VALUES(?,3,?,1,?)');
 foreach([15,16,30,31,32,33] as $uid){$create->execute([$uid,"u$uid@example.invalid",password_hash('lab-password-only',PASSWORD_DEFAULT)]);$db->exec("INSERT INTO portal_account_controls(user_id) VALUES($uid)");}
 $owner=new Browser();$owner->login(15);$another=new Browser();$another->login(16);$office=new Browser();$office->login(7);$anonymous=new Browser();
-$fields=['kind'=>'jaf_official','number'=>'JAFNEW15','license_type'=>'審判B','expires_on'=>'2099-12-31'];
+$fields=['kind'=>'jaf_official','number'=>'JAFNEW15','license_types'=>['コースB1'],'expires_on'=>'2099-12-31'];
 check('匿名のライセンス一覧拒否',$anonymous->request('/manage/licenses.php?format=json')['status']===401);
 check('ライセンス登録CSRF必須',$owner->request('/manage/licenses.php?format=json',$fields)['status']===400);
 check('運転免許をJAF区分として登録不可',licensePost($owner,array_replace($fields,['kind'=>'driving']))['status']===422);
@@ -30,7 +30,7 @@ check('古い更新版は拒否',licensePost($owner,$fields+['id'=>$id,'row_vers
 $private=new Browser();$private->login(9);$year=(int)gmdate('Y');$member=(int)$db->query("SELECT id FROM portal_memberships WHERE user_id=9 AND year=$year AND member_type='general'")->fetchColumn();
 $card=cardRead($private,$member);$token=parse_url($card['qr_url'],PHP_URL_FRAGMENT);$box=new \Jmrc\Card\SecretBox(base64_encode(str_repeat('L',32)));
 $old=$db->query('SELECT * FROM portal_identifiers WHERE id=102')->fetch(PDO::FETCH_ASSOC);
-$past=['id'=>102,'row_version'=>$old['row_version'],'kind'=>'jaf_official','number'=>'','license_type'=>$old['license_type'],'expires_on'=>'2000-01-01'];
+$past=['id'=>102,'row_version'=>$old['row_version'],'kind'=>'jaf_official','number'=>'','license_types'=>['コースB1'],'expires_on'=>'2000-01-01'];
 check('L05 旧期限の訂正だけでは資格・QRを失効させない',licensePost($private,$past)['status']===200 && qrActive($anonymous,$token) && cardRead($private,$member)['available']);
 check('L05 資格保存状態も本人申告の方針を維持',$db->query("SELECT status FROM portal_memberships WHERE id=$member")->fetchColumn()==='active');
 $current=$db->query('SELECT * FROM portal_identifiers WHERE id=102')->fetch(PDO::FETCH_ASSOC);$renew=array_replace($past,['row_version'=>$current['row_version'],'expires_on'=>'2099-12-31']);
@@ -38,7 +38,7 @@ check('同番号の期限更新で資格復旧',licensePost($private,$renew)['st
 check('期限だけの更新は番号・暗号文・QRを維持',$db->query('SELECT value_cipher FROM portal_identifiers WHERE id=102')->fetchColumn()===$old['value_cipher'] && cardRead($private,$member)['qr_url']===$card['qr_url']);
 $current=$db->query('SELECT * FROM portal_identifiers WHERE id=102')->fetch(PDO::FETCH_ASSOC);$before=licenseCounts($db);
 check('変更なし更新では履歴を増やさない',licensePost($private,array_replace($renew,['row_version'=>$current['row_version']]))['status']===200 && licenseCounts($db)===$before);
-$change=array_replace($renew,['row_version'=>$current['row_version'],'license_type'=>'国内A']);
+$change=array_replace($renew,['row_version'=>$current['row_version'],'license_types'=>['コースA1']]);
 check('種類の変更で旧QRを失効',licensePost($private,$change)['status']===200 && !qrActive($anonymous,$token) && !cardRead($private,$member)['can_issue']);
 $snapshot=$db->query('SELECT * FROM portal_identifier_revisions WHERE identifier_id=102 ORDER BY id LIMIT 1')->fetch(PDO::FETCH_ASSOC);
 check('変更履歴は暗号文で保存',str_starts_with($snapshot['snapshot_cipher'],'gcm1:') && !str_contains($snapshot['snapshot_cipher'],'JAF000009'));
@@ -56,7 +56,7 @@ $review=$plan['review'];$manifest=$plan['manifest'];
 licenseReject('移行の未確認候補を拒否',fn()=>$migration->execute(7,$manifest,$review,'jmrckinki_auth_lab'),422);
 licenseReject('対象DB相違を拒否',fn()=>$migration->execute(7,$manifest,$review,'other_database'),409);
 licenseReject('旧管理者だけで移行を許可しない',fn()=>$migration->plan(1,[30]),403);
-foreach($review['items'] as &$item){$item['decision']='approve';$item['kind']='jaf_competition';$item['expiry_reviewed']=true;}unset($item);
+foreach($review['items'] as &$item){$item['decision']='approve';$item['kind']='jaf_competition';$item['expiry_reviewed']=true;$item['types_reviewed']=true;$item['issue_date_reviewed']=true;$item['license_types']=['国内B'];}unset($item);
 $bad=$review;$bad['items'][0]['kind']='driving';licenseReject('移行時も運転免許をJAFへ流用不可',fn()=>$migration->execute(7,$manifest,$bad,'jmrckinki_auth_lab'),422);
 $db->exec("UPDATE entrants SET jaf_license_no='STALE' WHERE user_id=30");licenseReject('計画後の元データ変更を拒否',fn()=>$migration->execute(7,$manifest,$review,'jmrckinki_auth_lab'),409);$db->exec("UPDATE entrants SET jaf_license_no='JAFLEGACY30' WHERE user_id=30");
 $checked=$migration->execute(7,$manifest,$review,'jmrckinki_auth_lab');check('確認済みcheckも書込ゼロ',$checked['approved']===2 && licenseCounts($db)===$before);
@@ -65,16 +65,16 @@ $cli=runLicenseCli(['--mode=plan',...$common,'--users=30,31','--out='.$base.'.js
 check('CLIで暗号計画と確認雛形を作成',$cli['exit']===0 && json_decode($cli['out'],true)['candidates']===2);
 $cliManifest=json_decode(file_get_contents($base.'.json'),true);$cliReview=json_decode(file_get_contents($base.'-review.json'),true);
 check('計画ファイルは非公開権限・番号なし',(fileperms($base.'.json')&0777)===0600 && !str_contains(file_get_contents($base.'.json'),'JAFLEGACY'));
-foreach($cliReview['items'] as &$item){$item['decision']='approve';$item['kind']='jaf_competition';$item['expiry_reviewed']=true;}unset($item);file_put_contents($base.'-review.json',json_encode($cliReview));
+foreach($cliReview['items'] as &$item){$item['decision']='approve';$item['kind']='jaf_competition';$item['expiry_reviewed']=true;$item['types_reviewed']=true;$item['issue_date_reviewed']=true;$item['license_types']=['国内B'];}unset($item);file_put_contents($base.'-review.json',json_encode($cliReview));
 $files=['--manifest='.$base.'.json','--review='.$base.'-review.json'];$cli=runLicenseCli(['--mode=apply',...$common,...$files]);check('CLI applyには明示フラグが必要',$cli['exit']===1 && json_decode($cli['err'],true)['code']===422 && licenseCounts($db)===$before);
 $cli=runLicenseCli(['--mode=apply','--apply',...$common,...$files]);check('CLI確認後に2件を原子的に移行',$cli['exit']===0 && json_decode($cli['out'],true)['applied']===2);
 $before=licenseCounts($db);$cli=runLicenseCli(['--mode=apply','--apply',...$common,...$files]);check('同じ移行計画の再実行は変更なし',$cli['exit']===0 && json_decode($cli['out'],true)['already_applied']===2 && licenseCounts($db)===$before);
-$altered=$cliReview;$altered['items'][0]['kind']='jaf_official';licenseReject('適用済み計画のレビュー差し替えを拒否',fn()=>$migration->execute(7,$cliManifest,$altered,'jmrckinki_auth_lab',true),409);
+$altered=$cliReview;$altered['items'][0]['issued_on']='2026-01-01';licenseReject('適用済み計画のレビュー差し替えを拒否',fn()=>$migration->execute(7,$cliManifest,$altered,'jmrckinki_auth_lab',true),409);
 $imported=$db->query("SELECT * FROM portal_identifiers WHERE user_id=30 AND kind='jaf_competition'")->fetch(PDO::FETCH_ASSOC);
 check('移行後のライセンスを正式AADで復号',$box->open($imported['value_cipher'],'jmrc:identifier:v1:'.$imported['id'])==='JAFLEGACY30');
 check('運転免許の期限をJAF期限へコピーしない',$imported['expires_on']===null);
 check('移行処理で旧entrantsを変更しない',hash('sha256',json_encode($db->query('SELECT * FROM entrants ORDER BY user_id')->fetchAll()))===$sourceBefore);
-$plan2=$migration->plan(7,[32,33]);$review2=$plan2['review'];foreach($review2['items'] as &$item){$item['decision']='approve';$item['kind']='jaf_competition';$item['expiry_reviewed']=true;}unset($item);
+$plan2=$migration->plan(7,[32,33]);$review2=$plan2['review'];foreach($review2['items'] as &$item){$item['decision']='approve';$item['kind']='jaf_competition';$item['expiry_reviewed']=true;$item['types_reviewed']=true;$item['issue_date_reviewed']=true;$item['license_types']=['国内B'];}unset($item);
 $review2['items'][1]['decision']='pending';$before=licenseCounts($db);licenseReject('移行途中の不備で全件をロールバック',fn()=>$migration->execute(7,$plan2['manifest'],$review2,'jmrckinki_auth_lab',true),422);check('移行途中失敗で識別情報を残さない',licenseCounts($db)===$before);
 $db->exec("INSERT INTO portal_identifiers(user_id,kind,value_cipher,lookup_hmac,key_version) VALUES(32,'jaf_competition','old-opaque',UNHEX(SHA2('opaque32',256)),1)");$target=(int)$db->lastInsertId();
 $review2['items'][0]['target_identifier_id']=$target;$review2['items'][0]['target_version']=1;$review2['items'][1]['decision']='skip';$done=$migration->execute(7,$plan2['manifest'],$review2,'jmrckinki_auth_lab',true);

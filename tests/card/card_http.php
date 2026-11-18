@@ -38,7 +38,8 @@ $before=cardCounts($db);$pre=cardRead($owner,$member);
 check('GETは番号やQRを自動発行しない',!$pre['available'] && $pre['can_issue'] && cardCounts($db)===$before);
 check('未知の識別番号保管形式を平文扱いしない',cardPost($owner,$member)['status']===503 && cardCounts($db)===$before);
 $box=new \Jmrc\Card\SecretBox(base64_encode(str_repeat('L',32)));$license='JAF000009';$cipher=$box->seal($license,'jmrc:identifier:v1:102');
-$s=$db->prepare("UPDATE portal_identifiers SET value_cipher=?,license_type='国内B',key_version=1 WHERE id=102");$s->execute([$cipher]);
+$s=$db->prepare("UPDATE portal_identifiers SET value_cipher=?,license_type='コースB1',key_version=1 WHERE id=102");$s->execute([$cipher]);
+$db->exec('INSERT INTO portal_license_details(identifier_id,types_json,issued_on) VALUES(102,\'["コースB1"]\',NULL)');
 $missing=false;try{(new \Jmrc\Card\CardService($db,[]))->issue(9,$member);}catch(\Jmrc\Auth\HttpFailure $e){$missing=$e->status===503;}
 check('暗号鍵なしで発行しない',$missing && cardCounts($db)===$before);
 $badUrl=false;try{(new \Jmrc\Card\CardService($db,['data_key'=>base64_encode(str_repeat('L',32)),'card_public_url'=>'http://example.invalid/manage/card-check.php']))->issue(9,$member);}catch(\Jmrc\Auth\HttpFailure $e){$badUrl=$e->status===503;}
@@ -53,7 +54,7 @@ $db->exec("UPDATE portal_profiles SET first_name='更新名' WHERE user_id=9");
 $renamed=cardRead($owner,$member);
 check('氏名更新で番号とQRを維持',$renamed['name']==='検証<姓> 更新名' && $renamed['qr_url']===$card['qr_url'] && $renamed['member_number']===$card['member_number']);
 check('確定した番号体系で表示',$card['member_number']===$license.'-G-100003');
-check('確定した本人表示項目のみ',array_keys($card)===['available','can_issue','year','name','member_number','club_abbreviation','license_type','qr_url'] && $card['year']===$nowYear && $card['license_type']==='国内B');
+check('確定した本人表示項目のみ',array_keys($card)===['available','can_issue','year','name','member_number','club_abbreviation','license_type','qr_url'] && $card['year']===$nowYear && $card['license_type']==='コースB1');
 check('QRは不透明トークンの断片URL',preg_match('~^https://web/manage/card-check\.php#[a-f0-9]{64}$~D',$card['qr_url'])===1 && !str_contains($card['qr_url'],$license));
 $stored=$db->query("SELECT * FROM portal_card_tokens WHERE membership_id=$member AND revoked_at IS NULL")->fetch(PDO::FETCH_ASSOC);
 check('トークン平文をDBへ保存しない',!str_contains($stored['token_cipher'],$token) && hash_equals($stored['token_hash'],hash('sha256',$token,true)));

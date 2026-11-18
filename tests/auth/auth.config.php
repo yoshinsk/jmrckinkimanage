@@ -11,6 +11,7 @@ return [
     'insurance_intents_enabled'=>true,
     'insurance_template'=>'/srv/auth/templates/insurance/sports.security.insurance_form_club.xlsx',
     'license_self_service_enabled'=>true,
+    'license_export_enabled'=>true, // 架空データのCSV・権限検証専用。本番は未指定=停止。
     'data_key'=>base64_encode(str_repeat('L',32)), // 隔離環境だけの架空鍵。本番へ転用しない。
     'card_public_url'=>'https://web/manage/card-check.php',
     'db'=>['dsn'=>'mysql:host=db;dbname=jmrckinki_auth_lab;charset=utf8mb4',
