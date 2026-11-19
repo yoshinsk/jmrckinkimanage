@@ -1,0 +1,178 @@
+{
+  "date_jst": "2026-11-19",
+  "status": "PASS",
+  "scope": "L13候補範囲・L14会費会計範囲・L15登録名とCSV対象の確定部分",
+  "base_commit": "b9e4fb0229049ffa23dfc19f712d4b7a78227474",
+  "isolated": {
+    "http": 1688,
+    "browser": 2344,
+    "php_lint_files": 157,
+    "ddl_tests": 8,
+    "release_tests": 57,
+    "pure_tests": 34,
+    "fixture_only": true,
+    "published_ports": [],
+    "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26"
+  },
+  "database": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/license-name-db-20261119-20261119T002718Z",
+    "status": "PASS",
+    "private_backup_verified": true,
+    "protected_tables": 89,
+    "current_matches_after": true,
+    "rows": 0,
+    "rollback_executed": false
+  },
+  "code": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/answers-20261119-20261119T002750Z",
+    "files": {
+      "src/License/LicenseTypes.php": {
+        "old_sha256": "9f57d04dead85db4cd446d6e20083d8ef3f5403fe1a7100b4f6701d7b08da075",
+        "new_sha256": "576459ff10d4fad54e59c1a81d0e7f4c83ae8aa639e71711ab2752f610cf70d8"
+      },
+      "src/License/LicenseService.php": {
+        "old_sha256": "9b210cb6364c4a4caeb385b4a836d447896766cab480e32e507bef18f5b01f11",
+        "new_sha256": "f0ec138c13ac39c868122afc97fde08453fed963ef0c869fea3340eac6b990d4"
+      },
+      "src/License/LicenseExport.php": {
+        "old_sha256": "d2e4901ab0d3da3404f14c5b0ad39b36303c3ef65187811b80dd1dea511255cf",
+        "new_sha256": "85419de601a70764954d1a38b530c910f915e105ac78ff5a329cc863586267e7"
+      },
+      "src/Operations/AccountingReview.php": {
+        "old_sha256": "75932f63ab8ccb09dfa8f560e872f8b1cf3a050d58144bc9251264653d58f53d",
+        "new_sha256": "f0dc84388275220ba3cd35750b0e43bd33503a3a8d0cee17e9e979d53c703765"
+      },
+      "public/manage/licenses.php": {
+        "old_sha256": "55a24e119f3be11bec304af868398f5b415db18f71b188c40149d79c1c7ec17f",
+        "new_sha256": "35ae77fd6614c2ef323af4f0de9b9dc82fc5d6ae8b53d177b52741d7c6c37046"
+      },
+      "public/manage/license-export.php": {
+        "old_sha256": "1a3b07925a477139d8cf44eaaea15ef0532ebd79e4678b2299de5372a98a97a7",
+        "new_sha256": "9bd7dbc428cfa50a37eac5a523b2e6d6c23a37a85876c01a1dd1b7938dd2e2c3"
+      },
+      "public/manage/bank-settings.php": {
+        "old_sha256": "e41d9042816abb99c31ba2d3c8726a6c1800269f225354d3e49504540da0d6c2",
+        "new_sha256": "149ab2614b2ca7718235f76efe6e87c5c79dd6f7a304394979c1c341bdf9bdb4"
+      },
+      "public/manage/_accounting-workflow.php": {
+        "old_sha256": "e38df78d4cfe093c49a4d714bae012a9c798501755491155bf26db7eaeeb5a88",
+        "new_sha256": "a4dcc5a7c3dbe7c7993143a0f5cd347897324816abb63efcc3d63278c19f4611"
+      }
+    },
+    "verification": {
+      "status": "PASS",
+      "backup_verified": true,
+      "protected_state_unchanged": true,
+      "entry_files_unchanged": true,
+      "business_tables": 90,
+      "protected_files": 693,
+      "counts": {
+        "users": 314,
+        "jmrc_entries": 1203,
+        "jmrc_entry_fees": 1511,
+        "portal_profiles": 290,
+        "portal_applications": 0,
+        "portal_memberships": 0,
+        "portal_invoices": 0,
+        "portal_payments": 0
+      },
+      "years": "2027\tshadow",
+      "flags": {
+        "temporary_intake_enabled": false,
+        "profile_corrections_enabled": true,
+        "bank_master_enabled": true,
+        "license_self_service_enabled": false,
+        "insurance_intents_enabled": false,
+        "yucho_import_enabled": false,
+        "staff_role_requests_enabled": false,
+        "club_intake_enabled": false,
+        "license_export_enabled": false
+      },
+      "stage_removed": true
+    }
+  },
+  "live": {
+    "cases": 764,
+    "business_posts": 0,
+    "suites": {
+      "preparation": {
+        "status": "PASS",
+        "cases": 148
+      },
+      "existing": {
+        "status": "PASS",
+        "cases": 466
+      },
+      "club": {
+        "status": "PASS",
+        "cases": 88
+      },
+      "m2": {
+        "status": "PASS",
+        "cases": 62
+      }
+    },
+    "real_club_login_verified": false
+  },
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "dd7f8664479ba158235a7278adfde8c26a320cde62d8812b28f62677b42695f5",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "sheets": {
+    "status": "PASS",
+    "sheets": 9,
+    "updated_value_cells": 21,
+    "unchanged_value_cells": 2385,
+    "other_values_and_cell_formats_preserved": true,
+    "answer_columns_untouched": true,
+    "formula_M2": {
+      "formulaValue": "=AI(\"\")"
+    },
+    "validation_native_readback_passed": true,
+    "statuses_use_existing_four_choices": true,
+    "validation_rules_not_written": true,
+    "new_questions": 0,
+    "changed_row_heights": 11,
+    "visual_native_verified": false,
+    "visual_limitation": "GetCursorPos access denied",
+    "export_render_verified": true,
+    "rendered_ranges": 7,
+    "sharing_unchanged": true
+  },
+  "holds": [
+    "L05発行日条件",
+    "L12団体料金",
+    "実口座の適用年度・登録",
+    "12月9日の実被指名者・任期・決定記録",
+    "M1の正式な個人申請入力接続と総合受入",
+    "受付開始",
+    "正本切替",
+    "本人ライセンス受付",
+    "CSV出力・JAF送信",
+    "正式会計・CSV取込",
+    "一般公開・実メール送信・削除実行"
+  ],
+  "local_recovery": {
+    "ubuntu_restarts": 2,
+    "wsl_wide_restart": false,
+    "production_restart": false,
+    "single_connection_linux_validation": true
+  },
+  "production_license_migration_executed": false,
+  "production_account_settings_changed": false,
+  "production_role_grants_added": false,
+  "intake_opened": false,
+  "source_mode": "shadow"
+}

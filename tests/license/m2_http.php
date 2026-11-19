@@ -45,17 +45,29 @@ $s=$db->prepare('INSERT INTO portal_years (`'.implode('`,`',array_keys($year)).'
 $db->exec("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key) VALUES('individual_general',9,2098,'approved','m2-csv-fixture')");
 $app=(int)$db->lastInsertId();$db->exec("INSERT INTO portal_memberships(user_id,year,member_type,application_id,general_license_identifier_id,general_license_kind,status) VALUES(9,2098,'general',$app,102,'jaf_official','active')");
 $member=(int)$db->lastInsertId();$profile=$db->query('SELECT last_name FROM portal_profiles WHERE user_id=9')->fetchColumn();$cipher=$db->query('SELECT value_cipher FROM portal_identifiers WHERE id=102')->fetchColumn();
+$detail=$db->query('SELECT * FROM portal_license_details WHERE identifier_id=102')->fetch(PDO::FETCH_ASSOC);
 try{
+    licenseReject('L15 登録名なしでは全体のCSVを拒否',fn()=>$export->csv(7,2098),422);
+    $nameBox=new \Jmrc\Card\SecretBox($cfg['data_key']);$s=$db->prepare('UPDATE portal_license_details SET registered_name_cipher=? WHERE identifier_id=102');$s->execute([$nameBox->seal('カクニン タロウ','jmrc:license-name:v1:102')]);
     $s=$db->prepare('UPDATE portal_profiles SET last_name=? WHERE user_id=9');$s->execute(['=SUM(1,1)']);
     $csv=$export->csv(7,2098);$lines=explode("\n",trim(substr($csv,3)));$row=str_getcsv($lines[1],',','"','');
     check('M2 CSVはBOM・最小項目・確認済み本人番号',str_starts_with($csv,"\xEF\xBB\xBF")&&count($lines)===2&&count($row)===10&&$row[5]==='JAF000009');
-    check('M2 CSVの数式実行を防止',str_starts_with($row[3],"'=SUM(1,1)"));
+    check('L15 漢字氏名・エントリー名で代用せず登録名だけ出力',$row[3]==='カクニン タロウ'&&!str_contains($csv,'SUM'));
+    // 保存値が想定外でも、登録名の検証とCSV数式対策は独立して働く。
+    $s=$db->prepare('UPDATE portal_license_details SET types_json=? WHERE identifier_id=102');$s->execute(['["=SUM(1,1)"]']);
+    $formula=$export->csv(7,2098);$formulaRows=explode("\n",trim(substr($formula,3)));$formulaRow=str_getcsv($formulaRows[1],',','"','');
+    check('M2 CSVの数式実行を防止',str_starts_with($formulaRow[7],"'=SUM(1,1)"));
+    $s->execute([$detail['types_json']]);
     check('M2 住所・免許証・受取人・暗号文は出力しない',!str_contains($csv,'gcm1:')&&!str_contains($csv,'見舞金')&&!str_contains($csv,'免許証')&&!str_contains($csv,'住所'));
     $download=$office->request('/manage/license-export.php',['year'=>2098,'confirmed'=>'1','_csrf'=>identity($office)['csrf']]);
     check('M2 HTTPでCSVをダウンロード',$download['status']===200&&str_contains($download['body'],'JAF000009'));
+    $db->exec("UPDATE portal_license_details SET registered_name_cipher='opaque-name' WHERE identifier_id=102");
+    licenseReject('L15 登録名を復号できなければ全体拒否',fn()=>$export->csv(7,2098),503);
+    $s=$db->prepare('UPDATE portal_license_details SET registered_name_cipher=? WHERE identifier_id=102');$s->execute([$nameBox->seal('カクニン タロウ','jmrc:license-name:v1:102')]);
     $db->exec("UPDATE portal_identifiers SET value_cipher='opaque-m2' WHERE id=102");
     licenseReject('M2 一部復号不可ならCSV全体を拒否',fn()=>$export->csv(7,2098),503);
 }finally{
+    $s=$db->prepare('UPDATE portal_license_details SET types_json=?,issued_on=?,registered_name_cipher=? WHERE identifier_id=102');$s->execute([$detail['types_json'],$detail['issued_on'],$detail['registered_name_cipher']]);
     $s=$db->prepare('UPDATE portal_profiles SET last_name=? WHERE user_id=9');$s->execute([$profile]);$s=$db->prepare('UPDATE portal_identifiers SET value_cipher=? WHERE id=102');$s->execute([$cipher]);
     $db->exec('DELETE FROM portal_memberships WHERE id='.$member.';DELETE FROM portal_applications WHERE id='.$app.';DELETE FROM portal_years WHERE year=2098');
 }

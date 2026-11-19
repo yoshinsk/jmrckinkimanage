@@ -18,7 +18,10 @@ use Jmrc\Bank\PaymentCoreCsv as Payment;
     $unknown=['receipt_id'=>'a','item'=>'member_fee','amount'=>2000,'paid_on'=>'2027-01-02','confirmed_at'=>'2027-01-05 10:00:00'];
     $reject('人数が不明なら自動連携しない',fn()=>Policy::receipt($unknown),409);
     $reject('複数名分は手動確認へ',fn()=>Policy::receipt($unknown+['persons'=>2]),409);
-    $reject('クラブ費を自動連携しない',fn()=>Review::synchronize([],[['id'=>'club','item'=>'club_fee','status'=>'confirmed']]));
+    $clubFee=Policy::receipt(['persons'=>1,'receipt_id'=>'club','item'=>'club_fee','amount'=>30000,'paid_on'=>'2027-01-02','confirmed_at'=>'2027-01-05 10:00:00']);
+    $clubLedger=Review::synchronize([],[$clubFee]);
+    check('L14 クラブ年会費の連携を重複計上しない',count($clubLedger)===1&&Review::synchronize($clubLedger,[$clubFee])===$clubLedger&&$clubLedger[0]['amount']===30000);
+    foreach(['sports_insurance','gymkhana_fund','mutual_aid'] as $excluded){$reject('L14 対象外制度を会計連携しない '.$excluded,fn()=>Review::synchronize([], [array_replace($clubFee,['item'=>$excluded])]));}
     $reject('個人会費の手入力重複を拒否',fn()=>Review::entry(['item'=>'member_fee','date'=>'2027-01-01','amount'=>2000],'now','manual:a'));
     $c=Materials::club(Materials::sampleClub()+['directory_phone'=>'不要な掲載欄','jaf_registration'=>'不要な添付メモ']);
     check('任意会社欄は空欄可で掲載項目と添付メモは保存しない',$c['company']===''&&!isset($c['directory_phone'],$c['jaf_registration']));

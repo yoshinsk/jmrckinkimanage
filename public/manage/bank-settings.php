@@ -26,6 +26,7 @@ require_once __DIR__.'/_office-layout.php';
 jmrc_office_header('入金先・決済URLの設定');
 ?>
 <p class="office-intro">変更は新しい請求に反映されます。発行済み請求の案内・URLは変更しません。銀行口座を変更する場合は新規設定を作成してください。同じ実口座には同じCSV取込元を対応付けます。</p>
+<p class="office-notice">L14の回答により、受領口座は個人会費・クラブ会費の振込先として扱います。今回の会計取込はこの2用途だけです。スポーツ安全保険の収入は当面取り込まず、ジムカーナ救済基金は既存エントリー側で別に管理します。用途の選択だけではCSV取込・受付は開始しません。</p>
 <?php if($result): ?>
 <div class="office-success" role="status"><p>設定を保存しました。#<?=$e($result['id'])?></p><a class="office-button secondary" href="?<?=$sourceForm||($_POST['action']??'')==='source'?'source':'account'?>=<?=$e($result['id'])?>">保存した設定を確認</a></div>
 <?php endif; ?>

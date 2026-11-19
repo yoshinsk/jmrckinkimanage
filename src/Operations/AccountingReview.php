@@ -47,7 +47,7 @@ final class AccountingReview
         $out=array_values(array_filter($ledger,static fn($r)=>$r['source']==='manual'));$seen=[];
         foreach($fees as $fee){
             $id=$fee['id']??null;$kind=$fee['item']??null;
-            if(!is_string($id)||!preg_match('/^[A-Za-z0-9_-]{1,64}$/D',$id)||$kind!=='member_fee'||!in_array($fee['status']??null,['confirmed','cancelled','pending'],true)){throw new HttpFailure(422,'自動連携は個人会員費だけです。連携元・状態を確認してください');}
+            if(!is_string($id)||!preg_match('/^[A-Za-z0-9_-]{1,64}$/D',$id)||!in_array($kind,['member_fee','club_fee'],true)||!in_array($fee['status']??null,['confirmed','cancelled','pending'],true)){throw new HttpFailure(422,'会費連携は個人会員費とクラブ年会費だけです。スポーツ安全保険・救済基金は含めません');}
             if(isset($seen[$id])){if($seen[$id]!==$fee){throw new HttpFailure(409,'同じ連携元に異なる内容があります');}continue;}$seen[$id]=$fee;
             if($fee['status']!=='confirmed'){continue;}
             $row=self::entry($fee,(string)($fee['registered_at']??''),'fee:'.$id,true);$row['source']='portal_fee_example';$out[]=$row;

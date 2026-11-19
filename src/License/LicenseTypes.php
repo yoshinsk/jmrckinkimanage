@@ -39,6 +39,17 @@ final class LicenseTypes
         if(!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/D',$value)||$value<'1000-01-01'||!$d||$d->format('Y-m-d')!==$value){throw new HttpFailure(422,'発行日を正しい日付で入力してください');}
         return $value;
     }
+    /** N11・L15: 券面の登録名だけを受け付ける。一般の氏名や旧カナから自動補完しない。 */
+    public static function registeredName(mixed $value):?string
+    {
+        if($value===null||$value===''){return null;}
+        if(!is_string($value)){throw new HttpFailure(422,'JAFライセンス登録名を確認してください');}
+        $value=trim(\Jmrc\Input\TextInput::normalize($value));
+        if($value===''||mb_strlen($value)>128||!preg_match('/[\\p{Katakana}\\p{Latin}\\p{Nl}]/u',$value)||!preg_match("/^[\\p{Katakana}\\p{Latin}\\p{Nl}\\x{3099}\\x{309A} ・.ʼ'’-]+$/uD",$value)){
+            throw new HttpFailure(422,'JAFライセンス登録名はカタカナまたはローマ字で128文字以内に入力してください');
+        }
+        return $value;
+    }
     /** 移行前の種別はそのまま表示し、新形式では指定された全種別を表示する。 */
     public static function display(?string $json,?string $legacy):string
     {

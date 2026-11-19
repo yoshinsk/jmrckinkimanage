@@ -3,6 +3,8 @@
 # 本番接続や既存リポジトリの変更は行わない。実設定/実データをコピーしない。
 import hashlib
 import argparse
+import os
+import sys
 import json
 import shutil
 import subprocess
@@ -22,6 +24,9 @@ SOURCE_FILES = ['common/mailer.php','common/entry_readiness.php','common/dirt_tr
 
 
 def command(args, data=None, timeout=60, check=True):
+    # WSL内から実行するときはネイティブCLIを使い、Windows→WSLへの再接続を繰り返さない。
+    if os.name!='nt' and args[:4]==['wsl.exe','-d','Ubuntu','--']:
+        args=args[4:]
     result = subprocess.run(args, input=data, capture_output=True, timeout=timeout)
     if check and result.returncode:
         raise RuntimeError(result.stderr.decode(errors='replace')[-5000:])
@@ -30,6 +35,11 @@ def command(args, data=None, timeout=60, check=True):
 
 def docker(*args, data=None, timeout=60, check=True):
     return command(['wsl.exe','-d','Ubuntu','--','docker',*args],data,timeout,check)
+
+
+def linux_path(path):
+    """WSL内では既にLinuxパスなので再変換しない。Windows実行時だけwslpathで変換する。"""
+    return command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',path.as_posix()]).stdout.decode().strip() if os.name=='nt' else path.as_posix()
 
 
 def db_sql(sql):
@@ -67,6 +77,7 @@ def main():
     review_paths+=['src/Club/ClubFeePolicy.php','src/Club/ClubReviewClosure.php','src/Club/ClubRegistrationData.php','tests/club/club_closure_http.php','tests/license/club_intake_browser.cjs','design/phase2/014_club_review_closure.sql']
     review_paths+=['tests/club/concurrent_closure.php']
     review_paths+=['src/License/LicenseTypes.php','src/License/LicenseService.php','src/License/LicenseMigration.php','src/License/LicenseExport.php','src/Card/CardService.php','public/manage/license-export.php','public/manage/assets/licenses.css','design/phase2/015_license_details.sql','tests/license/m2_http.php']
+    review_paths+=['design/phase2/016_license_registered_name.sql','scripts/LicenseNamesDatabase.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -133,7 +144,7 @@ def main():
     shutil.copyfile(ROOT/'tests/auth/legacy.config.php',context/'site/entry/common/config.php')
     for name in ['auth.config.php','nginx.conf','Dockerfile.php','Dockerfile.nginx']:
         shutil.copyfile(ROOT/'tests/auth'/name,context/name)
-    linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',context.as_posix()]).stdout.decode().strip()
+    linux=linux_path(context)
     # 検証専用証明書。実ドメインの秘密鍵・証明書は使わない。
     command(['wsl.exe','-d','Ubuntu','--','openssl','req','-x509','-newkey','rsa:2048','-nodes',
              '-keyout',linux+'/tls.key','-out',linux+'/tls.crt','-days','1',
@@ -141,7 +152,7 @@ def main():
     print('Building isolated PHP-FPM and nginx images',flush=True)
     docker('build','-f',linux+'/Dockerfile.php','-t','jmrc-auth-php:20261027',linux,timeout=300)
     docker('build','-f',linux+'/Dockerfile.nginx','-t','jmrc-auth-nginx:20261027',linux,timeout=180)
-    browser_context=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',(ROOT/'tests/license').as_posix()]).stdout.decode().strip()
+    browser_context=linux_path((ROOT/'tests/license'))
     docker('build','-f',browser_context+'/Dockerfile.browser','-t','jmrc-license-browser:20261028',browser_context,timeout=600)
     created=[]
     network_created=False
@@ -179,6 +190,7 @@ def main():
         db_sql((ROOT/'design/phase2/013_club_intake.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/014_club_review_closure.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/015_license_details.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/016_license_registered_name.sql').read_text(encoding='utf-8'))
         db_sql("CREATE TABLE email_verifications(id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,user_id BIGINT UNSIGNED NOT NULL,purpose VARCHAR(32),token CHAR(64),email VARCHAR(255),expires_at DATETIME,consumed TINYINT NOT NULL DEFAULT 0);")
         db_sql("CREATE USER 'lab_fixture'@'%' IDENTIFIED BY 'lab_fixture_only';"
                "GRANT ALL ON jmrckinki_auth_lab.* TO 'lab_fixture'@'%';"
@@ -270,13 +282,15 @@ def main():
 
         insurance_artifacts=ROOT/'tmp/insurance_validation'
         insurance_artifacts.mkdir(exist_ok=True)
-        insurance_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',insurance_artifacts.as_posix()]).stdout.decode().strip()
+        insurance_linux=linux_path(insurance_artifacts)
         for name in ['insurance-preview.xlsx','insurance-preview-24.xlsx','insurance-formula.xlsx']:
             docker('cp',NAMES[1]+':/tmp/'+name,insurance_linux+'/'+name)
-        insurance_check=command(['python',str(ROOT/'tests/insurance/verify_workbook.py')],timeout=60)
+        insurance_check=command([sys.executable,str(ROOT/'tests/insurance/verify_workbook.py')],timeout=60)
         report['insurance_workbook_validation']=json.loads(insurance_check.stdout)
         qr_fixtures=report.pop('card_qr_fixtures')
-        qr=command(['node',str(ROOT/'tests/card/verify_qr.cjs')],data=json.dumps(qr_fixtures).encode(),timeout=60)
+        # Linux側にNodeを追加せず、検証済みブラウザー用イメージで純粋なQR検査を行う。
+        qr_args=['node',str(ROOT/'tests/card/verify_qr.cjs')] if os.name=='nt' else ['docker','run','--rm','-i','--network','none','-v',ROOT.as_posix()+':/srv/auth:ro','jmrc-license-browser:20261028','node','/srv/auth/tests/card/verify_qr.cjs']
+        qr=command(qr_args,data=json.dumps(qr_fixtures).encode(),timeout=60)
         report['qr_client_validation']=json.loads(qr.stdout)
         print('Testing club intake, shared normalization and renewal candidates',flush=True)
         calendar=json.loads(db_sql("SELECT JSON_OBJECT('source_mode',source_mode,'club_open_at',club_open_at,'club_close_at',club_close_at) FROM portal_years WHERE year=2027").stdout.splitlines()[-1])
@@ -288,7 +302,7 @@ def main():
             state=json.loads(docker('inspect',name).stdout)[0]
             if not state['State']['Running']:
                 artifacts=ROOT/'tmp/club_intake_20261116/browser';artifacts.mkdir(parents=True,exist_ok=True)
-                dest=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
+                dest=linux_path(artifacts)
                 docker('cp',name+':/artifacts/.',dest)
                 if state['State']['ExitCode']!=0:raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
                 break
@@ -303,7 +317,7 @@ def main():
             state=json.loads(docker('inspect',name).stdout)[0]
             if not state['State']['Running']:
                 artifacts=ROOT/'tmp/club_operations_20261116/browser';artifacts.mkdir(parents=True,exist_ok=True)
-                dest=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
+                dest=linux_path(artifacts)
                 docker('cp',name+':/artifacts/.',dest)
                 if state['State']['ExitCode']!=0:raise RuntimeError(docker('logs',name,check=False).stderr.decode(errors='replace')[-2000:])
                 break
@@ -321,7 +335,7 @@ def main():
                 if state['State']['ExitCode']!=0:
                     failure_artifacts=ROOT/'tmp/mobile_failure'
                     failure_artifacts.mkdir(exist_ok=True)
-                    failure_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',failure_artifacts.as_posix()]).stdout.decode().strip()
+                    failure_linux=linux_path(failure_artifacts)
                     docker('cp',BROWSER+':/artifacts/.',failure_linux,check=False)
                     raise RuntimeError(docker('logs',BROWSER,check=False).stderr.decode(errors='replace')[-2000:])
                 break
@@ -331,7 +345,7 @@ def main():
         report['mobile_browser_validation']=json.loads(docker('logs',BROWSER).stdout)
         artifacts=ROOT/'tmp/mobile_validation'
         artifacts.mkdir(exist_ok=True)
-        artifact_linux=command(['wsl.exe','-d','Ubuntu','--','wslpath','-a',artifacts.as_posix()]).stdout.decode().strip()
+        artifact_linux=linux_path(artifacts)
         docker('cp',BROWSER+':/artifacts/.',artifact_linux)
         # 通常設定と本番相当の保留設定を同じ隔離環境で描画する。後者は全業務試験の終了後だけに適用。
         dashboard_reports=[]

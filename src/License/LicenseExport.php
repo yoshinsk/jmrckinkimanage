@@ -8,7 +8,7 @@ use Jmrc\Auth\HttpFailure;
 use Jmrc\Card\SecretBox;
 final class LicenseExport
 {
-    public const COLUMNS=['年度','利用者ID','会員資格ID','氏名（ポータル登録）','会員状態（保存値）','JAFライセンス番号','区分','ライセンスの種類（本人申告）','発行日（未確認は空欄）','旧有効期限（参考）'];
+    public const COLUMNS=['年度','利用者ID','会員資格ID','JAFライセンス登録名','会員状態（保存値）','JAFライセンス番号','区分','ライセンスの種類（本人申告）','発行日（未確認は空欄）','旧有効期限（参考）'];
     public function __construct(private readonly PDO $db,private readonly array $config){}
     /** 現行の識別情報取扱権限を再確認する。クラブ代表や旧管理者だけでは全体出力を許可しない。 */
     public function access(int $actor):void{(new LicenseService($this->db,$this->config))->requireMigration($actor);}
@@ -21,9 +21,9 @@ final class LicenseExport
         if($year===false){throw new HttpFailure(422,'対象年度を確認してください');}
         $s=$this->db->prepare('SELECT year FROM portal_years WHERE year=?');$s->execute([$year]);
         if(!$s->fetchColumn()){throw new HttpFailure(422,'登録済み年度を選択してください');}
-        $s=$this->db->prepare("SELECT m.year,m.user_id,m.id,m.status,p.last_name,p.first_name,i.id AS identifier_id,i.value_cipher,i.kind,i.license_type,i.expires_on,d.types_json,d.issued_on
+        $s=$this->db->prepare("SELECT m.year,m.user_id,m.id,m.status,i.id AS identifier_id,i.value_cipher,i.kind,i.license_type,i.expires_on,d.types_json,d.issued_on,d.registered_name_cipher
           FROM portal_memberships m JOIN portal_identifiers i ON i.id=m.general_license_identifier_id AND i.user_id=m.user_id AND i.kind=m.general_license_kind
-          LEFT JOIN portal_license_details d ON d.identifier_id=i.id LEFT JOIN portal_profiles p ON p.user_id=m.user_id
+          LEFT JOIN portal_license_details d ON d.identifier_id=i.id
           WHERE m.year=? AND m.member_type='general' AND m.status='active' ORDER BY m.user_id,m.id LIMIT 5001");
         $s->execute([$year]);$rows=$s->fetchAll(PDO::FETCH_ASSOC);
         if(count($rows)>5000){throw new HttpFailure(422,'対象を分割する運用を事務局で確認してください');}
@@ -31,8 +31,11 @@ final class LicenseExport
         try{
             fwrite($fp,"\xEF\xBB\xBF");fputcsv($fp,self::COLUMNS,',','"','');
             foreach($rows as $r){
+                if($r['registered_name_cipher']===null){throw new HttpFailure(422,'対象会員のJAFライセンス登録名を本人に確認してください。氏名やエントリー名では代用しません');}
+                $name=$box->open($r['registered_name_cipher'],'jmrc:license-name:v1:'.$r['identifier_id']);
+                if(LicenseTypes::registeredName($name)===null){throw new HttpFailure(422,'JAFライセンス登録名が未登録です');}
                 $number=$box->open($r['value_cipher'],'jmrc:identifier:v1:'.$r['identifier_id']);
-                $values=[$r['year'],$r['user_id'],$r['id'],trim(($r['last_name']??'').' '.($r['first_name']??'')),$r['status'],$number,$r['kind']==='jaf_competition'?'競技':'審判員',LicenseTypes::display($r['types_json'],$r['license_type']),$r['issued_on']??'',$r['expires_on']??''];
+                $values=[$r['year'],$r['user_id'],$r['id'],$name,$r['status'],$number,$r['kind']==='jaf_competition'?'競技':'審判員',LicenseTypes::display($r['types_json'],$r['license_type']),$r['issued_on']??'',$r['expires_on']??''];
                 fputcsv($fp,array_map(self::safeCell(...),$values),',','"','');
             }
             rewind($fp);$csv=stream_get_contents($fp);

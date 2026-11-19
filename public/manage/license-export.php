@@ -17,7 +17,7 @@ jmrc_office_header('JAF照会用出力の確認');
 ?>
 <p>本人申告のライセンスを事務局で確認するためのCSVです。JAFへ自動送信せず、ライセンスの有効・無効を判定しません。</p>
 <p><a class="office-button secondary" href="/manage/licenses.php">本人用のライセンス入力項目を確認する</a></p>
-<p>正式なJAF書式、申請中・停止中を含める範囲、JAF登録名の扱いは確認中です。現在の作成処理は、選択年度に有効状態で保存されたGeneralの最小限の項目を対象とします。現在の資格照会の代わりには使いません。</p>
+<p>JAFの指定書式はなく、選択年度に有効状態で登録済みのGeneralだけを対象にします。氏名は本人が申告したJAFライセンス登録名を使い、未登録者がいれば全体の出力を止めます。申請中・停止中は含めません。発行日の入力条件は引き続き確認中です。現在の資格照会の代わりには使いません。</p>
 <?php if(!$enabled):?><p role="status" class="office-notice">出力は確認中です。まだダウンロードできません。受付と正本の切替も行いません。</p><?php endif;?>
 <section class="office-panel"><h2 id="export-heading">照会用CSVの準備</h2>
 <p>出力予定の項目：</p><ul><?php foreach(\Jmrc\License\LicenseExport::COLUMNS as $column):?><li><?=$e($column)?></li><?php endforeach;?></ul>

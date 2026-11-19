@@ -57,6 +57,7 @@ async function run(engine,name,device){
    await p.goto(origin+'/manage/licenses.php?reuse=entry');
    check(prefix+' 運転免許期限を発行日へ流用しない',await p.locator('input[name=issued_on]').inputValue()===''&&await p.locator('input[name=expires_on]').count()===0);
    check(prefix+' 競技の指定9種を複数選択',await p.locator('input[name="license_types[]"]').count()===9);
+   check(prefix+' JAF登録名は自動補完せず単独入力欄',await p.locator('#jaf-name').inputValue()===''&&await p.getByLabel('JAFライセンス登録名（照会用・任意）',{exact:true}).count()===1);
    await Promise.all([p.waitForURL(u=>u.searchParams.get('kind')==='jaf_official'),p.getByRole('link',{name:'審判員の登録',exact:true}).tap()]);
    check(prefix+' JSなしで審判員の指定15種を表示',await p.locator('input[name="license_types[]"]').count()===15);
    check(prefix+' 発行日は不明を許可し期限から補完しない',await p.locator('input[name=issued_on]').inputValue()===''&&!await p.locator('input[name=issued_on]').getAttribute('required'));

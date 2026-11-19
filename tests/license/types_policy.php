@@ -17,4 +17,8 @@ $check('ローマ数字は共通整形で保持',\Jmrc\Input\TextInput::normaliz
 $check('不明の発行日はnull',\Jmrc\License\LicenseTypes::issuedOn(null)===null&&\Jmrc\License\LicenseTypes::issuedOn('')===null);
 $check('閏日と全角数字の日付',\Jmrc\License\LicenseTypes::issuedOn('２０２４-０２-２９')==='2024-02-29');
 foreach(['2023-02-29','2026-13-01','2026-11-00','2026-1-1','2026-01-01T00:00:00','0000-01-01',['2026-01-01']] as $n=>$value){$bad('発行日の形式・暦日不正'.$n,fn()=>\Jmrc\License\LicenseTypes::issuedOn($value));}
+$check('JAF登録名は半角整形しローマ数字を保持',\Jmrc\License\LicenseTypes::registeredName('ＪＯＨＮ　Ⅲ')==='JOHN Ⅲ');
+$check('JAF登録名のカタカナを保持',\Jmrc\License\LicenseTypes::registeredName('カクニン タロウ')==='カクニン タロウ');
+$check('旧登録名を推定しない',\Jmrc\License\LicenseTypes::registeredName(null)===null);
+foreach([[],['登録名'],'確認 太郎',"NAME\nOTHER",str_repeat('A',129),'=SUM(A)','---'] as $n=>$value){$bad('JAF登録名の構造・文字・長さ'.$n,fn()=>\Jmrc\License\LicenseTypes::registeredName($value));}
 echo json_encode(['status'=>'PASS','cases'=>$cases,'database_connections'=>0,'files_written'=>0]);

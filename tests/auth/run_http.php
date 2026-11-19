@@ -218,6 +218,7 @@ try {
     require '/srv/tests/card_http.php';
     require '/srv/tests/license_http.php';
     require '/srv/tests/m2_http.php';
+    require '/srv/tests/registered_name_http.php';
     require '/srv/tests/insurance_http.php';
     require '/srv/tests/bank_http.php';
     require '/srv/tests/bank_master_http.php';
