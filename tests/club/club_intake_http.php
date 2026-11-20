@@ -20,11 +20,11 @@ use Jmrc\Input\TextInput as TextInput;
     $window=['source_mode'=>'shadow','club_open_at'=>'2026-11-30 15:00:00.000000','club_close_at'=>'2027-02-07 15:00:00.000000','valid_until'=>'2027-12-31 15:00:00.000000'];
     check('クラブ開始境界は日本時間12月1日0時',!IntakePolicy::open($window,new DateTimeImmutable('2026-12-01T00:00:00+09:00'),[])&&!IntakePolicy::open($window,new DateTimeImmutable('2026-11-30T23:59:59+09:00'),$cfg)&&IntakePolicy::open($window,new DateTimeImmutable('2026-12-01T00:00:00+09:00'),$cfg));
     check('クラブ締切境界は2月7日終日',IntakePolicy::open($window,new DateTimeImmutable('2027-02-07T23:59:59+09:00'),$cfg)&&!IntakePolicy::open($window,new DateTimeImmutable('2027-02-08T00:00:00+09:00'),$cfg));
-    foreach(['official'=>50000,'affiliated'=>30000,'associate'=>20000,'organization'=>20000] as $kind=>$annual){
-        foreach(['regular','supporting'] as $member){foreach(['new','renewal','rejoin'] as $reg){$a=$kind==='organization'&&$member==='supporting'?10000:$annual;$q=Registration::quote($db,2027,$kind,$member,$reg);check('年度料金 '.$kind.' '.$member.' '.$reg,$q['annual_yen']===$a&&$q['joining_yen']===($reg==='new'?10000:0)&&$q['total_yen']===$a+($reg==='new'?10000:0));}}
+    foreach(['official'=>50000,'affiliated'=>30000,'associate'=>20000,'organization'=>20000,'official_org'=>20000,'associate_org'=>20000] as $kind=>$annual){
+        foreach(['regular','supporting'] as $member){foreach(['new','renewal','rejoin'] as $reg){if($member==='supporting'&&in_array($kind,\Jmrc\Club\ClubFeePolicy::ORGANIZATIONS,true)){try{Registration::quote($db,2027,$kind,$member,$reg);check('賛助団体は確認待ち',false);}catch(\Jmrc\Auth\HttpFailure $e){check('賛助団体は確認待ち',$e->status===409);}continue;}$a=$annual;$q=Registration::quote($db,2027,$kind,$member,$reg);check('年度料金 '.$kind.' '.$member.' '.$reg,$q['annual_yen']===$a&&$q['joining_yen']===($reg==='new'?10000:0)&&$q['total_yen']===$a+($reg==='new'?10000:0));}}
     }
     check('関連団体企業は入会金なし',Registration::quote($db,2027,'business','supporting','new')['total_yen']===50000);
-    $input=array_fill_keys(array_keys(Registration::LABELS),'架空');$input=array_replace($input,['club_name'=>'架空ＡＢＣ　Ⅲ','club_short'=>'ＡＢＣⅢ','region'=>'27','jaf_kind'=>'organization','membership_kind'=>'supporting','registration_kind'=>'new','same_contact'=>'1','company'=>'','club_postcode'=>'０００－００００','rep_postcode'=>'0000000','rep_email'=>'ｃｌｕｂ@example.invalid','rep_phone'=>'００００００００００','rep_mobile'=>'00000000000','contact_postcode'=>'','contact_email'=>'','candidate_ref'=>'']);
+    $input=array_fill_keys(array_keys(Registration::LABELS),'架空');$input=array_replace($input,['club_name'=>'架空ＡＢＣ　Ⅲ','club_short'=>'ＡＢＣⅢ','region'=>'27','jaf_kind'=>'organization','membership_kind'=>'regular','registration_kind'=>'new','same_contact'=>'1','company'=>'','club_postcode'=>'０００－００００','rep_postcode'=>'0000000','rep_email'=>'ｃｌｕｂ@example.invalid','rep_phone'=>'００００００００００','rep_mobile'=>'00000000000','contact_postcode'=>'','contact_email'=>'','candidate_ref'=>'']);
     // 英数字と空白だけを変換するため、区切り記号は半角で入力する。
     $input['club_postcode']='０００-００００';
     $input['jaf_number']='９９９９０';
@@ -64,9 +64,9 @@ use Jmrc\Input\TextInput as TextInput;
     $savedBanks=$db->query("SELECT id,enabled FROM portal_bank_accounts WHERE purpose_code='club_fee'")->fetchAll(PDO::FETCH_ASSOC);$db->exec("UPDATE portal_bank_accounts SET enabled=0 WHERE purpose_code='club_fee'");
     $db->exec("INSERT INTO portal_bank_accounts(purpose_code,year,display_name,details_cipher,payment_url,enabled,updated_by) VALUES('club_fee',2027,'架空C1確認口座','fixture','https://example.invalid/ignored',1,7)");$bank=(int)$db->lastInsertId();
     $bill=$post($owner,['action'=>'issue','id'=>$id]);$invoice=json_decode($bill['body'],true);$inv=(int)($invoice['id']??0);
-    check('賛助登録団体の新規は年会費と入会金の合計を一意請求',$bill['status']===200&&(int)$invoice['amount_yen']===20000&&$invoice['payment_url_snapshot']===null);
+    check('正会員登録団体の新規は年会費と入会金の合計を一意請求',$bill['status']===200&&(int)$invoice['amount_yen']===30000&&$invoice['payment_url_snapshot']===null);
     check('クラブ請求の再送でも二重請求なし',(int)json_decode($post($owner,['action'=>'issue','id'=>$id])['body'],true)['id']===$inv);
-    $billing=new \Jmrc\Billing\BillingService($db);$paymentOperation=bin2hex(random_bytes(24));$billing->confirm(7,$inv,20000,'fixture-intake-'.$id,$paymentOperation);
+    $billing=new \Jmrc\Billing\BillingService($db);$paymentOperation=bin2hex(random_bytes(24));$billing->confirm(7,$inv,30000,'fixture-intake-'.$id,$paymentOperation);
     $approved=(new \Jmrc\Club\ClubService($db,$cfg['data_key']))->approve(7,$cy);
     check('クラブの先行承認はできるがshadow資格は有効化しない',$approved['eligibility']['ready']&&!$approved['eligibility']['active']&&$db->query('SELECT source_mode FROM portal_years WHERE year=2027')->fetchColumn()==='shadow');
     $allocation=$db->prepare('SELECT id FROM portal_allocations WHERE operation_key=?');$allocation->execute([$paymentOperation]);$billing->reverse(7,(int)$allocation->fetchColumn(),bin2hex(random_bytes(24)),'架空訂正');

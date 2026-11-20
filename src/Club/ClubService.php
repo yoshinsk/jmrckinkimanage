@@ -53,6 +53,7 @@ final class ClubService
                 return $this->read($actor,(int)$old['id'])+['replayed'=>true];
             }
             ClubIntakePolicy::requireOpen($this->db,$year);
+            try{ClubFeePolicy::requireRegistrationCategory($year,$category);}catch(\DomainException $e){throw new HttpFailure(409,$e->getMessage());}
             if (!$this->one('SELECT category_digit FROM portal_club_categories WHERE category_digit=? AND enabled=1',[$category])) { throw new HttpFailure(422,'有効なクラブ区分を指定してください'); }
             $bank=$this->bank($club,$year,$input);
             $this->run("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key,submitted_at) VALUES('club',?,?,'submitted',?,UTC_TIMESTAMP(6))",[$actor,$year,$key]);$app=(int)$this->db->lastInsertId();
@@ -86,9 +87,11 @@ final class ClubService
         return $this->tx(function () use ($actor,$id): array {
             $r=$this->one('SELECT * FROM portal_club_years WHERE id=? FOR UPDATE',[$id])?:throw new HttpFailure(404,'年度登録がありません');
             $this->requireAccess($actor,(int)$r['club_id'],true);
+            $a=$this->one('SELECT status FROM portal_applications WHERE id=? FOR UPDATE',[$r['application_id']]);
+            // 既存の承認済み履歴は再分類しない。新たな承認だけは入金の有無より先に加盟対象を確認する。
+            if($a['status']!=='approved'){try{ClubFeePolicy::requireRegistrationCategory((int)$r['year'],$r['category_digit']);}catch(\DomainException $e){throw new HttpFailure(409,$e->getMessage());}}
             $state=(new ClubEligibility($this->db))->evaluate($id);
             if (!$state['paid']) { throw new HttpFailure(409,'クラブ年会費の満額入金確認が必要です'); }
-            $a=$this->one('SELECT status FROM portal_applications WHERE id=? FOR UPDATE',[$r['application_id']]);
             if ($a['status']==='approved') { return $this->read($actor,$id); }
             if ($a['status']!=='submitted' || $r['status']!=='pending') { throw new HttpFailure(409,'現在の状態では承認できません'); }
             if (!$this->one('SELECT category_digit FROM portal_club_categories WHERE category_digit=? AND enabled=1',[$r['category_digit']])) { throw new HttpFailure(409,'クラブ区分を確認してください'); }

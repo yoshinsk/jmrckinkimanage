@@ -78,6 +78,7 @@ def main():
     review_paths+=['tests/club/concurrent_closure.php']
     review_paths+=['src/License/LicenseTypes.php','src/License/LicenseService.php','src/License/LicenseMigration.php','src/License/LicenseExport.php','src/Card/CardService.php','public/manage/license-export.php','public/manage/assets/licenses.css','design/phase2/015_license_details.sql','tests/license/m2_http.php']
     review_paths+=['design/phase2/016_license_registered_name.sql','scripts/LicenseNamesDatabase.php']
+    review_paths+=['design/phase2/017_regular_organization_fees_2027.sql','scripts/OrganizationFeesDatabase.php','src/Club/ClubService.php']
     review_inputs={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in review_paths}
     context = ROOT/'tmp'/('auth_lab_'+str(time.time_ns()))
     context.mkdir(parents=True)
@@ -252,6 +253,8 @@ def main():
         docker('exec',NAMES[1],'php','/srv/tests/seed.php')
         docker('exec',NAMES[1],'php','/srv/tests/membership_seed.php')
         docker('exec',NAMES[1],'php','/srv/tests/club_seed.php')
+        db_sql((ROOT/'design/phase2/013_club_fee_profiles_2027.sql').read_text(encoding='utf-8'))
+        db_sql((ROOT/'design/phase2/017_regular_organization_fees_2027.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/billing_permissions.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/club_permissions.sql').read_text(encoding='utf-8'))
         db_sql((ROOT/'design/phase2/license_permissions.sql').read_text(encoding='utf-8'))

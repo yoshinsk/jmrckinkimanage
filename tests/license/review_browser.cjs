@@ -66,8 +66,8 @@ async function run(engine,name,device){
   await p.screenshot({path:`/artifacts/${name}-review-insurance.png`,fullPage:true});
   await p.getByLabel('確認結果').selectOption('change');await p.getByLabel('メモ（個人情報を含めない）').fill('保険料と期間の確認が必要');await submit('確認メモを保存');
   const notes=await c.request.get('https://web/manage/review.php?download=notes');check(name+' メモ24画面を書出し',notes.status()===200 && (await notes.json())['画面別確認'].length===24 && (await notes.text()).includes('保険料と期間の確認が必要'));
-  await go('clubs');await p.getByLabel('料金計算の区分',{exact:true}).selectOption('organization');await p.getByLabel('料金計算の会員区分',{exact:true}).selectOption('supporting');await p.getByLabel('料金計算の登録方法',{exact:true}).selectOption('new');await submit('2027年度の料金を計算');
-  check(name+' 賛助新規の料金をスマートフォンで確認',(await p.getByRole('region',{name:'2027年度の料金計算'}).innerText()).includes('20,000'));
+  await go('clubs');await p.getByLabel('料金計算の区分',{exact:true}).selectOption('organization');await p.getByLabel('料金計算の会員区分',{exact:true}).selectOption('regular');await p.getByLabel('料金計算の登録方法',{exact:true}).selectOption('new');await submit('2027年度の料金を計算');
+  check(name+' 正会員団体の新規料金をスマートフォンで確認',(await p.getByRole('region',{name:'2027年度の料金計算'}).innerText()).includes('30,000'));
   await p.getByLabel('JAF登録クラブですか',{exact:true}).selectOption('yes');
   await p.getByLabel('JMRC近畿の事業として競技会を主催しますか',{exact:true}).selectOption('yes');
   await submit('他地域クラブの区分を確認');

@@ -8,6 +8,13 @@ final class ClubFeePolicy
 {
     public const CATEGORIES = ['official'=>'公認クラブ', 'affiliated'=>'加盟クラブ', 'associate'=>'準加盟クラブ', 'official_org'=>'公認団体', 'organization'=>'加盟団体', 'special_org'=>'特別団体', 'associate_org'=>'準加盟団体', 'business'=>'関連団体・企業'];
     public const PREFIXES = ['official'=>'1','affiliated'=>'2','associate'=>'3','official_org'=>'5','organization'=>'6','special_org'=>'7','associate_org'=>'8'];
+    public const ORGANIZATIONS=['official_org','organization','associate_org'];
+
+    /** L12訂正: 区分7は参照用マスターに残すが、2027年度の新規登録・新しい承認には使わない。 */
+    public static function requireRegistrationCategory(int $year,string $digit):void
+    {
+        if($year===2027&&$digit==='7'){throw new \DomainException('特別団体（区分7）は2027年度の加盟対象外です');}
+    }
 
     /**
      * 2027年度の他地域クラブだけを対象にする。所在地・JAF登録・主催実績をDBから推定しない。
@@ -28,13 +35,14 @@ final class ClubFeePolicy
             || !in_array($registration, ['new','renewal','rejoin'], true) || ($category === 'business' && $membership !== 'supporting')) {
             throw new \InvalidArgumentException('確定済み年度・会員区分・登録方法を選択してください');
         }
-        // 追加された5・7・8の区分番号と、年会費区分の対応は別の要件。既存団体の料金を流用しない。
-        if(in_array($category,['official_org','special_org','associate_org'],true)){throw new \DomainException('このJAF区分の年会費は確認中です。事務局へ確認してください');}
+        self::requireRegistrationCategory($year,self::PREFIXES[$category]??'6');
+        // L12の訂正で正会員の団体は20,000円に確定。賛助の10,000円／20,000円は確認中なので新しい見積を止める。
+        if(in_array($category,self::ORGANIZATIONS,true)&&$membership==='supporting'){throw new \DomainException('賛助登録団体の年会費は会則を確認中です。事務局へ確認してください');}
         $annual = match ($category) {
             'official', 'business' => 50000,
             'affiliated' => 30000,
             'associate' => 20000,
-            'organization' => $membership === 'supporting' ? 10000 : 20000,
+            'official_org','organization','associate_org' => 20000,
         };
         $joining = $registration === 'new' && $category !== 'business' ? 10000 : 0;
         // P03: 賛助はすべて6。正会員の登録団体も6なので、数字から会費・正賛を逆算しない。

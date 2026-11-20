@@ -24,9 +24,10 @@ check('存在しない対象を拒否',$office->request('/manage/preparation.php
 $overview=$op->overview(7);
 check('秘密設定を返さない',!str_contains(json_encode($overview),'lab_runtime_only') && !array_key_exists('data_key',$overview));
 check('新機能の未設定は受付停止',$overview['flags']['staff_role_requests_enabled']===false && !$overview['opening_authorized']);
-$plan=$op->clubPlan(7,1,2027,'organization','supporting','new');
-check('賛助登録団体の年会費・入会金を別明細で確認',array_column($plan['lines'],'amount_yen')===[10000,10000] && $plan['quote']['total_yen']===20000 && !$plan['can_issue']);
-check('再加入を新規に読み替えない',count($op->clubPlan(7,1,2027,'organization','supporting','rejoin')['lines'])===1);
+$plan=$op->clubPlan(7,1,2027,'organization','regular','new');
+check('正会員団体の年会費・入会金を別明細で確認',array_column($plan['lines'],'amount_yen')===[20000,10000] && $plan['quote']['total_yen']===30000 && !$plan['can_issue']);
+check('再加入を新規に読み替えない',count($op->clubPlan(7,1,2027,'organization','regular','rejoin')['lines'])===1);
+check('L12 事前確認でも賛助団体料金を保留',$office->request('/manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new')['status']===409);
 check('履歴から新規や数字コードを推定しない',$plan['history_review_required'] && !$plan['code_mapping_review_required'] && $plan['membership_mapping_review_required'] && $plan['quote']['code_prefix']==='6');
 $data=$op->personalDataInventory(7,3);
 check('個人情報の内容・暗号文を返さず件数だけ棚卸し',count($data['items'])===9 && !$data['execution_enabled'] && !str_contains(json_encode($data),'value_cipher'));

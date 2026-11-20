@@ -135,8 +135,8 @@ $act('overview','role',['role'=>'public']);check('公開一覧へ非公開記事
 $reject('公開立場の投稿を拒否','notices','save',[],403);$act('overview','role',['role'=>'office']);
 $act('operations','save',['status'=>'active']);$invoices=$model->state['invoices'];$payments=$model->state['payments'];$act('privacy','erase');
 check('削除例ではプロフィールのみ消し会計を保持',$model->state['profile']===null && $model->state['license']===null && $model->state['invoices']===$invoices && $model->state['payments']===$payments && !$model->eligibility()['active']);
-$act('clubs','quote',['rate_category'=>'organization','membership_class'=>'supporting','registration_kind'=>'new']);
-check('確認画面で賛助登録団体の年会費と入会金を区別',$model->state['club_quote']['annual_yen']===10000 && $model->state['club_quote']['joining_yen']===10000);
+$act('clubs','quote',['rate_category'=>'organization','membership_class'=>'regular','registration_kind'=>'new']);
+check('確認画面で正会員登録団体の年会費と入会金を区別',$model->state['club_quote']['annual_yen']===20000 && $model->state['club_quote']['joining_yen']===10000);
 $regionBusinessBefore=array_intersect_key($model->state,array_flip(['club','invoices','payments','member']));
 foreach([['yes','yes','regular'],['yes','no','supporting'],['yes','unknown',null]] as [$jaf,$organizer,$expected]) {
     $act('clubs','classify_region',['jaf_registered_club'=>$jaf,'hosts_kinki_business'=>$organizer]);

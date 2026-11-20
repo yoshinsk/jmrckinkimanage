@@ -46,7 +46,7 @@ $reviewOpen=$selected&&$closure->canEdit($selected);$reviewState=$selected?$clos
 $listing=$service->listing($user['id'],$office&&($_GET['all']??'')==='1');
 if($json){header('Content-Type: application/json; charset=utf-8');echo json_encode(['open'=>(bool)$open,'review_open'=>(bool)$reviewOpen,'review_closed'=>$reviewState['closed'],'office'=>$office,'record'=>$record,'applications'=>$listing,'candidates'=>$candidates,'quote'=>$quote],JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);exit;}
 $e=static fn($v)=>htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');$csrf=$e($auth->csrfToken());
-$select=static function(string $key,array $options,string $current)use($e):void{echo '<select id="club-'.$e($key).'" name="'.$e($key).'" required><option value="">選択してください</option>';foreach($options as $v=>$label){echo '<option value="'.$e($v).'"'.((string)$v===$current?' selected':'').'>'.$e($label).'</option>';}echo '</select>';};
+$select=static function(string $key,array $options,string $current)use($e,$year):void{echo '<select id="club-'.$e($key).'" name="'.$e($key).'" required><option value="">選択してください</option>';foreach($options as $v=>$label){echo '<option value="'.$e($v).'"'.((string)$v===$current?' selected':'').($year===2027&&$key==='jaf_kind'&&$v==='special_org'?' disabled':'').'>'.$e($label).'</option>';}echo '</select>';};
 $hidden=static function(string $action)use($csrf,$e,$record):void{echo '<input type="hidden" name="_csrf" value="'.$csrf.'"><input type="hidden" name="action" value="'.$e($action).'">';if($record){echo '<input type="hidden" name="id" value="'.$e($record['id']).'"><input type="hidden" name="row_version" value="'.$e($record['row_version']).'">';}};
 header('Content-Type: text/html; charset=utf-8');
 ?>
@@ -54,6 +54,7 @@ header('Content-Type: text/html; charset=utf-8');
 <body class="office-page"><a class="skip-link" href="#main">本文へ移動</a><header class="portal-header"><div class="portal-container portal-header-inner"><a class="portal-brand" href="/manage/">JMRC近畿ポータル</a><span class="account-email"><?=$e($user['email'])?></span></div></header>
 <main id="main" class="portal-container" tabindex="-1"><h1>クラブ登録の申請</h1>
 <p>事前の事務局確認や代表者権限がなくても申請する方式です。「更新」を選ぶと、提出後に事務局が既存クラブと照合します。候補を選ぶだけではクラブの操作権限は付きません。</p>
+<p class="portal-notice">2027年度は公認団体・加盟団体・準加盟団体の正会員年会費が20,000円です。入会金はC08の既回答どおり新規10,000円、更新・再加入は不要です。特別団体（区分7）は加盟対象外です。賛助登録団体の年会費は確認中のため料金確認・新しい申請はできません。受付開始は引き続き保留しています。</p>
 <p class="portal-notice" role="status"><?=$open?'クラブ登録の受付中です。':'クラブ登録は受付開始前・準備中です。まだ申請を提出できません。料金と入力項目は確認できます。'?></p>
 <p>クラブ受付は12月1日、個人会員受付と正本切替は1月1日に同時実施する方針です。ここで個人会員受付や正本の設定は変更しません。</p>
 <p class="portal-notice">提出済み申請の訂正再申請：<?=$reviewState['closed']?'この年度は終了しました。再開方法は運営確認中です。':($reviewOpen?'事務局が年度全体を終了するまで可能です。新規提出の締切後も、差し戻された申請を訂正できます。':'準備中です。')?></p>

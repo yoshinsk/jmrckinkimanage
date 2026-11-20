@@ -12,7 +12,7 @@ declare(strict_types=1);
     $fingerprint=static fn()=>$db->query('CHECKSUM TABLE '.implode(',',array_map(static fn($n)=>'`'.$n.'`',$tables)))->fetchAll(PDO::FETCH_ASSOC);
     $owner=new Browser();$owner->login(1);$office=new Browser();$office->login(7);$other=new Browser();$other->login(2);$finance=new Browser();$finance->login(13);$anon=new Browser();
     $in=array_fill_keys(array_keys(\Jmrc\Club\ClubRegistrationData::LABELS),'架空C7');
-    $in=array_replace($in,['club_name'=>'架空境界C7Ⅲ','club_short'=>'C7Ⅲ','jaf_number'=>'99888','registration_kind'=>'new','jaf_kind'=>'organization','membership_kind'=>'supporting','region'=>'27','company'=>'','same_contact'=>'1','club_postcode'=>'0000000','rep_postcode'=>'0000000','rep_email'=>'c7@example.invalid','candidate_ref'=>'']);
+    $in=array_replace($in,['club_name'=>'架空境界C7Ⅲ','club_short'=>'C7Ⅲ','jaf_number'=>'99888','registration_kind'=>'new','jaf_kind'=>'organization','membership_kind'=>'regular','region'=>'27','company'=>'','same_contact'=>'1','club_postcode'=>'0000000','rep_postcode'=>'0000000','rep_email'=>'c7@example.invalid','candidate_ref'=>'']);
     $submit=static fn(array $extra=[])=>$owner->request($path,array_replace($in,['action'=>'submit','year'=>'2027','request_key'=>bin2hex(random_bytes(24)),'_csrf'=>identity($owner)['csrf']],$extra));
     $reject=static function(string $name,int $expected,callable $request)use($fingerprint):void{
         $before=$fingerprint();$r=$request();check($name,$r['status']===$expected);check($name.' 業務表不変',$before===$fingerprint());

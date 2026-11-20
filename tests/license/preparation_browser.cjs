@@ -29,7 +29,7 @@ async function run(engine,name,device){
    check(prefix+' 会員受付と請求は保留',await p.locator('a[href="/manage/memberships.php"],a[href="/manage/billing.php"]').count()===0);
    if(account.role==='office'){
     const paths=['/manage/preparation.php',...['club_opening','club','event','privacy','membership'].map(x=>'/manage/preparation.php?section='+x),'/manage/staff-roles.php'];
-    if(!live)paths.push('/manage/preparation.php?section=privacy&id=3','/manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new');
+    if(!live)paths.push('/manage/preparation.php?section=privacy&id=3','/manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new');
     for(const path of paths){
      check(prefix+' 閲覧 '+path,(await p.goto(origin+path)).status()===200);
      check(prefix+' 業務POSTフォームなし '+path,await p.locator('main form').evaluateAll(fs=>fs.every(f=>f.method.toLowerCase()==='get')));

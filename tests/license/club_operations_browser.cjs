@@ -35,7 +35,7 @@ async function run(engine,name,device){
     check(prefix+' 請求時の振込先を表示',(await p.locator('[data-guide=details]').innerText()).includes('架空ゆうちょ銀行'));
     check(prefix+' スマートフォン入力欄16px以上',await p.locator('#received-on').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=16));
     const date=new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo'}).format(new Date());
-    await p.locator('#received-on').fill(date);await p.locator('#confirm-amount').fill('20000');await p.locator('#reference').fill('MOBILE-C5-'+name);
+    await p.locator('#received-on').fill(date);await p.locator('#confirm-amount').fill('30000');await p.locator('#reference').fill('MOBILE-C5-'+name);
     await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'銀行明細と照合して記録する',exact:true}).tap()]);
     check(prefix+' 入金後も承認前は未完了',(await p.locator('[data-state=ready]').innerText())==='条件未完了');
     await p.locator('input[name=checked]').check();await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'年度登録を承認する',exact:true}).tap()]);
@@ -43,7 +43,7 @@ async function run(engine,name,device){
     let r=(await (await c.request.get(origin+base+'?intake='+id+'&format=json')).json()).record;const al=r.allocations[0];
     await p.locator('#allocation').selectOption(String(al.id));await p.locator('#reason').fill('架空の銀行照合訂正');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'元の充当を取り消す',exact:true}).tap()]);
     check(prefix+' 訂正直後に登録条件を再判定',(await p.locator('[data-state=ready]').innerText())==='条件未完了');
-    await p.locator('#payment').selectOption(String(al.payment_id));await p.locator('#reallocate-amount').fill('20000');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'同じ請求へ再充当する',exact:true}).tap()]);
+    await p.locator('#payment').selectOption(String(al.payment_id));await p.locator('#reallocate-amount').fill('30000');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'同じ請求へ再充当する',exact:true}).tap()]);
     check(prefix+' 再充当で先行登録済みを回復',(await p.locator('[data-state=ready]').innerText())==='年度登録済み');
     await p.screenshot({path:`/artifacts/club-operations-${name}-detail.png`,fullPage:true});
    }

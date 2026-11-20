@@ -1,0 +1,221 @@
+{
+  "date_jst": "2026-11-20",
+  "status": "PASS",
+  "scope": "L12正会員団体料金・区分7の加盟対象外、賛助団体料金の保留。L15は氏名の誤字訂正のみ",
+  "base_commit": "539136464f90a9f778e8ede2cd42173f90375303",
+  "isolated": {
+    "http": 1716,
+    "browser": 2348,
+    "php_lint_files": 158,
+    "ddl_tests": 10,
+    "release_tests": 59,
+    "fixture_only": true,
+    "published_ports": [],
+    "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26"
+  },
+  "database": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/organization-fees-db-20261120-20261120T003313Z",
+    "status": "PASS",
+    "private_backup_verified": true,
+    "protected_tables": 89,
+    "current_matches_after": true,
+    "rows": 2,
+    "rollback_executed": false,
+    "existing_profile_rows_preserved": 9,
+    "new_regular_profile_rows": 2,
+    "changed_check_constraints": 1,
+    "permissions_changed": false
+  },
+  "code": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/answers-20261120-20261120T003341Z",
+    "files": {
+      "src/Club/ClubFeePolicy.php": {
+        "old_sha256": "51531bb1b7f09243f6db099186882361cebf7d16aa4d7005977f084e3d5cf1aa",
+        "new_sha256": "b5ed6feb5e2a016b2d2686fc3ef2facfefa1d6c5e654df99c8374377ea2415bd"
+      },
+      "src/Club/ClubService.php": {
+        "old_sha256": "95e038eec814d52f9178288deb44b21330b9b61e5ab6712a6704f80f9b90f02a",
+        "new_sha256": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297"
+      },
+      "src/Operations/PreparationService.php": {
+        "old_sha256": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
+        "new_sha256": "fd7ab54a9ac2cfd4ebd70bb9fc5e441251f3fb0a225604252b7c7d493e520dc8"
+      },
+      "public/manage/_review-catalog.php": {
+        "old_sha256": "10c51efe41bdff0b2a029a019aa24dcf1058e5ea9512a66c7f3a41602b5a862b",
+        "new_sha256": "010ef8ffd6c884cb763a6dfb3a8756fdf8b21b4b1e0bc219c64788db1f360fb3"
+      },
+      "public/manage/club-register.php": {
+        "old_sha256": "e723b882c2fbcb6aeb1b5398bbbf27620d9ad6cc341d7f9356d806550c673e4e",
+        "new_sha256": "ef7a4b98f1fa3b27a77fc0df80a5e2e0f72ff4ccd5246c52fe1821b61ebc4f30"
+      },
+      "public/manage/preparation.php": {
+        "old_sha256": "2dbad2dddc0df648d147f91a4656cce21fffba6a41e67279368cefb75ed3c27b",
+        "new_sha256": "b76d5a176ba6d4e339c85bf1d68a2044f8cbc799abb75efff1744acc60bf8b94"
+      }
+    },
+    "verification": {
+      "status": "PASS",
+      "backup_verified": true,
+      "protected_state_unchanged": true,
+      "entry_files_unchanged": true,
+      "business_tables": 90,
+      "protected_files": 695,
+      "counts": {
+        "users": 314,
+        "jmrc_entries": 1203,
+        "jmrc_entry_fees": 1511,
+        "portal_profiles": 290,
+        "portal_applications": 0,
+        "portal_memberships": 0,
+        "portal_invoices": 0,
+        "portal_payments": 0
+      },
+      "years": "2027\tshadow",
+      "flags": {
+        "temporary_intake_enabled": false,
+        "profile_corrections_enabled": true,
+        "bank_master_enabled": true,
+        "license_self_service_enabled": false,
+        "insurance_intents_enabled": false,
+        "yucho_import_enabled": false,
+        "staff_role_requests_enabled": false,
+        "club_intake_enabled": false,
+        "license_export_enabled": false
+      },
+      "stage_removed": true
+    }
+  },
+  "live": {
+    "cases": 764,
+    "business_posts": 0,
+    "suites": {
+      "preparation": {
+        "status": "PASS",
+        "cases": 148
+      },
+      "existing": {
+        "status": "PASS",
+        "cases": 466
+      },
+      "club": {
+        "status": "PASS",
+        "cases": 88
+      },
+      "m2": {
+        "status": "PASS",
+        "cases": 62
+      }
+    },
+    "real_club_login_verified": false
+  },
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "sheets": {
+    "status": "PASS",
+    "tabs": 9,
+    "changed_cells": [
+      "整合性チェック_20261101!I128",
+      "整合性チェック_20261101!I130",
+      "整合性チェック_20261101!I133",
+      "受付開始準備_20261116!D8",
+      "受付開始準備_20261116!F8",
+      "受付開始準備_20261116!G8",
+      "受付開始準備_20261116!D34",
+      "受付開始準備_20261116!G34"
+    ],
+    "preserved_native_cells": 2684,
+    "formula_M2_preserved": {
+      "formulaValue": "=AI(\"\")"
+    },
+    "validation_preserved": true,
+    "answers_preserved": true,
+    "targeted_readback": true,
+    "existing_tabs_read_separately": true,
+    "google_ui_verified": false,
+    "google_ui_limitation": "GetCursorPos access denied",
+    "new_questions": 0,
+    "xlsx_visual_verified": true,
+    "visual_ranges": [
+      "整合性チェック_20261101!G128:I128",
+      "整合性チェック_20261101!G130:I130",
+      "整合性チェック_20261101!G133:I133",
+      "受付開始準備_20261116!C8:G8",
+      "受付開始準備_20261116!C34:G34"
+    ],
+    "row_heights": [
+      {
+        "sheetId": 202611011,
+        "row": 128,
+        "pixelSize": 326
+      },
+      {
+        "sheetId": 202611011,
+        "row": 130,
+        "pixelSize": 449
+      },
+      {
+        "sheetId": 202611011,
+        "row": 133,
+        "pixelSize": 396
+      },
+      {
+        "sheetId": 202611162,
+        "row": 8,
+        "pixelSize": 114
+      },
+      {
+        "sheetId": 202611162,
+        "row": 34,
+        "pixelSize": 150
+      }
+    ]
+  },
+  "holds": [
+    "L12賛助団体年会費",
+    "L05発行日条件",
+    "実口座の適用年度・設定",
+    "12月9日の被指名者・任期・決定記録",
+    "M1正式な個人申請入力接続と運営受入",
+    "受付開始",
+    "年度資格の正本切替",
+    "本人ライセンス保存・CSV出力",
+    "正式会計・銀行CSV取込",
+    "一般公開・実メール送信・削除実行"
+  ],
+  "local_recovery": {
+    "ubuntu_restarts": 1,
+    "wsl_wide_restart": false,
+    "production_restart": false
+  },
+  "source_mode": "shadow",
+  "intake_opened": false,
+  "production_license_migration_executed": false,
+  "production_account_settings_changed": false,
+  "production_role_grants_added": false,
+  "frozen_source_sha256": {
+    "src/Club/ClubFeePolicy.php": "b5ed6feb5e2a016b2d2686fc3ef2facfefa1d6c5e654df99c8374377ea2415bd",
+    "src/Club/ClubService.php": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297",
+    "src/Operations/PreparationService.php": "fd7ab54a9ac2cfd4ebd70bb9fc5e441251f3fb0a225604252b7c7d493e520dc8",
+    "public/manage/_review-catalog.php": "010ef8ffd6c884cb763a6dfb3a8756fdf8b21b4b1e0bc219c64788db1f360fb3",
+    "public/manage/club-register.php": "ef7a4b98f1fa3b27a77fc0df80a5e2e0f72ff4ccd5246c52fe1821b61ebc4f30",
+    "public/manage/preparation.php": "b76d5a176ba6d4e339c85bf1d68a2044f8cbc799abb75efff1744acc60bf8b94",
+    "scripts/deploy_information_preview.py": "56ffdf9a895c5b4e6e2b022ab79937ac50900971e686c46f2402ae9bf90f34ca",
+    "design/phase2/017_regular_organization_fees_2027.sql": "0cbad5659373cd70ba8e92527ae9b676ab7e8f21073df23a4c0e051bfcafb1fb",
+    "scripts/OrganizationFeesDatabase.php": "47950ff8a238d4b0da63192a1164f8536448cee68ffc044e5f66e3df904cbe64"
+  }
+}

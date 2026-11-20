@@ -28,6 +28,8 @@ $before=memberCounts($db);
 check('無効区分の年度登録拒否',clubPost($rep,'submit',array_replace($data,['category_digit'=>'4']))['status']===422);
 check('必須連絡先の欠落拒否',clubPost($rep,'submit',array_replace($data,['phone'=>'']))['status']===422);
 check('区分不正等は申請を残さない',memberCounts($db)===$before);
+$excluded=clubPost($rep,'submit',array_replace($data,['year'=>2027,'category_digit'=>'7']));
+check('L12 区分7の年度申請を直接POSTでも拒否',$excluded['status']===409&&str_contains($excluded['body'],'加盟対象外')&&memberCounts($db)===$before);
 require_once '/srv/auth/src/Club/ClubService.php';
 $missingKey=false;
 try {(new \Jmrc\Club\ClubService($db))->submit(2,3,$nowYear,'1',$fields,bin2hex(random_bytes(24)));}catch(\Jmrc\Auth\HttpFailure $e){$missingKey=$e->status===503;}
@@ -39,6 +41,14 @@ check('締切後の年度登録を拒否',clubPost($rep,'submit',$data)['status'
 $db->exec("UPDATE portal_years SET club_close_at=UTC_TIMESTAMP()+INTERVAL 30 DAY WHERE year=$nowYear");
 $r=clubPost($rep,'submit',$data);$cy=json_decode($r['body'],true,512,JSON_THROW_ON_ERROR);$cyId=(int)$cy['id'];
 check('代表が自クラブ年度登録',$r['status']===201 && $cy['display_code']==='100003' && $cy['status']==='pending');
+// 過去の7区分を想定した合成行。既存履歴は参照できるが、新しい承認には使えない。
+$db->exec("INSERT INTO portal_clubs(fixed_code,name_full,name_short) VALUES('99977','架空7団体','架空7')");$specialClub=(int)$db->lastInsertId();
+$db->exec("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key) VALUES('club',7,2027,'submitted','L12-special-lab')");$specialApp=(int)$db->lastInsertId();
+$db->exec("INSERT INTO portal_club_years(club_id,year,category_digit,display_code,application_id,name_full,name_short,rep_name,contact_name,postcode,address,phone,email) VALUES($specialClub,2027,'7','799977',$specialApp,'架空7団体','架空7','架空','架空','0000000','架空','0000000','special@example.invalid')");$specialYear=(int)$db->lastInsertId();
+$excluded=clubPost($office,'approve',['id'=>$specialYear]);
+check('L12 既存7区分の新しい承認を拒否',$excluded['status']===409&&str_contains($excluded['body'],'加盟対象外'));
+check('L12 既存7区分の履歴参照は保持',clubRead($office,$specialYear)['category_digit']==='7');
+$db->exec("DELETE FROM portal_club_years WHERE id=$specialYear;DELETE FROM portal_applications WHERE id=$specialApp;DELETE FROM portal_clubs WHERE id=$specialClub");
 check('口座の平文・暗号文をHTTPへ返さない',!str_contains($r['body'],'0123456') && !array_key_exists('bank_details_cipher',$cy));
 $cipher=$db->query("SELECT bank_details_cipher FROM portal_club_years WHERE id=$cyId")->fetchColumn();
 check('口座を認証付き暗号で保管',str_starts_with($cipher,'gcm1:') && !str_contains($cipher,'0123456'));

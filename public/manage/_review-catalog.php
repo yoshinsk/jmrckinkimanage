@@ -127,7 +127,7 @@ function jmrc_review_catalog(): array
     ];
     // C02/C06～C16/C24: 確定条件の計算と操作例を、既存の24画面内に追加する。
     $catalog['memberships']['fields'] += ['competition_type'=>['競技ライセンスの種類（架空）','text','国内B'], 'official_type'=>['審判員ライセンスの種類（架空・非保有は「なし」）','text','コースB1']];
-    $catalog['clubs']['fields'] += ['rate_category'=>['料金計算の区分',['official'=>'公認','affiliated'=>'加盟','associate'=>'準加盟','organization'=>'登録団体','business'=>'関連団体・企業'],'official'], 'membership_class'=>['料金計算の会員区分',['regular'=>'正会員','supporting'=>'賛助会員'],'regular'], 'registration_kind'=>['料金計算の登録方法',['new'=>'新規','renewal'=>'年度更新','rejoin'=>'再加入'],'renewal']];
+    $catalog['clubs']['fields'] += ['rate_category'=>['料金計算の区分',['official'=>'公認','affiliated'=>'加盟','associate'=>'準加盟','official_org'=>'公認団体','organization'=>'加盟団体','associate_org'=>'準加盟団体','business'=>'関連団体・企業'],'official'], 'membership_class'=>['料金計算の会員区分',['regular'=>'正会員','supporting'=>'賛助会員'],'regular'], 'registration_kind'=>['料金計算の登録方法',['new'=>'新規','renewal'=>'年度更新','rejoin'=>'再加入'],'renewal']];
     $catalog['clubs']['actions']['quote']='2027年度の料金を計算';
     $catalog['clubs']['region_fields'] = ['jaf_registered_club'=>['JAF登録クラブですか',['unknown'=>'確認できていない','yes'=>'はい','no'=>'いいえ'],'unknown'], 'hosts_kinki_business'=>['JMRC近畿の事業として競技会を主催しますか',['unknown'=>'確認できていない','yes'=>'はい','no'=>'いいえ'],'unknown']];
     $catalog['clubs']['actions']['classify_region']='他地域クラブの区分を確認';

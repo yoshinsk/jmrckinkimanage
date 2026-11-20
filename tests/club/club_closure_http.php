@@ -27,7 +27,7 @@ declare(strict_types=1);
         // 合成申請だけを一時的に照合済みへ移して、年度全体の終了境界を観測する。
         // 行の原本は全保存し、finallyで復元する。本番では一切実行しない。
         $db->exec("UPDATE portal_years SET club_close_at=UTC_TIMESTAMP()+INTERVAL 1 DAY WHERE year=2027");
-        $in=array_fill_keys(array_keys(\Jmrc\Club\ClubRegistrationData::LABELS),'架空');$in=array_replace($in,['jaf_number'=>'99879','club_name'=>'終了試験Ⅲ','club_short'=>'終了Ⅲ','registration_kind'=>'new','jaf_kind'=>'organization','membership_kind'=>'supporting','region'=>'27','company'=>'','same_contact'=>'1','club_postcode'=>'0000000','rep_postcode'=>'0000000','rep_email'=>'closure@example.invalid','candidate_ref'=>'']);
+        $in=array_fill_keys(array_keys(\Jmrc\Club\ClubRegistrationData::LABELS),'架空');$in=array_replace($in,['jaf_number'=>'99879','club_name'=>'終了試験Ⅲ','club_short'=>'終了Ⅲ','registration_kind'=>'new','jaf_kind'=>'organization','membership_kind'=>'regular','region'=>'27','company'=>'','same_contact'=>'1','club_postcode'=>'0000000','rep_postcode'=>'0000000','rep_email'=>'closure@example.invalid','candidate_ref'=>'']);
         $record=$service->submit(1,2027,$in,bin2hex(random_bytes(24)));$id=(int)$record['id'];$returned=$service->returnForCorrection(7,$id,1,'架空の番号確認');
         $db->exec("UPDATE portal_years SET club_close_at=UTC_TIMESTAMP()-INTERVAL 1 HOUR WHERE year=2027");
         check('L09 締切後の本人訂正ボタン有効',str_contains($owner->request('/manage/club-register.php?id='.$id)['body'],'訂正して再申請する</button>')&&!str_contains($owner->request('/manage/club-register.php?id='.$id)['body'],'disabled>訂正して再申請する'));
@@ -36,7 +36,7 @@ declare(strict_types=1);
         foreach(['official_org'=>'5','special_org'=>'7','associate_org'=>'8'] as $kind=>$digit){
             check('追加区分の番号 '.$digit,\Jmrc\Club\ClubFeePolicy::PREFIXES[$kind]===$digit);
             $r=$owner->request($path,['action'=>'quote','year'=>2027,'jaf_kind'=>$kind,'membership_kind'=>'regular','registration_kind'=>'new','_csrf'=>identity($owner)['csrf']]);
-            check('新区分の未確定料金を流用しない '.$digit,$r['status']===409);
+            check('新区分の確定料金・加盟対象外 '.$digit,$r['status']===($digit==='7'?409:200));
         }
         $savedIntakes=$db->query("SELECT id,review_state,club_year_id,matched_by,matched_at,row_version FROM portal_club_intakes WHERE year=2027 AND review_state<>'linked'")->fetchAll(PDO::FETCH_ASSOC);
         // 各行専用の架空クラブ年度へ一対一で紐付け、DB制約を保って照合完了を用意する。

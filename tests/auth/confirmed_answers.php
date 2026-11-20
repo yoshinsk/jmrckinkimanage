@@ -24,7 +24,8 @@ try { ClubFeePolicy::outsideKinkiMembership(2028,true,true);check('翌年度へ�
 catch(InvalidArgumentException) { check('翌年度へ例外を無断適用しない',true); }
 foreach(['new'=>10000,'renewal'=>0,'rejoin'=>0] as $kind=>$joining) {
     foreach(['regular','supporting'] as $membership) {
-        foreach(['official'=>50000,'affiliated'=>30000,'associate'=>20000,'organization'=>$membership==='supporting'?10000:20000] as $category=>$annual) {
+        foreach(['official'=>50000,'affiliated'=>30000,'associate'=>20000,'organization'=>20000,'official_org'=>20000,'associate_org'=>20000] as $category=>$annual) {
+            if($membership==='supporting'&&in_array($category,ClubFeePolicy::ORGANIZATIONS,true)){try{ClubFeePolicy::quote(2027,$category,$membership,$kind);check('賛助団体の未確定料金を拒否',false);}catch(DomainException){check('賛助団体の未確定料金を拒否',true);}continue;}
             $quote=ClubFeePolicy::quote(2027,$category,$membership,$kind);
             check('クラブ料金 '.$membership.' '.$category.' '.$kind,$quote['annual_yen']===$annual && $quote['joining_yen']===$joining && $quote['total_yen']===$annual+$joining);
         }

@@ -93,6 +93,7 @@ final class PreparationService
         $this->access($actor);
         if ($club<1 || !$this->scalar('SELECT COUNT(*) FROM portal_clubs WHERE id=?',[$club])) { throw new HttpFailure(404,'対応済みのクラブがありません'); }
         try { $quote=ClubFeePolicy::quote($year,$category,$membership,$registration); }
+        catch (\DomainException $error) { throw new HttpFailure(409,$error->getMessage()); }
         catch (\InvalidArgumentException $error) { throw new HttpFailure(422,$error->getMessage()); }
         $lines=[['kind'=>'annual','label'=>'クラブ年会費','amount_yen'=>$quote['annual_yen']]];
         if ($quote['joining_yen']>0) { $lines[]=['kind'=>'joining','label'=>'入会金','amount_yen'=>$quote['joining_yen']]; }

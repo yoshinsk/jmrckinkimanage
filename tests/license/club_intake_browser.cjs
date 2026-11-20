@@ -28,7 +28,7 @@ async function run(engine,name,device){
    check(prefix+' 横にはみ出さない',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    check(prefix+' 入力欄は16px以上',await p.locator('#club-name').count()===0&&await p.locator('#club-club_name').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=16));
    check(prefix+' 既存候補を表示',await p.locator('#club-candidate_ref option').count()>1);
-   check(prefix+' 確定した団体区分を選択可',await p.locator('#club-jaf_kind option').evaluateAll(es=>['official_org','special_org','associate_org'].every(v=>es.some(e=>e.value===v))));
+   check(prefix+' 団体区分を表示し2027年の7は選択不可',await p.locator('#club-jaf_kind option').evaluateAll(es=>['official_org','special_org','associate_org'].every(v=>es.some(e=>e.value===v))&&es.find(e=>e.value==='special_org').disabled===(es[0].ownerDocument.querySelector('#club-year').value==='2027')));
    check(prefix+' 年度全体終了は事務局だけ',await p.locator('form[aria-labelledby="review-close-title"]').count()===(a.role==='office'?1:0));
    if(a.role==='entrant')check(prefix+' 事務局一覧は拒否',(await c.request.get(origin+base+'?all=1')).status()===403);
    if(live){check(prefix+' 本番受付停止',await p.getByRole('button',{name:'申請を提出する',exact:true}).isDisabled());}
@@ -50,9 +50,10 @@ async function run(engine,name,device){
      const key=await e.getAttribute('name');if(key==='jaf_number')continue;
      await e.fill(key.endsWith('email')?'club@example.invalid':key.includes('postcode')?'0000000':key.includes('phone')||key.includes('mobile')?'0000000000':'架空クラブⅢ');
     }
-    await p.locator('#club-region').selectOption('27');await p.locator('#club-jaf_kind').selectOption('organization');await p.locator('#club-membership_kind').selectOption('supporting');await p.locator('#club-same_contact').selectOption('1');
+    await p.locator('#club-region').selectOption('27');await p.locator('#club-jaf_kind').selectOption('organization');await p.locator('#club-membership_kind').selectOption('regular');await p.locator('#club-same_contact').selectOption('1');
     // 他試験の未来年度もあるため、選んだ年度の料金確認でサーバーの受付表示を更新する。
     await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'会費だけ確認する',exact:true}).tap()]);
+    check(prefix+' 2027年度は特別団体を選択不可',await p.locator('#club-jaf_kind option[value=special_org]').isDisabled());
     assert.deepEqual(await p.locator('#club-intake-form :invalid').evaluateAll(es=>es.map(e=>({name:e.name,message:e.validationMessage}))),[],'正式入力のブラウザー制約');
     await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'申請を提出する',exact:true}).tap()]);
     check(prefix+' 正式入力の保存と再表示',await p.locator('#club-jaf_number').inputValue()===(js?'99981':'99982'));

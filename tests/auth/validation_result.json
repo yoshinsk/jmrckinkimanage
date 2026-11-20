@@ -1329,6 +1329,10 @@
       "result": "PASS"
     },
     {
+      "case": "L12 区分7の年度申請を直接POSTでも拒否",
+      "result": "PASS"
+    },
+    {
       "case": "暗号鍵未設定時に口座平文を保存しない",
       "result": "PASS"
     },
@@ -1342,6 +1346,14 @@
     },
     {
       "case": "代表が自クラブ年度登録",
+      "result": "PASS"
+    },
+    {
+      "case": "L12 既存7区分の新しい承認を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "L12 既存7区分の履歴参照は保持",
       "result": "PASS"
     },
     {
@@ -3797,7 +3809,7 @@
       "result": "PASS"
     },
     {
-      "case": "確認画面で賛助登録団体の年会費と入会金を区別",
+      "case": "確認画面で正会員登録団体の年会費と入会金を区別",
       "result": "PASS"
     },
     {
@@ -4665,6 +4677,14 @@
       "result": "PASS"
     },
     {
+      "case": "クラブ料金 regular official_org new",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ料金 regular associate_org new",
+      "result": "PASS"
+    },
+    {
       "case": "クラブ料金 supporting official new",
       "result": "PASS"
     },
@@ -4677,7 +4697,15 @@
       "result": "PASS"
     },
     {
-      "case": "クラブ料金 supporting organization new",
+      "case": "賛助団体の未確定料金を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体の未確定料金を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体の未確定料金を拒否",
       "result": "PASS"
     },
     {
@@ -4701,6 +4729,14 @@
       "result": "PASS"
     },
     {
+      "case": "クラブ料金 regular official_org renewal",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ料金 regular associate_org renewal",
+      "result": "PASS"
+    },
+    {
       "case": "クラブ料金 supporting official renewal",
       "result": "PASS"
     },
@@ -4713,7 +4749,15 @@
       "result": "PASS"
     },
     {
-      "case": "クラブ料金 supporting organization renewal",
+      "case": "賛助団体の未確定料金を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体の未確定料金を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体の未確定料金を拒否",
       "result": "PASS"
     },
     {
@@ -4737,6 +4781,14 @@
       "result": "PASS"
     },
     {
+      "case": "クラブ料金 regular official_org rejoin",
+      "result": "PASS"
+    },
+    {
+      "case": "クラブ料金 regular associate_org rejoin",
+      "result": "PASS"
+    },
+    {
       "case": "クラブ料金 supporting official rejoin",
       "result": "PASS"
     },
@@ -4749,7 +4801,15 @@
       "result": "PASS"
     },
     {
-      "case": "クラブ料金 supporting organization rejoin",
+      "case": "賛助団体の未確定料金を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体の未確定料金を拒否",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体の未確定料金を拒否",
       "result": "PASS"
     },
     {
@@ -4997,11 +5057,15 @@
       "result": "PASS"
     },
     {
-      "case": "賛助登録団体の年会費・入会金を別明細で確認",
+      "case": "正会員団体の年会費・入会金を別明細で確認",
       "result": "PASS"
     },
     {
       "case": "再加入を新規に読み替えない",
+      "result": "PASS"
+    },
+    {
+      "case": "L12 事前確認でも賛助団体料金を保留",
       "result": "PASS"
     },
     {
@@ -5097,27 +5161,27 @@
       "result": "PASS"
     },
     {
-      "case": "賛助すべての先頭は6 official",
+      "case": "料金確定済み賛助の先頭は6 official",
       "result": "PASS"
     },
     {
-      "case": "賛助すべての先頭は6 affiliated",
+      "case": "料金確定済み賛助の先頭は6 affiliated",
       "result": "PASS"
     },
     {
-      "case": "賛助すべての先頭は6 associate",
+      "case": "料金確定済み賛助の先頭は6 associate",
       "result": "PASS"
     },
     {
-      "case": "賛助すべての先頭は6 organization",
+      "case": "料金確定済み賛助の先頭は6 business",
       "result": "PASS"
     },
     {
-      "case": "賛助すべての先頭は6 business",
+      "case": "L12 賛助団体料金は確認待ち",
       "result": "PASS"
     },
     {
-      "case": "正会員登録団体も6だが賛助と異なる料金",
+      "case": "正会員の加盟団体は年会費20000円",
       "result": "PASS"
     },
     {
@@ -5981,15 +6045,63 @@
       "result": "PASS"
     },
     {
-      "case": "年度料金 organization supporting new",
+      "case": "賛助団体は確認待ち",
       "result": "PASS"
     },
     {
-      "case": "年度料金 organization supporting renewal",
+      "case": "賛助団体は確認待ち",
       "result": "PASS"
     },
     {
-      "case": "年度料金 organization supporting rejoin",
+      "case": "賛助団体は確認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "年度料金 official_org regular new",
+      "result": "PASS"
+    },
+    {
+      "case": "年度料金 official_org regular renewal",
+      "result": "PASS"
+    },
+    {
+      "case": "年度料金 official_org regular rejoin",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体は確認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体は確認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体は確認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "年度料金 associate_org regular new",
+      "result": "PASS"
+    },
+    {
+      "case": "年度料金 associate_org regular renewal",
+      "result": "PASS"
+    },
+    {
+      "case": "年度料金 associate_org regular rejoin",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体は確認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体は確認待ち",
+      "result": "PASS"
+    },
+    {
+      "case": "賛助団体は確認待ち",
       "result": "PASS"
     },
     {
@@ -6085,7 +6197,7 @@
       "result": "PASS"
     },
     {
-      "case": "賛助登録団体の新規は年会費と入会金の合計を一意請求",
+      "case": "正会員登録団体の新規は年会費と入会金の合計を一意請求",
       "result": "PASS"
     },
     {
@@ -6689,7 +6801,7 @@
       "result": "PASS"
     },
     {
-      "case": "新区分の未確定料金を流用しない 5",
+      "case": "新区分の確定料金・加盟対象外 5",
       "result": "PASS"
     },
     {
@@ -6697,7 +6809,7 @@
       "result": "PASS"
     },
     {
-      "case": "新区分の未確定料金を流用しない 7",
+      "case": "新区分の確定料金・加盟対象外 7",
       "result": "PASS"
     },
     {
@@ -6705,7 +6817,7 @@
       "result": "PASS"
     },
     {
-      "case": "新区分の未確定料金を流用しない 8",
+      "case": "新区分の確定料金・加盟対象外 8",
       "result": "PASS"
     },
     {
@@ -7034,7 +7146,7 @@
   },
   "club_intake_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-19T00:21:43.625Z",
+    "checked_at_utc": "2026-11-20T00:28:40.823Z",
     "cases": [
       {
         "case": "chromium office JS有 未認証拒否",
@@ -7057,7 +7169,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium office JS有 確定した団体区分を選択可",
+        "case": "chromium office JS有 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7105,7 +7217,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium entrant JS有 確定した団体区分を選択可",
+        "case": "chromium entrant JS有 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7130,6 +7242,10 @@
       },
       {
         "case": "chromium entrant JS有 候補選択で更新を補助",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 2027年度は特別団体を選択不可",
         "result": "PASS"
       },
       {
@@ -7165,7 +7281,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium office JS無 確定した団体区分を選択可",
+        "case": "chromium office JS無 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7197,7 +7313,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium entrant JS無 確定した団体区分を選択可",
+        "case": "chromium entrant JS無 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7206,6 +7322,10 @@
       },
       {
         "case": "chromium entrant JS無 事務局一覧は拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 2027年度は特別団体を選択不可",
         "result": "PASS"
       },
       {
@@ -7241,7 +7361,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit office JS有 確定した団体区分を選択可",
+        "case": "webkit office JS有 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7289,7 +7409,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit entrant JS有 確定した団体区分を選択可",
+        "case": "webkit entrant JS有 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7314,6 +7434,10 @@
       },
       {
         "case": "webkit entrant JS有 候補選択で更新を補助",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 2027年度は特別団体を選択不可",
         "result": "PASS"
       },
       {
@@ -7349,7 +7473,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit office JS無 確定した団体区分を選択可",
+        "case": "webkit office JS無 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7381,7 +7505,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit entrant JS無 確定した団体区分を選択可",
+        "case": "webkit entrant JS無 団体区分を表示し2027年の7は選択不可",
         "result": "PASS"
       },
       {
@@ -7390,6 +7514,10 @@
       },
       {
         "case": "webkit entrant JS無 事務局一覧は拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS無 2027年度は特別団体を選択不可",
         "result": "PASS"
       },
       {
@@ -7422,7 +7550,7 @@
   },
   "club_operations_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-19T00:21:59.810Z",
+    "checked_at_utc": "2026-11-20T00:28:56.670Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -8293,7 +8421,7 @@
   },
   "club_operations_held_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-19T00:23:52.194Z",
+    "checked_at_utc": "2026-11-20T00:30:46.871Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -12953,7 +13081,7 @@
         "result": "PASS"
       },
       {
-        "case": "chromium 賛助新規の料金をスマートフォンで確認",
+        "case": "chromium 正会員団体の新規料金をスマートフォンで確認",
         "result": "PASS"
       },
       {
@@ -13881,7 +14009,7 @@
         "result": "PASS"
       },
       {
-        "case": "webkit 賛助新規の料金をスマートフォンで確認",
+        "case": "webkit 正会員団体の新規料金をスマートフォンで確認",
         "result": "PASS"
       },
       {
@@ -14963,7 +15091,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-19T00:25:04.417Z",
+    "checked_at_utc": "2026-11-20T00:31:57.662Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -15222,31 +15350,31 @@
         "result": "PASS"
       },
       {
-        "case": "chromium office 閲覧 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 閲覧 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 業務POSTフォームなし /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "chromium office 幅320 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 幅320 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "chromium office 幅390 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 幅390 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "chromium office 幅844 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 幅844 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "chromium office 幅1280 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 幅1280 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "chromium office 文字200% /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "chromium office 文字200% /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
@@ -15574,31 +15702,31 @@
         "result": "PASS"
       },
       {
-        "case": "webkit office 閲覧 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 閲覧 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 業務POSTフォームなし /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "webkit office 幅320 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 幅320 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "webkit office 幅390 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 幅390 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "webkit office 幅844 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 幅844 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "webkit office 幅1280 /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 幅1280 /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
-        "case": "webkit office 文字200% /manage/preparation.php?section=club&id=1&category=organization&membership=supporting&registration=new",
+        "case": "webkit office 文字200% /manage/preparation.php?section=club&id=1&category=organization&membership=regular&registration=new",
         "result": "PASS"
       },
       {
@@ -15687,7 +15815,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-19T00:25:17.446Z",
+    "checked_at_utc": "2026-11-20T00:32:09.955Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16027,7 +16155,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-19T00:25:29.309Z",
+    "checked_at_utc": "2026-11-20T00:32:21.285Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16672,11 +16800,11 @@
   "review_workspace_sha256": {
     "public/manage/index.php": "23c5aa261aa6f02bb6019d4c6010d78652c0f9652f5289870ba3a6c28027d709",
     "public/manage/review.php": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
-    "public/manage/_review-catalog.php": "10c51efe41bdff0b2a029a019aa24dcf1058e5ea9512a66c7f3a41602b5a862b",
+    "public/manage/_review-catalog.php": "010ef8ffd6c884cb763a6dfb3a8756fdf8b21b4b1e0bc219c64788db1f360fb3",
     "public/manage/_review-workspace.php": "66eece258f7ea5ab38cf27e13e5b3ac20547adeebe0e229d5288417181b8118f",
     "public/manage/assets/review.css": "8a6086d2b59dcc1ba4a2d86d6a9fa5e8bea95adb139bb374604cd41fb23f8440",
-    "tests/auth/review_http.php": "86e779e745ef053864291b474e5f8091b1c39a302c12686232650fc2270d6a68",
-    "tests/license/review_browser.cjs": "6efe4a674d1b3403938f665bbc05586cbfac2b2ebf88370303ad262633393aa9",
+    "tests/auth/review_http.php": "a6c46c78c529abb81ab8117cca492cd338bb41b9b317e43e05da8f5ad2ebc3f5",
+    "tests/license/review_browser.cjs": "519de4540661c1cd8288129c9a35463fb465bc0d12cebb4ba0c52228c8024598",
     "public/manage/information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public/manage/assets/information.css": "006bc3f161cf465a2033074109d7e77fa99606ea34d376bec558528590dc0511",
     "src/Content/InformationPreview.php": "5c10219cb3194a495ad205ecb0758452d5e23ee831af01a2cd70e1e3f71e229b",
@@ -16684,12 +16812,12 @@
     "src/Content/information-template.php": "597f7f8fac639b02827fae9d4b93e6a49ae4fc79c40d906f90a1b7d137d67249",
     "tests/auth/information_http.php": "0d6f16248438c415d79240278e8712e26904a0b1e9fecdabf7a5052c13bb46fa",
     "tests/license/information_browser.cjs": "e9d50de83248c40a4b0b7b5b2614bdf9323d3bddce4cf30397df5eea413cee48",
-    "src/Operations/PreparationService.php": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
+    "src/Operations/PreparationService.php": "fd7ab54a9ac2cfd4ebd70bb9fc5e441251f3fb0a225604252b7c7d493e520dc8",
     "src/Auth/StaffRoleService.php": "208a3ac133d66ebd75a2e3af3ead6aef97a2e9b4517fb96efa184689c6260108",
-    "public/manage/preparation.php": "2dbad2dddc0df648d147f91a4656cce21fffba6a41e67279368cefb75ed3c27b",
+    "public/manage/preparation.php": "b76d5a176ba6d4e339c85bf1d68a2044f8cbc799abb75efff1744acc60bf8b94",
     "public/manage/staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
-    "tests/auth/preparation_http.php": "e038a7851ea1e22046bda1904632776fd806ebca36d8dd5de05884adfabfb874",
-    "tests/license/preparation_browser.cjs": "fa24c925743f6dbe48ddd6d5b96e8c725f34a23b593e40f74e5d04d5a1562d95",
+    "tests/auth/preparation_http.php": "4a9aed91459889f9821736e2911a66df16bcb72b5cd3e140a1c1e842c2e9da19",
+    "tests/license/preparation_browser.cjs": "4c79d6e14460c9665bef74b65d3b35139dc7b02733e0981cf0231708df1e8383",
     "src/Bank/StrictCsv.php": "79d07b928cb19c913b9d7f2058642021fdd552390514a640744f3fa0a3c4f090",
     "src/Bank/YuchoCsv.php": "eb0e27599474560ebab58b5dbd0c04974e4da8d049767526d84397050dd971c3",
     "src/Bank/PaymentCoreCsv.php": "1dd491b0563db12046841aadd949f5c07895c16211d98888fd8439d17b0f25bd",
@@ -16720,7 +16848,7 @@
     "src/Club/ClubIntakePolicy.php": "f60b7408379d3da4d982cb67691ef4fc2eda6ebd447b0b132d4d8bec5fe1935b",
     "src/Club/ClubRegistrationData.php": "87491c99d9138572510d34d4b237747bffeb6fbca86205dea24875e3727a21f3",
     "src/Club/ClubIntakeService.php": "6a5f2d3fe3341d93044f16d3b992937e32f3469f967ae30bd624b483e0633e07",
-    "public/manage/club-register.php": "e723b882c2fbcb6aeb1b5398bbbf27620d9ad6cc341d7f9356d806550c673e4e",
+    "public/manage/club-register.php": "ef7a4b98f1fa3b27a77fc0df80a5e2e0f72ff4ccd5246c52fe1821b61ebc4f30",
     "public/manage/assets/input-normalization.js": "3f7a2dfa94cc4f51c63349831fea20d3a7c3d4bce113aef55b6289d82a0ef190",
     "public/manage/assets/club-intake.js": "1f1b1c9ae3a37cfdbd5f7222b10fa45c757a234b51714fa59e8c65c03371d909",
     "design/phase2/013_club_intake.sql": "40b94e3afc9be3fc1fe79f89866db6bc30be6a9031027ebf9ff7f2324e975354",
@@ -16731,10 +16859,10 @@
     "public/manage/club-finance.php": "f049b97942adbc3520c235302ff5de9415967b00620f66a95b0f1e02c0490404",
     "public/manage/memberships.php": "9fc993f2c12e91c1d65e7a4c6da032304a1eabca4f093022087c6e769358cc26",
     "public/manage/billing.php": "b913666c6897625323d16ff22f6fadedacc69e68291148ada43ad1db33986b78",
-    "tests/club/club_operations_http.php": "5ca15355e7243a317fa882366cab397e9f434012c858b0b257cb5dedacd5c2f6",
-    "tests/license/club_operations_browser.cjs": "cade2258372df8376dff7a1823cc1e737c95c7b4c32f33bb5cd80ef7006b3a9e",
+    "tests/club/club_operations_http.php": "8da60b747338a6423b0dc45b246617f283255c8ede219cb3d92ba8ecbb2d3d1c",
+    "tests/license/club_operations_browser.cjs": "291194475b4c43f30321f2e79dcdbc8ead7cb64541fb293c76aba664c8c8dc11",
     "tests/club/club_boundary_policy.php": "3ce140304818c3a620f5ccde8555f671bc2f3790f93b6a36c070881a2b8a08b8",
-    "tests/club/club_boundary_http.php": "285e7db2cf867d4c77aabcd7b67e2bbd6f3a726622e586640c457bc8841e53bd",
+    "tests/club/club_boundary_http.php": "2c8e679969d816a436936e157817cc2e2afb5a07242640b4aaa7c243ba67ba24",
     "src/Billing/Eligibility.php": "e2bbc9bae944e60fbc4cf5d4f59ce7308708681d262600a4b526b1e7884ceda9",
     "tests/membership/membership_http.php": "79e1f95447186f427792826c4a65dff459567864741ab46962e749dca0ae0786",
     "tests/membership/concurrent_submit.php": "38d45d4e092e32deade612253ca7fc9281b4d257eec151de2d6491733e99f5f7",
@@ -16746,10 +16874,10 @@
     "config/auth.example.php": "6ab83052b48a7f9aa278c10972c7250d34cf42f1592166a98e3ca775be75daa9",
     "tests/license/member_browser.cjs": "0e9ed4577f4e611c49ab04576e447f3b90614c3c9f440530093c7cc9f6260697",
     "tests/auth/dirt_integration.php": "8a4a0aa8c751a5ebabae04367631e9e62985ac62a8b2fd04e6ff1a77050afdfa",
-    "src/Club/ClubFeePolicy.php": "51531bb1b7f09243f6db099186882361cebf7d16aa4d7005977f084e3d5cf1aa",
+    "src/Club/ClubFeePolicy.php": "b5ed6feb5e2a016b2d2686fc3ef2facfefa1d6c5e654df99c8374377ea2415bd",
     "src/Club/ClubReviewClosure.php": "adbcfcc421fd48f199346ecbb499f260354a71c78424d1263bb67a451c695ad1",
-    "tests/club/club_closure_http.php": "d1b6b8192dfad7aca83c726798b4c80834d545fae77c0f2ce5bf86df5cd0e136",
-    "tests/license/club_intake_browser.cjs": "4dc5220d63de24ef10848dd2c6136dda9a81badac85c40aaaed7ccb49d1e92de",
+    "tests/club/club_closure_http.php": "231dd902feaa354fcfeead839949b78955ec68bd88737ddaedeeb787b00ee74d",
+    "tests/license/club_intake_browser.cjs": "5491b740c7fbb6ae16f787a9abb84975fd561b33444374edb380fe1c31e47b81",
     "design/phase2/014_club_review_closure.sql": "5e41d914ff39314ed8f0f9ca579fc25a263dbf6ac1f5a26ca378e61c982835bf",
     "tests/club/concurrent_closure.php": "e257fad5d86d715e764e4d7f978bb8837efd55cf24b29eb9b62e1f744bde0745",
     "src/License/LicenseTypes.php": "576459ff10d4fad54e59c1a81d0e7f4c83ae8aa639e71711ab2752f610cf70d8",
@@ -16762,9 +16890,12 @@
     "design/phase2/015_license_details.sql": "ef4f429d5ff8b6ad91373edd6f1efc8e10c21a948b41e7fb5a5c04df9646c6b9",
     "tests/license/m2_http.php": "eab740e36920d7c2bbe0732c375f0d2fb584cf67f35def7c2cff94fa66eb5eae",
     "design/phase2/016_license_registered_name.sql": "e3dbd2acd0fae04089b80bf58fbd2f1f0cb6a16cccbc72b9a3182ea56e38ad74",
-    "scripts/LicenseNamesDatabase.php": "e5eded12711ad28dd094917715a7914080191e4bd855fc94d00a6bf60d216984"
+    "scripts/LicenseNamesDatabase.php": "e5eded12711ad28dd094917715a7914080191e4bd855fc94d00a6bf60d216984",
+    "design/phase2/017_regular_organization_fees_2027.sql": "0cbad5659373cd70ba8e92527ae9b676ab7e8f21073df23a4c0e051bfcafb1fb",
+    "scripts/OrganizationFeesDatabase.php": "47950ff8a238d4b0da63192a1164f8536448cee68ffc044e5f66e3df904cbe64",
+    "src/Club/ClubService.php": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297"
   },
-  "checked_at_utc": "2026-11-19T00:25:30.478040+00:00",
+  "checked_at_utc": "2026-11-20T00:32:22.103218+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -16806,13 +16937,13 @@
     "src/Card/SecretBox.php": "4cf015558ecd50b1a1f0cc37f97d19300cd7458e212e37a956745794db4bb7d3",
     "src/Club/ClubContact.php": "5d20ddd3be455ab147b306188054069b6a903f97ca613c0e26d342218844b342",
     "src/Club/ClubEligibility.php": "43a080a283d4e51e7a5fb9fe8583efd6fc537c0ccbc589184c90a780e7bef81b",
-    "src/Club/ClubFeePolicy.php": "51531bb1b7f09243f6db099186882361cebf7d16aa4d7005977f084e3d5cf1aa",
+    "src/Club/ClubFeePolicy.php": "b5ed6feb5e2a016b2d2686fc3ef2facfefa1d6c5e654df99c8374377ea2415bd",
     "src/Club/ClubIntakePolicy.php": "f60b7408379d3da4d982cb67691ef4fc2eda6ebd447b0b132d4d8bec5fe1935b",
     "src/Club/ClubIntakeService.php": "6a5f2d3fe3341d93044f16d3b992937e32f3469f967ae30bd624b483e0633e07",
     "src/Club/ClubOperations.php": "f73b4131b748dcec7ae96ea4ea96a7e2a678d2b8efe798bae39979c3801a46a0",
     "src/Club/ClubRegistrationData.php": "87491c99d9138572510d34d4b237747bffeb6fbca86205dea24875e3727a21f3",
     "src/Club/ClubReviewClosure.php": "adbcfcc421fd48f199346ecbb499f260354a71c78424d1263bb67a451c695ad1",
-    "src/Club/ClubService.php": "95e038eec814d52f9178288deb44b21330b9b61e5ab6712a6704f80f9b90f02a",
+    "src/Club/ClubService.php": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297",
     "src/Content/EditorService.php": "ad38ecfcb27e125dac3e29ef5bd290dc82f12a128e30724ad34e261d2fe3a525",
     "src/Content/information-catalog.php": "03c0e3f1b44625a70770ff0c30e4707a3273f3e5530ae8454b67a521dd9e3a7a",
     "src/Content/information-template.php": "597f7f8fac639b02827fae9d4b93e6a49ae4fc79c40d906f90a1b7d137d67249",
@@ -16833,7 +16964,7 @@
     "src/Operations/AccountingWorkflow.php": "651091fbe8c85355f24bd9c4acdc32e929048a438f60db70650a16e6374738d8",
     "src/Operations/AnswerRules.php": "7dcb69a38f772612f040d48377d4d796e21e6d820d78fd165f7e46dc99573fd6",
     "src/Operations/MaterialsReview.php": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
-    "src/Operations/PreparationService.php": "a5601474d27fdca70131d32d451833f2c6c36bb97124d4eb87a370d5b5c703f0",
+    "src/Operations/PreparationService.php": "fd7ab54a9ac2cfd4ebd70bb9fc5e441251f3fb0a225604252b7c7d493e520dc8",
     "src/Profile/EntryProfile.php": "61f4bbc65dd740338dae913d743e2868dea58dd09b0f61476b5b7737a196a516",
     "src/Profile/ProfileService.php": "e99ca9899c592c1ea8016f5915db849e0989d06b1a46966473638173b33dd357",
     "src/Series/SeriesRules.php": "2d55faf72a76a3a6ef8f11a128daff36bb379e76600ddec5348bae7a8682be04",
@@ -16851,7 +16982,7 @@
     "public/manage/card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public/manage/card.php": "4f988e67891753cd25c727e366d541e88b4d7deb4f2b7b15fe85c78b667e93c8",
     "public/manage/club-finance.php": "f049b97942adbc3520c235302ff5de9415967b00620f66a95b0f1e02c0490404",
-    "public/manage/club-register.php": "e723b882c2fbcb6aeb1b5398bbbf27620d9ad6cc341d7f9356d806550c673e4e",
+    "public/manage/club-register.php": "ef7a4b98f1fa3b27a77fc0df80a5e2e0f72ff4ccd5246c52fe1821b61ebc4f30",
     "public/manage/clubs.php": "be98a741bc191807f0ddd95ea06ba59b73a53a272fec7f2006fa602febb75684",
     "public/manage/editor.php": "f2f715d8a6f1be91b69d8a4c63101f4f3f5349c0af7ec3432a1f24085bcad15b",
     "public/manage/index.php": "23c5aa261aa6f02bb6019d4c6010d78652c0f9652f5289870ba3a6c28027d709",
@@ -16862,7 +16993,7 @@
     "public/manage/login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public/manage/logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public/manage/memberships.php": "9fc993f2c12e91c1d65e7a4c6da032304a1eabca4f093022087c6e769358cc26",
-    "public/manage/preparation.php": "2dbad2dddc0df648d147f91a4656cce21fffba6a41e67279368cefb75ed3c27b",
+    "public/manage/preparation.php": "b76d5a176ba6d4e339c85bf1d68a2044f8cbc799abb75efff1744acc60bf8b94",
     "public/manage/profile-correct.php": "f224dbe39d50a00c88f038904ae5baa39d64021b705f046a1c0c4978b314d052",
     "public/manage/review.php": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
     "public/manage/staff-roles.php": "2980b6110c0b996a7ec614f05ab93b75d8f0c1e14d24b39d857d5130c17ec1ac",
@@ -16871,7 +17002,7 @@
     "public/manage/_bootstrap.php": "a28f895ae10860b6b5a029ee44c42666b126a0ac3a71a228f7d843c34646920f",
     "public/manage/_card-public.php": "18715df3fed6a129f3595610f14bc6901490866c2f38490dd4e4121ebe478871",
     "public/manage/_office-layout.php": "6e083a5f29b803c8a907a5a170dcf7f5fc0d454b25861df296fb55b878f14725",
-    "public/manage/_review-catalog.php": "10c51efe41bdff0b2a029a019aa24dcf1058e5ea9512a66c7f3a41602b5a862b",
+    "public/manage/_review-catalog.php": "010ef8ffd6c884cb763a6dfb3a8756fdf8b21b4b1e0bc219c64788db1f360fb3",
     "public/manage/_review-workspace.php": "66eece258f7ea5ab38cf27e13e5b3ac20547adeebe0e229d5288417181b8118f"
   },
   "membership_rule_migration_sha256": "46ea089232747bca0d0f8ade0613ce5413ac9621b2271b2e72993868feddadbd",
@@ -16882,8 +17013,8 @@
   "license_permissions_sha256": "35fd3eb64ac364d86647d6801a7019b5aafd5def513c024e2e0d8571270e11b8",
   "license_test_source_sha256": {
     "tests/license/accounting_browser.cjs": "493629c608d626128d52c19a290c747b325982254114af772e90d1b72615a4b0",
-    "tests/license/club_intake_browser.cjs": "4dc5220d63de24ef10848dd2c6136dda9a81badac85c40aaaed7ccb49d1e92de",
-    "tests/license/club_operations_browser.cjs": "cade2258372df8376dff7a1823cc1e737c95c7b4c32f33bb5cd80ef7006b3a9e",
+    "tests/license/club_intake_browser.cjs": "5491b740c7fbb6ae16f787a9abb84975fd561b33444374edb380fe1c31e47b81",
+    "tests/license/club_operations_browser.cjs": "291194475b4c43f30321f2e79dcdbc8ead7cb64541fb293c76aba664c8c8dc11",
     "tests/license/concurrent_license.php": "08e38da05143167addf8ca9f94cffaa9c93cab421d350edf3ed47f3cd79f63e9",
     "tests/license/dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
     "tests/license/details_database.php": "e7b7ac137d5d0775373e64d22977764b1f44f81bee91fcf185c0557923a2ef22",
@@ -16900,9 +17031,9 @@
     "tests/license/office_browser.cjs": "32180da339027443efdd0c087e6cb541743ab9887e2bd240ba48f3e7bbaec9f0",
     "tests/license/package-lock.json": "947fa7730e623b5f039d4ddcbc47b452208504e0d9b3db0458c595016ea50742",
     "tests/license/package.json": "a8bd50725ba9500910960576c12a2157548cd82843068df91c8e8b811a5d0ca8",
-    "tests/license/preparation_browser.cjs": "fa24c925743f6dbe48ddd6d5b96e8c725f34a23b593e40f74e5d04d5a1562d95",
+    "tests/license/preparation_browser.cjs": "4c79d6e14460c9665bef74b65d3b35139dc7b02733e0981cf0231708df1e8383",
     "tests/license/registered_name_http.php": "1de93612c68190d7713578ef5a8291eb11ec23fe675d0e2b4265a00ad7a69417",
-    "tests/license/review_browser.cjs": "6efe4a674d1b3403938f665bbc05586cbfac2b2ebf88370303ad262633393aa9",
+    "tests/license/review_browser.cjs": "519de4540661c1cd8288129c9a35463fb465bc0d12cebb4ba0c52228c8024598",
     "tests/license/types_policy.php": "a14b85847e165f0d990026995c1b62339fcf2df05e05d3277932ee0bbf206ed3",
     "tests/license/validate_details_database.py": "11d052c3ca3e4c7832bcc5ddf4bad15b71544f949c014a1c689f103628218562",
     "tests/license/validate_names_database.py": "b8b04bad8d3298a792075452e501ef2a435bb8cc33d2f7ea0f9cd94c67fef364"
@@ -16984,18 +17115,19 @@
   },
   "club_permissions_sha256": "4f6a506952e237e56a40347ced217aab0ab151d76ed9c4b6abf33f7567872b90",
   "club_test_source_sha256": {
-    "tests/club/club_boundary_http.php": "285e7db2cf867d4c77aabcd7b67e2bbd6f3a726622e586640c457bc8841e53bd",
+    "tests/club/club_boundary_http.php": "2c8e679969d816a436936e157817cc2e2afb5a07242640b4aaa7c243ba67ba24",
     "tests/club/club_boundary_policy.php": "3ce140304818c3a620f5ccde8555f671bc2f3790f93b6a36c070881a2b8a08b8",
-    "tests/club/club_closure_http.php": "d1b6b8192dfad7aca83c726798b4c80834d545fae77c0f2ce5bf86df5cd0e136",
+    "tests/club/club_closure_http.php": "231dd902feaa354fcfeead839949b78955ec68bd88737ddaedeeb787b00ee74d",
     "tests/club/club_fixture.php": "412962fdc547a3685cc1bfbd21710f7f329e9c20618dc48d93e62993d9a40728",
-    "tests/club/club_http.php": "92432fa9d8270e6aaac8bad4f21982edffcae137cf8a8c5ef5dbe4dfdf79bc01",
-    "tests/club/club_intake_http.php": "45681b504976fc4c1321129476d805b6f3ae93196eb7954a9072f837159222d8",
-    "tests/club/club_operations_http.php": "5ca15355e7243a317fa882366cab397e9f434012c858b0b257cb5dedacd5c2f6",
+    "tests/club/club_http.php": "e6112f73315b921fb228f2460e533226bb9c0bdf17972f4d8694b99ad241c7b4",
+    "tests/club/club_intake_http.php": "518bdfbc10d184fea45da39f090c5283c908f8e6c642874b063b14b936a5f869",
+    "tests/club/club_operations_http.php": "8da60b747338a6423b0dc45b246617f283255c8ede219cb3d92ba8ecbb2d3d1c",
     "tests/club/club_seed.php": "ae88f7613b688f3af23b4bc2e8633a85bb6537495acf5331d5d66f22016aac25",
     "tests/club/concurrent_closure.php": "e257fad5d86d715e764e4d7f978bb8837efd55cf24b29eb9b62e1f744bde0745",
     "tests/club/concurrent_club.php": "79384d6488951501b77f9f1608d8c5d16db645f99baf28326cce49ea6c7646de",
     "tests/club/followup_database.php": "0cb39cee4a1b1621467078d84403f65dacdbeb73dcfcf728eee5d39865c707f6",
-    "tests/club/intake_database.php": "46a6bebe7ff2ed514f76de3c98917e208c78783faca130ffc970c3458353ed1d"
+    "tests/club/intake_database.php": "46a6bebe7ff2ed514f76de3c98917e208c78783faca130ffc970c3458353ed1d",
+    "tests/club/organization_fees_database.php": "c83e85764627d144a7ddcba290c18d2c95165d7b7f0b6dfe81d2d823aea927b6"
   },
   "billing_permissions_sha256": "74fdc97d3999c3817226916c78bc607879eb97a43162f8f679f12c7f280f42dc",
   "entry_billing_prepare_sha256": "5a6dc89b65ec4583de51126051713fb98a24e1e1701675776c650b75fef125d9",
@@ -17012,14 +17144,14 @@
     "tests/auth/accounting_answers.php": "730120454e215943a1d39d1b5fc35a5a90e4fa4fc6b9f0a0486c5b53e343609d",
     "tests/auth/answer_rules.php": "11226b310e40130455475615658592dcb5c2d0d7a8cc07718e4c92e6ae213a9f",
     "tests/auth/auth.config.php": "1a999b9bf541840db82b927608dab376b930198a401ccff8b7ecf0e20fc0a71f",
-    "tests/auth/confirmed_answers.php": "c7d1b00e2f5cdc83aeaceb9e8b47a8a79f049a79ad6a304d1b2d6634bfaa0a19",
+    "tests/auth/confirmed_answers.php": "62c8b069e775d87c0f44c0121328eb52fca020f5cc730a872cfc25797ded7ccb",
     "tests/auth/dashboard_http.php": "3289e51822c42d2ad2c7d5c4f03e91d9e718e166f038a7fefe863ecc7def966d",
     "tests/auth/database_answers.php": "b3f33c7daf2778353c73186a7437ca93def96a9c136041f899609f8eca5e15ab",
     "tests/auth/dirt_integration.php": "8a4a0aa8c751a5ebabae04367631e9e62985ac62a8b2fd04e6ff1a77050afdfa",
     "tests/auth/Dockerfile.nginx": "193ec1711382d4f386df7d037db579b353a960cc62e61dd20342bbafe92b5f77",
     "tests/auth/Dockerfile.php": "56e6a672143f1a7ab8f9e80b60b67c0e1b594fa6637891d80b5d2d50336d25a4",
     "tests/auth/editor_database.php": "80306ca73d16c9dcac2c86adea2f80f77b7b2af0fb0a3116d3f37c6e8eea1649",
-    "tests/auth/editor_http.php": "23e9e2a530ec24c2745f70ab6d7e510de5f5ae9eb0be54ff03b29da84b5c0780",
+    "tests/auth/editor_http.php": "71e9df537a8e6ab68902c8eefe0d0d3ff74cb69765936c29e499ed97303dbe73",
     "tests/auth/followup_answers.php": "bcafc2d24f426ac3ebea59c1f132f240c529f9cc670ec86b50e9d5d19c89662a",
     "tests/auth/identity.php": "92de3c69db3ec9148b03d1fb2764b04706148fe969b3cd21dfe21ee08f5ada65",
     "tests/auth/information_http.php": "0d6f16248438c415d79240278e8712e26904a0b1e9fecdabf7a5052c13bb46fa",
@@ -17028,16 +17160,16 @@
     "tests/auth/member_layout_http.php": "d48f9ed7274994202b1d3ce05dcfe016c91b03b8446a63ecf4b58011dfa5fc1f",
     "tests/auth/nginx.conf": "caf2151cd51dc9eb9c680f6f292a1d4e8548eb9ebf84d7ed49327b3b06d6077b",
     "tests/auth/permission.php": "3edd5f1341ebd6ad37682caac5996c0bd8b907482f0c77f4ef388eaef2503c4c",
-    "tests/auth/preparation_http.php": "e038a7851ea1e22046bda1904632776fd806ebca36d8dd5de05884adfabfb874",
+    "tests/auth/preparation_http.php": "4a9aed91459889f9821736e2911a66df16bcb72b5cd3e140a1c1e842c2e9da19",
     "tests/auth/README.md": "b3a41303f15004fcc2c1f1bafb57af847e5366542c148321bc3eb084756d06d6",
     "tests/auth/registration_http.php": "1442a5cc3f3b1325ab1d807b45adb17435057c2b05339c7f395f3db3826e72f4",
-    "tests/auth/review_http.php": "86e779e745ef053864291b474e5f8091b1c39a302c12686232650fc2270d6a68",
+    "tests/auth/review_http.php": "a6c46c78c529abb81ab8117cca492cd338bb41b9b317e43e05da8f5ad2ebc3f5",
     "tests/auth/run_http.php": "cf5ec9f1355c434844b9d0cf721e083ec6eb44ea1e9c534a6a7942490a3ca165",
     "tests/auth/seed.php": "d4e3c716f1e517cc0651020cc829c9c94c507d6b0313cf7b2184e31f84d5cf1b",
     "tests/auth/test_prepare_billing.py": "038495032457b3ee6f2a879d217029ae93d359914aaba5f85fa568b4ee7e5ddf",
-    "tests/auth/validate_auth.py": "df17544871f7f7112c998a6300d40c5cd520e98a5aae544a207cc015e992c9a3"
+    "tests/auth/validate_auth.py": "18e770b578efa19fb7fa15667dfd7d233e2b7423d745477e3f81b72c75e7986c"
   },
-  "php_lint_files": 157,
+  "php_lint_files": 158,
   "network_internal": true,
   "published_ports": [],
   "fixture_only": true
