@@ -6,7 +6,8 @@ namespace Jmrc\Club;
 use Jmrc\Auth\HttpFailure;
 final class ClubContact
 {
-    public const REGIONS=['25'=>'25：滋賀県','26'=>'26：京都府','27'=>'27：大阪府','28'=>'28：兵庫県','29'=>'29：奈良県','30'=>'30：和歌山県','other'=>'その他（記入）'];
+    public const OTHER_LABEL='他地区の場合の所属支部';
+    public const REGIONS=['25'=>'25：滋賀県','26'=>'26：京都府','27'=>'27：大阪府','28'=>'28：兵庫県','29'=>'29：奈良県','30'=>'30：和歌山県','other'=>'他地区（記入）'];
     /** 住所から支部・会員区分を推定しない。兼任が明示された場合だけ連絡先へ転記する。 */
     public static function normalize(array $in):array
     {
@@ -17,7 +18,7 @@ final class ClubContact
             $out[$key]=trim($v);
         }
         if($out['region']!==''&&!array_key_exists($out['region'],self::REGIONS)){throw new HttpFailure(422,'所属支部を選択してください');}
-        if($out['region']==='other'&&$out['region_other']===''){throw new HttpFailure(422,'その他の所属支部を記入してください');}
+        if($out['region']==='other'&&$out['region_other']===''){throw new HttpFailure(422,self::OTHER_LABEL.'を記入してください');}
         if($out['region']!=='other'){$out['region_other']='';}
         $same=$in['same_contact']??'0';if(!in_array($same,['0','1'],true)){throw new HttpFailure(422,'連絡先の兼任を選択してください');}$out['same_contact']=$same;
         if($same==='1'){

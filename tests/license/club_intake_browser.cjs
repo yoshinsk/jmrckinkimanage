@@ -27,6 +27,8 @@ async function run(engine,name,device){
    check(prefix+' 事前権限なしで入力画面',(await p.locator('h1').innerText())==='クラブ登録の申請');
    check(prefix+' 横にはみ出さない',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    check(prefix+' 入力欄は16px以上',await p.locator('#club-name').count()===0&&await p.locator('#club-club_name').evaluate(e=>parseFloat(getComputedStyle(e).fontSize)>=16));
+   check(prefix+' 代表者と連絡先の順・見出し',await p.locator('#club-intake-form > fieldset > legend').allTextContents().then(xs=>JSON.stringify(xs)===JSON.stringify(['クラブの情報','代表者の情報','連絡先の情報'])));
+   check(prefix+' 他地区の所属先ラベル',await p.getByLabel('他地区の場合の所属支部',{exact:true}).count()===1);
    check(prefix+' 既存候補を表示',await p.locator('#club-candidate_ref option').count()>1);
    check(prefix+' 団体区分を表示し2027年の7は選択不可',await p.locator('#club-jaf_kind option').evaluateAll(es=>['official_org','special_org','associate_org'].every(v=>es.some(e=>e.value===v))&&es.find(e=>e.value==='special_org').disabled===(es[0].ownerDocument.querySelector('#club-year').value==='2027')));
    check(prefix+' 年度全体終了は事務局だけ',await p.locator('form[aria-labelledby="review-close-title"]').count()===(a.role==='office'?1:0));
@@ -45,7 +47,7 @@ async function run(engine,name,device){
    }
    if(!live&&a.role==='entrant'){
     await p.goto(origin+base);await p.locator('#club-year').selectOption('2027');await p.locator('#club-registration_kind').selectOption('new');
-    await p.locator('#club-jaf_number').fill(js?'９９９８１':'99982');
+    await p.locator('#club-jaf_number').fill(js?'９９９８１':'99982');await p.locator('#club-same_contact').selectOption('1');
     for(const e of await p.locator('#club-intake-form input[required]').all()){
      const key=await e.getAttribute('name');if(key==='jaf_number')continue;
      await e.fill(key.endsWith('email')?'club@example.invalid':key.includes('postcode')?'0000000':key.includes('phone')||key.includes('mobile')?'0000000000':'架空クラブⅢ');

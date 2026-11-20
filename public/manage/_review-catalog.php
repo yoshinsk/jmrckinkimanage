@@ -12,8 +12,8 @@ function jmrc_review_catalog(): array
     $catalog = [
         'clubs'=>['title'=>'正会員クラブの年度登録','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','club'],
             'flow'=>'クラブ申請 → 年会費請求 → 入金確認 → 事務局承認',
-            'pending'=>'2027年度は2026年度と同額です。下の料金計算で新規・更新・再加入を比較できます。賛助のコード対応と既存登録の照合は保留で、本番請求は始まりません。会社・ショップ名は任意、ハンドブック掲載用項目とJAF登録証の添付は不要です。',
-            'fields'=>['name'=>['クラブ・団体名称','text','操作確認クラブ'],'short'=>['正式略称','text','確認CLUB'],'company'=>['会社・ショップ名（任意）','text',''],'category'=>['クラブ区分',['1'=>'1 公認','2'=>'2 加盟','3'=>'3 準加盟','6'=>'6 加盟団体'],'1'],'base'=>['不変の5桁コード','text','00001'],'representative'=>['代表者名（架空）','text','確認 代表'],'contact'=>['連絡先名（架空）','text','確認 担当'],'email'=>['メール（架空）','text','club@example.invalid'],'address'=>['連絡先住所（架空）','text','確認用のクラブ住所'],'phone'=>['連絡先電話（架空）','text','000-0000-0000'],'region'=>['JMRC所属支部',\Jmrc\Club\ClubContact::REGIONS,'27'],'region_other'=>['その他の所属支部','text',''],'same_contact'=>['代表者が連絡先を兼ねる',['0'=>'別の担当者','1'=>'代表者と同じ（連絡先の入力を省略）'],'0'],'rep_address'=>['代表者住所（架空）','text','確認用の代表者住所'],'rep_phone'=>['代表者電話（架空）','text','000-0000-0000'],'rep_email'=>['代表者メール（架空）','email','rep@example.invalid'],'fee'=>['説明用のクラブ年会費（円）','number','']],
+            'pending'=>'2027年度の料金は下の計算で新規・更新・再加入を比較できます。正会員団体5・6・8の年会費は20,000円、7は加盟対象外、賛助団体の年会費は確認中です。新規入会金10,000円、更新・再加入0円は維持します。受付開始と本番請求は保留です。会社・ショップ名は任意、ハンドブック掲載用項目とJAF登録証の添付は不要です。',
+            'fields'=>['name'=>['クラブ・団体名称','text','操作確認クラブ'],'short'=>['正式略称','text','確認CLUB'],'company'=>['会社・ショップ名（任意）','text',''],'category'=>['クラブ区分',['1'=>'1 公認','2'=>'2 加盟','3'=>'3 準加盟','6'=>'6 加盟団体'],'1'],'base'=>['JAF登録番号（5桁）','text','00001'],'representative'=>['代表者名（架空）','text','確認 代表'],'contact'=>['連絡先名（架空）','text','確認 担当'],'email'=>['メール（架空）','text','club@example.invalid'],'address'=>['連絡先住所（架空）','text','確認用のクラブ住所'],'phone'=>['連絡先電話（架空）','text','000-0000-0000'],'region'=>['JMRC所属支部',\Jmrc\Club\ClubContact::REGIONS,'27'],'region_other'=>[\Jmrc\Club\ClubContact::OTHER_LABEL,'text',''],'same_contact'=>['代表者が連絡先を兼ねる',['0'=>'別の担当者','1'=>'代表者と同じ（連絡先の入力を省略）'],'0'],'rep_address'=>['代表者住所（架空）','text','確認用の代表者住所'],'rep_phone'=>['代表者電話（架空）','text','000-0000-0000'],'rep_email'=>['代表者メール（架空）','email','rep@example.invalid'],'fee'=>['説明用のクラブ年会費（円）','number','']],
             'actions'=>['save'=>'年度登録を試す','issue'=>'年会費請求を試す','approve'=>'事務局承認を試す']],
         'licenses'=>['title'=>'ライセンス登録・更新','group'=>'登録・資格','stage'=>'業務処理あり','roles'=>['office','member'],
             'flow'=>'ライセンス登録 → General申請 → 更新時の資格再確認',
@@ -139,5 +139,7 @@ function jmrc_review_catalog(): array
     $catalog['notifications']['actions']['award_draft']='表彰案内の文案を作る';
     $catalog['insurance']['claim_fields']=['insured_name'=>['被保険者名（架空）','text','確認 太郎'], 'club_name'=>['所属クラブ名（架空）','text','操作確認クラブ']];
     $catalog['insurance']['actions']['claim_notice']='請求連絡の2項目を確認する';
+    // レビュー(4): 表示の順だけをまとめ、保存済みの確認データのキーは変えない。
+    $catalog['clubs']['field_groups']=['クラブの情報'=>['name','short','company','category','base','region','region_other'],'代表者の情報'=>['representative','rep_address','rep_phone','rep_email'],'連絡先の情報'=>['same_contact','contact','address','phone','email'],'会費の確認'=>['fee','rate_category','membership_class','registration_kind']];
     return $catalog;
 }

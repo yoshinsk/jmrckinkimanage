@@ -66,7 +66,12 @@ async function run(engine,name,device){
   await p.screenshot({path:`/artifacts/${name}-review-insurance.png`,fullPage:true});
   await p.getByLabel('確認結果').selectOption('change');await p.getByLabel('メモ（個人情報を含めない）').fill('保険料と期間の確認が必要');await submit('確認メモを保存');
   const notes=await c.request.get('https://web/manage/review.php?download=notes');check(name+' メモ24画面を書出し',notes.status()===200 && (await notes.json())['画面別確認'].length===24 && (await notes.text()).includes('保険料と期間の確認が必要'));
-  await go('clubs');await p.getByLabel('料金計算の区分',{exact:true}).selectOption('organization');await p.getByLabel('料金計算の会員区分',{exact:true}).selectOption('regular');await p.getByLabel('料金計算の登録方法',{exact:true}).selectOption('new');await submit('2027年度の料金を計算');
+  await go('clubs');
+  const clubForm=p.getByRole('form',{name:'正会員クラブの年度登録の操作',exact:true});
+  check(name+' レビュー4の表示名と5桁制約',await clubForm.getByLabel('JAF登録番号（5桁）',{exact:true}).getAttribute('maxlength')==='5'&&await clubForm.getByLabel('他地区の場合の所属支部',{exact:true}).count()===1);
+  check(name+' レビュー4のグループ順',JSON.stringify(await clubForm.locator(':scope > fieldset > legend').allTextContents())===JSON.stringify(['クラブの情報','代表者の情報','連絡先の情報','会費の確認']));
+  await p.screenshot({path:`/artifacts/${name}-review4-clubs.png`,fullPage:true});
+  await p.getByLabel('料金計算の区分',{exact:true}).selectOption('organization');await p.getByLabel('料金計算の会員区分',{exact:true}).selectOption('regular');await p.getByLabel('料金計算の登録方法',{exact:true}).selectOption('new');await submit('2027年度の料金を計算');
   check(name+' 正会員団体の新規料金をスマートフォンで確認',(await p.getByRole('region',{name:'2027年度の料金計算'}).innerText()).includes('30,000'));
   await p.getByLabel('JAF登録クラブですか',{exact:true}).selectOption('yes');
   await p.getByLabel('JMRC近畿の事業として競技会を主催しますか',{exact:true}).selectOption('yes');

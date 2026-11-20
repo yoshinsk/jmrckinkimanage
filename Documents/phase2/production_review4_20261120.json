@@ -1,0 +1,173 @@
+{
+  "date_jst": "2026-11-20",
+  "status": "PASS",
+  "scope": "レビュー4のクラブ入力名・代表者/連絡先の順・兼任時の省略",
+  "base_commit": "52e93684804a626645c7040dd1c1af2b337f5a61",
+  "isolated": {
+    "http": 1716,
+    "browser": 2368,
+    "php_lint_files": 158,
+    "release_tests": 61,
+    "fixture_only": true,
+    "published_ports": [],
+    "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+    "nojs_same_contact_tested": true
+  },
+  "database_changed": false,
+  "code": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/review4-20261120-20261120T100517Z",
+    "files": {
+      "src/Club/ClubContact.php": {
+        "old_sha256": "5d20ddd3be455ab147b306188054069b6a903f97ca613c0e26d342218844b342",
+        "new_sha256": "de3f08e21b7d0531fa2dbb04ea8401862800c85125f3d5057bd355e023060575"
+      },
+      "public/manage/_review-catalog.php": {
+        "old_sha256": "010ef8ffd6c884cb763a6dfb3a8756fdf8b21b4b1e0bc219c64788db1f360fb3",
+        "new_sha256": "d7cb1608f4917b70be1090a4dcf63ff435dc12408a68c44972526f70a40f180d"
+      },
+      "public/manage/_review-workspace.php": {
+        "old_sha256": "66eece258f7ea5ab38cf27e13e5b3ac20547adeebe0e229d5288417181b8118f",
+        "new_sha256": "ce9a5aa7cef5d44299a2908a0e7ab30404c4f8a3445d72f743ba58129fb9b690"
+      },
+      "public/manage/review.php": {
+        "old_sha256": "061ef0a17a9fe4d63e6c6e53d89e3652a4b9a2a44b9309e53c130f2b57e8f884",
+        "new_sha256": "dfa8450b0a348a188fc24946ab9cd77c79265e83e9b4b6016dd77009e6b936f1"
+      },
+      "public/manage/club-register.php": {
+        "old_sha256": "ef7a4b98f1fa3b27a77fc0df80a5e2e0f72ff4ccd5246c52fe1821b61ebc4f30",
+        "new_sha256": "dfdb4e4d21f88f98ff5be5a67bdf6b40ea8984d1cb97707a525435a2ca6c9507"
+      },
+      "public/manage/accounting-review.php": {
+        "old_sha256": "4dd34630c37330bdfa9537a6d436ca3d6ff65ed7a591ffa5da2112b228d339de",
+        "new_sha256": "43f2411928bc20c89281800928dbacf47a850f10784b4a55507591a849c0d68f"
+      }
+    },
+    "verification": {
+      "status": "PASS",
+      "backup_verified": true,
+      "protected_state_unchanged": true,
+      "entry_files_unchanged": true,
+      "business_tables": 90,
+      "protected_files": 695,
+      "counts": {
+        "users": 314,
+        "jmrc_entries": 1203,
+        "jmrc_entry_fees": 1511,
+        "portal_profiles": 290,
+        "portal_applications": 0,
+        "portal_memberships": 0,
+        "portal_invoices": 0,
+        "portal_payments": 0
+      },
+      "years": "2027\tshadow",
+      "flags": {
+        "temporary_intake_enabled": false,
+        "profile_corrections_enabled": true,
+        "bank_master_enabled": true,
+        "license_self_service_enabled": false,
+        "insurance_intents_enabled": false,
+        "yucho_import_enabled": false,
+        "staff_role_requests_enabled": false,
+        "club_intake_enabled": false,
+        "license_export_enabled": false
+      },
+      "stage_removed": true
+    }
+  },
+  "live": {
+    "cases": 780,
+    "business_posts": 0,
+    "suites": {
+      "preparation": {
+        "status": "PASS",
+        "cases": 148
+      },
+      "existing": {
+        "status": "PASS",
+        "cases": 466
+      },
+      "club": {
+        "status": "PASS",
+        "cases": 104
+      },
+      "m2": {
+        "status": "PASS",
+        "cases": 62
+      }
+    },
+    "real_club_login_verified": false
+  },
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "sheets": {
+    "status": "PASS",
+    "source_sheet": "1-XiBurJbJd077Y-RaFAHiZSbHRMkenNVHbqfhRZw7Us",
+    "source_rows": 24,
+    "original_source_values_and_formats_preserved": true,
+    "source_headers_added": [
+      "F1",
+      "G1",
+      "H1"
+    ],
+    "source_values_added": [
+      "F2",
+      "G2"
+    ],
+    "operator_answer_cell": "H2",
+    "operator_answer_pending": true,
+    "canonical_tabs": 9,
+    "canonical_added_row": 134,
+    "canonical_existing_values_and_metadata_preserved": true,
+    "canonical_status_validation_preserved": true,
+    "formula_M2_preserved": {
+      "formulaValue": "=AI(\"\")"
+    },
+    "targeted_and_existing_reads_separate": true,
+    "google_ui_visual_verified": true,
+    "visual_ranges": [
+      "jmrc-review-notes (4)!F1:H2",
+      "整合性チェック_20261101!H134:I134"
+    ],
+    "sharing_changed": false
+  },
+  "holds": [
+    "レビュー4の4点目（指定表H2）",
+    "L12賛助団体年会費",
+    "L05発行日条件",
+    "実口座の適用年度・設定",
+    "12月9日の被指名者・任期・決定記録",
+    "M1正式な個人申請入力接続と運営受入",
+    "受付開始",
+    "年度資格の正本切替",
+    "本人ライセンス保存・CSV出力",
+    "正式会計・銀行CSV取込",
+    "一般公開・実メール送信・削除実行"
+  ],
+  "source_mode": "shadow",
+  "intake_opened": false,
+  "production_account_settings_changed": false,
+  "production_role_grants_added": false,
+  "frozen_source_sha256": {
+    "src/Club/ClubContact.php": "de3f08e21b7d0531fa2dbb04ea8401862800c85125f3d5057bd355e023060575",
+    "public/manage/_review-catalog.php": "d7cb1608f4917b70be1090a4dcf63ff435dc12408a68c44972526f70a40f180d",
+    "public/manage/_review-workspace.php": "ce9a5aa7cef5d44299a2908a0e7ab30404c4f8a3445d72f743ba58129fb9b690",
+    "public/manage/review.php": "dfa8450b0a348a188fc24946ab9cd77c79265e83e9b4b6016dd77009e6b936f1",
+    "public/manage/club-register.php": "dfdb4e4d21f88f98ff5be5a67bdf6b40ea8984d1cb97707a525435a2ca6c9507",
+    "public/manage/accounting-review.php": "43f2411928bc20c89281800928dbacf47a850f10784b4a55507591a849c0d68f",
+    "scripts/deploy_information_preview.py": "f728c9cab3589051fddfd602180a94959c32b62ffb04b62483d000483ba8b78e"
+  }
+}

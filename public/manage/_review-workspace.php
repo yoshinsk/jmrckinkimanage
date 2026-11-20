@@ -148,7 +148,7 @@ final class JmrcReviewWorkspace
                     break;
                 }
                 if($action==='save') {
-                    if(!preg_match('/^[0-9]{5}$/D',$f['base'])) { $this->fail('不変コードは5桁で入力してください'); }
+                    if(!preg_match('/^[0-9]{5}$/D',$f['base'])) { $this->fail('JAF登録番号は5桁で入力してください'); }
                     if($s['club']['submitted'] && $s['club']['code']!==$f['category'].$f['base']) { $this->fail('登録後の年度コードは変更できません'); }
                     if(isset($s['invoices']['club']) && (int)$f['fee']!==$s['invoices']['club']) { $this->fail('発行済み請求の金額は変更できません'); }
                     $s['club']=array_merge($s['club'],$f,['submitted'=>true,'name'=>$f['name'],'short'=>$f['short'],'code'=>$f['category'].$f['base'],'fee'=>(int)$f['fee']]);
