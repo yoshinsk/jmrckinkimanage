@@ -1,0 +1,85 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-20",
+  "scope": "L05発行日案内のみ。期限の自動計算と資格条件の変更は保留",
+  "tests": {
+    "http": 1716,
+    "browser": 2368,
+    "php_files": 158,
+    "release_restore": 63,
+    "live": 780,
+    "business_posts": 0
+  },
+  "fixture_only": true,
+  "database_changed": false,
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/l05-followup-20261120-20261120T102808Z",
+  "files": {
+    "public/manage/licenses.php": {
+      "old_sha256": "35ae77fd6614c2ef323af4f0de9b9dc82fc5d6ae8b53d177b52741d7c6c37046",
+      "new_sha256": "db8bcd6e31c251ab41a99e113f119ca0d26e98eb3a3adae5471fc8d299fdd385"
+    }
+  },
+  "protected": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 90,
+    "protected_files": 700,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "temporary_intake_enabled": false,
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false,
+      "club_intake_enabled": false,
+      "license_export_enabled": false
+    },
+    "stage_removed": true
+  },
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "source_mode": "shadow",
+  "intake_opened": false,
+  "production_migration_executed": false,
+  "source_hashes": {
+    "public/manage/licenses.php": "db8bcd6e31c251ab41a99e113f119ca0d26e98eb3a3adae5471fc8d299fdd385",
+    "scripts/deploy_information_preview.py": "e9a079cb95bb1bcb097d7f507bd1e37fb3529dc92478023bb8c0d2985b879803"
+  },
+  "sheets": {
+    "existing_values_and_cell_metadata_preserved": true,
+    "other_eight_tabs_preserved": true,
+    "new_question": "L16 / L05",
+    "new_question_row": 135,
+    "api_readback_verified": true,
+    "new_row_browser_visual_verified": false,
+    "visual_limitation": "CUA GetCursorPos access denied"
+  }
+}

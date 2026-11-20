@@ -133,6 +133,20 @@ class ReleaseTest(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError,'cache'):update.apply(self.stage)
         self.assertEqual(update.preflight(),before)
 
+    def test_l05_followup_roundtrip_and_held(self):
+        update,_=self.confirmed_stage('l05-followup-20261120');before=update.preflight()
+        self.assertEqual(update.order,['public/manage/licenses.php'])
+        result=update.apply(self.stage);backup=Path(result['backup'])
+        update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        self.assertEqual(update.preflight(),before)
+        state=update.snapshot();state['flags']['license_export_enabled']=True;update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'License export enabled'):update.preflight()
+
+    def test_l05_followup_partial_restore(self):
+        update,_=self.confirmed_stage('l05-followup-20261120');before=update.preflight();update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'cache'):update.apply(self.stage)
+        self.assertEqual(update.preflight(),before)
+
     def test_license_m2_roundtrip(self):
         update,_=self.confirmed_stage('license-m2-20261118');before=update.preflight()
         self.assertIn('scripts/license_migrate.php',update.order);self.assertEqual(len(update.order),16)

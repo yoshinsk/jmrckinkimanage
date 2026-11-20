@@ -7146,7 +7146,7 @@
   },
   "club_intake_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-20T10:00:08.824Z",
+    "checked_at_utc": "2026-11-20T10:24:02.112Z",
     "cases": [
       {
         "case": "chromium office JS有 未認証拒否",
@@ -7614,7 +7614,7 @@
   },
   "club_operations_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-20T10:00:25.532Z",
+    "checked_at_utc": "2026-11-20T10:24:19.588Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -8485,7 +8485,7 @@
   },
   "club_operations_held_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-20T10:02:15.341Z",
+    "checked_at_utc": "2026-11-20T10:26:09.503Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -15171,7 +15171,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-20T10:03:26.937Z",
+    "checked_at_utc": "2026-11-20T10:27:22.054Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -15895,7 +15895,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-20T10:03:39.100Z",
+    "checked_at_utc": "2026-11-20T10:27:34.820Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16235,7 +16235,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-20T10:03:50.416Z",
+    "checked_at_utc": "2026-11-20T10:27:46.204Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16921,7 +16921,7 @@
     "public/manage/card-check.php": "e962ce11bcd6e37c04b65f8897d7884cdcd6801ed0445391317b66e638628257",
     "public/manage/card.php": "4f988e67891753cd25c727e366d541e88b4d7deb4f2b7b15fe85c78b667e93c8",
     "public/manage/insurance.php": "1ff04f847ac609c8978620053cabe50e24666589395bfcd9f6d1c7b78fe0a4cb",
-    "public/manage/licenses.php": "35ae77fd6614c2ef323af4f0de9b9dc82fc5d6ae8b53d177b52741d7c6c37046",
+    "public/manage/licenses.php": "db8bcd6e31c251ab41a99e113f119ca0d26e98eb3a3adae5471fc8d299fdd385",
     "public/manage/temporary-approve.php": "64e121c88d38bd6f19542fbbf68249d5c7d9519fc1ea34222ea158367d1cd965",
     "public/manage/_office-layout.php": "6e083a5f29b803c8a907a5a170dcf7f5fc0d454b25861df296fb55b878f14725",
     "src/Input/TextInput.php": "d4b350668c4ba4bf2f280cdad411278174b053c90c42965a2053f05463cfcafe",
@@ -16975,7 +16975,7 @@
     "scripts/OrganizationFeesDatabase.php": "47950ff8a238d4b0da63192a1164f8536448cee68ffc044e5f66e3df904cbe64",
     "src/Club/ClubService.php": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297"
   },
-  "checked_at_utc": "2026-11-20T10:03:51.696550+00:00",
+  "checked_at_utc": "2026-11-20T10:27:47.432424+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -17069,7 +17069,7 @@
     "public/manage/information-preview.php": "e0e81814881bde5d58ef0104dfd159b5fc9b62203c82f0bca100773460e2012b",
     "public/manage/insurance.php": "1ff04f847ac609c8978620053cabe50e24666589395bfcd9f6d1c7b78fe0a4cb",
     "public/manage/license-export.php": "9bd7dbc428cfa50a37eac5a523b2e6d6c23a37a85876c01a1dd1b7938dd2e2c3",
-    "public/manage/licenses.php": "35ae77fd6614c2ef323af4f0de9b9dc82fc5d6ae8b53d177b52741d7c6c37046",
+    "public/manage/licenses.php": "db8bcd6e31c251ab41a99e113f119ca0d26e98eb3a3adae5471fc8d299fdd385",
     "public/manage/login.php": "71d4330b49b118d901d3d260cc18787d0aca164be0083bde6eae3d6e2ad49c53",
     "public/manage/logout.php": "508ccb7a2670820aa1214a52d8343bae937cc0d2f6a8a3858dee6f79b64ee975",
     "public/manage/memberships.php": "9fc993f2c12e91c1d65e7a4c6da032304a1eabca4f093022087c6e769358cc26",
