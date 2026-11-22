@@ -36,8 +36,7 @@ final class ClubFeePolicy
             throw new \InvalidArgumentException('確定済み年度・会員区分・登録方法を選択してください');
         }
         self::requireRegistrationCategory($year,self::PREFIXES[$category]??'6');
-        // L12の訂正で正会員の団体は20,000円に確定。賛助の10,000円／20,000円は確認中なので新しい見積を止める。
-        if(in_array($category,self::ORGANIZATIONS,true)&&$membership==='supporting'){throw new \DomainException('賛助登録団体の年会費は会則を確認中です。事務局へ確認してください');}
+        // L12の11/22追記: 正会員・賛助とも登録団体は20,000円。区分7の加盟対象外は維持する。
         $annual = match ($category) {
             'official', 'business' => 50000,
             'affiliated' => 30000,

@@ -1,0 +1,332 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-22",
+  "scope": "12月クラブ受付優先。L12賛助団体料金・N19更新候補・N20説明文",
+  "tests": {
+    "http": 1716,
+    "browser": 2368,
+    "php_files": 159,
+    "fee_database_restore": 10,
+    "file_release_restore": 65,
+    "live": 780,
+    "business_posts": 0
+  },
+  "fixture_only": true,
+  "database": {
+    "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/supporting-fees-db-20261122-20261122T124054Z",
+    "source_sha256": {
+      "OrganizationFeesDatabase.php": "47950ff8a238d4b0da63192a1164f8536448cee68ffc044e5f66e3df904cbe64",
+      "SupportingFeesDatabase.php": "cbaec46575ea56cb40867c96c647076b86b470c7f6ecf7cadaf6e057d1b543e2",
+      "migration.sql": "f643919352d73263346858027469044840d91af1162684bb8935b424daedead1",
+      "database.php": "e15940f3f191e85725e26c4e884378cbebf6f61d4e596dcb9e82620f17f95c9c",
+      "input.json": "65ccdd04e0368aab04c632d853027c3f948a6b0ca0c4e9dace85afc3cd604318"
+    },
+    "before_profiles": [
+      {
+        "year": 2027,
+        "jaf_kind": "affiliated",
+        "membership_kind": "regular",
+        "annual_yen": 30000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "affiliated",
+        "membership_kind": "supporting",
+        "annual_yen": 30000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate",
+        "membership_kind": "supporting",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate_org",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "business",
+        "membership_kind": "supporting",
+        "annual_yen": 50000,
+        "joining_yen": 0,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official",
+        "membership_kind": "regular",
+        "annual_yen": 50000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official",
+        "membership_kind": "supporting",
+        "annual_yen": 50000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official_org",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "organization",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "organization",
+        "membership_kind": "supporting",
+        "annual_yen": 10000,
+        "joining_yen": 10000,
+        "enabled": 1
+      }
+    ],
+    "after_profiles": [
+      {
+        "year": 2027,
+        "jaf_kind": "affiliated",
+        "membership_kind": "regular",
+        "annual_yen": 30000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "affiliated",
+        "membership_kind": "supporting",
+        "annual_yen": 30000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate",
+        "membership_kind": "supporting",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate_org",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "associate_org",
+        "membership_kind": "supporting",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "business",
+        "membership_kind": "supporting",
+        "annual_yen": 50000,
+        "joining_yen": 0,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official",
+        "membership_kind": "regular",
+        "annual_yen": 50000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official",
+        "membership_kind": "supporting",
+        "annual_yen": 50000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official_org",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "official_org",
+        "membership_kind": "supporting",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "organization",
+        "membership_kind": "regular",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      },
+      {
+        "year": 2027,
+        "jaf_kind": "organization",
+        "membership_kind": "supporting",
+        "annual_yen": 20000,
+        "joining_yen": 10000,
+        "enabled": 1
+      }
+    ],
+    "schema_changed": false,
+    "updated_rows": 1,
+    "inserted_rows": 2,
+    "other_ten_fees_preserved": true,
+    "protected_tables": 89,
+    "verification": {
+      "status": "PASS",
+      "private_backup_verified": true,
+      "protected_tables": 89,
+      "current_matches_after": true,
+      "target_fee_rows": 3,
+      "rollback_executed": false
+    }
+  },
+  "files": {
+    "src/Club/ClubFeePolicy.php": {
+      "old_sha256": "b5ed6feb5e2a016b2d2686fc3ef2facfefa1d6c5e654df99c8374377ea2415bd",
+      "new_sha256": "1745666d5c8712844eee1a5f2aff48c57ee23b3984b806b1ff7fea342414d96c"
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": "dfdb4e4d21f88f98ff5be5a67bdf6b40ea8984d1cb97707a525435a2ca6c9507",
+      "new_sha256": "a68294fbe7d8398bec51f5abc64a0d5dd514b30634140332cf8a163168d6ccc9"
+    },
+    "public/manage/_review-catalog.php": {
+      "old_sha256": "d7cb1608f4917b70be1090a4dcf63ff435dc12408a68c44972526f70a40f180d",
+      "new_sha256": "e37458b706122d4e2694a0cb855dcfd8c8db5c6fd56a4402c5258611b626c0f5"
+    },
+    "public/manage/preparation.php": {
+      "old_sha256": "b76d5a176ba6d4e339c85bf1d68a2044f8cbc799abb75efff1744acc60bf8b94",
+      "new_sha256": "acc09c47dabcb6c61a730ffe4513f68fb251d6345323d63f1fd7d72b6241c533"
+    }
+  },
+  "file_backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/dec22-20261122-20261122T124116Z",
+  "protection": {
+    "status": "PASS",
+    "backup_verified": true,
+    "protected_state_unchanged": true,
+    "entry_files_unchanged": true,
+    "business_tables": 90,
+    "protected_files": 697,
+    "counts": {
+      "users": 314,
+      "jmrc_entries": 1203,
+      "jmrc_entry_fees": 1511,
+      "portal_profiles": 290,
+      "portal_applications": 0,
+      "portal_memberships": 0,
+      "portal_invoices": 0,
+      "portal_payments": 0
+    },
+    "years": "2027\tshadow",
+    "flags": {
+      "temporary_intake_enabled": false,
+      "profile_corrections_enabled": true,
+      "bank_master_enabled": true,
+      "license_self_service_enabled": false,
+      "insurance_intents_enabled": false,
+      "yucho_import_enabled": false,
+      "staff_role_requests_enabled": false,
+      "club_intake_enabled": false,
+      "license_export_enabled": false
+    },
+    "stage_removed": true
+  },
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "sources": {
+    "src/Club/ClubFeePolicy.php": "1745666d5c8712844eee1a5f2aff48c57ee23b3984b806b1ff7fea342414d96c",
+    "public/manage/club-register.php": "a68294fbe7d8398bec51f5abc64a0d5dd514b30634140332cf8a163168d6ccc9",
+    "public/manage/_review-catalog.php": "e37458b706122d4e2694a0cb855dcfd8c8db5c6fd56a4402c5258611b626c0f5",
+    "public/manage/preparation.php": "acc09c47dabcb6c61a730ffe4513f68fb251d6345323d63f1fd7d72b6241c533",
+    "scripts/deploy_information_preview.py": "6ca127da50ed775dc9936e3e36eeadde7da880f936d5fda9a65ff5600545a1ba",
+    "scripts/SupportingFeesDatabase.php": "cbaec46575ea56cb40867c96c647076b86b470c7f6ecf7cadaf6e057d1b543e2",
+    "design/phase2/018_supporting_organization_fees_2027.sql": "f643919352d73263346858027469044840d91af1162684bb8935b424daedead1"
+  },
+  "sheets": {
+    "existing_eight_tabs_unchanged": true,
+    "original_questions_answers_preserved": true,
+    "original_cell_metadata_preserved": true,
+    "new_launch_tab": "12月受付_残作業_20261122",
+    "new_launch_sheet_id": 202611223,
+    "new_question": "L17 / クレンジング",
+    "google_ui_verified_100_percent": true,
+    "dropdown_rows": 14
+  },
+  "holds": [
+    "クラブ受付の開放",
+    "個人受付・正本切替",
+    "実口座設定と権限追加",
+    "実メール・一般公開・削除",
+    "本人ライセンス保存・CSV出力",
+    "既存entryのクレンジング一括実行"
+  ],
+  "confirmed_not_yet_implemented": [
+    "L16の発行日必須を本人保存・General正式申請・確認移行へ接続（J01）"
+  ],
+  "source_mode": "shadow",
+  "intake_opened": false
+}

@@ -14,7 +14,7 @@ foreach(['2027-01-31T12:34:56+09:00'=>'2027-04-30T12:34:56+09:00','2027-11-30T01
 check('翌年イベントの前年受付を認めない',!AR::entryYearAllowed('2027-02-01',new DateTimeImmutable('2026-12-31T23:59:59+09:00')));
 check('日本時間の年境界で当年受付可能',AR::entryYearAllowed('2027-02-01',new DateTimeImmutable('2026-12-31T15:00:00Z')));
 foreach(['official','affiliated','associate','business'] as $category){check('料金確定済み賛助の先頭は6 '.$category,\Jmrc\Club\ClubFeePolicy::quote(2027,$category,'supporting','new')['code_prefix']==='6');}
-try{\Jmrc\Club\ClubFeePolicy::quote(2027,'organization','supporting','new');check('L12 賛助団体料金は確認待ち',false);}catch(DomainException){check('L12 賛助団体料金は確認待ち',true);}
+check('L12 賛助団体年会費20000円・新規入会金10000円',\Jmrc\Club\ClubFeePolicy::quote(2027,'organization','supporting','new')['total_yen']===30000);
 check('正会員の加盟団体は年会費20000円',\Jmrc\Club\ClubFeePolicy::quote(2027,'organization','regular','new')['annual_yen']===20000);
 check('平均を先に四捨五入してから半数',SR::awardLimit(11,3)===2&&SR::awardLimit(10,3)===1&&SR::awardLimit(100,3)===6);
 $rows=static fn(array $scores,string $date='2027-04-01')=>array_map(fn($i,$p)=>['event'=>(string)($i+1),'date'=>$date,'points'=>$p],array_keys($scores),$scores);

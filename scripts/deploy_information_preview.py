@@ -100,6 +100,8 @@ PROFILES['answers-20261120']=(ANSWER20_FILES,ANSWER20_FILES)
 REVIEW4_FILES=['src/Club/ClubContact.php','public/manage/_review-catalog.php','public/manage/_review-workspace.php','public/manage/review.php','public/manage/club-register.php','public/manage/accounting-review.php']
 PROFILES['review4-20261120']=(REVIEW4_FILES,REVIEW4_FILES)
 PROFILES['l05-followup-20261120']=(['public/manage/licenses.php'],['public/manage/licenses.php'])
+DEC22_FILES=['src/Club/ClubFeePolicy.php', 'public/manage/club-register.php', 'public/manage/_review-catalog.php', 'public/manage/preparation.php']
+PROFILES['dec22-20261122']=(DEC22_FILES,DEC22_FILES)
 
 
 
@@ -191,9 +193,9 @@ class Release:
         require(all(state['flags'][k] is False for k in ['license_self_service_enabled',
                 'insurance_intents_enabled', 'yucho_import_enabled']), 'Held feature enabled')
         require(state['years'] == '2027\tshadow', 'Year source mode changed')
-        if self.profile in ['club-review-20261118','license-m2-20261118','answers-20261119','answers-20261120','review4-20261120','l05-followup-20261120']:
+        if self.profile in ['club-review-20261118','license-m2-20261118','answers-20261119','answers-20261120','review4-20261120','l05-followup-20261120','dec22-20261122']:
             require(all(state['flags'].get(k,False) is False for k in ['club_intake_enabled','temporary_intake_enabled','staff_role_requests_enabled']),'Intake or roles enabled')
-        if self.profile in ['license-m2-20261118','answers-20261119','answers-20261120','review4-20261120','l05-followup-20261120']:
+        if self.profile in ['license-m2-20261118','answers-20261119','answers-20261120','review4-20261120','l05-followup-20261120','dec22-20261122']:
             require(state['flags'].get('license_export_enabled',False) is False,'License export enabled')
         if self.profile in ['club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['flags'].get('club_intake_enabled',False) is False,'Club intake enabled')
@@ -204,7 +206,7 @@ class Release:
             require(state['flags'].get('staff_role_requests_enabled', False) is False, 'Staff intake enabled')
         if self.profile in ['confirmed', 'insurance-notices', 'club-region', 'preparation','additional-answers','dirt-followup','financial-review','answers-20261114','answers-20261116','club-intake-20261116','club-operations-20261116','club-boundary-20261116','club-followup-20261117','member-confirmed-20261117']:
             require(state['permission_roles'] in ['OFFICE', 'APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'], 'Unexpected staff permissions')
-        elif self.profile in ['club-review-20261118','license-m2-20261118','answers-20261119','answers-20261120','review4-20261120','l05-followup-20261120']:
+        elif self.profile in ['club-review-20261118','license-m2-20261118','answers-20261119','answers-20261120','review4-20261120','l05-followup-20261120','dec22-20261122']:
             require(state['permission_roles'] in ['OFFICE','APPROVER\nCOMMITTEE\nFINANCE\nOFFICE'],'Unexpected staff permissions')
         else:
             require(state['permission_roles'] == 'OFFICE', 'Preview permission is not office-only')
