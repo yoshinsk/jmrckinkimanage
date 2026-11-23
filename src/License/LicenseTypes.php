@@ -39,6 +39,11 @@ final class LicenseTypes
         if(!preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/D',$value)||$value<'1000-01-01'||!$d||$d->format('Y-m-d')!==$value){throw new HttpFailure(422,'発行日を正しい日付で入力してください');}
         return $value;
     }
+    /** L16: 新しい保存・申請・未適用の移行だけで必須にする。旧レコードの読取には使わない。 */
+    public static function requiredIssuedOn(mixed $value):string
+    {
+        return self::issuedOn($value)??throw new HttpFailure(422,'券面の発行日を入力してください。不明な場合は保存せず事務局へ確認してください');
+    }
     /** N11・L15: 券面の登録名だけを受け付ける。一般の氏名や旧カナから自動補完しない。 */
     public static function registeredName(mixed $value):?string
     {

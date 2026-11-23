@@ -149,6 +149,9 @@ final class MembershipService
             $license = $this->one("SELECT * FROM portal_identifiers WHERE id=? AND user_id=?
                 AND kind IN ('jaf_competition','jaf_official') AND OCTET_LENGTH(value_cipher)>0 FOR UPDATE",[$identifierId,$actorId]);
             if (!$license) { throw new HttpFailure(422,'Generalは本人のJAF競技・審判員ライセンスが必要です'); }
+            // L16: 申請に使う本人の券面発行日を必須にする。既存申請の再送・資格の再判定には遡及しない。
+            $details=$this->one('SELECT issued_on FROM portal_license_details WHERE identifier_id=? FOR UPDATE',[$identifierId]);
+            \Jmrc\License\LicenseTypes::requiredIssuedOn($details['issued_on']??null);
             $declared=LicenseDeclaration::validate($declaration,$license['kind']);
             // L05: 番号・所有者・種類・本人申告は検証する。JAFの有効性を旧期限から自動判定しない。
             $application = $this->application($actorId,$year,'general',$requestKey);

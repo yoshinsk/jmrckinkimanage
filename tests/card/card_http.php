@@ -39,7 +39,7 @@ check('GETは番号やQRを自動発行しない',!$pre['available'] && $pre['ca
 check('未知の識別番号保管形式を平文扱いしない',cardPost($owner,$member)['status']===503 && cardCounts($db)===$before);
 $box=new \Jmrc\Card\SecretBox(base64_encode(str_repeat('L',32)));$license='JAF000009';$cipher=$box->seal($license,'jmrc:identifier:v1:102');
 $s=$db->prepare("UPDATE portal_identifiers SET value_cipher=?,license_type='コースB1',key_version=1 WHERE id=102");$s->execute([$cipher]);
-$db->exec('INSERT INTO portal_license_details(identifier_id,types_json,issued_on) VALUES(102,\'["コースB1"]\',NULL)');
+$db->exec('UPDATE portal_license_details SET types_json=\'["コースB1"]\',issued_on=NULL WHERE identifier_id=102');
 $missing=false;try{(new \Jmrc\Card\CardService($db,[]))->issue(9,$member);}catch(\Jmrc\Auth\HttpFailure $e){$missing=$e->status===503;}
 check('暗号鍵なしで発行しない',$missing && cardCounts($db)===$before);
 $badUrl=false;try{(new \Jmrc\Card\CardService($db,['data_key'=>base64_encode(str_repeat('L',32)),'card_public_url'=>'http://example.invalid/manage/card-check.php']))->issue(9,$member);}catch(\Jmrc\Auth\HttpFailure $e){$badUrl=$e->status===503;}

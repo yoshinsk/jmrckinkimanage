@@ -4,6 +4,8 @@
 declare(strict_types=1);
 $cfg=jmrc_auth_config();$owner=new Browser();$owner->login(15);$office=new Browser();$office->login(7);$other=new Browser();$other->login(16);
 $fields=['kind'=>'jaf_competition','number'=>'Ｍ２ＪＡＦ１５','license_types'=>['国内Ｂ','国内Ａ'],'issued_on'=>'2024-02-29'];
+foreach([null,'','　'] as $missing){$before=licenseCounts($db);check('J01 空の発行日をサーバーで拒否 '.json_encode($missing),licensePost($owner,array_replace($fields,['issued_on'=>$missing]))['status']===422&&licenseCounts($db)===$before);}
+$withoutDate=$fields;unset($withoutDate['issued_on']);check('J01 発行日を省略した直接POSTを拒否',licensePost($owner,$withoutDate)['status']===422);
 foreach([null,[],['不明'],['コースB1'],['国内A','国内A'],[['国内B']],['国際Ⅲ']] as $invalid){
     check('M2 指定種別以外と不正配列を拒否 '.json_encode($invalid),licensePost($owner,array_replace($fields,['license_types'=>$invalid]))['status']===422);
 }
@@ -14,14 +16,20 @@ check('M2 半角整形・複数種別・閏日を保存',$r['status']===200&&$sa
 check('M2 旧期限へ発行日をコピーしない',$db->query('SELECT expires_on FROM portal_identifiers WHERE id='.$id)->fetchColumn()===null);
 $before=licenseCounts($db);$r=licensePost($owner,array_replace($fields,['license_types'=>['国内A','国内B']]));
 check('M2 選択順だけの再送は更新しない',$r['status']===200&&licenseCounts($db)===$before);
-$same=['kind'=>'jaf_official','number'=>'M2JAF15','license_types'=>['計時A2','技術B3','コースB1'],'issued_on'=>''];
+$same=['kind'=>'jaf_official','number'=>'M2JAF15','license_types'=>['計時A2','技術B3','コースB1'],'issued_on'=>'2027-01-01'];
 $r=licensePost($owner,$same);$official=json_decode($r['body'],true);
-check('M2 競技と審判員で同じ本人番号を保持',$r['status']===200&&$official['issued_on']===null&&$official['license_types']===['コースB1','計時A2','技術B3']);
+check('M2 競技と審判員で同じ本人番号を保持',$r['status']===200&&$official['issued_on']==='2027-01-01'&&$official['license_types']===['コースB1','計時A2','技術B3']);
 check('M2 審判員の指定15種を保持',count(\Jmrc\License\LicenseTypes::options('jaf_official'))===15&&count(\Jmrc\License\LicenseTypes::validate('jaf_official',\Jmrc\License\LicenseTypes::options('jaf_official')))===15);
 $declared=['competition_type'=>['国内B','国内A'],'official_type'=>['なし']];$key=bin2hex(random_bytes(24));$membershipService=new \Jmrc\Membership\MembershipService($db,$cfg);
+$db->exec('UPDATE portal_license_details SET issued_on=NULL WHERE identifier_id='.$id);
+licenseReject('J01 発行日未登録のライセンスで新規Generalを拒否',fn()=>$membershipService->submitGeneral(15,(int)gmdate('Y'),900,$id,$key,$declared),422);
+$db->exec("UPDATE portal_license_details SET issued_on='2024-02-29' WHERE identifier_id=".$id);
 $general=$membershipService->submitGeneral(15,(int)gmdate('Y'),900,$id,$key,$declared);
+$db->exec('UPDATE portal_license_details SET issued_on=NULL WHERE identifier_id='.$id);
 $replay=$membershipService->submitGeneral(15,(int)gmdate('Y'),900,$id,$key,['competition_type'=>['国内A','国内B'],'official_type'=>'なし']);
 check('M2 Generalの複数選択・並び替え再送で二重申請しない',$general['id']===$replay['id']);
+$db->exec("UPDATE portal_license_details SET issued_on='2024-02-29' WHERE identifier_id=".$id);
+check('J01 既存申請の同一再送には発行日必須を遡及しない',$general['id']===$replay['id']);
 licenseReject('M2 Generalで自由記載の種別を拒否',fn()=>\Jmrc\Membership\LicenseDeclaration::validate(['competition_type'=>'自由記載','official_type'=>'なし'],'jaf_competition'),422);
 licenseReject('M2 Generalでなしと保有種別の混在を拒否',fn()=>\Jmrc\Membership\LicenseDeclaration::validate(['competition_type'=>['なし','国内B'],'official_type'=>'なし'],'jaf_competition'),422);
 $all=\Jmrc\Membership\LicenseDeclaration::validate(['competition_type'=>\Jmrc\License\LicenseTypes::options('jaf_competition'),'official_type'=>\Jmrc\License\LicenseTypes::options('jaf_official')],'jaf_official');

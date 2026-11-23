@@ -15,6 +15,8 @@ $check('英数だけを半角整形',\Jmrc\License\LicenseTypes::validate('jaf_c
 foreach([null,[],['なし'],['コースA1'],['国内B','国内B'],[['国内B']],['<script>'],['国内Ⅲ'],['x'=>'国内B']] as $n=>$value){$bad('未指定・自由記載・重複・構造不正'.$n,fn()=>\Jmrc\License\LicenseTypes::validate('jaf_competition',$value));}
 $check('ローマ数字は共通整形で保持',\Jmrc\Input\TextInput::normalize('Ａ　ⅠⅢ')==='A ⅠⅢ');
 $check('不明の発行日はnull',\Jmrc\License\LicenseTypes::issuedOn(null)===null&&\Jmrc\License\LicenseTypes::issuedOn('')===null);
+foreach([null,'','　'] as $n=>$value){$bad('J01 新しい保存・申請の発行日は必須'.$n,fn()=>\Jmrc\License\LicenseTypes::requiredIssuedOn($value));}
+$check('J01 翌年の券面発行日も自己申告どおり',\Jmrc\License\LicenseTypes::requiredIssuedOn('2027-01-01')==='2027-01-01');
 $check('閏日と全角数字の日付',\Jmrc\License\LicenseTypes::issuedOn('２０２４-０２-２９')==='2024-02-29');
 foreach(['2023-02-29','2026-13-01','2026-11-00','2026-1-1','2026-01-01T00:00:00','0000-01-01',['2026-01-01']] as $n=>$value){$bad('発行日の形式・暦日不正'.$n,fn()=>\Jmrc\License\LicenseTypes::issuedOn($value));}
 $check('JAF登録名は半角整形しローマ数字を保持',\Jmrc\License\LicenseTypes::registeredName('ＪＯＨＮ　Ⅲ')==='JOHN Ⅲ');

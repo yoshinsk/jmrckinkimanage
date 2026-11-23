@@ -44,13 +44,15 @@ final class LicenseMigration
                 if(!$choice || !in_array($choice['decision']??null,['approve','skip'],true)){throw new HttpFailure(422,'未確認の候補があります');}
                 if($choice['decision']==='skip'){$result['skipped']++;continue;}
                 if(!in_array($choice['kind']??null,['jaf_competition','jaf_official'],true) || ($choice['expiry_reviewed']??false)!==true || !array_key_exists('expires_on',$choice)){throw new HttpFailure(422,'JAF区分と期限の明示確認が必要です');}
-                if(($choice['types_reviewed']??false)!==true||($choice['issue_date_reviewed']??false)!==true||!array_key_exists('issued_on',$choice)){throw new HttpFailure(422,'指定種別と発行日（不明はnull）を明示して確認してください');}
+                if(($choice['types_reviewed']??false)!==true||($choice['issue_date_reviewed']??false)!==true||!array_key_exists('issued_on',$choice)){throw new HttpFailure(422,'指定種別と券面の発行日を明示して確認してください');}
                 $types=LicenseTypes::validate($choice['kind'],$choice['license_types']??null);$issued=LicenseTypes::issuedOn($choice['issued_on']);
                 $live=$this->run('SELECT user_id,jaf_license_no,jaf_license_type FROM entrants WHERE user_id=?'.($apply?' LOCK IN SHARE MODE':''),[$uid])->fetch(PDO::FETCH_ASSOC);
                 if(!$live || !hash_equals($r['source_hash'],bin2hex($this->sourceHash($live)))){throw new HttpFailure(409,'計画後に元データが変更されています');}
                 $reviewHash=$this->box()->digest(json_encode([$choice['kind'],$types,$issued,$choice['expires_on'],$choice['target_identifier_id']??null,$choice['target_version']??null],JSON_THROW_ON_ERROR),'migration-review');
                 $receipt=$this->run('SELECT source_hash,review_hash FROM portal_license_migrations WHERE batch_key=? AND source_user_id=?',[$batch,$uid])->fetch(PDO::FETCH_ASSOC);
                 if($receipt){if(!hash_equals($receipt['source_hash'],hex2bin($r['source_hash'])) || !hash_equals($receipt['review_hash'],$reviewHash)){throw new HttpFailure(409,'適用済みの移行計画・確認内容が一致しません');}$result['already_applied']++;continue;}
+                // 適用済み計画の同一再送は読取として残す。新たな移行は空欄ならcheck・applyとも拒否する。
+                LicenseTypes::requiredIssuedOn($issued);
                 $target=$choice['target_identifier_id']??null;
                 if($target!==null){
                     if(!is_int($target) || $target<1 || !is_int($choice['target_version']??null)){throw new HttpFailure(422,'移行先と更新版を明示してください');}

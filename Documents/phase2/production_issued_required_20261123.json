@@ -1,0 +1,129 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-23",
+  "scope": "L16/J01発行日必須。新しい回答なし、前回の確定残作業を完了",
+  "tests": {
+    "http": 1725,
+    "browser": 2368,
+    "php_files": 159,
+    "pure_policy": 38,
+    "file_release_restore": 67,
+    "live": 780,
+    "business_posts": 0
+  },
+  "fixture_only": true,
+  "database_changed": false,
+  "production_license_migration_executed": false,
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/issued-required-20261123-20261123T001732Z",
+  "files": {
+    "src/License/LicenseTypes.php": {
+      "old_sha256": "576459ff10d4fad54e59c1a81d0e7f4c83ae8aa639e71711ab2752f610cf70d8",
+      "new_sha256": "0e40836d387baf74039fef135e82875b45c2ebc5c257c60d84aee021dbc06bfd",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/License/LicenseService.php": {
+      "old_sha256": "f0ec138c13ac39c868122afc97fde08453fed963ef0c869fea3340eac6b990d4",
+      "new_sha256": "efeade7760f65c134d4b949a801817be593012a31b803fe8c288635f506aab12",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/License/LicenseMigration.php": {
+      "old_sha256": "032400d43b35bcdc5c657535ee22b3035fd77a131a7ee8867eec80ed677c7f03",
+      "new_sha256": "4279020811ceac69e076dd7bcac6579fa4a0167493f82788ab468e3bdd09c22f",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Membership/MembershipService.php": {
+      "old_sha256": "887674afcb617499802fc5589dbfc5870930b42cb08e1d5c9a48cdf598028223",
+      "new_sha256": "fd5f9e7a5f67e01eba653189569e2aad844cab8fd6b2ae836ec96afe8a96068f",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/licenses.php": {
+      "old_sha256": "db8bcd6e31c251ab41a99e113f119ca0d26e98eb3a3adae5471fc8d299fdd385",
+      "new_sha256": "b43828772e6b10fcb9d5513b6bdc4a48099ac7658a70d87620cebcc25b5fce5f",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/memberships.php": {
+      "old_sha256": "9fc993f2c12e91c1d65e7a4c6da032304a1eabca4f093022087c6e769358cc26",
+      "new_sha256": "41db20879ed1d27ea06ddb416ac61e0759f69781850816c80a2b5da1a6f082c0",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "script_sha256": "d3a1679de9b805fe44276ca92d2f184818010b0d4d470e76ded9ca88182d375f",
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "sibling_untracked_count": 9,
+  "protected_business_tables": 90,
+  "protected_files": 695,
+  "protected_state_unchanged": true,
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "years": "2027\tshadow",
+  "stage_removed": true,
+  "held": [
+    "クラブ・個人受付開始",
+    "正本切替",
+    "本人保存・JAF出力",
+    "実データ移行",
+    "一般公開",
+    "実メール送信",
+    "削除実行",
+    "L17自動クレンジング",
+    "N20口座欄目的"
+  ],
+  "pending_december": [
+    "D01",
+    "D02",
+    "D03",
+    "D04",
+    "D05",
+    "D06",
+    "D07"
+  ]
+}

@@ -76,7 +76,7 @@ jmrc_office_header('個人会員の申請','会員情報');
 <?php if(!$openYears): ?><p class="portal-notice" role="status">個人会員の申請は現在、受付を行っていません。受付状況は事務局へご確認ください。</p><?php elseif(isset($_GET['submitted'])): ?><p class="office-success" role="status">申請を受け付けました。</p><?php endif; ?>
 <nav class="office-actions" aria-label="申請の確認先"><a class="office-button secondary" href="#applications">申請状況を確認</a><a class="office-button secondary" href="/manage/billing.php">会費・入金状況へ</a></nav>
 <section class="office-panel" aria-labelledby="general-heading"><h2 id="general-heading">General</h2>
-<p>JAF競技・審判員ライセンスが必要です。運転免許証だけでは加入できません。</p>
+<p>JAF競技・審判員ライセンスと、券面の発行日の登録が必要です。運転免許証だけでは加入できません。発行日が未登録の場合は「既存のJAFライセンス情報を確認する」から入力してください。</p>
 <?php if($openYears): ?>
 <form method="post" class="office-form" aria-label="General申請">
 <input type="hidden" name="_csrf" value="<?=$esc(jmrc_auth()->csrfToken())?>"><input type="hidden" name="request_key" value="<?=bin2hex(random_bytes(24))?>"><input type="hidden" name="member_type" value="general">

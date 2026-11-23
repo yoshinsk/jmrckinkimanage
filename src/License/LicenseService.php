@@ -61,7 +61,7 @@ final class LicenseService
         $number=trim($number);if($number==='' && $plain!==null){$number=$plain;}
         if(!preg_match('/^[A-Za-z0-9-]{1,64}$/D',$number)){throw new HttpFailure(422,'JAFライセンス番号を入力してください');}
         $types=LicenseTypes::validate($kind,$in['license_types']??null);$typesJson=json_encode($types,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR);
-        $issued=LicenseTypes::issuedOn($in['issued_on']??null);
+        $issued=LicenseTypes::requiredIssuedOn($in['issued_on']??null);
         // 旧クライアント・確認移行で名前が省略されたときは、登録済みの暗号文を維持する。
         $name=array_key_exists('registered_name',$in)?LicenseTypes::registeredName($in['registered_name']):($old?$this->registeredName($old):null);
         // 従来の40字欄は短い参照表示として維持し、全種別と発行日は独立した表に保存する。

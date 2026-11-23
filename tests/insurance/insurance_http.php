@@ -10,6 +10,7 @@ foreach(range(60,85) as $uid){
     $db->exec("INSERT INTO portal_account_controls(user_id) VALUES($uid)");
     $db->exec("INSERT INTO portal_profiles(user_id,last_name,first_name,last_kana,first_kana,birthday,gender) VALUES($uid,'架空','保険$uid','カクウ','ホケン','1990-04-01','male')");
     $db->exec("INSERT INTO portal_identifiers(user_id,kind,value_cipher,lookup_hmac,key_version) VALUES($uid,'jaf_competition','synthetic',UNHEX(SHA2('insurance-$uid',256)),1)");$identifier=(int)$db->lastInsertId();
+    $db->exec("INSERT INTO portal_license_details(identifier_id,types_json,issued_on) VALUES($identifier,'[\"国内B\"]','2026-01-01')");
     $db->exec("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key) VALUES('general',$uid,$insuranceYear,'submitted','insurance-app-$uid')");$app=(int)$db->lastInsertId();
     $db->exec("INSERT INTO portal_memberships(user_id,year,member_type,application_id,general_license_identifier_id,general_license_kind) VALUES($uid,$insuranceYear,'general',$app,$identifier,'jaf_competition')");$m=(int)$db->lastInsertId();$insuranceMembers[$uid]=$m;
     $cy=$uid===61?102:101;

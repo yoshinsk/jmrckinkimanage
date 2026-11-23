@@ -39,6 +39,8 @@ foreach ([[101,3,'jaf_competition','synthetic',null],[102,9,'jaf_official','synt
           [114,14,'driving','synthetic',null]] as [$id,$user,$kind,$value,$expires]) {
     $st->execute([$id,$user,$kind,$value,'lab-'.$id,$expires]);
 }
+// 発行日は旧期限から作らず、架空の券面日付を明示して用意する。
+$db->exec("INSERT INTO portal_license_details(identifier_id,types_json,issued_on) SELECT id,CASE WHEN kind='jaf_competition' THEN '[\"国内B\"]' ELSE '[\"コースB1\"]' END,'2026-01-01' FROM portal_identifiers WHERE kind IN('jaf_competition','jaf_official')");
 $db->exec("INSERT INTO portal_role_permissions(role_id,permission_code) VALUES(2,'temporary.approve'),(1,'temporary.approve');
     INSERT INTO portal_user_role_grants(user_id,role_id,scope_type,scope_club_id,status,valid_from,granted_by,approved_by)
     VALUES(2,2,'club',1,'active',UTC_TIMESTAMP()-INTERVAL 1 DAY,1,1);");

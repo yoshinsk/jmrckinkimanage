@@ -47,7 +47,7 @@ async function run(engine,name,device,uid){
    assert.ok(membership);
   }else{
    await navigate(p,'memberships.php');check(prefix+' ライセンスなしではGeneralを送信できない',await p.getByRole('button',{name:'Generalを申請',exact:true}).isDisabled());await layout(p,'no-license');
-   await navigate(p,'licenses.php');await p.getByLabel('JAFライセンス番号（必須）',{exact:true}).fill('MEMBER'+uid);await p.getByLabel('国内B',{exact:true}).check();await p.getByLabel('発行日（任意）',{exact:true}).fill('2026-01-01');await submit(p,p.getByRole('button',{name:'保存する',exact:true}));
+   await navigate(p,'licenses.php');await p.getByLabel('JAFライセンス番号（必須）',{exact:true}).fill('MEMBER'+uid);await p.getByLabel('国内B',{exact:true}).check();await p.getByLabel('発行日（必須）',{exact:true}).fill('2026-01-01');await submit(p,p.getByRole('button',{name:'保存する',exact:true}));
    const license=(await json(owner.c,'licenses.php?format=json')).licenses.at(-1);
    check(prefix+' 指定種別と発行日を期限と分離',license.license_types.join(',')==='国内B'&&license.issued_on==='2026-01-01'&&license.expires_on===null);
    await navigate(p,'memberships.php');const form=p.getByRole('form',{name:'General申請',exact:true});await form.getByLabel('年度',{exact:true}).selectOption(String(new Date().getUTCFullYear()));await form.getByLabel('所属クラブ',{exact:true}).selectOption('900');await form.getByLabel('登録済みライセンス',{exact:true}).selectOption(String(license.id));await form.getByRole('group',{name:'競技ライセンスの種類（必須・複数選択可）',exact:true}).getByLabel('国内B',{exact:true}).check();await form.getByRole('group',{name:'審判員ライセンスの種類（必須・複数選択可）',exact:true}).getByLabel('なし',{exact:true}).check();

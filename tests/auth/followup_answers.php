@@ -28,6 +28,7 @@ $db->exec("INSERT INTO portal_user_role_grants(user_id,role_id,scope_type,scope_
  VALUES(2,2,'club',99070,'active',UTC_TIMESTAMP()-INTERVAL 1 DAY,1,1),(99071,2,'club',99071,'active',UTC_TIMESTAMP()-INTERVAL 1 DAY,1,1)");
 $box=new \Jmrc\Card\SecretBox($cfg['data_key']);
 $db->prepare("INSERT INTO portal_identifiers(id,user_id,kind,value_cipher,lookup_hmac,key_version) VALUES(99070,99070,'jaf_competition',?,?,1)")->execute([$box->seal('FOLLOWUP99070','jmrc:identifier:v1:99070'),$box->digest('FOLLOWUP99070','jaf_competition')]);
+$db->exec("INSERT INTO portal_license_details(identifier_id,types_json,issued_on) VALUES(99070,'[\"国内B\"]','2026-01-01')");
 $m=$svc->submitGeneral(99070,$fy,99070,99070,bin2hex(random_bytes(24)),['competition_type'=>'国内B','official_type'=>'なし']);$mid=(int)$m['id'];
 $svc->approveGeneral(2,$mid);
 // 既存HTTPの請求・入金関数を使用。新会員本人のログイン用パスワードは架空値だけ。
