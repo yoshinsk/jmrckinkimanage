@@ -7182,7 +7182,7 @@
   },
   "club_intake_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-23T00:13:08.722Z",
+    "checked_at_utc": "2026-11-24T00:12:33.947Z",
     "cases": [
       {
         "case": "chromium office JS有 未認証拒否",
@@ -7650,7 +7650,7 @@
   },
   "club_operations_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-23T00:13:24.829Z",
+    "checked_at_utc": "2026-11-24T00:12:50.473Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -8521,7 +8521,7 @@
   },
   "club_operations_held_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-23T00:15:18.439Z",
+    "checked_at_utc": "2026-11-24T00:14:40.890Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -15207,7 +15207,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-23T00:16:36.774Z",
+    "checked_at_utc": "2026-11-24T00:15:52.293Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -15931,7 +15931,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-23T00:16:50.454Z",
+    "checked_at_utc": "2026-11-24T00:16:04.525Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16271,7 +16271,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-23T00:17:03.103Z",
+    "checked_at_utc": "2026-11-24T00:16:15.854Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16938,7 +16938,7 @@
     "src/Bank/YuchoCsv.php": "eb0e27599474560ebab58b5dbd0c04974e4da8d049767526d84397050dd971c3",
     "src/Bank/PaymentCoreCsv.php": "1dd491b0563db12046841aadd949f5c07895c16211d98888fd8439d17b0f25bd",
     "src/Operations/AccountingReview.php": "f0dc84388275220ba3cd35750b0e43bd33503a3a8d0cee17e9e979d53c703765",
-    "src/Operations/MaterialsReview.php": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
+    "src/Operations/MaterialsReview.php": "cd438e9f85e296ef56f88533ad6674e50c636556e4f85d6c03dd7bddce221132",
     "public/manage/accounting-review.php": "43f2411928bc20c89281800928dbacf47a850f10784b4a55507591a849c0d68f",
     "public/manage/assets/accounting-review.css": "4a1a3bf1c117f668e9a847d68081a0694e827dd95b7c975b919f142b3ab61868",
     "tests/auth/materials_http.php": "9173589cc742cfbb0d82e9598dc93c0e5bf04b350061a174b00b40511ea4887c",
@@ -16964,7 +16964,7 @@
     "src/Club/ClubIntakePolicy.php": "f60b7408379d3da4d982cb67691ef4fc2eda6ebd447b0b132d4d8bec5fe1935b",
     "src/Club/ClubRegistrationData.php": "87491c99d9138572510d34d4b237747bffeb6fbca86205dea24875e3727a21f3",
     "src/Club/ClubIntakeService.php": "6a5f2d3fe3341d93044f16d3b992937e32f3469f967ae30bd624b483e0633e07",
-    "public/manage/club-register.php": "a68294fbe7d8398bec51f5abc64a0d5dd514b30634140332cf8a163168d6ccc9",
+    "public/manage/club-register.php": "0525aabec8029680155a51c16cacf7950a6232e0c3a24080eae5a178c0d52385",
     "public/manage/assets/input-normalization.js": "3f7a2dfa94cc4f51c63349831fea20d3a7c3d4bce113aef55b6289d82a0ef190",
     "public/manage/assets/club-intake.js": "1f1b1c9ae3a37cfdbd5f7222b10fa45c757a234b51714fa59e8c65c03371d909",
     "design/phase2/013_club_intake.sql": "40b94e3afc9be3fc1fe79f89866db6bc30be6a9031027ebf9ff7f2324e975354",
@@ -17013,7 +17013,7 @@
     "design/phase2/018_supporting_organization_fees_2027.sql": "f643919352d73263346858027469044840d91af1162684bb8935b424daedead1",
     "src/Club/ClubService.php": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297"
   },
-  "checked_at_utc": "2026-11-23T00:17:04.217022+00:00",
+  "checked_at_utc": "2026-11-24T00:16:17.026189+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -17081,7 +17081,7 @@
     "src/Operations/AccountingWorkbook.php": "089024be1276b1da68b0e4e379f6f2e0469e87a44bb9a31890e2c54050cc987f",
     "src/Operations/AccountingWorkflow.php": "651091fbe8c85355f24bd9c4acdc32e929048a438f60db70650a16e6374738d8",
     "src/Operations/AnswerRules.php": "7dcb69a38f772612f040d48377d4d796e21e6d820d78fd165f7e46dc99573fd6",
-    "src/Operations/MaterialsReview.php": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
+    "src/Operations/MaterialsReview.php": "cd438e9f85e296ef56f88533ad6674e50c636556e4f85d6c03dd7bddce221132",
     "src/Operations/PreparationService.php": "fd7ab54a9ac2cfd4ebd70bb9fc5e441251f3fb0a225604252b7c7d493e520dc8",
     "src/Profile/EntryProfile.php": "61f4bbc65dd740338dae913d743e2868dea58dd09b0f61476b5b7737a196a516",
     "src/Profile/ProfileService.php": "e99ca9899c592c1ea8016f5915db849e0989d06b1a46966473638173b33dd357",
@@ -17100,7 +17100,7 @@
     "public/manage/card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public/manage/card.php": "4f988e67891753cd25c727e366d541e88b4d7deb4f2b7b15fe85c78b667e93c8",
     "public/manage/club-finance.php": "f049b97942adbc3520c235302ff5de9415967b00620f66a95b0f1e02c0490404",
-    "public/manage/club-register.php": "a68294fbe7d8398bec51f5abc64a0d5dd514b30634140332cf8a163168d6ccc9",
+    "public/manage/club-register.php": "0525aabec8029680155a51c16cacf7950a6232e0c3a24080eae5a178c0d52385",
     "public/manage/clubs.php": "be98a741bc191807f0ddd95ea06ba59b73a53a272fec7f2006fa602febb75684",
     "public/manage/editor.php": "f2f715d8a6f1be91b69d8a4c63101f4f3f5349c0af7ec3432a1f24085bcad15b",
     "public/manage/index.php": "23c5aa261aa6f02bb6019d4c6010d78652c0f9652f5289870ba3a6c28027d709",

@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-24",
+  "scope": [
+    "N20クラブ口座用途",
+    "N22格式表記"
+  ],
+  "tests": {
+    "http": 1725,
+    "browser": 2368,
+    "php_files": 159,
+    "release_restore": 69,
+    "live": 780,
+    "business_posts": 0
+  },
+  "database_changed": false,
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-copy-20261124-20261124T001643Z",
+  "files": {
+    "src/Operations/MaterialsReview.php": {
+      "old_sha256": "6600db04ee9993368de2ab680239635ac8af0b2a26687ed1a80887c9253e7535",
+      "new_sha256": "cd438e9f85e296ef56f88533ad6674e50c636556e4f85d6c03dd7bddce221132",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": "a68294fbe7d8398bec51f5abc64a0d5dd514b30634140332cf8a163168d6ccc9",
+      "new_sha256": "0525aabec8029680155a51c16cacf7950a6232e0c3a24080eae5a178c0d52385",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "script_sha256": "066c1ff5de0c93aa1185dceea2227461e3e97c5c66e18a2bed3cd55f58294d26",
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t1",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "protected_state_unchanged": true,
+  "protected_files": 699,
+  "business_tables": 90,
+  "stage_removed": true,
+  "held": [
+    "受付開始",
+    "正本切替",
+    "N21候補の番号・格式自動入力",
+    "L17既存エントリー接続",
+    "D01～D07運営準備",
+    "一般公開",
+    "実メール送信",
+    "削除実行"
+  ],
+  "natural_queue_activity": {
+    "table": "autosend_queue",
+    "observed_after_readonly_checks": true,
+    "all_other_business_tables_preserved": true,
+    "portal_process_did_not_mutate_queue": true
+  }
+}

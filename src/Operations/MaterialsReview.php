@@ -14,7 +14,7 @@ final class MaterialsReview
         'club_postcode'=>'クラブ所在地の郵便番号','club_address'=>'クラブ所在地','company'=>'会社・ショップ名','club_phone'=>'クラブ電話番号',
         'rep_name'=>'代表者氏名','rep_kana'=>'代表者ふりがな','rep_postcode'=>'代表者の郵便番号','rep_address'=>'代表者住所','rep_phone'=>'代表者電話','rep_mobile'=>'代表者携帯電話','rep_email'=>'代表者メール',
         'contact_name'=>'連絡担当者氏名','contact_kana'=>'連絡担当者ふりがな','contact_postcode'=>'連絡先の郵便番号','contact_address'=>'連絡先住所','contact_phone'=>'連絡先電話','contact_mobile'=>'連絡先携帯電話','contact_email'=>'連絡先メール',
-        'region'=>'所属支部','jaf_kind'=>'JAF登録クラブ・団体の型式','membership_kind'=>'JMRC会員区分'
+        'region'=>'所属支部','jaf_kind'=>'JAF登録クラブ・団体の格式','membership_kind'=>'JMRC会員区分'
     ];
     /** ユーザー間でデータを共有しない。架空の会費は確認年のデータとして用意し、実資格や請求を参照しない。 */
     public static function initial(int $owner):array
