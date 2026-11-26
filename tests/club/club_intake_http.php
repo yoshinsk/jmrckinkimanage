@@ -46,6 +46,11 @@ use Jmrc\Input\TextInput as TextInput;
     $response=$post($owner,$form);check('shadowでもクラブ申請を提出できる',$response['status']===200);
     $r=json_decode($response['body'],true,512,JSON_THROW_ON_ERROR);$id=(int)$r['id'];
     check('事前照合なしで正式入力を保存',$r['review_state']==='submitted'&&$r['club_year_id']===null&&$r['data']['club_name']==='架空ABC Ⅲ'&&$r['data']['club_short']==='ABCⅢ'&&$r['data']['company']===''&&$r['data']['contact_email']==='club@example.invalid');
+    $filtered=$owner->request($path.'?format=json&list_year=2027&list_state=submitted');$found=json_decode($filtered['body'],true)['applications'];
+    check('本人の年度と確認状況で絞り込む',$filtered['status']===200&&in_array($id,array_map(static fn($x)=>(int)$x['id'],$found),true)&&count(array_filter($found,static fn($x)=>(int)$x['applicant_user_id']!==1||$x['review_state']!=='submitted'||(int)$x['year']!==2027))===0);
+    check('別年度の申請を混在させない',json_decode($owner->request($path.'?format=json&list_year=2028')['body'],true)['applications']===[]);
+    foreach(['list_state=unknown','list_state%5B%5D=returned','list_year=-1','before=-1','before=99999999999999999999999999'] as $bad){check('不正な一覧条件を拒否 '.$bad,$owner->request($path.'?'.$bad)['status']===422);}
+    check('絞込条件を付けても事務局の一覧へ昇格しない',$other->request($path.'?all=1&list_state=submitted&list_year=2027')['status']===403);
     $raw=$db->query('SELECT payload_cipher,payload_hmac FROM portal_club_intakes WHERE id='.$id)->fetch(PDO::FETCH_ASSOC);
     check('入力は暗号保存し暗号文とHMACは応答へ返さない',str_starts_with($raw['payload_cipher'],'gcm1:')&&!str_contains($raw['payload_cipher'],'架空ABC')&&!str_contains($response['body'],'payload_cipher')&&!str_contains($response['body'],'payload_hmac'));
     check('他人の申請参照を拒否',$get($other,$id)['status']===403&&$get($office,$id)['status']===200);
@@ -87,6 +92,23 @@ use Jmrc\Input\TextInput as TextInput;
     $linked=$post($office,['action'=>'link','id'=>$rid,'row_version'=>1,'target_ref'=>'legacy:'.$legacyId,'fixed_code'=>'99991','checked'=>'1']);
     check('旧クラブは照合後にだけ新台帳へ接続',$linked['status']===200&&(int)$db->query('SELECT COUNT(*) FROM portal_clubs WHERE legacy_affiliated_id='.$legacyId)->fetchColumn()===1);
     $db->exec('UPDATE portal_bank_accounts SET enabled=0 WHERE id='.$bank);foreach($savedBanks as $b){$s=$db->prepare('UPDATE portal_bank_accounts SET enabled=? WHERE id=?');$s->execute([$b['enabled'],$b['id']]);}
+    // 100件を超える架空申請だけを一時追加。暗号文は各IDに結び直し、検証後は全てrollbackする。
+    $db->beginTransaction();
+    try{
+        $box=new \Jmrc\Card\SecretBox($cfg['data_key']);$fixture=Registration::normalize($input);
+        for($n=0;$n<105;$n++){
+            $s=$db->prepare("INSERT INTO portal_applications(kind,applicant_user_id,year,status,request_key,submitted_at) VALUES('club',2,2027,'submitted',?,UTC_TIMESTAMP(6))");$s->execute([bin2hex(random_bytes(24))]);$app=(int)$db->lastInsertId();
+            $s=$db->prepare("INSERT INTO portal_club_intakes(application_id,applicant_user_id,year,registration_kind,jaf_kind,membership_kind,annual_yen,joining_yen,category_digit,payload_cipher,payload_hmac,review_state) SELECT ?,2,year,registration_kind,jaf_kind,membership_kind,annual_yen,joining_yen,category_digit,payload_cipher,payload_hmac,'submitted' FROM portal_club_intakes WHERE id=?");$s->execute([$app,$id]);$new=(int)$db->lastInsertId();
+            $s=$db->prepare('UPDATE portal_club_intakes SET payload_cipher=? WHERE id=?');$s->execute([$box->seal(json_encode($fixture,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR),'jmrc:club-intake:v1:'.$new),$new]);
+        }
+        $expected=array_map('intval',$db->query("SELECT id FROM portal_club_intakes WHERE applicant_user_id=2 AND year=2027 AND review_state='submitted' ORDER BY id DESC")->fetchAll(PDO::FETCH_COLUMN));
+        $first=$service->listing(2,false,2027,'submitted');$second=$service->listing(2,false,2027,'submitted',(int)$first[99]['id']);
+        $actual=array_map(static fn($x)=>(int)$x['id'],[...$first,...$second]);
+        check('100件を超える申請も重複や取りこぼしなく取得',count($first)===100&&$actual===$expected&&count(array_unique($actual))===count($actual));
+        check('古い申請のページでも別人の申請は表示しない',count(array_filter([...$first,...$second],static fn($x)=>(int)$x['applicant_user_id']!==2))===0);
+        check('状況の絞込を件数制限より前に適用',$service->listing(2,false,2027,'returned')===[]);
+        check('事務局は同じ絞込で申請を確認できる',count($service->listing(7,true,2027,'submitted'))===100);
+    }finally{$db->rollBack();}
     $s=$db->prepare('UPDATE portal_years SET source_mode=?,club_open_at=?,club_close_at=?,valid_until=? WHERE year=2027');$s->execute([$savedYear['source_mode'],$savedYear['club_open_at'],$savedYear['club_close_at'],$savedYear['valid_until']]);
     // 旧クラブへの追加は架空候補3件だけ。それ以外のentry・料金・イベント・ユーザーは不変。
     $after=$db->query('CHECKSUM TABLE jmrc_entries,jmrc_entry_fees,jmrc_events,jmrc_annual_memberships,users')->fetchAll(PDO::FETCH_ASSOC);

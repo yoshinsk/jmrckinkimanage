@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-26",
+  "scope": "クラブ申請一覧の年度・確認状況・100件ごとの表示",
+  "tests": {
+    "http": 1749,
+    "browser": 2428,
+    "php_files": 159,
+    "release_restore": 73,
+    "live": 828,
+    "business_posts": 0
+  },
+  "files": {
+    "src/Club/ClubIntakeService.php": {
+      "old_sha256": "b86ddc81d06b311153f5ce402d9369022aff6d46d9247ef76fdc67feffb69028",
+      "new_sha256": "b64ab7009a946ae901110f01f3587cacc9fba6badcae32ace1e4be2d95b0b5ed",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": "0bce422d4004ec3fc346f047b95ed889a312d31cd477f10b798f29fb48ab2e01",
+      "new_sha256": "a783097a15e7435d2e33e2327ad258d8d569d8491b6114e2a3bf6b99057324fe",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "script_sha256": "4666d268225b529697471a070b90134a87b2ff7e566e21dac09aa320c8917099",
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-list-20261126-20261126T012240Z",
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t0",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "protected_files": 699,
+  "business_tables": 90,
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1204,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "source_mode": "shadow",
+  "roles_changed": false,
+  "database_changed": false,
+  "intake_opened": false,
+  "local_entry_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "local_entry_status": "?? 1,\n?? 2027-03-01,entry_end_date=\n?? 2027-03-14]\n?? 3]\n?? build_dirt_check.mjs\n?? dirttrial_2027_check.xlsx\n?? dirttrial_2027_check.xlsx.inspect.ndjson\n?? node_modules/\n?? submit]",
+  "stage_removed": true
+}

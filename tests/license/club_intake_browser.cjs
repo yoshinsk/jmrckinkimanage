@@ -33,6 +33,17 @@ async function run(engine,name,device){
    check(prefix+' 団体区分を表示し2027年の7は選択不可',await p.locator('#club-jaf_kind option').evaluateAll(es=>['official_org','special_org','associate_org'].every(v=>es.some(e=>e.value===v))&&es.find(e=>e.value==='special_org').disabled===(es[0].ownerDocument.querySelector('#club-year').value==='2027')));
    check(prefix+' 年度全体終了は事務局だけ',await p.locator('form[aria-labelledby="review-close-title"]').count()===(a.role==='office'?1:0));
    if(a.role==='entrant')check(prefix+' 事務局一覧は拒否',(await c.request.get(origin+base+'?all=1')).status()===403);
+   // GETだけの一覧絞込はJavaScriptなしでも使え、選択しただけでは再読込しない。
+   await p.goto(origin+base+(a.role==='office'?'?all=1':''));
+   const listUrl=p.url();await p.getByLabel('一覧の年度',{exact:true}).selectOption('2027');await p.getByLabel('一覧の確認状況',{exact:true}).selectOption('returned');
+   check(prefix+' 一覧の選択だけでは送信しない',p.url()===listUrl);
+   await Promise.all([p.waitForURL(u=>u.searchParams.get('list_state')==='returned'),p.getByRole('button',{name:'一覧を絞り込む',exact:true}).tap()]);
+   check(prefix+' 一覧の年度を保持',await p.getByLabel('一覧の年度',{exact:true}).inputValue()==='2027');
+   check(prefix+' 一覧の状況を保持',await p.getByLabel('一覧の確認状況',{exact:true}).inputValue()==='returned');
+   check(prefix+' 事務局と本人の一覧を維持',p.url().includes('all=1')===(a.role==='office'));
+   check(prefix+' 一覧絞込がスマートフォン幅に収まる',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+   check(prefix+' 一覧の不正条件を拒否',(await c.request.get(origin+base+'?list_state=unknown')).status()===422);
+   await p.goto(origin+base);
    if(live){check(prefix+' 本番受付停止',await p.getByRole('button',{name:'申請を提出する',exact:true}).isDisabled());}
    if(js){
     await p.locator('#club-club_name').fill('Ａｚ０９　ⅠⅢ');check(prefix+' 英数字空白だけ整形',await p.locator('#club-club_name').inputValue()==='Az09 ⅠⅢ');

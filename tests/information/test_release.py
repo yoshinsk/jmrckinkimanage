@@ -161,6 +161,19 @@ class ReleaseTest(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError,'cache'):update.apply(self.stage)
         self.assertEqual(update.preflight(),before)
 
+    def test_club_list26_roundtrip(self):
+        update,_=self.confirmed_stage('club-list-20261126');before=update.preflight()
+        result=update.apply(self.stage);self.assertEqual(len(result['files']),2)
+        self.assertEqual(update.snapshot(),before['before'])
+        backup=Path(result['backup']);manifest=json.loads((backup/'manifest.json').read_text())
+        update.restore(backup,manifest,strict=True)
+        self.assertEqual(update.preflight()['files'],before['files'])
+
+    def test_club_list26_cache_failure(self):
+        update,_=self.confirmed_stage('club-list-20261126');before=update.preflight();update.fail_cache_once=True
+        with self.assertRaises(RuntimeError):update.apply(self.stage)
+        self.assertEqual(update.preflight(),before)
+
     def test_candidate26_roundtrip(self):
         update,_=self.confirmed_stage('candidate-20261126');before=update.preflight()
         self.assertEqual(len(update.order),4)

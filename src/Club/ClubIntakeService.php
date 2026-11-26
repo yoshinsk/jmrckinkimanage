@@ -9,6 +9,7 @@ use Jmrc\Auth\HttpFailure;
 use Jmrc\Card\SecretBox;
 final class ClubIntakeService
 {
+    public const LIST_STATES=['all'=>'すべて','submitted'=>'新規・再加入：事務局の確認待ち','renewal_review'=>'更新：事務局の確認待ち','returned'=>'申請者の訂正待ち','linked'=>'照合済み（会費・年度承認は別途）'];
     public function __construct(private readonly PDO $db,private readonly array $config){}
 
     /** 既存クラブ代表権限やクラブ台帳は要求しない。共通認証の有効な本人だけが申請する。 */
@@ -36,10 +37,17 @@ final class ClubIntakeService
         $data=json_decode($this->box()->open($r['payload_cipher'],'jmrc:club-intake:v1:'.$id),true,512,JSON_THROW_ON_ERROR);
         unset($r['payload_cipher'],$r['payload_hmac']);$r['data']=$data;$r['total_yen']=(int)$r['annual_yen']+(int)$r['joining_yen'];return $r;
     }
-    public function listing(int $actor,bool $office=false):array
+    /** 年度・状況を先に絞り、ID境界で古い申請も取得する。閲覧だけで照合・権限・請求を変更しない。 */
+    public function listing(int $actor,bool $office=false,int $year=0,string $state='all',int $before=0):array
     {
         $this->actor($actor);if($office){$this->office($actor);}
-        $s=$this->run('SELECT id FROM portal_club_intakes'.($office?'':' WHERE applicant_user_id=?').' ORDER BY id DESC LIMIT 100',$office?[]:[$actor]);
+        if($year<0||$year>9999||$before<0||!isset(self::LIST_STATES[$state])){throw new HttpFailure(422,'一覧の年度・確認状況を選び直してください');}
+        $where=[];$args=[];
+        if(!$office){$where[]='applicant_user_id=?';$args[]=$actor;}
+        if($year>0){$where[]='year=?';$args[]=$year;}
+        if($state!=='all'){$where[]='review_state=?';$args[]=$state;}
+        if($before>0){$where[]='id<?';$args[]=$before;}
+        $s=$this->run('SELECT id FROM portal_club_intakes'.($where?' WHERE '.implode(' AND ',$where):'').' ORDER BY id DESC LIMIT 100',$args);
         return array_map(fn($id)=>$this->read($actor,(int)$id),$s->fetchAll(PDO::FETCH_COLUMN));
     }
     public function isOffice(int $actor):bool

@@ -6221,6 +6221,38 @@
       "result": "PASS"
     },
     {
+      "case": "本人の年度と確認状況で絞り込む",
+      "result": "PASS"
+    },
+    {
+      "case": "別年度の申請を混在させない",
+      "result": "PASS"
+    },
+    {
+      "case": "不正な一覧条件を拒否 list_state=unknown",
+      "result": "PASS"
+    },
+    {
+      "case": "不正な一覧条件を拒否 list_state%5B%5D=returned",
+      "result": "PASS"
+    },
+    {
+      "case": "不正な一覧条件を拒否 list_year=-1",
+      "result": "PASS"
+    },
+    {
+      "case": "不正な一覧条件を拒否 before=-1",
+      "result": "PASS"
+    },
+    {
+      "case": "不正な一覧条件を拒否 before=99999999999999999999999999",
+      "result": "PASS"
+    },
+    {
+      "case": "絞込条件を付けても事務局の一覧へ昇格しない",
+      "result": "PASS"
+    },
+    {
       "case": "入力は暗号保存し暗号文とHMACは応答へ返さない",
       "result": "PASS"
     },
@@ -6314,6 +6346,22 @@
     },
     {
       "case": "旧クラブは照合後にだけ新台帳へ接続",
+      "result": "PASS"
+    },
+    {
+      "case": "100件を超える申請も重複や取りこぼしなく取得",
+      "result": "PASS"
+    },
+    {
+      "case": "古い申請のページでも別人の申請は表示しない",
+      "result": "PASS"
+    },
+    {
+      "case": "状況の絞込を件数制限より前に適用",
+      "result": "PASS"
+    },
+    {
+      "case": "事務局は同じ絞込で申請を確認できる",
       "result": "PASS"
     },
     {
@@ -7230,7 +7278,7 @@
   },
   "club_intake_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-26T00:01:36.015Z",
+    "checked_at_utc": "2026-11-26T01:17:48.942Z",
     "cases": [
       {
         "case": "chromium office JS有 未認証拒否",
@@ -7266,6 +7314,30 @@
       },
       {
         "case": "chromium office JS有 年度全体終了は事務局だけ",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS有 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS有 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS有 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS有 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS有 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS有 一覧の不正条件を拒否",
         "result": "PASS"
       },
       {
@@ -7338,6 +7410,30 @@
       },
       {
         "case": "chromium entrant JS有 事務局一覧は拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS有 一覧の不正条件を拒否",
         "result": "PASS"
       },
       {
@@ -7421,6 +7517,30 @@
         "result": "PASS"
       },
       {
+        "case": "chromium office JS無 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS無 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS無 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS無 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS無 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium office JS無 一覧の不正条件を拒否",
+        "result": "PASS"
+      },
+      {
         "case": "chromium office JS無 許可外POSTゼロ",
         "result": "PASS"
       },
@@ -7462,6 +7582,30 @@
       },
       {
         "case": "chromium entrant JS無 事務局一覧は拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "chromium entrant JS無 一覧の不正条件を拒否",
         "result": "PASS"
       },
       {
@@ -7514,6 +7658,30 @@
       },
       {
         "case": "webkit office JS有 年度全体終了は事務局だけ",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS有 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS有 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS有 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS有 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS有 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS有 一覧の不正条件を拒否",
         "result": "PASS"
       },
       {
@@ -7586,6 +7754,30 @@
       },
       {
         "case": "webkit entrant JS有 事務局一覧は拒否",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS有 一覧の不正条件を拒否",
         "result": "PASS"
       },
       {
@@ -7669,6 +7861,30 @@
         "result": "PASS"
       },
       {
+        "case": "webkit office JS無 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS無 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS無 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS無 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS無 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit office JS無 一覧の不正条件を拒否",
+        "result": "PASS"
+      },
+      {
         "case": "webkit office JS無 許可外POSTゼロ",
         "result": "PASS"
       },
@@ -7713,6 +7929,30 @@
         "result": "PASS"
       },
       {
+        "case": "webkit entrant JS無 一覧の選択だけでは送信しない",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS無 一覧の年度を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS無 一覧の状況を保持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS無 事務局と本人の一覧を維持",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS無 一覧絞込がスマートフォン幅に収まる",
+        "result": "PASS"
+      },
+      {
+        "case": "webkit entrant JS無 一覧の不正条件を拒否",
+        "result": "PASS"
+      },
+      {
         "case": "webkit entrant JS無 2027年度は特別団体を選択不可",
         "result": "PASS"
       },
@@ -7746,7 +7986,7 @@
   },
   "club_operations_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-26T00:01:52.343Z",
+    "checked_at_utc": "2026-11-26T01:18:05.287Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -8617,7 +8857,7 @@
   },
   "club_operations_held_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-26T00:03:41.407Z",
+    "checked_at_utc": "2026-11-26T01:20:03.312Z",
     "cases": [
       {
         "case": "chromium office 未認証拒否",
@@ -15303,7 +15543,7 @@
   },
   "preparation_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-26T00:04:54.091Z",
+    "checked_at_utc": "2026-11-26T01:21:21.592Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16027,7 +16267,7 @@
   },
   "editor_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-26T00:05:06.522Z",
+    "checked_at_utc": "2026-11-26T01:21:34.701Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -16367,7 +16607,7 @@
   },
   "accounting_browser_validation": {
     "status": "PASS",
-    "checked_at_utc": "2026-11-26T00:05:17.911Z",
+    "checked_at_utc": "2026-11-26T01:21:47.575Z",
     "browsers": [
       {
         "engine": "chromium",
@@ -17059,8 +17299,8 @@
     "src/Input/TextInput.php": "d4b350668c4ba4bf2f280cdad411278174b053c90c42965a2053f05463cfcafe",
     "src/Club/ClubIntakePolicy.php": "f60b7408379d3da4d982cb67691ef4fc2eda6ebd447b0b132d4d8bec5fe1935b",
     "src/Club/ClubRegistrationData.php": "87491c99d9138572510d34d4b237747bffeb6fbca86205dea24875e3727a21f3",
-    "src/Club/ClubIntakeService.php": "b86ddc81d06b311153f5ce402d9369022aff6d46d9247ef76fdc67feffb69028",
-    "public/manage/club-register.php": "0bce422d4004ec3fc346f047b95ed889a312d31cd477f10b798f29fb48ab2e01",
+    "src/Club/ClubIntakeService.php": "b64ab7009a946ae901110f01f3587cacc9fba6badcae32ace1e4be2d95b0b5ed",
+    "public/manage/club-register.php": "a783097a15e7435d2e33e2327ad258d8d569d8491b6114e2a3bf6b99057324fe",
     "public/manage/assets/input-normalization.js": "3f7a2dfa94cc4f51c63349831fea20d3a7c3d4bce113aef55b6289d82a0ef190",
     "public/manage/assets/club-intake.js": "3a138696fbdea7beed0ac2693db3a0d6d04c3737a2777249fa78b4ffebcfd48c",
     "design/phase2/013_club_intake.sql": "40b94e3afc9be3fc1fe79f89866db6bc30be6a9031027ebf9ff7f2324e975354",
@@ -17089,7 +17329,7 @@
     "src/Club/ClubFeePolicy.php": "ed7e40b8fe1b717f3875b88c0c2ce4860c33eaf0c29ec7548126c48d6fcbd737",
     "src/Club/ClubReviewClosure.php": "adbcfcc421fd48f199346ecbb499f260354a71c78424d1263bb67a451c695ad1",
     "tests/club/club_closure_http.php": "231dd902feaa354fcfeead839949b78955ec68bd88737ddaedeeb787b00ee74d",
-    "tests/license/club_intake_browser.cjs": "3d371b1b38091ea8aa491178e1123082f816aa781fd69711c16c8f42941f1dd0",
+    "tests/license/club_intake_browser.cjs": "3f90fccdccc0f2d1cd5d0bd0b0cf828f88ddb3dd60ea460d650d79485b7cb8c5",
     "design/phase2/014_club_review_closure.sql": "5e41d914ff39314ed8f0f9ca579fc25a263dbf6ac1f5a26ca378e61c982835bf",
     "tests/club/concurrent_closure.php": "e257fad5d86d715e764e4d7f978bb8837efd55cf24b29eb9b62e1f744bde0745",
     "src/License/LicenseTypes.php": "0e40836d387baf74039fef135e82875b45c2ebc5c257c60d84aee021dbc06bfd",
@@ -17109,7 +17349,7 @@
     "design/phase2/018_supporting_organization_fees_2027.sql": "f643919352d73263346858027469044840d91af1162684bb8935b424daedead1",
     "src/Club/ClubService.php": "f8d3b44c20fbdf229714ece93c2633b71decbbcf333146cf5fe29c4296fcc297"
   },
-  "checked_at_utc": "2026-11-26T00:05:19.201957+00:00",
+  "checked_at_utc": "2026-11-26T01:21:51.076961+00:00",
   "legacy_source_sha256": {
     "common/mailer.php": "999ba862dcd7d50fb2e7f572908b921dae8f280c5e6e93a74bd689ccf59b9b59",
     "common/entry_readiness.php": "a0977e8bb8f7a257e8de62b12e71e01aca26a344c2bf89c8ce95615b2231bca5",
@@ -17153,7 +17393,7 @@
     "src/Club/ClubEligibility.php": "43a080a283d4e51e7a5fb9fe8583efd6fc537c0ccbc589184c90a780e7bef81b",
     "src/Club/ClubFeePolicy.php": "ed7e40b8fe1b717f3875b88c0c2ce4860c33eaf0c29ec7548126c48d6fcbd737",
     "src/Club/ClubIntakePolicy.php": "f60b7408379d3da4d982cb67691ef4fc2eda6ebd447b0b132d4d8bec5fe1935b",
-    "src/Club/ClubIntakeService.php": "b86ddc81d06b311153f5ce402d9369022aff6d46d9247ef76fdc67feffb69028",
+    "src/Club/ClubIntakeService.php": "b64ab7009a946ae901110f01f3587cacc9fba6badcae32ace1e4be2d95b0b5ed",
     "src/Club/ClubOperations.php": "f73b4131b748dcec7ae96ea4ea96a7e2a678d2b8efe798bae39979c3801a46a0",
     "src/Club/ClubRegistrationData.php": "87491c99d9138572510d34d4b237747bffeb6fbca86205dea24875e3727a21f3",
     "src/Club/ClubReviewClosure.php": "adbcfcc421fd48f199346ecbb499f260354a71c78424d1263bb67a451c695ad1",
@@ -17196,7 +17436,7 @@
     "public/manage/card-verify.php": "860a3aa456db1f364b122d9c50a364f5803e42cc640611963c562b5d4c490219",
     "public/manage/card.php": "4f988e67891753cd25c727e366d541e88b4d7deb4f2b7b15fe85c78b667e93c8",
     "public/manage/club-finance.php": "f049b97942adbc3520c235302ff5de9415967b00620f66a95b0f1e02c0490404",
-    "public/manage/club-register.php": "0bce422d4004ec3fc346f047b95ed889a312d31cd477f10b798f29fb48ab2e01",
+    "public/manage/club-register.php": "a783097a15e7435d2e33e2327ad258d8d569d8491b6114e2a3bf6b99057324fe",
     "public/manage/clubs.php": "be98a741bc191807f0ddd95ea06ba59b73a53a272fec7f2006fa602febb75684",
     "public/manage/editor.php": "f2f715d8a6f1be91b69d8a4c63101f4f3f5349c0af7ec3432a1f24085bcad15b",
     "public/manage/index.php": "23c5aa261aa6f02bb6019d4c6010d78652c0f9652f5289870ba3a6c28027d709",
@@ -17227,7 +17467,7 @@
   "license_permissions_sha256": "35fd3eb64ac364d86647d6801a7019b5aafd5def513c024e2e0d8571270e11b8",
   "license_test_source_sha256": {
     "tests/license/accounting_browser.cjs": "493629c608d626128d52c19a290c747b325982254114af772e90d1b72615a4b0",
-    "tests/license/club_intake_browser.cjs": "3d371b1b38091ea8aa491178e1123082f816aa781fd69711c16c8f42941f1dd0",
+    "tests/license/club_intake_browser.cjs": "3f90fccdccc0f2d1cd5d0bd0b0cf828f88ddb3dd60ea460d650d79485b7cb8c5",
     "tests/license/club_operations_browser.cjs": "4991eac08afe446c430020b5931d264296735070f68483727730621d75900e43",
     "tests/license/concurrent_license.php": "648ee52d7bc171e63e42725472909f54b3e409612ae0d15f927238e1a90a5529",
     "tests/license/dashboard_browser.cjs": "37498d7e7d7e53624f16b16fecd17c3437d3616369f0660f665f308accdff11c",
@@ -17334,7 +17574,7 @@
     "tests/club/club_closure_http.php": "231dd902feaa354fcfeead839949b78955ec68bd88737ddaedeeb787b00ee74d",
     "tests/club/club_fixture.php": "412962fdc547a3685cc1bfbd21710f7f329e9c20618dc48d93e62993d9a40728",
     "tests/club/club_http.php": "e6112f73315b921fb228f2460e533226bb9c0bdf17972f4d8694b99ad241c7b4",
-    "tests/club/club_intake_http.php": "03f402a8e64b78cc2cbf716d96db4e3463ef33ccae7f68d22d89434f00104521",
+    "tests/club/club_intake_http.php": "dde5f13f975a788d36ff27775b5307af1e6264dda94d4882dd7c0ea738e0acc1",
     "tests/club/club_operations_http.php": "8da60b747338a6423b0dc45b246617f283255c8ede219cb3d92ba8ecbb2d3d1c",
     "tests/club/club_seed.php": "ae88f7613b688f3af23b4bc2e8633a85bb6537495acf5331d5d66f22016aac25",
     "tests/club/concurrent_closure.php": "e257fad5d86d715e764e4d7f978bb8837efd55cf24b29eb9b62e1f744bde0745",

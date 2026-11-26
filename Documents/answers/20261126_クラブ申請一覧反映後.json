@@ -1,0 +1,27 @@
+{
+  "checked_date_jst": "2026-11-26",
+  "previous_snapshot": "Documents/answers/20261126_回答窓口整理後.json",
+  "reason": "D04の一覧改善の本番反映を記録。運営の画面確認は未完了。",
+  "changes": [
+    {
+      "tab": "ここだけ回答_20261126",
+      "row": 9,
+      "col": 5,
+      "before": "クラブ登録から始めます。登録前の事務局審査は不要です。更新申請を受けてから事務局が確認します。本番では架空の申請・入金を作らず、画面を確認してください。",
+      "after": "クラブ登録から始めます。登録前の事務局審査は不要です。更新申請を受けてから事務局が確認します。本番では架空の申請・入金を作らず、画面を確認してください。\n【11/26反映】申請一覧を年度・確認状況で絞り込めるようにし、100件ごとに古い申請も表示します。「クラブ登録の申請」から確認できます。受付開始と権限付与は保留のままです。"
+    },
+    {
+      "tab": "ここだけ回答_20261126",
+      "row": 9,
+      "col": 7,
+      "before": "運営へ回答依頼",
+      "after": "一覧改善を反映・運営確認待ち"
+    }
+  ],
+  "all_11_tabs_readback": true,
+  "existing_answers_and_formulas_preserved": true,
+  "native_cell_metadata_preserved": true,
+  "answer_received": false,
+  "intake_opened": false,
+  "roles_granted": false
+}
