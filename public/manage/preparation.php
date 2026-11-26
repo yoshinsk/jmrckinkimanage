@@ -51,6 +51,16 @@ require_once __DIR__.'/_office-layout.php';jmrc_office_header('運用開始前�
 <p>設定が揃っても自動では受付を開始しません。未確定事項の回答と、運営者による開始判断を待ちます。</p>
 <?php elseif ($data && $section==='club_opening'):
 $dateText=static fn($value)=>$value?(new DateTimeImmutable($value))->format('Y/m/d H:i:s').'（日本時間）':'未設定'; ?>
+<?php // 練習用の認証情報を含めず、確認先だけを固定のHTTPSリンクで案内する。 ?>
+<h3>クラブ手続きを練習する</h3>
+<p>本番に架空の申請・請求・入金を作らず、専用の検証サイトで試してください。入口の認証情報は技術担当から別途受け取ります。本番のアカウントは使いません。</p>
+<nav class="office-actions" aria-label="クラブ操作練習の確認先">
+<a class="office-button secondary" href="https://portal-test.gymkinki.com/" target="_blank" rel="noopener noreferrer">検証サイトを開く（別タブ）</a>
+<a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611262" target="_blank" rel="noopener noreferrer">操作手順・確認結果を開く（別タブ）</a>
+<a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611261" target="_blank" rel="noopener noreferrer">残る確認事項へ回答する（別タブ）</a>
+</nav>
+<ol><li>検証サイトの操作手順を開き、クラブ役・事務局役・財務役を順番に使って8手順を試します。役を替えるたびにサインアウトします。</li><li>共有表の「クラブ操作確認_20261126」で、F列に結果、G列に気づいたこと、H列に確認者・日付を記入してください。途中まででも構いません。認証情報は書かないでください。</li><li>練習データは共用です。1人ずつ操作し、検証サイトのタブは1枚だけにします。最初からやり直す場合は、他の方の練習終了後に技術担当へ初期化を依頼してください。</li></ol>
+<p class="office-readonly">練習ができたことと、本番の受付開始を承認することは別です。受付開始・権限付与は引き続き保留しています。</p>
 <form method="get" action="/manage/preparation.php" class="office-form" aria-label="クラブ受付の日程確認"><input type="hidden" name="section" value="club_opening"><div class="office-field"><label for="opening-year">確認する年度（必須）</label><input id="opening-year" name="year" type="number" min="1" required value="<?=$e($data['year'])?>"></div><div class="office-submit"><button type="submit" class="office-button secondary">日程を確認する</button></div></form>
 <p>確認日時：<time datetime="<?=$e($data['checked_at'])?>"><?=$e($dateText($data['checked_at']))?></time></p>
 <dl class="office-definition"><dt>新規申請の開始（この時刻を含む）</dt><dd><?php if($data['opens_at_jst']):?><time datetime="<?=$e($data['opens_at_jst'])?>"><?=$e($dateText($data['opens_at_jst']))?></time><?php else:?>未設定<?php endif;?></dd><dt>新規申請の締切（この秒まで）</dt><dd><?=$e($dateText($data['last_submission_jst']))?></dd><dt>受付終了の境界（この時刻から提出不可）</dt><dd><?=$e($dateText($data['closes_at_exclusive_jst']))?></dd><dt>日程上の状態</dt><dd><?=$e(['unconfigured'=>'日程の確認が必要','not_open'=>'開始前','open'=>'受付期間内','closed'=>'締切後'][$data['period_state']])?></dd><dt>クラブ受付の設定</dt><dd><?=$data['intake_enabled']?'設定あり':'保留中'?></dd><dt>現在の新規提出</dt><dd><?=$data['new_submission_open']?'日程と設定では提出可能（開始承認は別途確認）':'提出できません'?></dd><dt>年度の正本</dt><dd><?=$e(['shadow'=>'個人会費・年度資格は未切替','portal'=>'ポータルを参照','legacy'=>'既存エントリーを参照'][$data['source_mode']])?>。クラブ受付の設定とは別です。</dd><dt>有効な年度料金</dt><dd><?=$e($data['enabled_fee_profiles'])?>区分</dd><dt>有効期間内のクラブ振込先設定</dt><dd><?=$e($data['eligible_bank_settings'])?>件。内容・重複・復号確認と正式な開始承認は別途必要です。</dd><dt>この年度の提出済み申請</dt><dd><?=$e($data['intakes'])?>件</dd></dl>

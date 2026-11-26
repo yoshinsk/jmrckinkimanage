@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-26",
+  "scope": "事務局のクラブ操作確認導線を1ファイル限定反映",
+  "counts": {
+    "http": 1768,
+    "browser": 2448,
+    "php": 161,
+    "restore": 77,
+    "live": 152,
+    "business_posts": 0
+  },
+  "files": {
+    "public/manage/preparation.php": {
+      "old_sha256": "a5dd6d4c9abdc5457e51e55661ca5928a9bf290c13f220f69ada748157db9802",
+      "new_sha256": "7959febb824848ca3298cacdaf4a7c7867ecf846489e7aaf4689887019c3e7d9",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/club-followup-20261117-20261126T072510Z",
+  "deployment_profile": "club-followup-20261117",
+  "script_sha256": "2f3cb1f768975b4902f45aa53cf0ac22810e2581ea9eab80b06d847a877b0840",
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t0",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "business_counts": {
+    "users": 314,
+    "jmrc_entries": 1204,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "years": "2027\tshadow",
+  "protected_files": 702,
+  "business_tables": 90,
+  "entry_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "entry_status": "?? 1,\n?? 2027-03-01,entry_end_date=\n?? 2027-03-14]\n?? 3]\n?? build_dirt_check.mjs\n?? dirttrial_2027_check.xlsx\n?? dirttrial_2027_check.xlsx.inspect.ndjson\n?? node_modules/\n?? submit]",
+  "database_changed": false,
+  "intake_opened": false,
+  "roles_changed": false,
+  "sheet_tabs_read": 12,
+  "sheets_written": false,
+  "operator_confirmation": "未確認",
+  "stage_removed": true
+}
