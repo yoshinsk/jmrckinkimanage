@@ -6,10 +6,12 @@
   candidate?.addEventListener('change',()=>{
     const option=candidate.selectedOptions[0];
     if(!option?.dataset.name)return;
-    for(const [id,value] of [['club-club_name',option.dataset.name],['club-club_short',option.dataset.short]]){
+    // 不明な候補へ切り替えた際、直前の候補の番号・格式を残さない。認可・料金確定はサーバーで行う。
+    for(const [id,value] of [['club-club_name',option.dataset.name],['club-club_short',option.dataset.short],['club-jaf_number',option.dataset.jafNumber||''],['club-jaf_kind',option.dataset.jafKind||'']]){
       const input=document.getElementById(id);input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}));
     }
     document.getElementById('club-registration_kind').value='renewal';
+    document.getElementById('candidate-help').textContent=option.dataset.candidateHelp||'番号と格式は登録資料を確認して入力してください。';
   });
   const same=document.querySelector('#club-same_contact');
   const copyState=()=>document.querySelectorAll('[data-contact]').forEach(input=>{input.disabled=same.value==='1';input.required=same.value!=='1';});

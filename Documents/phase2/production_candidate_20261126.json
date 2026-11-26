@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-26",
+  "scope": [
+    "N21 更新候補の番号・格式入力補助"
+  ],
+  "tests": {
+    "http": 1737,
+    "browser": 2380,
+    "php_files": 159,
+    "release_restore": 71,
+    "live": 780,
+    "business_posts": 0
+  },
+  "database_changed": false,
+  "roles_changed": false,
+  "intake_opened": false,
+  "source_mode": "shadow",
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/candidate-20261126-20261126T000757Z",
+  "files": {
+    "src/Club/ClubFeePolicy.php": {
+      "old_sha256": "1745666d5c8712844eee1a5f2aff48c57ee23b3984b806b1ff7fea342414d96c",
+      "new_sha256": "ed7e40b8fe1b717f3875b88c0c2ce4860c33eaf0c29ec7548126c48d6fcbd737",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Club/ClubIntakeService.php": {
+      "old_sha256": "bf8591447b0e8fa3f21a1d47cc66a2582e2533b74a5e214e2330896c8a1954ea",
+      "new_sha256": "b86ddc81d06b311153f5ce402d9369022aff6d46d9247ef76fdc67feffb69028",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": "0525aabec8029680155a51c16cacf7950a6232e0c3a24080eae5a178c0d52385",
+      "new_sha256": "0bce422d4004ec3fc346f047b95ed889a312d31cd477f10b798f29fb48ab2e01",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/assets/club-intake.js": {
+      "old_sha256": "1f1b1c9ae3a37cfdbd5f7222b10fa45c757a234b51714fa59e8c65c03371d909",
+      "new_sha256": "3a138696fbdea7beed0ac2693db3a0d6d04c3737a2777249fa78b4ffebcfd48c",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "script_sha256": "b7ca96aeacad95caaa8785a3dd559c4885d5c1a46c2467d70f7977e4808f01a6",
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t0",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1204,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "local_entry_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "local_entry_status": "?? 1,\n?? 2027-03-01,entry_end_date=\n?? 2027-03-14]\n?? 3]\n?? build_dirt_check.mjs\n?? dirttrial_2027_check.xlsx\n?? dirttrial_2027_check.xlsx.inspect.ndjson\n?? node_modules/\n?? submit]",
+  "protected_files": 697,
+  "business_tables": 90,
+  "private_backup_verified": true,
+  "temporary_stage_removed": true,
+  "held": [
+    "L02 実クラブ一覧の閲覧・取込・アカウント照合",
+    "N23 抱様の既存アカウントと操作範囲・期間",
+    "正式な運用開始日時と開放承認",
+    "D01 実会費口座の適用設定",
+    "L17 隣接エントリーの自動整形接続",
+    "M1～M7 総合受入と1月の同時切替"
+  ]
+}

@@ -53,7 +53,7 @@ final class ClubIntakeService
         if(mb_strlen($query)>128){throw new HttpFailure(422,'クラブの検索文字は128文字以内です');}
         $rows=$this->run("SELECT CONCAT('portal:',id) AS ref,name_full AS name,name_short AS short_name,fixed_code AS code FROM portal_clubs ORDER BY fixed_code LIMIT 2000",[])->fetchAll(PDO::FETCH_ASSOC);
         $legacy=$this->run("SELECT CONCAT('legacy:',l.id) AS ref,l.name,l.short_name,l.club_code AS code FROM jmrc_affiliated_clubs l LEFT JOIN portal_clubs p ON p.legacy_affiliated_id=l.id WHERE l.is_deleted=0 AND p.id IS NULL ORDER BY l.club_code LIMIT 2000",[])->fetchAll(PDO::FETCH_ASSOC);
-        $found=[];foreach([...$rows,...$legacy] as $r){$text=mb_strtolower(\Jmrc\Input\TextInput::normalize($r['name'].' '.$r['short_name'].' '.$r['code']),'UTF-8');if($query===''||str_contains($text,$query)){$found[]=$r;}if(count($found)>=50){break;}}
+        $found=[];foreach([...$rows,...$legacy] as $r){$text=mb_strtolower(\Jmrc\Input\TextInput::normalize($r['name'].' '.$r['short_name'].' '.$r['code']),'UTF-8');if($query===''||str_contains($text,$query)){$found[]=$r+ClubFeePolicy::candidateFields($r['code']);}if(count($found)>=50){break;}}
         return $found;
     }
 

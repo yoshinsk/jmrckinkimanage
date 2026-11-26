@@ -10,6 +10,20 @@ final class ClubFeePolicy
     public const PREFIXES = ['official'=>'1','affiliated'=>'2','associate'=>'3','official_org'=>'5','organization'=>'6','special_org'=>'7','associate_org'=>'8'];
     public const ORGANIZATIONS=['official_org','organization','associate_org'];
 
+    /** N21: 候補の公開コードから入力補助だけを返す。区分6は賛助とも重なるため格式を推定しない。 */
+    public static function candidateFields(string $code):array
+    {
+        $code=trim(\Jmrc\Input\TextInput::normalize($code));
+        $out=['candidate_jaf_number'=>'','candidate_jaf_kind'=>'','candidate_hint'=>'番号と格式は登録資料を確認して入力してください。'];
+        if(preg_match('/^[0-9]{5}$/D',$code)){$out['candidate_jaf_number']=$code;return $out;}
+        if(!preg_match('/^([1235678])([0-9]{5})$/D',$code,$m)){return $out;}
+        $out['candidate_jaf_number']=$m[2];
+        if(in_array($m[1],['6','7'],true)){return $out;}
+        $out['candidate_jaf_kind']=array_flip(self::PREFIXES)[$m[1]];
+        $out['candidate_hint']='候補の番号と格式を入力しました。内容を確認してください。提出後に事務局が照合します。';
+        return $out;
+    }
+
     /** L12訂正: 区分7は参照用マスターに残すが、2027年度の新規登録・新しい承認には使わない。 */
     public static function requireRegistrationCategory(int $year,string $digit):void
     {

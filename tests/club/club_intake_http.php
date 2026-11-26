@@ -14,6 +14,11 @@ use Jmrc\Input\TextInput as TextInput;
     if(!(int)$db->query('SELECT COUNT(*) FROM portal_club_fee_profiles')->fetchColumn()){$db->exec(file_get_contents('/srv/tests/013_club_fee_profiles_2027.sql'));}
     $legacy=$db->query('CHECKSUM TABLE jmrc_entries,jmrc_entry_fees,jmrc_events,jmrc_annual_memberships,users,jmrc_affiliated_clubs')->fetchAll(PDO::FETCH_ASSOC);
     check('半角整形でもローマ数字を保持',TextInput::normalize('Ａｚ０９　ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ')==='Az09 ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ');
+    foreach(['100001'=>'official','200001'=>'affiliated','300001'=>'associate','500001'=>'official_org','800001'=>'associate_org','600001'=>'','700001'=>'','00001'=>'','９００００１'=>'','1234567'=>'','Ⅰ23456'=>''] as $code=>$kind){
+        $fields=\Jmrc\Club\ClubFeePolicy::candidateFields((string)$code);
+        check('候補の先頭区分と未判別を分離 '.$code,$fields['candidate_jaf_kind']===$kind);
+    }
+    check('候補の先頭ゼロを保持',\Jmrc\Club\ClubFeePolicy::candidateFields('１００００１')['candidate_jaf_number']==='00001');
     $normal=TextInput::http(['name'=>'　ＡＢＣⅢ１２３　','password'=>'ＰＡＳＳ　Ⅰ','_csrf'=>'ＴＯＫＥＮ','csv_text'=>'Ａ,　Ｂ','nested'=>['name'=>'Ｘ　Ⅲ']]);
     check('共通整形は配列へ適用し認証値とCSV原本を保持',$normal===['name'=>' ABCⅢ123 ','password'=>'ＰＡＳＳ　Ⅰ','_csrf'=>'ＴＯＫＥＮ','csv_text'=>'Ａ,　Ｂ','nested'=>['name'=>'X Ⅲ']]);
     try{TextInput::normalize("\xff");check('不正UTF8を拒否',false);}catch(\Jmrc\Auth\HttpFailure $e){check('不正UTF8を拒否',$e->status===422);}
@@ -72,6 +77,8 @@ use Jmrc\Input\TextInput as TextInput;
     $allocation=$db->prepare('SELECT id FROM portal_allocations WHERE operation_key=?');$allocation->execute([$paymentOperation]);$billing->reverse(7,(int)$allocation->fetchColumn(),bin2hex(random_bytes(24)),'架空訂正');
     check('先行承認後も入金訂正でreadyを取り消す',!(new \Jmrc\Club\ClubEligibility($db))->evaluate($cy)['ready']);
     $db->exec("INSERT INTO jmrc_affiliated_clubs(club_code,name,short_name,branch_name,format_status,join_date) VALUES('199991','既存ＡＢＣ　Ⅲ','既存Ⅲ','架空','架空','2020-01-01')");$legacyId=(int)$db->lastInsertId();
+    // 追加候補も架空データ。区分6をJAF格式へ自動変換しないことをブラウザーで確認する。
+    $db->exec("INSERT INTO jmrc_affiliated_clubs(club_code,name,short_name,branch_name,format_status,join_date) VALUES('199975','既存ＡＢＣ　Ⅲ公認補助','公認補助','架空','架空','2020-01-01'),('699974','既存ＡＢＣ　Ⅲ未判別補助','未判別補助','架空','架空','2020-01-01')");
     $candidates=$service->candidates(1,'ＡＢＣ　Ⅲ');check('旧台帳の全角名も更新候補に表示',in_array('legacy:'.$legacyId,array_column($candidates,'ref'),true));
     check('候補検索でもローマ数字を英字に変換しない',!in_array('legacy:'.$legacyId,array_column($service->candidates(1,'ABC III'),'ref'),true));
     $renew=$post($owner,array_replace($form,['jaf_number'=>'99991','request_key'=>bin2hex(random_bytes(24)),'registration_kind'=>'renewal','candidate_ref'=>'legacy:'.$legacyId]));$renew=json_decode($renew['body'],true);$rid=(int)$renew['id'];
@@ -81,7 +88,7 @@ use Jmrc\Input\TextInput as TextInput;
     check('旧クラブは照合後にだけ新台帳へ接続',$linked['status']===200&&(int)$db->query('SELECT COUNT(*) FROM portal_clubs WHERE legacy_affiliated_id='.$legacyId)->fetchColumn()===1);
     $db->exec('UPDATE portal_bank_accounts SET enabled=0 WHERE id='.$bank);foreach($savedBanks as $b){$s=$db->prepare('UPDATE portal_bank_accounts SET enabled=? WHERE id=?');$s->execute([$b['enabled'],$b['id']]);}
     $s=$db->prepare('UPDATE portal_years SET source_mode=?,club_open_at=?,club_close_at=?,valid_until=? WHERE year=2027');$s->execute([$savedYear['source_mode'],$savedYear['club_open_at'],$savedYear['club_close_at'],$savedYear['valid_until']]);
-    // 旧クラブへの追加は架空候補1件だけ。それ以外のentry・料金・イベント・ユーザーは不変。
+    // 旧クラブへの追加は架空候補3件だけ。それ以外のentry・料金・イベント・ユーザーは不変。
     $after=$db->query('CHECKSUM TABLE jmrc_entries,jmrc_entry_fees,jmrc_events,jmrc_annual_memberships,users')->fetchAll(PDO::FETCH_ASSOC);
     check('新しい申請・請求でも既存エントリーとユーザーを変更しない',$after===array_slice($legacy,0,5));
 })();

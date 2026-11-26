@@ -43,6 +43,12 @@ async function run(engine,name,device){
      await p.locator('#candidate-query').fill('ＡＢＣ　Ⅲ');await Promise.all([p.waitForNavigation(),p.getByRole('button',{name:'更新候補を探す',exact:true}).tap()]);
      const value=await p.locator('#club-candidate_ref option').evaluateAll(es=>es.find(e=>e.textContent.includes('99991'))?.value);assert.ok(value);
      await p.locator('#club-candidate_ref').selectOption(value);check(prefix+' 候補選択で更新を補助',await p.locator('#club-registration_kind').inputValue()==='renewal'&&(await p.locator('#club-club_name').inputValue()).includes('ABC Ⅲ'));
+     check(prefix+' 5桁候補は番号だけ補助',await p.locator('#club-jaf_number').inputValue()==='99991'&&await p.locator('#club-jaf_kind').inputValue()==='');
+     const known=await p.locator('#club-candidate_ref option').evaluateAll(es=>es.find(e=>e.textContent.includes('199975'))?.value);
+     await p.locator('#club-candidate_ref').selectOption(known);check(prefix+' 先頭区分で公認を補助',await p.locator('#club-jaf_number').inputValue()==='99975'&&await p.locator('#club-jaf_kind').inputValue()==='official');
+     const unknown=await p.locator('#club-candidate_ref option').evaluateAll(es=>es.find(e=>e.textContent.includes('699974'))?.value);
+     await p.locator('#club-candidate_ref').selectOption(unknown);check(prefix+' 区分6へ切替で前候補の格式を残さない',await p.locator('#club-jaf_number').inputValue()==='99974'&&await p.locator('#club-jaf_kind').inputValue()===''&&(await p.locator('#candidate-help').innerText()).includes('確認'));
+
     }
    }
    if(!live&&a.role==='entrant'){
