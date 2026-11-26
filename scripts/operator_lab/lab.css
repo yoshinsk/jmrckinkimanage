@@ -1,0 +1,9 @@
+/* Path: scripts/operator_lab/lab.css
+ * 機能: 操作練習の注意と手順を、スマートフォン・拡大表示でも読みやすくする。 */
+.operator-lab-notice{background:#fff1cc;color:#332700;border:3px solid #8a6000;padding:12px;font:700 1rem/1.6 sans-serif;overflow-wrap:anywhere}
+.operator-guide{font:1rem/1.8 sans-serif;color:#172c42;margin:0;background:#f3f6f9}
+.operator-guide main{max-width:900px;margin:auto;padding:1rem}
+.operator-guide section{background:white;padding:1rem;margin:1rem 0;border:1px solid #b5c6d6;border-radius:8px;overflow-wrap:anywhere}
+.operator-guide a{color:#004d91;text-decoration:underline;display:inline-block;padding:.35rem 0}
+.operator-guide h1{font-size:1.7rem}.operator-guide h2{font-size:1.3rem}
+.operator-guide li{margin:.6rem 0}.operator-guide code{overflow-wrap:anywhere;white-space:normal}

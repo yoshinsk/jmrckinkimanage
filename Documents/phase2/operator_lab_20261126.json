@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-26",
+  "url": "https://portal-test.gymkinki.com/",
+  "scope": "架空データだけのクラブ操作練習",
+  "source_application_commit": "44b970186557f1036471c0fa18a80439c28645ac",
+  "tests": {
+    "safety_tests": 8,
+    "php_lint": 95,
+    "browser_cases": 120,
+    "engines": {
+      "chromium": {
+        "version": "156.0.8078.4",
+        "cases": 60,
+        "lab_business_posts": 9,
+        "test_source_sha256": "c8fa0690eb8c506e52e54f5de0bebcfd70c8a39d9bd35bc94f0a15abdd7da498"
+      },
+      "webkit": {
+        "version": "27.2",
+        "cases": 60,
+        "lab_business_posts": 9,
+        "test_source_sha256": "c8fa0690eb8c506e52e54f5de0bebcfd70c8a39d9bd35bc94f0a15abdd7da498"
+      }
+    },
+    "production_business_posts": 0
+  },
+  "database_scope": [
+    "jmrc_portal_operator_lab"
+  ],
+  "os_user_separate": true,
+  "fpm_max_children": 2,
+  "baseline_sha256": "480b76415d435377ee4a2a8c8d5056307ae70ea71c5a40b3c9bc0a677db4ad6d",
+  "initial_counts": {
+    "synthetic_users": 4,
+    "club_intakes": 0,
+    "invoices": 0,
+    "payments": 0
+  },
+  "reset_verified": true,
+  "lab_source_mode": "shadow",
+  "runtime_files": {
+    "guard.php": "2e4eb81bfe6138d9dc44d4de50535d1aead9715dc0827d99454ac30ecfec9c87",
+    "seed.php": "6dbcdb2d2af6de9083695ed18d1d0eecc167365d8d5614d92fe9b4e320051992",
+    "reset.py": "7fe27df5cf1b6f3c58f27993e019654f7c0fae91955a85784984c13f3c32ba67",
+    "site/index.php": "99db31ea000fc57adee33eacace32386fd0a8ad69fd0524275937c112a8d0ccb",
+    "site/lab.css": "6bc3fc916689eef49e5faf508471d91ee0d69f3dfe62191eef10d0b1a57ff7a9",
+    "site/.htaccess": "ce784148668cd2b882fa9a1280bf1efd6139c06c5e209909cddbcd82aea0c421"
+  },
+  "production_unchanged": true,
+  "production_counts": {
+    "users": 314,
+    "jmrc_entries": 1204,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "production_flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "production_years": "2027\tshadow",
+  "production_integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t0",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "protected_files": 701,
+  "protected_business_tables": 90,
+  "legacy_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "legacy_status": "?? 1,\n?? 2027-03-01,entry_end_date=\n?? 2027-03-14]\n?? 3]\n?? build_dirt_check.mjs\n?? dirttrial_2027_check.xlsx\n?? dirttrial_2027_check.xlsx.inspect.ndjson\n?? node_modules/\n?? submit]",
+  "dns_changed": false,
+  "stage_removed": true,
+  "secrets_in_repository": false
+}

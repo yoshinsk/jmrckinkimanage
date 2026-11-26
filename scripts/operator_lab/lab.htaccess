@@ -1,0 +1,5 @@
+# Path: scripts/operator_lab/lab.htaccess
+# 機能: 検証サイトだけで入口の認証ヘッダーをPHP-FPMへ渡し、ディレクトリ一覧を無効にする。
+CGIPassAuth On
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+Options -Indexes
