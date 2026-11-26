@@ -19,6 +19,13 @@ use Jmrc\Input\TextInput as TextInput;
         check('候補の先頭区分と未判別を分離 '.$code,$fields['candidate_jaf_kind']===$kind);
     }
     check('候補の先頭ゼロを保持',\Jmrc\Club\ClubFeePolicy::candidateFields('１００００１')['candidate_jaf_number']==='00001');
+    $roster=\Jmrc\Club\ClubRoster::rows();check('共有名簿は90件で6桁コードが一意',count($roster)===90&&count(array_unique(array_column($roster,'code')))===90);
+    $old=[['ref'=>'legacy:9001','code'=>'228050','name'=>'架空旧名称Ⅰ','short_name'=>'DSP-R']];$merged=\Jmrc\Club\ClubRoster::candidates($old);
+    check('コード一致の表示補助は旧IDを保持し元配列を変更しない',$merged[0]['ref']==='legacy:9001'&&$merged[0]['short_name']==='DSR'&&str_contains($merged[0]['_search_aliases'],'DSP-R')&&$old[0]['name']==='架空旧名称Ⅰ');
+    $dups=\Jmrc\Club\ClubRoster::candidates([$old[0],array_replace($old[0],['ref'=>'legacy:9002','name'=>'別候補'])]);
+    check('同一6桁の複数台帳を自動確定しない',$dups[0]['name']==='架空旧名称Ⅰ'&&$dups[1]['name']==='別候補');
+    $five=\Jmrc\Club\ClubRoster::candidates([['ref'=>'portal:9001','code'=>'27089','name'=>'架空5桁','short_name'=>'架空']]);
+    check('同じ固定5桁の別クラブは結合しない',$five[0]['name']==='架空5桁'&&in_array('roster2026:227089',array_column($five,'ref'),true)&&in_array('roster2026:327089',array_column($five,'ref'),true));
     $normal=TextInput::http(['name'=>'　ＡＢＣⅢ１２３　','password'=>'ＰＡＳＳ　Ⅰ','_csrf'=>'ＴＯＫＥＮ','csv_text'=>'Ａ,　Ｂ','nested'=>['name'=>'Ｘ　Ⅲ']]);
     check('共通整形は配列へ適用し認証値とCSV原本を保持',$normal===['name'=>' ABCⅢ123 ','password'=>'ＰＡＳＳ　Ⅰ','_csrf'=>'ＴＯＫＥＮ','csv_text'=>'Ａ,　Ｂ','nested'=>['name'=>'X Ⅲ']]);
     try{TextInput::normalize("\xff");check('不正UTF8を拒否',false);}catch(\Jmrc\Auth\HttpFailure $e){check('不正UTF8を拒否',$e->status===422);}
@@ -57,6 +64,7 @@ use Jmrc\Input\TextInput as TextInput;
     $replay=$post($owner,$form);check('同じ申請の再送は一件のみ',json_decode($replay['body'],true)['replayed']&&(int)$db->query('SELECT COUNT(*) FROM portal_club_intakes')->fetchColumn()===$before+1);
     check('内容を変えた同キー再送を拒否',$post($owner,array_replace($form,['club_name'=>'別の申請']))['status']===409);
     check('不存在の更新候補を拒否',$post($owner,array_replace($form,['request_key'=>bin2hex(random_bytes(24)),'registration_kind'=>'renewal','candidate_ref'=>'legacy:99999999']))['status']===422);
+    check('不存在の名簿候補を拒否',$post($owner,array_replace($form,['request_key'=>bin2hex(random_bytes(24)),'registration_kind'=>'renewal','candidate_ref'=>'roster2026:999999']))['status']===422);
     $edit=$post($owner,array_replace($input,['action'=>'update','id'=>$id,'row_version'=>$r['row_version'],'rep_name'=>'訂正ＡⅠ']));$r=json_decode($edit['body'],true);
     check('正式入力の訂正と暗号化履歴',$edit['status']===200&&$r['data']['rep_name']==='訂正AⅠ'&&(int)$db->query('SELECT COUNT(*) FROM portal_club_intake_revisions WHERE intake_id='.$id)->fetchColumn()===1);
     check('古い版の訂正を拒否',$post($owner,array_replace($input,['action'=>'update','id'=>$id,'row_version'=>1]))['status']===409);
@@ -92,6 +100,24 @@ use Jmrc\Input\TextInput as TextInput;
     $linked=$post($office,['action'=>'link','id'=>$rid,'row_version'=>1,'target_ref'=>'legacy:'.$legacyId,'fixed_code'=>'99991','checked'=>'1']);
     check('旧クラブは照合後にだけ新台帳へ接続',$linked['status']===200&&(int)$db->query('SELECT COUNT(*) FROM portal_clubs WHERE legacy_affiliated_id='.$legacyId)->fetchColumn()===1);
     $db->exec('UPDATE portal_bank_accounts SET enabled=0 WHERE id='.$bank);foreach($savedBanks as $b){$s=$db->prepare('UPDATE portal_bank_accounts SET enabled=? WHERE id=?');$s->execute([$b['enabled'],$b['id']]);}
+    // 名簿の公開コードを使った隔離申請。申請者情報は架空とし、旧台帳には本物の行を複写しない。
+    $sample=array_replace($input,['jaf_number'=>'30028','jaf_kind'=>'associate','registration_kind'=>'renewal','candidate_ref'=>'roster2026:330028','club_name'=>'架空名簿の接続確認','club_short'=>'架空確認']);
+    $made=[];$addedClub=0;$addedYear=0;
+    try{
+        $m=$service->submit(2,2027,$sample,bin2hex(random_bytes(24)));$made[]=$m;
+        check('名簿のみの候補で更新確認待ちになり入会金は不要',$m['review_state']==='renewal_review'&&(int)$m['joining_yen']===0&&$m['club_year_id']===null);
+        try{$service->link(2,(int)$m['id'],1,0,'30028',true,0,'330028');check('名簿候補でも本人の照合接続不可',false);}catch(\Jmrc\Auth\HttpFailure $e){check('名簿候補でも本人の照合接続不可',$e->status===403);}
+        $m=$service->link(7,(int)$m['id'],1,0,'30028',true,0,'330028');$addedYear=(int)$m['club_year_id'];$addedClub=(int)$db->query('SELECT club_id FROM portal_club_years WHERE id='.$addedYear)->fetchColumn();
+        check('事務局照合後だけ名簿候補を別のポータル台帳へ接続',$m['review_state']==='linked'&&$addedClub>0&&(int)$db->query('SELECT COUNT(*) FROM jmrc_affiliated_clubs WHERE club_code=330028')->fetchColumn()===0);
+        check('名簿から年度資格や代表権限を自動付与しない',!(new \Jmrc\Club\ClubEligibility($db))->evaluate($addedYear)['active']&&(int)$db->query('SELECT COUNT(*) FROM portal_user_role_grants WHERE scope_club_id='.$addedClub)->fetchColumn()===0);
+        $second=$service->submit(2,2027,$sample,bin2hex(random_bytes(24)));$made[]=$second;
+        try{$service->link(7,(int)$second['id'],1,0,'30028',true,0,'330028');check('固定5桁だけでは既存台帳へ結合しない',false);}catch(\Jmrc\Auth\HttpFailure $e){check('固定5桁だけでは既存台帳へ結合しない',$e->status===409);}
+    }finally{
+        foreach($made as $m){$db->exec('DELETE FROM portal_club_intake_revisions WHERE intake_id='.(int)$m['id']);$db->exec('DELETE FROM portal_club_intakes WHERE id='.(int)$m['id']);}
+        if($addedYear){$db->exec('DELETE FROM portal_club_years WHERE id='.$addedYear);}
+        foreach($made as $m){$db->exec('DELETE FROM portal_applications WHERE id='.(int)$m['application_id']);}
+        if($addedClub){$db->exec('DELETE FROM portal_clubs WHERE id='.$addedClub);}
+    }
     // 100件を超える架空申請だけを一時追加。暗号文は各IDに結び直し、検証後は全てrollbackする。
     $db->beginTransaction();
     try{

@@ -74,7 +74,7 @@ def main():
     review_paths+=['tests/club/club_boundary_policy.php','tests/club/club_boundary_http.php']
     review_paths+=['src/Billing/Eligibility.php','tests/membership/membership_http.php','tests/membership/concurrent_submit.php','tests/billing/billing_http.php','tests/card/card_http.php','tests/license/license_http.php','tests/license/mobile_browser.cjs','tests/auth/auth.config.php','config/auth.example.php']
     review_paths+=['tests/license/member_browser.cjs','tests/auth/dirt_integration.php']
-    review_paths+=['src/Club/ClubFeePolicy.php','src/Club/ClubReviewClosure.php','src/Club/ClubRegistrationData.php','tests/club/club_closure_http.php','tests/license/club_intake_browser.cjs','design/phase2/014_club_review_closure.sql']
+    review_paths+=['src/Club/ClubFeePolicy.php','src/Club/ClubReviewClosure.php','src/Club/ClubRegistrationData.php','tests/club/club_closure_http.php','tests/license/club_intake_browser.cjs','design/phase2/014_club_review_closure.sql','src/Club/ClubRoster.php','src/Club/roster2026.php']
     review_paths+=['tests/club/concurrent_closure.php']
     review_paths+=['src/License/LicenseTypes.php','src/License/LicenseService.php','src/License/LicenseMigration.php','src/License/LicenseExport.php','src/Card/CardService.php','public/manage/license-export.php','public/manage/assets/licenses.css','design/phase2/015_license_details.sql','tests/license/m2_http.php']
     review_paths+=['design/phase2/016_license_registered_name.sql','scripts/LicenseNamesDatabase.php']

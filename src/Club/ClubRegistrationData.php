@@ -23,7 +23,7 @@ final class ClubRegistrationData
         $kind=$in['registration_kind']??null;
         if(!is_string($kind)||!isset(self::REGISTRATIONS[$kind])||!isset(ClubFeePolicy::CATEGORIES[$out['jaf_kind']])||!isset(self::MEMBERSHIPS[$out['membership_kind']])||($out['jaf_kind']==='business'&&$out['membership_kind']!=='supporting')){throw new HttpFailure(422,'登録方法・JAF区分・正会員／賛助を選択してください');}
         $candidate=$in['candidate_ref']??'';
-        if(!is_string($candidate)||($candidate!==''&&!preg_match('/^(portal|legacy):[1-9][0-9]{0,18}$/D',$candidate))){throw new HttpFailure(422,'更新候補を確認してください');}
+        if(!is_string($candidate)||($candidate!==''&&!preg_match('/^(?:(?:portal|legacy):[1-9][0-9]{0,18}|roster2026:[1-9][0-9]{5})$/D',$candidate))){throw new HttpFailure(422,'更新候補を確認してください');}
         if($candidate!==''&&$kind==='new'){throw new HttpFailure(422,'既存クラブを選んだ場合は更新または再加入を選択してください');}
         $out['candidate_ref']=$candidate;$out['registration_kind']=$kind;$bank=$in['bank_details']??'';
         if(!is_string($bank)||mb_strlen($bank)>2000||preg_match('/[\x00-\x08\x0b\x0c\x0e-\x1f]/',$bank)){throw new HttpFailure(422,'クラブの口座情報を確認してください');}

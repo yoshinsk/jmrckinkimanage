@@ -7,6 +7,7 @@ use PDO;
 use PDOException;
 use Jmrc\Auth\HttpFailure;
 use Jmrc\Card\SecretBox;
+require_once __DIR__.'/ClubRoster.php';
 final class ClubIntakeService
 {
     public const LIST_STATES=['all'=>'すべて','submitted'=>'新規・再加入：事務局の確認待ち','renewal_review'=>'更新：事務局の確認待ち','returned'=>'申請者の訂正待ち','linked'=>'照合済み（会費・年度承認は別途）'];
@@ -59,9 +60,16 @@ final class ClubIntakeService
     {
         $this->actor($actor);$query=mb_strtolower(trim(\Jmrc\Input\TextInput::normalize($query)),'UTF-8');
         if(mb_strlen($query)>128){throw new HttpFailure(422,'クラブの検索文字は128文字以内です');}
-        $rows=$this->run("SELECT CONCAT('portal:',id) AS ref,name_full AS name,name_short AS short_name,fixed_code AS code FROM portal_clubs ORDER BY fixed_code LIMIT 2000",[])->fetchAll(PDO::FETCH_ASSOC);
+        $rows=$this->run("SELECT CONCAT('portal:',p.id) AS ref,p.name_full AS name,p.name_short AS short_name,p.fixed_code AS code,COALESCE(l.club_code,'') AS reference_code FROM portal_clubs p LEFT JOIN jmrc_affiliated_clubs l ON l.id=p.legacy_affiliated_id ORDER BY p.fixed_code LIMIT 2000",[])->fetchAll(PDO::FETCH_ASSOC);
         $legacy=$this->run("SELECT CONCAT('legacy:',l.id) AS ref,l.name,l.short_name,l.club_code AS code FROM jmrc_affiliated_clubs l LEFT JOIN portal_clubs p ON p.legacy_affiliated_id=l.id WHERE l.is_deleted=0 AND p.id IS NULL ORDER BY l.club_code LIMIT 2000",[])->fetchAll(PDO::FETCH_ASSOC);
-        $found=[];foreach([...$rows,...$legacy] as $r){$text=mb_strtolower(\Jmrc\Input\TextInput::normalize($r['name'].' '.$r['short_name'].' '.$r['code']),'UTF-8');if($query===''||str_contains($text,$query)){$found[]=$r+ClubFeePolicy::candidateFields($r['code']);}if(count($found)>=50){break;}}
+        $found=[];foreach(ClubRoster::candidates([...$rows,...$legacy]) as $r){
+            $text=mb_strtolower(\Jmrc\Input\TextInput::normalize($r['name'].' '.$r['short_name'].' '.$r['code'].' '.($r['_search_aliases']??'')),'UTF-8');
+            if($query===''||str_contains($text,$query)){
+                $fields=ClubFeePolicy::candidateFields($r['roster_code']??$r['code']);
+                if(isset($r['source_year'])){$fields['candidate_hint'].=' 2026年度名簿の参考情報です。2027年度の会員区分・登録方法は申告し、事務局が照合します。';}
+                unset($r['_search_aliases']);$found[]=$r+$fields;
+            }if(count($found)>=50){break;}
+        }
         return $found;
     }
 
@@ -99,9 +107,9 @@ final class ClubIntakeService
     }
 
     /** 申請後の処理。本人のJAF番号を照合し、事務局の確認後だけ年度登録へ接続する。 */
-    public function link(int $actor,int $id,int $version,int $clubId,string $fixedCode,bool $checked,int $legacyId=0):array
+    public function link(int $actor,int $id,int $version,int $clubId,string $fixedCode,bool $checked,int $legacyId=0,string $rosterCode=''):array
     {
-        return $this->tx(function()use($actor,$id,$version,$clubId,$fixedCode,$checked,$legacyId){
+        return $this->tx(function()use($actor,$id,$version,$clubId,$fixedCode,$checked,$legacyId,$rosterCode){
             $this->lockReview($actor,$id);
             $fixedCode=trim(\Jmrc\Input\TextInput::normalize($fixedCode));
             $this->office($actor);if(!ClubIntakePolicy::enabled($this->config)){throw new HttpFailure(503,'クラブ申請の照合は準備中です');}
@@ -110,6 +118,18 @@ final class ClubIntakeService
             $data=$this->read($actor,$id)['data'];$q=ClubRegistrationData::quote($this->db,(int)$r['year'],$r['jaf_kind'],$r['membership_kind'],$r['registration_kind']);
             if($fixedCode===''){$fixedCode=$data['jaf_number'];}
             if($fixedCode!==$data['jaf_number']){throw new HttpFailure(409,'JAF登録番号が申請と異なります。差し戻して再申請を依頼してください');}
+            if($rosterCode!==''){
+                if($clubId!==0||$legacyId!==0||!ClubRoster::find($rosterCode)||substr($rosterCode,1)!==$fixedCode||$r['registration_kind']==='new'){throw new HttpFailure(422,'名簿の更新候補と申請番号を照合してください');}
+                $matches=$this->run('SELECT id,is_deleted FROM jmrc_affiliated_clubs WHERE club_code=? FOR UPDATE',[$rosterCode])->fetchAll(PDO::FETCH_ASSOC);
+                if(count($matches)>1||(count($matches)===1&&(int)$matches[0]['is_deleted']!==0)){throw new HttpFailure(409,'旧台帳の重複・削除履歴を事務局で確認してください');}
+                if($matches){$legacyId=(int)$matches[0]['id'];}
+                else{
+                    $club=$this->one('SELECT id,fixed_code,status FROM portal_clubs WHERE fixed_code=? FOR UPDATE',[$fixedCode]);
+                    if($club){throw new HttpFailure(409,'同じ固定5桁の台帳があります。既存クラブを選び直して事務局で照合してください');}
+                    if(!$club){$this->run("INSERT INTO portal_clubs(fixed_code,name_full,name_short,status) VALUES(?,?,?,'active')",[$fixedCode,$data['club_name'],$data['club_short']]);$club=['id'=>(int)$this->db->lastInsertId()];}
+                    $clubId=(int)$club['id'];
+                }
+            }
             if($q['annual_yen']!==(int)$r['annual_yen']||$q['joining_yen']!==(int)$r['joining_yen']){throw new HttpFailure(409,'申請後の料金変更を確認してください');}
             if($r['registration_kind']==='new'){
                 if($clubId!==0||$legacyId!==0||!preg_match('/^[0-9]{5}$/D',$fixedCode)){throw new HttpFailure(422,'新規は既存クラブを選ばず、確認したJAF登録番号を指定してください');}
@@ -117,8 +137,9 @@ final class ClubIntakeService
             }else{
                 if($clubId>0){$club=$this->one('SELECT id,fixed_code FROM portal_clubs WHERE id=? FOR UPDATE',[$clubId]);}
                 elseif($legacyId>0){
-                    $legacy=$this->one('SELECT id FROM jmrc_affiliated_clubs WHERE id=? AND is_deleted=0 FOR UPDATE',[$legacyId]);
+                    $legacy=$this->one('SELECT id,club_code FROM jmrc_affiliated_clubs WHERE id=? AND is_deleted=0 FOR UPDATE',[$legacyId]);
                     if(!$legacy){throw new HttpFailure(422,'有効な既存クラブを選択してください');}
+                    if(preg_match('/^[1-9][0-9]{5}$/D',$legacy['club_code'])&&substr($legacy['club_code'],1)!==$fixedCode){throw new HttpFailure(409,'旧クラブの6桁コードと申請番号が異なります。事務局で照合してください');}
                     $club=$this->one('SELECT id,fixed_code FROM portal_clubs WHERE legacy_affiliated_id=? FOR UPDATE',[$legacyId]);
                     if(!$club){
                         if(!preg_match('/^[0-9]{5}$/D',$fixedCode)){throw new HttpFailure(422,'旧クラブと照合した固定5桁コードを入力してください');}
@@ -149,6 +170,7 @@ final class ClubIntakeService
     private function candidate(array $data):void
     {
         if($data['candidate_ref']===''){return;}[$source,$id]=explode(':',$data['candidate_ref'],2);
+        if($source==='roster2026'){if(!ClubRoster::find($id)){throw new HttpFailure(422,'2026年度名簿の候補を確認してください');}return;}
         $sql=$source==='portal'?'SELECT id FROM portal_clubs WHERE id=?':'SELECT id FROM jmrc_affiliated_clubs WHERE id=? AND is_deleted=0';
         if(!$this->one($sql,[$id])){throw new HttpFailure(422,'更新候補を選び直してください。未選択でも名称を入力して申請できます');}
     }

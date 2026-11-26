@@ -44,6 +44,11 @@ async function run(engine,name,device){
    check(prefix+' 一覧絞込がスマートフォン幅に収まる',await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    check(prefix+' 一覧の不正条件を拒否',(await c.request.get(origin+base+'?list_state=unknown')).status()===422);
    await p.goto(origin+base);
+   await p.getByLabel('クラブ名・正式略称・コード',{exact:true}).fill('330028');
+   await Promise.all([p.waitForURL(u=>u.searchParams.get('q')==='330028'),p.getByRole('button',{name:'更新候補を探す',exact:true}).tap()]);
+   check(prefix+' 共有名簿だけのクラブも候補になる',await p.locator('#club-candidate_ref option[value="roster2026:330028"]').count()===1);
+   if(js){await p.locator('#club-candidate_ref').selectOption('roster2026:330028');check(prefix+' 名簿の番号と格式を補助入力',await p.locator('#club-jaf_number').inputValue()==='30028'&&await p.locator('#club-jaf_kind').inputValue()==='associate');check(prefix+' 過年度名簿は資格付与ではないと説明',await p.locator('#candidate-help').innerText().then(s=>s.includes('2026年度')&&s.includes('事務局が照合')));}
+   await p.goto(origin+base);
    if(live){check(prefix+' 本番受付停止',await p.getByRole('button',{name:'申請を提出する',exact:true}).isDisabled());}
    if(js){
     await p.locator('#club-club_name').fill('Ａｚ０９　ⅠⅢ');check(prefix+' 英数字空白だけ整形',await p.locator('#club-club_name').inputValue()==='Az09 ⅠⅢ');

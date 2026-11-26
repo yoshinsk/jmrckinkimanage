@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "date_jst": "2026-11-26",
+  "scope": "2026年度名簿90件の参考候補表示",
+  "counts": {
+    "http": 1759,
+    "browser": 2444,
+    "php_files": 161,
+    "release_restore": 75,
+    "live": 844,
+    "business_posts": 0
+  },
+  "reconciliation": {
+    "source": 90,
+    "unique_code_matches": 89,
+    "unchanged_names": 66,
+    "orthography_only": 18,
+    "name_or_short_differences": 5,
+    "missing": 1,
+    "missing_code": "330028",
+    "fixed_five_collision": [
+      "227089",
+      "327089"
+    ]
+  },
+  "source_pdf_sha256": "5c96559b37e019c4a5f0cc1e4c2264e5037c941ba11736d448055d22929958e2",
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/roster-20261126-20261126T051601Z",
+  "files": {
+    "src/Club/roster2026.php": {
+      "old_sha256": null,
+      "new_sha256": "603a208f3a977ff123b1a40021b967380407076e3329e83b22616c208f6d381a"
+    },
+    "src/Club/ClubRoster.php": {
+      "old_sha256": null,
+      "new_sha256": "01b49092eca43c7685cc2e38aa23a1452e959fbbcda548d39117d538ffac3463"
+    },
+    "src/Club/ClubRegistrationData.php": {
+      "old_sha256": "52f5e0a668afe81476a9382339d0246333c7885c688f4c2cf877231780cf1fe5",
+      "new_sha256": "21726631b610759a5ff80d4a97e2c119ef09c9b3ac88d8baed668723ca80085e",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "src/Club/ClubIntakeService.php": {
+      "old_sha256": "b64ab7009a946ae901110f01f3587cacc9fba6badcae32ace1e4be2d95b0b5ed",
+      "new_sha256": "ba221cf1021e318d254e7563f6a07ee994cacef1d09797e38b7f4a0c7257ca96",
+      "metadata": [
+        416,
+        10003,
+        1004
+      ]
+    },
+    "public/manage/club-register.php": {
+      "old_sha256": "a783097a15e7435d2e33e2327ad258d8d569d8491b6114e2a3bf6b99057324fe",
+      "new_sha256": "ffcc79a773bee52ce9f9b393b46845365849764e9cf674de7aa362910266085a",
+      "metadata": [
+        420,
+        10003,
+        1004
+      ]
+    }
+  },
+  "script_sha256": "eb046cd07be93af1cc83def92eabb72f42662becc210abca66afacc25799c9b6",
+  "integration": {
+    "schema_count": 94,
+    "schema_sha256": "af4b86d82041ddf6750507588d18ff0dc206b08022b7d52b3f3db160fe375a4d",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t0",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "business_counts": {
+    "users": 314,
+    "jmrc_entries": 1204,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "protected_files": 698,
+  "business_tables": 90,
+  "legacy_head": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "legacy_status": "?? 1,\n?? 2027-03-01,entry_end_date=\n?? 2027-03-14]\n?? 3]\n?? build_dirt_check.mjs\n?? dirttrial_2027_check.xlsx\n?? dirttrial_2027_check.xlsx.inspect.ndjson\n?? node_modules/\n?? submit]",
+  "database_changed": false,
+  "roles_changed": false,
+  "intake_opened": false,
+  "source_mode": "shadow",
+  "stage_removed": true
+}
