@@ -80,8 +80,33 @@ final class PreparationService
             'last_submission_jst'=>$configured?$format($dates['club_close_at']->modify('-1 microsecond')):null,
             'enabled_fee_profiles'=>$this->scalar('SELECT COUNT(*) FROM portal_club_fee_profiles WHERE year=? AND enabled=1',[$year]),
             'eligible_bank_settings'=>$this->scalar("SELECT COUNT(*) FROM portal_bank_accounts WHERE purpose_code='club_fee' AND (year=? OR year IS NULL) AND enabled=1 AND (valid_from IS NULL OR valid_from<=?) AND (valid_until IS NULL OR ?<valid_until)",[$year,$time,$time]),
+            'fee_readiness'=>$this->clubFeeReadiness($year),
+            'bank_at_opening'=>$dates['club_open_at']===null?null:$this->scalar("SELECT COUNT(*) FROM portal_bank_accounts WHERE purpose_code='club_fee' AND (year=? OR year IS NULL) AND enabled=1 AND (valid_from IS NULL OR valid_from<=?) AND (valid_until IS NULL OR ?<valid_until)",[$year,$dates['club_open_at']->format('Y-m-d H:i:s.u'),$dates['club_open_at']->format('Y-m-d H:i:s.u')]),
             'intakes'=>$this->scalar('SELECT COUNT(*) FROM portal_club_intakes WHERE year=?',[$year]),
             'correction_deadline_confirmed'=>false,'opening_authorized'=>false,'writes_enabled'=>false];
+    }
+
+    /** D06: 件数だけで準備完了とせず、正式申請と同じ確定料金を年会費・新規入会金とも照合する。 */
+    private function clubFeeReadiness(int $year):array
+    {
+        if($year!==2027){return ['supported'=>false,'ready'=>false,'items'=>[]];}
+        $rows=$this->query('SELECT jaf_kind,membership_kind,annual_yen,joining_yen,enabled FROM portal_club_fee_profiles WHERE year=?',[$year])->fetchAll(PDO::FETCH_ASSOC);
+        $items=[];$ready=true;
+        foreach(ClubFeePolicy::CATEGORIES as $category=>$label){
+            if($category==='special_org'){continue;}
+            foreach(['regular'=>'正会員','supporting'=>'賛助会員'] as $membership=>$memberLabel){
+                if($category==='business'&&$membership==='regular'){continue;}
+                $expected=ClubFeePolicy::quote($year,$category,$membership,'new');
+                $matches=array_values(array_filter($rows,static fn($r)=>$r['jaf_kind']===$category&&$r['membership_kind']===$membership));
+                $r=count($matches)===1?$matches[0]:null;
+                $state=!$r?'missing':(!(bool)$r['enabled']?'disabled':((int)$r['annual_yen']===$expected['annual_yen']&&(int)$r['joining_yen']===$expected['joining_yen']?'ready':'mismatch'));
+                $ready=$ready&&$state==='ready';
+                $items[]=['category'=>$category,'membership'=>$membership,'label'=>$label.'・'.$memberLabel,'state'=>$state,
+                    'annual_yen'=>$r===null?null:(int)$r['annual_yen'],'joining_yen'=>$r===null?null:(int)$r['joining_yen'],
+                    'expected_annual_yen'=>$expected['annual_yen'],'expected_joining_yen'=>$expected['joining_yen']];
+            }
+        }
+        return ['supported'=>true,'ready'=>$ready,'items'=>$items];
     }
 
     /**

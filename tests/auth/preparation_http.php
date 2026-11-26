@@ -34,6 +34,31 @@ check('個人情報の内容・暗号文を返さず件数だけ棚卸し',count
 check('共通ログインは保持に分類',count(array_filter($data['items'],fn($i)=>$i['label']==='共通ログイン用アカウント' && $i['scope']==='keep' && $i['count']===1))===1);
 check('運用準備の読取で全業務表が不変',$initial===$fingerprint());
 
+// 料金・口座の不足を同一トランザクション内の合成データで作り、最後に必ず元へ戻す。
+$db->beginTransaction();
+try{
+    $ready=new \Jmrc\Operations\PreparationService($db,[]);$clock=new DateTimeImmutable('2026-12-02T00:00:00Z');
+    $data=$ready->clubOpening(7,2027,$clock);
+    check('準備照合は13区分・対象外7と正会員企業を含めない',count($data['fee_readiness']['items'])===13&&!array_filter($data['fee_readiness']['items'],fn($i)=>$i['category']==='special_org'||($i['category']==='business'&&$i['membership']==='regular')));
+    $db->exec("UPDATE portal_club_fee_profiles SET annual_yen=1 WHERE year=2027 AND jaf_kind='official' AND membership_kind='regular'");
+    $data=$ready->clubOpening(7,2027,$clock);$items=array_column($data['fee_readiness']['items'],null,'label');
+    check('件数が同じでも金額違いを検出',!$data['fee_readiness']['ready']&&$items['公認クラブ・正会員']['state']==='mismatch');
+    $db->exec("UPDATE portal_club_fee_profiles SET enabled=0 WHERE year=2027 AND jaf_kind='official' AND membership_kind='regular'");
+    check('無効料金を準備完了にしない',$ready->clubOpening(7,2027,$clock)['fee_readiness']['items'][0]['state']==='disabled');
+    $db->exec("DELETE FROM portal_club_fee_profiles WHERE year=2027 AND jaf_kind='official' AND membership_kind='regular'");
+    check('未登録料金を推測で補わない',$ready->clubOpening(7,2027,$clock)['fee_readiness']['items'][0]['state']==='missing');
+    $db->exec("UPDATE portal_bank_accounts SET enabled=0 WHERE purpose_code='club_fee'");
+    check('振込先未設定を検出',$ready->clubOpening(7,2027,$clock)['eligible_bank_settings']===0);
+    $db->exec("INSERT INTO portal_bank_accounts(purpose_code,year,display_name,details_cipher,enabled,valid_from,valid_until,updated_by) VALUES('club_fee',2027,'LAB ready','not-decrypted',1,'2026-12-01 00:00:00','2026-12-03 00:00:00',7)");
+    $data=$ready->clubOpening(7,2027,$clock);
+    check('現在と開始予定の口座有効期間を別判定',$data['eligible_bank_settings']===1&&$data['bank_at_opening']===0);
+    $db->exec("INSERT INTO portal_bank_accounts(purpose_code,year,display_name,details_cipher,enabled,updated_by) VALUES('club_fee',NULL,'LAB overlap','not-decrypted',1,7)");
+    $data=$ready->clubOpening(7,2027,$clock);
+    check('年度共通と年度専用の重複を検出',$data['eligible_bank_settings']===2&&!$data['opening_authorized']&&!$data['writes_enabled']);
+    check('口座本文や偽の復号成功を返さない',!str_contains(json_encode($data),'not-decrypted')&&!isset($data['bank_verified']));
+}finally{$db->rollBack();}
+check('料金・口座の試験fixtureを完全復元',$initial===$fingerprint());
+
 // 既存イベントと明示的な対応を作るfixtureは最後に元へ戻す。期間は任意の過去/未来の日付で固定する。
 $eventId=99001;$eventPortal=99001;$cy=(int)$db->query('SELECT id FROM portal_club_years WHERE club_id=1 ORDER BY year DESC LIMIT 1')->fetchColumn();
 $cyYear=(int)$db->query('SELECT year FROM portal_club_years WHERE id='.$cy)->fetchColumn();
