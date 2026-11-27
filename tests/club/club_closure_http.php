@@ -55,17 +55,23 @@ declare(strict_types=1);
         $raceLinked=$service->read(7,$id);$raceClubYear=(int)$raceLinked['club_year_id'];$raceClub=(int)$db->query('SELECT club_id FROM portal_club_years WHERE id='.$raceClubYear)->fetchColumn();
         check('L09 終了結果と保存状態が一致',$closure->state(2027)['closed']===($byAction['close']===200));
         // 競合の順序に関係なく、独立した二重終了の試験を同じ架空年度で開始する。
-        $db->exec('DELETE FROM portal_club_intake_closures WHERE year=2027');
+        $db->exec('DELETE FROM portal_club_review_events WHERE year=2027;DELETE FROM portal_club_intake_closures WHERE year=2027');
         $statuses=array_column($race([['close',0],['close',0]]),'status');sort($statuses);
         check('L09 同時終了は一件だけ保存',$statuses===[200,409]&&$closure->state(2027)['closed']&&(int)$db->query('SELECT COUNT(*) FROM portal_club_intake_closures WHERE year=2027')->fetchColumn()===1);
         check('L09 終了の重複実行拒否',$post($office)['status']===409);
         check('L09 他年度を終了しない',!$closure->state(2028)['closed']);
         try{$service->update(1,$id,3,$in);check('L09 終了後の直接訂正拒否',false);}catch(\Jmrc\Auth\HttpFailure $e){check('L09 終了後の直接訂正拒否',$e->status===409);}
-        check('L09 再開操作は提供しない',$office->request($path,['action'=>'reopen_review','year'=>2027,'_csrf'=>identity($office)['csrf']])['status']===422);
+        check('L09 理由なし再開拒否',$office->request($path,['action'=>'reopen_review','year'=>2027,'confirmed'=>'1','_csrf'=>identity($office)['csrf']])['status']===422);
+        try{$closure->reopen(13,2027,'架空の再開');check('L09 財務単独の再開拒否',false);}catch(\Jmrc\Auth\HttpFailure $e){check('L09 財務単独の再開拒否',$e->status===403);}
+        $reopened=$closure->reopen(7,2027,'架空：再確認のため再開');
+        check('L09 理由付きで訂正受付だけ再開',!$reopened['closed']&&$closure->canEdit($db->query('SELECT * FROM portal_years WHERE year=2027')->fetch(PDO::FETCH_ASSOC)));
+        check('L09 新規締切は再開しない',!\Jmrc\Club\ClubIntakePolicy::open($db->query('SELECT * FROM portal_years WHERE year=2027')->fetch(PDO::FETCH_ASSOC),new DateTimeImmutable(),$cfg));
+        $closed=$closure->close(7,2027,'架空：再確認完了');
+        check('L09 再終了は旧記録を保持し履歴へ追記',$closed['closed']&&(int)$db->query('SELECT COUNT(*) FROM portal_club_intake_closures WHERE year=2027')->fetchColumn()===1&&(int)$db->query('SELECT COUNT(*) FROM portal_club_review_events WHERE year=2027')->fetchColumn()===3);
         check('L09 既存エントリー・受付・会費不変',$legacy===$db->query('CHECKSUM TABLE users,entrants,clubs,jmrc_entries,jmrc_entry_fees,jmrc_events,jmrc_annual_memberships')->fetchAll(PDO::FETCH_ASSOC));
     }finally{
         if($db->inTransaction()){$db->rollBack();}
-        $db->exec('DELETE FROM portal_club_intake_closures WHERE year=2027');
+        $db->exec('DELETE FROM portal_club_review_events WHERE year=2027;DELETE FROM portal_club_intake_closures WHERE year=2027');
         foreach($savedIntakes??[] as $row){$s=$db->prepare('UPDATE portal_club_intakes SET review_state=?,club_year_id=?,matched_by=?,matched_at=?,row_version=? WHERE id=?');$s->execute([$row['review_state'],$row['club_year_id'],$row['matched_by'],$row['matched_at'],$row['row_version'],$row['id']]);}
         if(isset($raceClubYear)){$db->exec('DELETE FROM portal_club_intake_revisions WHERE intake_id='.$id.' AND row_version=3;DELETE FROM portal_club_years WHERE id='.$raceClubYear.';DELETE FROM portal_clubs WHERE id='.$raceClub);}
         foreach($dummy??[] as [$cy,$app,$club]){foreach([['portal_club_years',$cy],['portal_applications',$app],['portal_clubs',$club]] as [$t,$i]){$s=$db->prepare('DELETE FROM '.$t.' WHERE id=?');$s->execute([$i]);}}

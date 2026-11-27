@@ -53,8 +53,8 @@ async function run(engine,name,device){
     check(prefix+' JavaScriptなしで年度を再確認',new URL(p.url()).searchParams.get('year')==='2027');
     const openingText=await p.locator('main').innerText();
     check(prefix+' 料金13区分を読取照合',opening.fee_readiness.items.length===13&&openingText.includes('料金表に不足や金額違いがないか'));
-    check(prefix+' 運営の回答先と開始判断を明示',openingText.includes('D05-1')&&openingText.includes('D07-確認')&&openingText.includes('N24')&&openingText.includes('2027年度への適用確認'));
-    check(prefix+' 年度全体終了の条件・再開保留と障害手順を表示',openingText.includes('年度全体の訂正再申請を終了')&&openingText.includes('未確認・差し戻し中がない')&&openingText.includes('再開方法と')&&openingText.includes('DB全体を上書き'));
+    check(prefix+' 運営の回答先と開始判断を明示',openingText.includes('D05-1')&&openingText.includes('D07-確認')&&openingText.includes('N24')&&openingText.includes('2027年度への適用はD01で了承済み'));
+    check(prefix+' 年度全体終了の条件・再開保留と障害手順を表示',openingText.includes('年度全体の訂正再申請を終了')&&openingText.includes('未確認・差し戻し中がない')&&openingText.includes('理由を記録して訂正受付だけを再開')&&openingText.includes('DB全体を上書き'));
     await p.screenshot({path:`/artifacts/${name}-preparation-club-opening.png`,fullPage:true});
     const h=result.headers();check(prefix+' キャッシュ・検索・埋込の制限',h['cache-control'].includes('no-store')&&h['x-robots-tag'].includes('noindex')&&h['content-security-policy'].includes("frame-ancestors 'none'"));
     for(const section of ['overview','club','privacy']){await p.goto(origin+'/manage/preparation.php?section='+section);await p.setViewportSize(devices[device].viewport);await p.screenshot({path:`/artifacts/${name}-preparation-${section}.png`,fullPage:true});}

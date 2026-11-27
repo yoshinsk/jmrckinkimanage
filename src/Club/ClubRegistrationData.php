@@ -6,7 +6,7 @@ namespace Jmrc\Club;
 use Jmrc\Auth\HttpFailure;
 final class ClubRegistrationData
 {
-    public const REGISTRATIONS=['new'=>'新規','renewal'=>'更新','rejoin'=>'再加入'];
+    public const REGISTRATIONS=['new'=>'新規','renewal'=>'更新','rejoin'=>'再加入（前年登録なし・新規扱い）'];
     public const MEMBERSHIPS=['regular'=>'正会員','supporting'=>'賛助会員'];
     public const LABELS=\Jmrc\Operations\MaterialsReview::CLUB_FIELDS;
     public static function normalize(array $in):array
@@ -37,7 +37,7 @@ final class ClubRegistrationData
         catch(\InvalidArgumentException){throw new HttpFailure(422,'確定済み年度・登録区分を選択してください');}
         $s=$db->prepare('SELECT annual_yen,joining_yen FROM portal_club_fee_profiles WHERE year=? AND jaf_kind=? AND membership_kind=? AND enabled=1');$s->execute([$year,$jaf,$membership]);$r=$s->fetch(\PDO::FETCH_ASSOC);
         if(!$r){throw new HttpFailure(409,'この年度・区分の料金表は未設定です');}
-        $annual=(int)$r['annual_yen'];$join=$registration==='new'?(int)$r['joining_yen']:0;
+        $annual=(int)$r['annual_yen'];$join=$registration!=='renewal'?(int)$r['joining_yen']:0;
         if($annual!==$known['annual_yen']||$join!==$known['joining_yen']){throw new HttpFailure(409,'確定料金と年度マスターの照合が必要です');}
         return ['annual_yen'=>$annual,'joining_yen'=>$join,'total_yen'=>$annual+$join,'category_digit'=>$known['code_prefix']];
     }

@@ -57,7 +57,7 @@ final class ClubFeePolicy
             'associate' => 20000,
             'official_org','organization','associate_org' => 20000,
         };
-        $joining = $registration === 'new' && $category !== 'business' ? 10000 : 0;
+        $joining = $registration !== 'renewal' && $category !== 'business' ? 10000 : 0;
         // P03: 賛助はすべて6。正会員の登録団体も6なので、数字から会費・正賛を逆算しない。
         $prefix=$membership==='supporting'?'6':self::PREFIXES[$category];
         return ['year'=>$year, 'annual_yen'=>$annual, 'joining_yen'=>$joining, 'total_yen'=>$annual+$joining,'code_prefix'=>$prefix];

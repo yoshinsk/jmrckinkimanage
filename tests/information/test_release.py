@@ -172,6 +172,23 @@ class ReleaseTest(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError,'cache'):update.apply(self.stage)
         self.assertEqual(update.preflight(),before)
 
+    def test_answers27_roundtrip(self):
+        update,_=self.confirmed_stage('answers-20261127');before=update.preflight()
+        self.assertEqual(set(update.order),{'src/Club/ClubFeePolicy.php','src/Club/ClubRegistrationData.php','src/Club/ClubReviewClosure.php','public/manage/club-register.php','public/manage/preparation.php'})
+        result=update.apply(self.stage);backup=Path(result['backup'])
+        update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        self.assertEqual(update.preflight(),before)
+
+    def test_answers27_partial_restore(self):
+        update,_=self.confirmed_stage('answers-20261127');before=update.preflight();update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'cache'):update.apply(self.stage)
+        self.assertEqual(update.preflight(),before)
+
+    def test_answers27_refuses_open_intake(self):
+        update,_=self.confirmed_stage('answers-20261127');state=update.snapshot();state['flags']['club_intake_enabled']=True
+        update.snapshot=lambda:copy.deepcopy(state)
+        with self.assertRaisesRegex(RuntimeError,'Intake or roles enabled'):update.preflight()
+
     def test_roster26_roundtrip(self):
         update,_=self.confirmed_stage('roster-20261126');before=update.preflight()
         self.assertEqual(len(update.order),5)

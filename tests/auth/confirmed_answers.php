@@ -22,7 +22,7 @@ foreach([[true,true,'regular'],[true,false,'supporting'],[false,true,'supporting
 }
 try { ClubFeePolicy::outsideKinkiMembership(2028,true,true);check('翌年度へ例外を無断適用しない',false); }
 catch(InvalidArgumentException) { check('翌年度へ例外を無断適用しない',true); }
-foreach(['new'=>10000,'renewal'=>0,'rejoin'=>0] as $kind=>$joining) {
+foreach(['new'=>10000,'renewal'=>0,'rejoin'=>10000] as $kind=>$joining) {
     foreach(['regular','supporting'] as $membership) {
         foreach(['official'=>50000,'affiliated'=>30000,'associate'=>20000,'organization'=>20000,'official_org'=>20000,'associate_org'=>20000] as $category=>$annual) {
             $quote=ClubFeePolicy::quote(2027,$category,$membership,$kind);
