@@ -34,6 +34,9 @@ foreach (['committee','national'] as $category) {
     check('別分類の原本は混在しない '.$category,!str_contains($detail['body'],'data-document-category="'.$other.'"'));
 }
 $answered = $infoOffice->request($base)['body'];
+check('P13 公開項目と電話の非公開を反映',str_contains($answered,'市区町村までの所在地は公開可') && str_contains($answered,'電話は非公開'));
+check('N25 開幕受付開始時点のクラブ条件を反映',str_contains($answered,'開幕戦の受付開始時点') && str_contains($answered,'対象外でもエントリーは継続'));
+check('P17 公開可と実際の公開保留を区別',str_contains($answered,'行事全般と事務局の対応不可日は一般公開可') && str_contains($answered,'保存済み下書きを自動公開しない'));
 check('事務局編集・事務局長承認の回答反映',str_contains($answered,'すべて事務局員が編集し、事務局長が承認'));
 check('有効戦数の四捨五入と最新照会を画面にも反映',str_contains($answered,'全7戦なら5戦') && str_contains($answered,'照会時点の最新資格'));
 check('保険は氏名とクラブ名の連絡のみ',str_contains($answered,'入力は被保険者名・クラブ名の2項目'));

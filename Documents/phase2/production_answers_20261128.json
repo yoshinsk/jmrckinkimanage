@@ -1,0 +1,111 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-11-28T00:22:22.708563+00:00",
+  "scope": "portal-only; no entry, database, configuration or human role changes",
+  "files": {
+    "src/Series/SeriesRules.php": {
+      "old_sha256": "2d55faf72a76a3a6ef8f11a128daff36bb379e76600ddec5348bae7a8682be04",
+      "new_sha256": "c2e52df1253febbd506a72970c9ac7bbd039599e24aa8c205c975cf44d341d8b"
+    },
+    "src/Content/information-catalog.php": {
+      "old_sha256": "03c0e3f1b44625a70770ff0c30e4707a3273f3e5530ae8454b67a521dd9e3a7a",
+      "new_sha256": "2965162c460c175b5a68bc134c05cd93e59494f9f5b151d831bc33e4481a5cec"
+    },
+    "src/Content/information-template.php": {
+      "old_sha256": "597f7f8fac639b02827fae9d4b93e6a49ae4fc79c40d906f90a1b7d137d67249",
+      "new_sha256": "c85e2583dd2257b90256ef7e23ebcf7ad345821219422fd70925f3e62140b089"
+    },
+    "public/manage/_review-catalog.php": {
+      "old_sha256": "e37458b706122d4e2694a0cb855dcfd8c8db5c6fd56a4402c5258611b626c0f5",
+      "new_sha256": "ef12c9b6c70e8c24f125d977141bedf4adc17ad90679d827dcda5723d9a2cc8b"
+    }
+  },
+  "backup": "/var/www/vhosts/gymkinki.com/private/jmrc-portal-backups/answers-20261128-20261128T002033Z",
+  "backup_verified": true,
+  "before_after_protected_state_identical": true,
+  "schema_and_entry_state": {
+    "schema_count": 95,
+    "schema_sha256": "89c9ee475234606fb3f49317ccafe75b169e94c1a2ecc57673befbccd368374a",
+    "event_state_sha256": "22baf58a51b2d5b206e76195a3fa8aad76ba1421736bf629fb9649e0508be5c3",
+    "billing_guard_triggers": "4",
+    "event_type_counts": "ジムカーナ\t11\t8\t0\nダートラ\t6\t6\t0",
+    "source_matches": {
+      "common/auth.php": true,
+      "common/portal_billing.php": true,
+      "common/dirt_trial_fees.php": true,
+      "common/entry_readiness.php": true,
+      "entrant/entries.php": true,
+      "login.php": true,
+      "logout.php": true
+    }
+  },
+  "legacy_commit": "d04a55e706cb58f2572d9c06dd4b49b297364c26",
+  "legacy_uncommitted_state_unchanged": true,
+  "counts": {
+    "users": 314,
+    "jmrc_entries": 1204,
+    "jmrc_entry_fees": 1511,
+    "portal_profiles": 290,
+    "portal_applications": 0,
+    "portal_memberships": 0,
+    "portal_invoices": 0,
+    "portal_payments": 0
+  },
+  "flags": {
+    "temporary_intake_enabled": false,
+    "profile_corrections_enabled": true,
+    "bank_master_enabled": true,
+    "license_self_service_enabled": false,
+    "insurance_intents_enabled": false,
+    "yucho_import_enabled": false,
+    "staff_role_requests_enabled": false,
+    "club_intake_enabled": false,
+    "license_export_enabled": false
+  },
+  "year_source": "2027\tshadow",
+  "validation": {
+    "http_cases": 1787,
+    "browser_cases": 2448,
+    "php_lint_files": 161,
+    "network_internal": true,
+    "published_ports": [],
+    "release_restore_tests": 83,
+    "production_browser_cases": 472,
+    "production_business_posts": 0,
+    "production_browsers": [
+      {
+        "engine": "chromium",
+        "version": "156.0.8078.4",
+        "device": "Pixel 7"
+      },
+      {
+        "engine": "webkit",
+        "version": "27.2",
+        "device": "iPhone 13"
+      }
+    ]
+  },
+  "sheet": {
+    "tabs": 12,
+    "new_answer_cells": 8,
+    "authored_value_updates": 13,
+    "existing_answers_formulas_preserved": true,
+    "visual_check": "XLSX export: C36:H37, C42:H43, G142:H142 rendered and inspected; no clipping. Native values read back. Direct Google UI was not inspected."
+  },
+  "held": [
+    "受付開始",
+    "人の権限付与",
+    "個人受付・正本切替",
+    "一般公開",
+    "実メール送信",
+    "削除実行",
+    "N24の自動結合",
+    "N26・N27",
+    "過去資格根拠の取得・既存エントリー注意表示・正式ポイント接続"
+  ],
+  "notes": [
+    "初回試験は説明修正のソース変更を検出して停止。最終ソース固定後の全再試験のみを完了数に採用。",
+    "当初3ファイルの比較から4ファイルへ対象を確定。追加ファイルは元の保護ファイルハッシュと照合し、変更なしを確認。",
+    "事務局用の共用検証サイトは更新・初期化せず保持。"
+  ]
+}

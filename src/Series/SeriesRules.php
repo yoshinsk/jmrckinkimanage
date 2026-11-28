@@ -6,6 +6,23 @@ namespace Jmrc\Series;
 
 final class SeriesRules
 {
+    /** N25: 2027ジムカーナ専用。開幕戦の受付開始時点の承認・満額入金の記録を渡す。
+     * 現在の状態で過去を補完しない。他競技やエントリー受理の可否には流用しない。
+     */
+    public static function gymkhanaPointRight(int $year, bool $authoritative, ?string $memberType,
+        ?bool $memberActiveAtEntry, ?bool $clubActiveAtEntry,
+        ?bool $clubApprovedAtOpening, ?bool $clubPaidAtOpening): string
+    {
+        if ($year !== 2027) { throw new \InvalidArgumentException('2027年度ジムカーナの判定を指定してください'); }
+        if (!$authoritative) { return 'unconfirmed'; }
+        $atEntry = self::pointRight(true, $memberType, $memberActiveAtEntry, $clubActiveAtEntry);
+        // 開幕後の承認・入金による救済は行わず、申込時の個人資格条件も維持する。
+        if ($atEntry === 'ineligible' || $clubApprovedAtOpening === false || $clubPaidAtOpening === false) {
+            return 'ineligible';
+        }
+        return $clubApprovedAtOpening === null || $clubPaidAtOpening === null ? 'unconfirmed' : $atEntry;
+    }
+
     /** C15・2026/11/3回答。成立5戦以下は全戦、それ以上は70%を四捨五入。中止・不成立を除いた数を渡す。 */
     public static function effectiveRounds(int $heldRounds): int
     {

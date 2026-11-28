@@ -55,6 +55,26 @@ class ReleaseTest(unittest.TestCase):
         self.saved_php = deploy.PHP
         deploy.PHP = '/usr/bin/true'
 
+    def test_answers28_roundtrip_and_scope(self):
+        update,_=self.confirmed_stage('answers-20261128');before=update.preflight()
+        self.assertEqual(set(update.order),{'src/Series/SeriesRules.php','src/Content/information-catalog.php','src/Content/information-template.php','public/manage/_review-catalog.php'})
+        result=update.apply(self.stage);backup=Path(result['backup'])
+        update.restore(backup,json.loads((backup/'manifest.json').read_text()))
+        self.assertEqual(update.preflight(),before)
+        with self.assertRaisesRegex(RuntimeError,'allowlist'):update.target('public/entry/entrant/entries.php')
+
+    def test_answers28_partial_failure_restores(self):
+        update,_=self.confirmed_stage('answers-20261128');before=update.preflight();update.fail_cache_once=True
+        with self.assertRaisesRegex(RuntimeError,'Synthetic cache failure'):update.apply(self.stage)
+        self.assertEqual(update.preflight(),before)
+
+    def test_answers28_held_flags(self):
+        update,_=self.confirmed_stage('answers-20261128');original=update.snapshot()
+        for flag in ['club_intake_enabled','temporary_intake_enabled','staff_role_requests_enabled','license_export_enabled']:
+            state=copy.deepcopy(original);state['flags'][flag]=True
+            update.snapshot=lambda:copy.deepcopy(state)
+            with self.assertRaises(RuntimeError):update.preflight()
+
     def tearDown(self):
         deploy.PHP = self.saved_php
         self.temp.cleanup()

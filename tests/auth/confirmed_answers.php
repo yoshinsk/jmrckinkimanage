@@ -36,6 +36,17 @@ foreach([[2028,'official','regular','new'],[2027,'business','regular','new'],[20
     catch(InvalidArgumentException) { check('未確定年度・数字コード・非賛助企業を拒否',true); }
 }
 check('2台はクラス不成立',!\Jmrc\Series\SeriesRules::classEstablished(2,false));
+foreach ([[true,true,'eligible'],[true,false,'ineligible'],[false,true,'ineligible'],[false,false,'ineligible'],
+    [null,true,'unconfirmed'],[true,null,'unconfirmed'],[null,false,'ineligible']] as [$approved,$paid,$expected]) {
+    check('N25 開幕受付開始時点の承認と満額入金 '.json_encode([$approved,$paid]),
+        \Jmrc\Series\SeriesRules::gymkhanaPointRight(2027,true,'general',true,true,$approved,$paid)===$expected);
+}
+check('N25 現在の資格で過去の根拠不足を補わない',\Jmrc\Series\SeriesRules::gymkhanaPointRight(2027,true,'general',true,true,null,null)==='unconfirmed');
+check('N25 shadowの資格を確定扱いしない',\Jmrc\Series\SeriesRules::gymkhanaPointRight(2027,false,'general',true,true,true,true)==='unconfirmed');
+check('N25 個人資格も必要',\Jmrc\Series\SeriesRules::gymkhanaPointRight(2027,true,'general',false,true,true,true)==='ineligible');
+check('N25 Temporaryは対象外',\Jmrc\Series\SeriesRules::gymkhanaPointRight(2027,true,'temporary',true,true,true,true)==='ineligible');
+try { \Jmrc\Series\SeriesRules::gymkhanaPointRight(2028,true,'general',true,true,true,true);check('N25 翌年度へ自動適用しない',false); }
+catch(InvalidArgumentException) { check('N25 翌年度へ自動適用しない',true); }
 check('3台はクラス成立',\Jmrc\Series\SeriesRules::classEstablished(3,false));
 check('出走台数があっても中止は除外',!\Jmrc\Series\SeriesRules::classEstablished(9,true));
 check('終了時3戦がシリーズ成立',\Jmrc\Series\SeriesRules::seriesEstablished(3,true));

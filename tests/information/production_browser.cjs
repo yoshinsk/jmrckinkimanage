@@ -68,6 +68,9 @@ async function run(engine,name,device){
           }
           await page.goto(origin+base);await page.locator('.info-answer-decisions > summary').tap();
           check(prefix+' 回答51項目が閲覧可能',await page.locator('[data-answer]').count()===51 && await page.locator('[data-answer="Q05"]').isVisible());
+          check(prefix+' P13公開項目と電話非公開を反映',(await page.locator('[data-answer="P13"]').innerText()).includes('市区町村') && (await page.locator('[data-answer="P13"]').innerText()).includes('電話は非公開'));
+          check(prefix+' P17対応不可日の公開方針を反映',(await page.locator('[data-answer="P17"]').innerText()).includes('対応不可日は一般公開可'));
+          check(prefix+' N25開幕受付時点の条件を反映',(await page.locator('[data-answer="Q08"]').innerText()).includes('開幕戦の受付開始時点'));
           check(prefix+' P18回答を反映',(await page.locator('[data-answer="P18"]').innerText()).includes('3段階'));
           check(prefix+' P19変更先代表の承認を反映',(await page.locator('[data-answer="P19"]').innerText()).includes('変更先クラブの代表のみ'));
           check(prefix+' 他地域主催クラブの例外を反映',(await page.locator('[data-answer="C07"]').innerText()).includes('JMRC近畿の事業として主催する他地域JAFクラブは正会員'));

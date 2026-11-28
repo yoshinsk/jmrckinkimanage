@@ -68,7 +68,7 @@ $detail = static function (string $id, array $topic) use ($catalog, $selected, $
   <aside class="info-banner" aria-label="確認用画面の注意"><strong>事務局の確認用・一般公開前</strong><p>掲載本文は構成を確認するための説明です。旧記事・名簿・添付の原文はまだ移していません。カレンダーは架空例です。公開・申請受付・送信は行いません。</p></aside>
   <?php if ($offline): ?><p class="office-help">このHTMLは閲覧専用です。見出しを開いて詳細を確認できます。検索・日程の絞り込みは事務局用の認証画面で確認できます。外部リンクを選んだ場合だけ元サイトへ移動します。</p><?php endif; ?>
   <?php if (!empty($catalog['decisions'])): ?>
-  <details class="office-disclosure info-answer-decisions"><summary>11月9日確認の回答を含む51項目</summary><div class="info-inset">
+  <details class="office-disclosure info-answer-decisions"><summary>11月28日までの確定回答と保留事項</summary><div class="info-inset">
     <p>回答とユーザーへの追加確認を反映しました。一般公開・受付開始・外部通知は保留です。以下は確定した方針と、実運用までに確認・実装が必要な事項です。</p>
     <?php foreach ($catalog['decisions'] as $decision): ?><section class="office-panel" data-answer="<?=$e($decision['id'])?>"><h3><?=$e($decision['id'].' '.$decision['title'])?></h3><p><?=$e($decision['confirmed'])?></p><p class="office-help"><?=$e($decision['pending'])?></p></section><?php endforeach; ?>
   </div></details>
@@ -86,10 +86,10 @@ $detail = static function (string $id, array $topic) use ($catalog, $selected, $
       <h2><?=$e($label)?></h2>
       <?php if ($section === 'calendar'): ?>
         <p>競技会・会議・事務局在席／休業日をまとめた表示例です。日付・時間はすべて日本時間（Asia/Tokyo）で、実際の予定ではありません。</p>
-        <aside class="office-readonly"><strong>Q11：事務局員が更新し、事務局長が承認</strong><p>元データの形式は任意です。Googleカレンダーのような表示を目指しますが、自動同期は決定していません。予定ごとの公開範囲と実日程は確認待ちです。</p></aside>
+        <aside class="office-readonly"><strong>Q11：事務局員が更新し、事務局長が承認</strong><p>元データの形式は任意です。Googleカレンダーのような表示を目指しますが、自動同期は決定していません。行事と事務局の対応不可日は一般公開可と確定しました。実日程の入力・承認と公開の実行は保留です。</p></aside>
         <?php if (!$offline): ?><form class="office-form info-filter" method="get" action="/manage/information-preview.php"><input type="hidden" name="section" value="calendar"><div class="office-field"><label for="kind">予定の種類</label><select id="kind" name="kind"><option value="">すべて</option><?php foreach (['competition'=>'競技会','meeting'=>'会議','office'=>'事務局在席・休業'] as $key=>$name): ?><option value="<?=$key?>" <?=$selected['kind']===$key?'selected':''?>><?=$name?></option><?php endforeach; ?></select></div><div class="office-submit"><button class="office-button">日程を絞り込む</button></div></form><?php endif; ?>
         <ol class="info-calendar"><?php foreach (self::calendar($offline?'':$selected['kind']) as $event): ?>
-          <li data-source-key="<?=$e($event['key'])?>"><div class="info-date"><time datetime="<?=$event['date']?>"><?=$event['date']?></time><span><?=$e($event['time'])?>（日本時間）</span></div><div><p class="info-status"><?=$e($event['status'])?></p><h3><?=$e($event['title'])?></h3><p><?=$e($event['detail'])?></p><small>更新：事務局員 ／ 承認：事務局長 ／ 公開範囲：確認待ち</small></div></li>
+          <li data-source-key="<?=$e($event['key'])?>"><div class="info-date"><time datetime="<?=$event['date']?>"><?=$event['date']?></time><span><?=$e($event['time'])?>（日本時間）</span></div><div><p class="info-status"><?=$e($event['status'])?></p><h3><?=$e($event['title'])?></h3><p><?=$e($event['detail'])?></p><small>更新：事務局員 ／ 承認：事務局長 ／ 公開方針：一般公開可／この例は未公開</small></div></li>
         <?php endforeach; ?></ol>
         <p><a class="office-button secondary" href="<?=$e($url(['section'=>'calendar','item'=>'HP-05']))?>">旧日程表と引継ぎ方針を確認</a></p>
       <?php else:
@@ -128,6 +128,6 @@ $detail = static function (string $id, array $topic) use ($catalog, $selected, $
     </section>
     <?php endforeach; ?>
   <?php endif; ?>
-  <section class="office-disclosure"><h2 class="info-inset info-notes-heading">事務局で追加確認いただきたいこと</h2><ul><li>2027年度の正式規則・クラス一覧・配点</li><li>公開する原稿・名簿の項目、カレンダーの公開範囲</li><li>正式な移管先・部会トップURLと旧HPの運用</li></ul><p>追加回答は上の「11月9日確認の回答を含む51項目」へ反映しました。残る条件への補足は既存の回答表で共有してください。画面を確認しても、公開承認や受付開始にはなりません。</p><p><a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611011&amp;range=A76:I79" target="_blank" rel="noopener noreferrer">回答・追加確認表を開く</a></p></section>
+  <section class="office-disclosure"><h2 class="info-inset info-notes-heading">事務局で追加確認いただきたいこと</h2><ul><li>2027年度の正式規則・クラス一覧・配点</li><li>公開する原稿・名簿の項目、カレンダーの公開範囲</li><li>正式な移管先・部会トップURLと旧HPの運用</li></ul><p>追加回答は上の「11月28日までの確定回答と保留事項」へ反映しました。残る条件への補足は既存の回答表で共有してください。画面を確認しても、公開承認や受付開始にはなりません。</p><p><a class="office-button secondary" href="https://docs.google.com/spreadsheets/d/1z0WuTupTRBSXgzMNBRjosTNgOi13HyVPYtn1knIsato/edit#gid=202611011&amp;range=A76:I79" target="_blank" rel="noopener noreferrer">回答・追加確認表を開く</a></p></section>
 </main><footer class="portal-footer"><div class="portal-container"><small>2026年10月31日版 · JMRC近畿ポータル／情報ページ確認用 · 一般公開・受付開始は保留</small></div></footer>
 </body></html>
